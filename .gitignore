@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Local review location, generated reports, captures and Python caches.
+data/card_sync_config.json
+data/card_sync_last_report.json
+tests/*-report.json
+tests/*.png
+tests/*.png.import
+__pycache__/
+*.pyc
+*.sync.tmp
+*.log
+work/
+outputs/
