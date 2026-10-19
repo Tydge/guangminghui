@@ -74,7 +74,13 @@ static func art_destination(image_size: Vector2,frame: Rect2) -> Rect2:
 
 static func art_frame(card_size: Vector2,margin: float) -> Rect2:
 	var side=maxf(1.0,card_size.x-margin*2)
-	return Rect2(Vector2.ONE*margin,Vector2.ONE*side)
+	if card_size.x>=90 and card_size.x<200:
+		# Reserve three readable metadata lines without making board/hand cards taller.
+		var sizes=[14,12,12] if card_size.x>=120 else [12,11,11]
+		var text_height=3.0;var card_font=CardDB.readable_font()
+		for fs in sizes:text_height+=ceilf(card_font.get_height(fs))
+		side=maxf(1.0,minf(side,card_size.y-margin*2-8-text_height))
+	return Rect2(Vector2((card_size.x-side)/2,margin),Vector2.ONE*side)
 
 func _draw() -> void:
 	if definition.is_empty():return
@@ -120,18 +126,22 @@ func text_layout() -> Array:
 	var margin=14.0 if full else 8.0
 	var summary=not full and size.x>=200 and size.y>=300
 	var small=not full and not summary
+	var readable_small=small and size.x>=90 and size.x<200
+	var board_small=readable_small and size.x>=120
 	var rows: Array=[];var ink=Color("182d30");var muted=Color("655d42");var teal=Color("548082")
-	rows.append({"text":definition.name,"fs":22 if full else (16 if summary else 12),"color":ink})
+	rows.append({"text":definition.name,"fs":22 if full else (16 if summary else (14 if board_small else 12)),"color":ink})
 	if full:rows.append({"text":definition.en,"fs":13,"color":muted})
 	if definition.kind!="plot":
 		var stats: Array=[]
 		for key in ["p","gp","r","slots"]:stats.append(state.stat(id,key) if state!=null and state.nodes.has(id) else definition[key])
 		var line="P%d / GP%d  "%[stats[0],stats[1]]+("主牌" if definition.kind=="faction" else "R%d"%stats[2])
+		if readable_small:line="P%d GP%d "%[stats[0],stats[1]]+("主牌" if definition.kind=="faction" else "R%d"%stats[2])
 		if not small:line+="  槽%d"%stats[3]
-		rows.append({"text":line,"fs":17 if full else (12 if summary else 9),"color":ink})
+		rows.append({"text":line,"fs":17 if full else (12 if summary or board_small else (11 if readable_small else 9)),"color":ink})
 	var align=state.alignments(id) if state!=null else definition.align
 	var trait_text=definition.category if definition.kind=="plot" else " · ".join(align)
-	if trait_text!="":rows.append({"text":trait_text,"fs":14 if full else (11 if summary else 8),"color":muted})
+	if readable_small and not board_small and definition.kind!="plot":trait_text=" ".join(align)
+	if trait_text!="":rows.append({"text":trait_text,"fs":14 if full else (12 if board_small else (11 if summary or readable_small else 8)),"color":ink if not full else muted})
 	if not small:
 		var current_tags=state.tags(id) if state!=null else definition.tags
 		if not current_tags.is_empty():rows.append({"text":" / ".join(current_tags),"fs":13 if full else 11,"color":teal})
@@ -155,5 +165,6 @@ func text_layout() -> Array:
 		if "P45" in n.attached:flags.append("监管GP 0")
 		if not flags.is_empty():effect+="\n"+" · ".join(flags)
 	var top=art_frame(size,margin).end.y+3
-	var area=Rect2(margin+5,top,size.x-2*margin-10,maxf(0,size.y-margin-5-top))
+	var inset=3.0 if readable_small else 5.0
+	var area=Rect2(margin+inset,top,size.x-2*margin-inset*2,maxf(0,size.y-margin-5-top))
 	return CardTextLayout.build(font,area,rows,effect if not small else "",17 if full else 13,small)
