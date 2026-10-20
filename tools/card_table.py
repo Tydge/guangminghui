@@ -4,12 +4,28 @@ import copy
 import hashlib
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
 FILENAME = '光明会_全部卡牌完整效果_当前版.md'
 ID_RE = re.compile(r'^[IGP]\d{2,}$')
 KINDS = {'I': 'faction', 'G': 'group', 'P': 'plot'}
 RULE_FIELDS = {'effect', 'goal', 'target', 'cost'}
+STATISTICS_RE = re.compile(r'^## 阵营与标签统计[ \t]*\r?\n.*?(?=^## |\Z)', re.MULTILINE | re.DOTALL)
+
+def statistics_section(cards):
+    lines = ['## 阵营与标签统计', '', '本节自动生成，同步卡牌时更新。按牌面印刷属性统计，每种卡牌计1张；同卡可计入多个阵营或标签，每个项目内不重复计数。不计能力临时赋予的属性，光明会／阴谋的类别也不作为标签。', '']
+    for title, field in [('阵营', 'align'), ('标签', 'tags')]:
+        counts = Counter(value for c in cards.values() for value in set(c.get(field, [])))
+        lines.extend([f'### {title}', '', f'| {title} | 卡牌数量 |', '|---|---:|'])
+        lines.extend(f'| {cell(value)} | {count} |' for value, count in sorted(counts.items(), key=lambda item: (-item[1], item[0])))
+        lines.append('')
+    groups = [c for c in cards.values() if c['kind'] == 'group']
+    lines.extend([f"团体共{len(groups)}张；无阵营{sum(not c.get('align') for c in groups)}张，无标签{sum(not c.get('tags') for c in groups)}张。各项可重叠，数量不能相加作为总卡数。", ''])
+    return '\n'.join(lines) + '\n'
+
+def without_statistics(text):
+    return STATISTICS_RE.sub('', text)
 
 def cell(value):
     return str(value).replace('\\', '\\\\').replace('|', '\\|').replace('\r\n', '\n').replace('\r', '\n').replace('\n', ' / ')
@@ -76,10 +92,10 @@ def card_row(key, c):
     return '| ' + ' | '.join(cell(value) for value in values) + ' |'
 
 def layout(text):
-    return '\n'.join(line for line in text.splitlines() if row_id(line) is None and not line.startswith('数据校验：'))
+    return '\n'.join(line for line in without_statistics(text).splitlines() if row_id(line) is None and not line.startswith('数据校验：'))
 
 def render(template, cards, data_bytes):
-    lines = template.splitlines(); present = set(); last = {}
+    lines = without_statistics(template).splitlines(); present = set(); last = {}
     for i, line in enumerate(lines):
         key = row_id(line)
         if key is not None:
@@ -97,6 +113,9 @@ def render(template, cards, data_bytes):
             if line.startswith(f'## {label} · '): lines[i] = f'## {label} · {counts[kind]}种'
         if line.startswith('数据校验：'): lines[i] = f'数据校验：{count}种卡牌；源数据 SHA-256：`{digest}`。'
     text = '\n'.join(lines).rstrip() + '\n'
+    heading = re.search(r'^## ', text, re.MULTILINE)
+    position = heading.start() if heading else len(text)
+    text = text[:position].rstrip() + '\n\n' + statistics_section(cards) + text[position:].lstrip('\n')
     assert parse_table(text, cards) == cards
     return text
 
@@ -130,8 +149,10 @@ def run(project, review, mode, accept_rule_text=False):
     template = layouts[0] if layouts else next(iter(documents.values()))
     data_bytes = (json.dumps(merged, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
     document = render(template, merged, data_bytes)
-    drift = merged != runtime or any(parse_table(text, merged) != merged for text in documents.values())
-    report = {'cards': len(merged), 'changes': changes, 'in_sync': not drift, 'rule_text_review': any(change['field'] in RULE_FIELDS for change in changes)}
+    expected_statistics = statistics_section(merged).strip()
+    statistics_current = all((match.group(0).strip() if (match := STATISTICS_RE.search(text)) else '') == expected_statistics for text in documents.values())
+    drift = merged != runtime or any(parse_table(text, merged) != merged for text in documents.values()) or not statistics_current
+    report = {'cards': len(merged), 'changes': changes, 'in_sync': not drift, 'statistics_in_sync': statistics_current, 'rule_text_review': any(change['field'] in RULE_FIELDS for change in changes)}
     if mode == 'check': return report, int(drift)
     if report['rule_text_review'] and not accept_rule_text: raise ValueError('Effect/goal/target/cost text changed: implement and test the rule change, then use --accept-rule-text')
     for path, original in snapshots.items():
@@ -141,6 +162,7 @@ def run(project, review, mode, accept_rule_text=False):
             write_verified(path, data, snapshots[path])
     baseline_path.write_text(json.dumps({'cards': merged, 'template': document}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     report['in_sync'] = True
+    report['statistics_in_sync'] = True
     (project / 'data/card_sync_last_report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return report, 0
 

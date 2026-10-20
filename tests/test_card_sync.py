@@ -13,6 +13,56 @@ CARDS = json.loads((PROJECT / 'data/cards.json').read_text(encoding='utf-8'))
 DOCUMENT = (PROJECT / 'docs' / sync.FILENAME).read_text(encoding='utf-8')
 
 class CardSyncTests(unittest.TestCase):
+    def test_statistics_count_each_card_once_per_attribute(self):
+        cards = {
+            'A': {'kind': 'group', 'align': ['政府', '和平', '政府'], 'tags': ['地点', '沿海', '沿海']},
+            'B': {'kind': 'group', 'align': ['政府'], 'tags': ['地点']},
+            'C': {'kind': 'group', 'align': [], 'tags': []},
+            'D': {'kind': 'plot', 'category': '灾难', 'align': [], 'tags': []},
+        }
+        section = sync.statistics_section(cards)
+        for row in ['| 政府 | 2 |', '| 和平 | 1 |', '| 地点 | 2 |', '| 沿海 | 1 |']:
+            self.assertIn(row, section)
+        self.assertNotIn('| 灾难 |', section)
+        self.assertIn('团体共3张；无阵营1张，无标签1张', section)
+
+    def test_statistics_regenerate_on_attribute_and_card_changes(self):
+        changed = copy.deepcopy(CARDS)
+        changed['G071']['tags'].append('测试新标签')
+        changed['G999'] = copy.deepcopy(changed['G071']); changed['G999']['id'] = 'G999'
+        rendered = sync.render(DOCUMENT + '\n玩家批注：仍需保留。\n', changed, json.dumps(changed).encode())
+        self.assertIn('| 测试新标签 | 2 |', rendered)
+        self.assertEqual(rendered.count('## 阵营与标签统计'), 1)
+        self.assertEqual(sync.parse_table(rendered, changed), changed)
+        self.assertIn('玩家批注：仍需保留。', rendered)
+        self.assertEqual(sync.render(rendered, changed, json.dumps(changed).encode()), rendered)
+
+    def test_statistics_detect_staleness_and_do_not_cause_prose_conflicts(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT / 'tests') as directory:
+            root = Path(directory); (root/'docs').mkdir(); (root/'data').mkdir()
+            source = root/'data/cards.json'; local = root/'docs'/sync.FILENAME; review = root/'review.md'
+            source.write_text(json.dumps(CARDS), encoding='utf-8')
+            local.write_text(DOCUMENT, encoding='utf-8'); review.write_text(DOCUMENT, encoding='utf-8')
+            sync.run(root, review, 'sync')
+            # A stale generated summary is detected even without any card edits.
+            review.write_text(sync.without_statistics(review.read_text(encoding='utf-8')), encoding='utf-8')
+            before = review.read_bytes(); report, code = sync.run(root, review, 'check')
+            self.assertEqual(code, 1); self.assertFalse(report['statistics_in_sync'])
+            self.assertFalse(report['changes']); self.assertEqual(review.read_bytes(), before)
+            sync.run(root, review, 'sync')
+            # Independently refreshed summaries must not become conflicting user prose.
+            human, developer = copy.deepcopy(CARDS), copy.deepcopy(CARDS)
+            human['G071']['tags'].append('测试新标签'); developer['G081']['align'] = ['企业', '和平']
+            review.write_text(sync.render(DOCUMENT, human, json.dumps(human).encode()), encoding='utf-8')
+            local.write_text(sync.render(DOCUMENT, developer, json.dumps(developer).encode()), encoding='utf-8')
+            report, code = sync.run(root, review, 'sync')
+            self.assertEqual(code, 0); self.assertTrue(report['statistics_in_sync'])
+            merged = json.loads(source.read_text(encoding='utf-8'))
+            self.assertIn('测试新标签', merged['G071']['tags']); self.assertEqual(merged['G081']['align'], ['企业', '和平'])
+            for doc in [local, review]:
+                self.assertIn(sync.statistics_section(merged).strip(), doc.read_text(encoding='utf-8'))
+            self.assertEqual(sync.run(root, review, 'check')[1], 0)
+
     def test_clean_clone_uses_its_own_card_table(self):
         with tempfile.TemporaryDirectory(dir=PROJECT / 'tests') as directory:
             root=Path(directory); (root/'docs').mkdir(); (root/'data').mkdir()
