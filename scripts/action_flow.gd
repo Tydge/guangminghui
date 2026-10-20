@@ -30,7 +30,7 @@ static func zones(g: GameState) -> Dictionary:
 
 static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 	var copy=copy_state(g);var before=zones(g)
-	if not copy.act(p,a.duplicate(true)):return {"moves":[],"target":"","source":""}
+	if not copy.act(p,a.duplicate(true)):return {"moves":[],"target":"","source":"","result":{}}
 	var after=zones(copy);var moves=copy.motion_events.duplicate(true);var recorded: Array=[]
 	for move in moves:
 		recorded.append(move.id)
@@ -48,4 +48,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 		# A few older plots store their payer in target; those affect hands/decks instead.
 		if g.nodes.has(candidate) and played.id not in ["P21","P23","P24","P25"] and not (a.type=="choose" and a.get("id","")==""):
 			target=candidate;source=played.id
-	return {"moves":moves,"target":target,"source":source}
+	# Battle results must be read on the rehearsal, before any live settlement or motion.
+	# after_effect may replace last_event with a victory/choice; last_battle stays intact.
+	var result=copy.last_battle.duplicate(true) if not g.battle.is_empty() and copy.battle.is_empty() else {}
+	return {"moves":moves,"target":target,"source":source,"result":result}

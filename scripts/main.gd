@@ -139,8 +139,9 @@ func _resize() -> void:
 		_refresh(not busy)
 		if not preview_action.is_empty() and not busy:_review_action(preview_action)
 	if presenting:
-		var body=presentation_layer.get_node_or_null("RevealBody")
-		if body!=null:body.position=(size-body.size)/2
+		for panel_name in ["RevealBody","DiceResult"]:
+			var body=presentation_layer.get_node_or_null(panel_name)
+			if body!=null:body.position=(size-body.size)/2
 
 func _sound(key: String) -> void:
 	if sound_volume<=0 or sounds.get(key)==null:return
@@ -364,6 +365,9 @@ func _do_action(p: int,a: Dictionary) -> void:
 	if plan.target!="":
 		if not await interactions.target_cue(plan.source,plan.target):return
 		if game==null or this_match!=match_id:return
+	if not plan.result.is_empty():
+		if not await _present_result(plan.result):return
+		if game==null or this_match!=match_id:return
 	if not plan.moves.is_empty():
 		if not await interactions.moves(plan.moves):return
 		if game==null or this_match!=match_id:return
@@ -372,11 +376,7 @@ func _do_action(p: int,a: Dictionary) -> void:
 	if not game.act(p,a):_set_busy(false);_refresh();_schedule_ai();return
 	if a.type=="attack":floating_positions.erase("battle")
 	if selected!="" and not game.nodes.has(selected) and selected not in game.hands[0].group and selected not in game.hands[0].plot:selected=""
-	if game.last_event.get("event","")=="result":
-		_refresh(false);_show_result();await get_tree().create_timer(0.5 if reduced_motion else 1.4).timeout
-		if game==null or this_match!=match_id:return
-		_clear(large_layer)
-	elif a.type in ["auto","move","ability"]:_sound("card")
+	if a.type in ["auto","move","ability"]:_sound("card")
 	if p==1 and a.type in ["support","self_defend","rescue","mediate","plot","counter"]:
 		var history=game.battle.get("entries",[]) if not game.battle.is_empty() else game.last_battle.get("entries",[])
 		if not history.is_empty():_toast(history.back().text)
@@ -465,21 +465,26 @@ func _finish_presentation(completed: bool) -> void:
 	_clear(presentation_layer)
 	presentation_finished.emit(completed)
 
-func _show_result() -> void:
-	_clear(overlay);_clear(large_layer)
-	var e=game.last_event;var p=_panel(large_layer,Rect2(size/2-Vector2(330,145),Vector2(660,290)));var dice=e.get("dice",[])
-	var dice_label=_label("%d    +    %d"%dice if dice.size()==2 else "—",p,70,GOLD);dice_label.position=Vector2(192,33)
-	if dice.size()==2 and not reduced_motion:_roll_visual(dice_label,dice)
-	var outcome="保镖挡下摧毁" if e.get("guarded",false) else ("救援撤离" if e.get("rescued",false) else ("目标已摧毁" if game.last_battle.get("destroyed",false) else ("目标受灾" if game.last_battle.get("devastated",false) else ("攻击成功" if e.get("success",false) else "攻击失败"))))
-	_label(outcome,p,34,TEAL if e.get("success",false) else Color("d99884")).position=Vector2(230,153)
-	_sound("dice");_sound("success" if e.get("success",false) else "fail")
-
-func _roll_visual(label: Label,dice: Array) -> void:
-	for _i in range(6):
-		if not is_instance_valid(label):return
-		label.text="%d    +    %d"%[randi_range(1,6),randi_range(1,6)]
-		await get_tree().create_timer(0.07).timeout
-	if is_instance_valid(label):label.text="%d    +    %d"%dice
+func _present_result(e: Dictionary) -> bool:
+	presenting=true;_clear(overlay);_clear(large_layer);_clear(presentation_layer)
+	var p=_panel(presentation_layer,Rect2(size/2-Vector2(330,145),Vector2(660,290)));p.name="DiceResult";var dice=e.get("dice",[])
+	var rolling=dice.size()==2 and not reduced_motion
+	var dice_label=_label("·      ·" if rolling else ("%d    +    %d"%dice if dice.size()==2 else "—"),p,70,GOLD);dice_label.position=Vector2(192,33)
+	var outcome="保镖挡下摧毁" if e.get("guarded",false) else ("救援撤离" if e.get("rescued",false) else ("摧毁成功" if e.get("destroyed",false) else ("目标受灾" if e.get("devastated",false) else ("攻击成功" if e.get("success",false) else "攻击失败"))))
+	var outcome_label=_label("",p,34,TEAL if e.get("success",false) else Color("d99884"));outcome_label.position=Vector2(230,153)
+	presentation_tween=create_tween()
+	if rolling:
+		for _i in range(6):
+			presentation_tween.tween_callback(func():dice_label.text="%d    +    %d"%[randi_range(1,6),randi_range(1,6)])
+			presentation_tween.tween_interval(0.07*presentation_time_scale)
+	presentation_tween.tween_callback(func():
+		if dice.size()==2:dice_label.text="%d    +    %d"%dice
+		outcome_label.text=outcome;_sound("success" if e.get("success",false) else "fail"))
+	presentation_tween.tween_interval((0.5 if reduced_motion else 0.98)*presentation_time_scale)
+	presentation_tween.tween_property(p,"modulate:a",0.0,(0.06 if reduced_motion else 0.16)*presentation_time_scale).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	presentation_tween.finished.connect(func():_finish_presentation(true),CONNECT_ONE_SHOT)
+	_sound("dice")
+	return await presentation_finished
 
 func _phase_overlay() -> void:
 	_clear(overlay)

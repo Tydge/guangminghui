@@ -26,6 +26,7 @@ cd guangminghui
 - 悬停半秒、右键、长按或「查看大卡」查看完整卡面；移动超过 8 像素会取消长按，长按结束不触发普通点击。
 - 大卡显示当前忠诚、位置、被动防御、控制/摧毁防御拆分、印刷与有效数值、附着及行动恢复状态；移动布局可滚动阅读；点击附着牌按钮可读完整效果，关闭后回到原团体和阅读位置。
 - 战斗中轮流追加支援、阴谋或救援，双方连续放行后才掷骰。每项响应旁的「查看」可以先读卡。
+- 骰子先滚动并展示结果，窗口完全淡出后才开始目标控制转移、摧毁及下属回手。结果窗口存在期间真实场面与随机状态保持不变；决定胜负的一击也先展示结果，再进入胜利界面。
 - 战斗右侧持续记录双方支援团体、P/GP数值、阴谋对象与反制结果。结算后点击桌面的「最近战斗」回看。
 - 双方打出阴谋、发动主动能力，以及救援/斡旋时，中央淡入完整卡牌、行动方和能力名，停留后淡出。展示彻底结束才支付费用和执行效果；期间阻止重复操作及AI继续行动。「减少动态效果」缩短淡入淡出，保留阅读停留与相同的结算顺序。
 - 重组等多目标操作分步选择团体、上级和费用，场上高亮可选目标，允许返回或取消；确认前不支付。
@@ -103,6 +104,7 @@ godot --headless --path . --script res://tests/test_battle_clarity.gd
 godot --headless --path . --script res://tests/test_modern_mechanics.gd
 godot --headless --path . --script res://tests/test_modern_ui.gd
 godot --headless --path . --script res://tests/test_presentation.gd
+godot --headless --path . --script res://tests/test_dice_sequence.gd
 godot --headless --path . --script res://tests/test_expansion_ui.gd
 godot --headless --path . --script res://tests/test_synergy_ui.gd
 godot --headless --path . --script res://tests/test_match.gd
