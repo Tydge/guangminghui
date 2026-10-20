@@ -41,7 +41,7 @@ func _initialize() -> void:
 	CardDB.load_all()
 	check(CardDB.cards.size()==206,"All 206 cards")
 	check(CardDB.get_card("G081").align==["企业"] and CardDB.get_card("G083").align==["企业","和平"],"User requested Musk and Altman alignments")
-	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府"],"Preserved edited Moonbase")
+	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府","和平"],"Preserved edited Moonbase")
 	check(CardDB.get_card("G114").align==["和平"] and CardDB.get_card("G115").gp==1 and CardDB.get_card("G116").gp==0,"Preserved edited space and magic stats")
 	var g=fresh();put(g,"G113",1);put(g,"G028",1,"G113");put(g,"G052",1);var b=context("R0","G052")
 	var d=g.support_detail("G028",b);check(d.basis=="P" and d.reason=="远程中继","Moonbase defense P ignores alignment")

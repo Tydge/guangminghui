@@ -187,8 +187,8 @@
       "path": "assets/cards/G023.webp",
       "width": 1254,
       "height": 1254,
-      "bytes": 856808,
-      "sha256": "53426813f61e9934b43b3e1e461daf052bb8c97504baf94e3a8b4058ecc4d3d3"
+      "bytes": 660016,
+      "sha256": "2ef78cbbb598cee30cae7ee9b14ddf969321f64341a05f224a207b8dade27605"
     },
     {
       "id": "G024",
@@ -379,8 +379,8 @@
       "path": "assets/cards/G047.webp",
       "width": 1254,
       "height": 1254,
-      "bytes": 423822,
-      "sha256": "d1d8c563854e1454e81a39afee55395ed5c06fdd8a0c4ddc3d2fb00e00993e23"
+      "bytes": 361554,
+      "sha256": "f212ede04171b63c053d213dce0161c1caf693a63be9804c6f3ea9fa770a3227"
     },
     {
       "id": "G048",

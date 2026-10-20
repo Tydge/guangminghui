@@ -208,9 +208,10 @@
       "name": "硅谷",
       "path": "assets/cards/G023.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Silicon Valley. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-23e9f70a-0b1e-49da-aa7e-7621203ffa0e.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Use case: stylized-concept. Asset type: square full-bleed illustration for the Silicon Valley card in a modern strategy game. A highly recognizable California technology-startup scene: a sunlit open garage workshop in the foreground with young engineers around an exposed computer motherboard, a small friendly wheeled robot and a glowing silicon wafer; beyond the garage, modern low-rise glass technology campuses, palm trees and the dry golden foothills of the San Francisco Bay Area. Lively inventive and slightly eccentric, contemporary editorial realism, warm California daylight, blue glass and orange equipment accents. Clear dominant computer/wafer/garage silhouettes readable on a small card, important subjects fit fully in the square. Natural anatomy, no crowded overlapping hands. No text, no company logos, no card frame, no occult symbols, eyes or pyramids, no generic dark gold temple.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8e7ac3e2-88da-4fcb-b4ea-7bab57675cbf.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G024",
@@ -426,10 +427,10 @@
       "name": "兄弟会",
       "path": "assets/cards/G047.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. Fraternal orders, warm oak-paneled community lodge hall, members in formal jackets and ceremonial membership aprons greeting each other with a handshake at an oval table, membership ledger and banners with simple emblems, burgundy navy wood brown, welcoming mutual-aid illustration. No eyes or pyramids. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c81ff372-d4c9-4112-a09e-277a1c7c5a31.png",
-      "updated": "2026-10-19",
-      "encoding": "WebP quality 98"
+      "prompt": "Use case: stylized-concept. Asset type: square full-bleed illustration for a Fraternal Orders card in a modern strategy game. A traditional mutual-aid fraternity clubhouse, three clearly distinct adult members in simple navy club blazers and white shirts with identical small round brass lapel badges, warmly welcoming one new member at an oak reception table. The nearest member holds an open membership book with abstract unreadable marks; the others stand naturally, hands separate and anatomically normal. An inviting oak-paneled community hall, a noticeboard with photos of charity activities, two tasteful burgundy cloth banners bearing a simple linked-ring emblem. Clear focus on membership and solidarity, natural human proportions and realistic faces, contemporary cinematic editorial illustration with cream, burgundy and navy colors. No strange ceremonial outfits, no aprons, no masks, no occult ritual, no eye or pyramid, no text, no company logos, no card border. High recognition and clean composition for a small card image.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-556572b5-ba54-4860-aa7a-88c1e8c3c7e2.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G048",

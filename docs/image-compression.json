@@ -1,9 +1,9 @@
 {
   "images": 210,
-  "original_bytes": 608824066,
-  "bytes": 224706188,
+  "original_bytes": 608304691,
+  "bytes": 224447128,
   "lowest_display_block_ssim": 0.9972540314192884,
-  "mean_display_rgb_mae": 0.9344247230461665,
+  "mean_display_rgb_mae": 0.9332217250551497,
   "elapsed_seconds": 236.19,
   "assets": [
     {
@@ -293,17 +293,17 @@
       "display_psnr_db": 41.99209452955064
     },
     {
-      "original_path": "assets/cards/G023.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8e7ac3e2-88da-4fcb-b4ea-7bab57675cbf.png",
       "path": "assets/cards/G023.webp",
-      "original_bytes": 3175082,
-      "bytes": 856808,
+      "original_bytes": 2700909,
+      "bytes": 660016,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "53426813f61e9934b43b3e1e461daf052bb8c97504baf94e3a8b4058ecc4d3d3",
-      "display_block_ssim": 0.9994901418685913,
-      "display_rgb_mae": 1.4850387573242188,
-      "display_psnr_db": 40.19249940170361
+      "sha256": "2ef78cbbb598cee30cae7ee9b14ddf969321f64341a05f224a207b8dade27605",
+      "display_block_ssim": 0.9989061135565862,
+      "display_rgb_mae": 1.3802680969238281,
+      "display_psnr_db": 40.921836853027344
     },
     {
       "original_path": "assets/cards/G024.png",
@@ -605,17 +605,17 @@
       "display_psnr_db": 99.0
     },
     {
-      "original_path": "assets/cards/G047.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-556572b5-ba54-4860-aa7a-88c1e8c3c7e2.png",
       "path": "assets/cards/G047.webp",
-      "original_bytes": 2078946,
-      "bytes": 423822,
+      "original_bytes": 2033744,
+      "bytes": 361554,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "d1d8c563854e1454e81a39afee55395ed5c06fdd8a0c4ddc3d2fb00e00993e23",
-      "display_block_ssim": 0.9986136555671692,
-      "display_rgb_mae": 0.9455159306526184,
-      "display_psnr_db": 44.03640510489361
+      "sha256": "f212ede04171b63c053d213dce0161c1caf693a63be9804c6f3ea9fa770a3227",
+      "display_block_ssim": 0.9977466029231437,
+      "display_rgb_mae": 0.7976570129394531,
+      "display_psnr_db": 46.476661682128906
     },
     {
       "original_path": "assets/cards/G048.png",
