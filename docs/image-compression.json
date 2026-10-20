@@ -1,9 +1,9 @@
 {
   "images": 210,
-  "original_bytes": 608304691,
-  "bytes": 224447128,
+  "original_bytes": 607660713,
+  "bytes": 224169634,
   "lowest_display_block_ssim": 0.9972540314192884,
-  "mean_display_rgb_mae": 0.9332217250551497,
+  "mean_display_rgb_mae": 0.9317210594813029,
   "elapsed_seconds": 236.19,
   "assets": [
     {
@@ -722,17 +722,17 @@
       "display_psnr_db": 41.998039753138876
     },
     {
-      "original_path": "assets/cards/G056.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-52de51af-abd8-4f24-a13f-1dfb129bf756.png",
       "path": "assets/cards/G056.webp",
-      "original_bytes": 3030946,
-      "bytes": 825688,
+      "original_bytes": 2386968,
+      "bytes": 548194,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "80484b7ddb1d9f392ad9fe7fde09a189e5e8917a3df395356124d6455f1d46f0",
-      "display_block_ssim": 0.9994535446166992,
-      "display_rgb_mae": 1.348772644996643,
-      "display_psnr_db": 41.044735559947696
+      "sha256": "ddd29f773595b3d24256f5f126d0ab5cb9751ed81a2f678f9af10770bd884d79",
+      "display_block_ssim": 0.9990103833260946,
+      "display_rgb_mae": 1.0336328744888306,
+      "display_psnr_db": 43.55128479003906
     },
     {
       "original_path": "assets/cards/G057.png",

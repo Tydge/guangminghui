@@ -1,5 +1,5 @@
 extends RefCounted
-## Direct-child auras and small tactical choices; all state lives on the match.
+## Direct-parent/child auras and small tactical choices; all state lives on the match.
 var state: WeakRef
 var g:
 	get:return state.get_ref()
@@ -15,14 +15,18 @@ func adjust_stat(id: String,key: String,value: int) -> int:
 	if key=="p":
 		value+=g.nodes[id].get("learned",0)
 		if parent=="G133" and ready(parent) and g.has(id,"共产"):value+=2
-	if key=="slots" and parent=="G134" and ready(parent) and g.has(id,"共产"):value=mini(3,value+1)
+	if key=="slots" and housing_bonus(id):value=mini(3,value+1)
 	return value
 
-func can_move(id: String,parent: String) -> bool:
-	if not g.nodes.has(id):return true
-	if g.nodes[id].parent=="G134" and parent!="G134" and ready("G134") and g.has(id,"共产"):
-		return g.children(id).size()<=mini(3,int(g.card(id).slots)+int("P19" in g.nodes[id].attached))
-	return true
+func housing_bonus(id: String) -> bool:
+	return g.nodes.has(id) and ready("G134") and g.nodes.G134.parent==id and g.has(id,"共产")
+
+func can_swap(a: String,b: String) -> bool:
+	# Swapping replaces the child, unlike an ordinary move that also frees its slot.
+	if "G134" not in [a,b]:return true
+	var parent=g.nodes.G134.parent
+	var capacity=mini(3,int(g.card(parent).slots)+int("P19" in g.nodes[parent].attached))
+	return not housing_bonus(parent) or g.children(parent).size()<=capacity
 
 func attachment_ok(id: String,target: String) -> bool:
 	if id in g.nodes[target].attached:return false
@@ -82,7 +86,7 @@ func augment_actions(p: int,out: Array) -> Array:
 		for a in out.duplicate():
 			if a.type=="attack" and a.src=="G147" and a.mode=="destroy" and ready("G147",p):
 				var v=a.duplicate();v.solo=true;v.label+=" · 孤军破袭（忽略位置，无进攻支援）";out.append(v)
-		out=out.filter(func(a):return not (a.type=="ability" and a.src.begins_with("R") and (not can_move(a.target,g.nodes[a.other].parent) or not can_move(a.other,g.nodes[a.target].parent))))
+		out=out.filter(func(a):return not (a.type=="ability" and a.src.begins_with("R") and not can_swap(a.target,a.other)))
 	if g.phase=="plot_response" and p==1-g.pending_plot.player and can_counter(p):
 		for fee in plot_costs(p):out.append(g._a("trick","替身骗局 · 弃"+g.title(fee),{"src":"G137","fee":fee}))
 	if g.phase=="battle" and g.battle.get("responder",-1)==p:

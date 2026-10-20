@@ -158,7 +158,7 @@ func depth(id: String) -> int:
 	return d
 
 func can_parent(parent: String, moving: String = "") -> bool:
-	return (moving=="" or renewal.can_move(moving,parent)) and nodes.has(parent) and children(parent).size() < stat(parent, "slots") and (moving == "" or parent not in subtree(moving)) and (moving == "" or nodes[moving].parent != parent)
+	return nodes.has(parent) and children(parent).size() < stat(parent, "slots") and (moving == "" or parent not in subtree(moving)) and (moving == "" or nodes[moving].parent != parent)
 
 func _enter(id: String, p: int, parent: String, action: int = 0) -> void:
 	hands[p].group.erase(id)

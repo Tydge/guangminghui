@@ -111,7 +111,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 func _placement_value(id: String,parent: String,o: Dictionary) -> float:
 	var c=_card(id,o);var traits=c.align+c.tags
 	if parent=="G133" and "共产" in traits:return 7
-	if parent=="G134" and "共产" in traits:return 5
+	if id=="G134" and "共产" in _card(parent,o).tags and _card(parent,o).slots<3:return 5
 	if parent=="G140" and "狂热" in traits:return 5
 	if parent=="G142" and "太空" in traits:return 3
 	if parent=="G113" and "太空" in traits:return 5

@@ -716,7 +716,7 @@ func _card_context_text(id: String) -> String:
 	if n.get("learned",0)>0:lines.append("革命课堂 · 在场强化 P+%d。"%n.learned)
 	if n.has("mask"):lines.append("伪造身份 · 本回合阵营："+" / ".join(n.mask))
 	if n.parent=="G133" and game.renewal.ready("G133") and game.has(id,"共产"):lines.append("自治工厂 · 直属共产下属 P+2。")
-	if n.parent=="G134" and game.renewal.ready("G134") and game.has(id,"共产"):lines.append("社区住房合作社 · 下属槽+1，上限3。")
+	if game.renewal.housing_bonus(id):lines.append("社区住房合作社 · 本团体下属槽+1，上限3。")
 	if id=="G145" and game.renewal.ready(id) and game.renewal.unused(id) and game.token(id):lines.append("民兵动员 · 可免标记自卫 +%d。"%game.stat(id,"p"))
 	if n.get("silenced",false):lines.append("公关危机 · 本回合卡面能力失效。")
 	if id=="G088":lines.append("训练 %d / 2"%n.get("training",0))

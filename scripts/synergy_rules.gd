@@ -65,7 +65,7 @@ func ability_actions(src: String,p: int) -> Array:
 	return out
 
 func can_detach(target: String,id: String) -> bool:
-	var capacity=mini(3,int(g.card(target).slots)+int(g.nodes[target].parent=="G134" and g.renewal.ready("G134") and g.has(target,"共产")))
+	var capacity=mini(3,int(g.card(target).slots)+int(g.renewal.housing_bonus(target)))
 	return id!="P19" or g.children(target).size()<=capacity
 
 func detach(target: String,id: String) -> void:

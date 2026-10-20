@@ -511,9 +511,10 @@
       "name": "克隆安排者",
       "path": "assets/cards/G056.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Clone Arrangers. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. Respectful fictional depictions of people, no recognizable real persons, no gore. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-186add9b-2402-4f34-a318-240ff6dc4940.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Use case: stylized-concept. Asset type: square 1:1 full-bleed illustration for the Clone Arrangers card in a contemporary strategy card game. Make human cloning unmistakable at thumbnail size: three upright transparent life-support chambers in a bright clandestine biotechnology laboratory, each containing a fully clothed fictional adult man with exactly the same face and hairstyle. The three copies are clearly visible and naturally proportioned. In the foreground, one intense scientist in a white laboratory coat and teal gloves studies the repeated faces, holding a slim tablet in one hand and adjusting a single control knob with the other; exactly two hands. A clear DNA double-helix model and organized scientific equipment establish the theme. Clean contemporary cinematic editorial realism, icy cyan and white illumination with a small crimson warning-light accent, crisp simple composition. No gore, no nudity, no religious ritual, no text, no company logos, no card frame, no watermark, no occult eye, no pyramids or generic dark-gold temple. Keep the scientist and the repeated faces fully inside the square.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-52de51af-abd8-4f24-a13f-1dfb129bf756.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G057",

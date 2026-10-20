@@ -50,8 +50,8 @@ func _initialize() -> void:
 	g.battle.mobilized=true;g.synergy.add_tag("G007","共产");check(g.support_detail("G007",g.battle).basis=="GP","Miyazaki beats mobilization")
 	g=fresh();put(g,"G133",0);put(g,"G120",0,"G133");put(g,"G121",0,"G120");check(g.stat("G120","p")==g.card("G120").p+2 and g.stat("G121","p")==g.card("G121").p,"Factory direct aura only")
 	g.nodes.G133.silenced=true;check(g.stat("G120","p")==g.card("G120").p,"Factory silence")
-	g=fresh();put(g,"G134",0);put(g,"G120",0,"G134");put(g,"G043",0,"G120");put(g,"G044",0,"G120");put(g,"G045",0,"G120")
-	check(g.stat("G120","slots")==3 and not g.can_parent("R0","G120"),"Coop extra slot cannot voluntarily orphan a child")
+	g=fresh();put(g,"G120",0);put(g,"G134",0,"G120");put(g,"G043",0,"G120");put(g,"G044",0,"G120")
+	check(g.stat("G120","slots")==3 and g.stat("G134","slots")==2,"Housing adds a slot to its Communist parent only")
 	g.nodes.G134.silenced=true;g._after_effect();check(g.choice.kind=="x_overflow" and g.choice.player==0,"Lost aura asks controller to return branch")
 	apply(g,0,"choose",{"id":"G043"});check("G043" in g.hands[0].group and g.stat("G120","slots")==2,"Overflow chooses branch, preserves conservation")
 	g=fresh();put(g,"G135",0);put(g,"G133",0);apply(g,0,"ability",{"src":"G135","target":"G135"});check(g.stat("G135","p")==3,"Night school effective P target gets lasting +1")
@@ -94,7 +94,7 @@ func _initialize() -> void:
 	# Long-lived boosts are copied into the rehearsal, not shared with the live module.
 	g=fresh();put(g,"G133",0);put(g,"G120",0,"G133");var clone=ActionFlow.copy_state(g);clone.nodes.G133.silenced=true;check(g.stat("G120","p")==4 and clone.stat("G120","p")==2,"Rehearsal aura module points to clone")
 	# Attached-slot removal preserves another slot aura instead of using printed capacity.
-	g=fresh();put(g,"G134",0);put(g,"G135",0,"G134");attach(g,"P19","G135");put(g,"G043",0,"G135");put(g,"G044",0,"G135");check(g.synergy.can_detach("G135","P19"),"Detach may keep two children through housing aura")
+	g=fresh();put(g,"G135",0);put(g,"G134",0,"G135");attach(g,"P19","G135");put(g,"G043",0,"G135");check(g.synergy.can_detach("G135","P19"),"Detach may keep two children through housing aura")
 	# Identity expiry must enforce the reduced Mafia hand limit before advancing turns.
 	g=fresh();put(g,"G149",0);put(g,"G051",0);put(g,"G001",0,"G051");g.nodes.G001.mask=["犯罪"];give(g,"P01",0);give(g,"P02",0);give(g,"P03",0);give(g,"P04",0);give(g,"P05",0);give(g,"P06",0);g.end_requested=true;g._complete_end();check(g.phase=="discard" and g.current==0 and g.hand_limit(0)==5,"Identity expiry pauses turn for reduced limit");apply(g,0,"choose",{"id":"P01"});check(g.current==1 and g.turns[0]==3,"Cleanup resumes once without double turn counting")
 	var report={"checks":checks,"failures":failures};FileAccess.open("res://tests/renewal-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("RENEWAL: "+JSON.stringify(report));quit(0 if failures.is_empty() else 1)
