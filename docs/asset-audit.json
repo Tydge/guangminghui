@@ -673,10 +673,10 @@
     {
       "id": "G084",
       "path": "assets/cards/G084.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 571230,
-      "sha256": "170f9ae5077cfa92109a391d8c91b6f79216edf97da2e004e8f1a4e29ee31b04"
+      "width": 615,
+      "height": 615,
+      "bytes": 285958,
+      "sha256": "5e71732e3df1f6240b03b8b9b8d2a727b862d1b99d913f2b496e4fdbbd92bc06"
     },
     {
       "id": "G085",
@@ -713,10 +713,10 @@
     {
       "id": "G089",
       "path": "assets/cards/G089.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 614858,
-      "sha256": "2b7621e5afca51e12672f5300aeed41cb00242a5b18b8a26dd291ef293e55982"
+      "width": 1078,
+      "height": 1078,
+      "bytes": 554738,
+      "sha256": "2614332392ab25206103aeb849d0a71d4e94d98b294c352375db6e724b251bd8"
     },
     {
       "id": "G090",

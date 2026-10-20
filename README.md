@@ -113,7 +113,7 @@ python tests/test_card_sync.py
 
 ## 素材
 
-- 卡牌、桌布、框与牌背：使用内置图像生成工具逐资产生成，以保留原始尺寸的高质量 WebP 存放（界面无损），190张合计约213 MB，较PNG减少约62%；未裁切、未缩小。提示词见 `docs/art-prompts.json`，逐图压缩与质量记录见 `docs/image-compression.json`。记录中的 `generation_source` 仅作历史追溯，不是运行依赖。
+- 卡牌、桌布、框与牌背：184张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西改用用户提供的真人照片，选取方形构图后无损转换。190张运行图像合计约213 MB。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
 - 音效：[Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds)，CC0，原始许可见 `assets/audio/Kenney-License.txt`。用于选牌、按钮、落牌、开启、关闭、掷骰、成功、失败及反制；可在设置静音。
 - 字体：[Google Fonts / Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc)，SIL Open Font License，许可见 `assets/fonts/OFL.txt`。
 - 名称和主题参考 Steve Jackson Games 的 INWO。本项目是本地非官方简化改编；卡牌数值、能力和插画均不代表原版卡面。

@@ -760,11 +760,27 @@
       "id": "G084",
       "name": "泰勒·斯威夫特",
       "path": "assets/cards/G084.webp",
-      "method": "Built-in image_gen",
-      "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. An acoustic guitar on a microphone stand wrapped in a flowing red scarf, a large lavender and rose pop-concert stage filled with glittering lights and a joyful audience, elegant narrative music illustration. No people in the foreground, no portrait, no celebrity likeness, no words. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b56345b2-d9b6-4464-80d2-e1f394ad3f66.png",
-      "updated": "2026-10-19",
-      "encoding": "WebP quality 98"
+      "method": "User-provided photograph; deterministic square framing and lossless WebP conversion",
+      "source_path": "assets/sources/G084.jpg",
+      "source_sha256": "4520ee6212365769650ce3c712cd0f5143ffc959f9de59da5e6a78e8f9689ada",
+      "source_width": 615,
+      "source_height": 615,
+      "source_crop": [
+        0,
+        0,
+        615,
+        615
+      ],
+      "encoding": "WebP lossless",
+      "license": "Not supplied; do not attribute an open license without verifying the source",
+      "updated": "2026-10-20",
+      "previous_asset": {
+        "method": "Built-in image_gen",
+        "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. An acoustic guitar on a microphone stand wrapped in a flowing red scarf, a large lavender and rose pop-concert stage filled with glittering lights and a joyful audience, elegant narrative music illustration. No people in the foreground, no portrait, no celebrity likeness, no words. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
+        "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b56345b2-d9b6-4464-80d2-e1f394ad3f66.png",
+        "encoding": "WebP quality 98",
+        "updated": "2026-10-19"
+      }
     },
     {
       "id": "G085",
@@ -810,11 +826,27 @@
       "id": "G089",
       "name": "利昂内尔·梅西",
       "path": "assets/cards/G089.webp",
-      "method": "Built-in image_gen",
-      "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. A football jersey in pale sky-blue and white stripes with clearly visible number 10, displayed with a worn football and a pair of boots at the touchline of a floodlit football stadium, confetti and graceful curved passing routes in background, dynamic sports editorial illustration. No person or portrait, no logos. Only the number 10 as text. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fe01000e-db0a-498e-b641-bfb3747e5067.png",
-      "updated": "2026-10-19",
-      "encoding": "WebP quality 98"
+      "method": "User-provided photograph; deterministic square framing and lossless WebP conversion",
+      "source_path": "assets/sources/G089.jpg",
+      "source_sha256": "8b868d6e6fbcb4806f1e059f679f7c9edbc331a968eb67250e80c402a51da505",
+      "source_width": 1920,
+      "source_height": 1078,
+      "source_crop": [
+        576,
+        0,
+        1654,
+        1078
+      ],
+      "encoding": "WebP lossless",
+      "license": "Not supplied; do not attribute an open license without verifying the source",
+      "updated": "2026-10-20",
+      "previous_asset": {
+        "method": "Built-in image_gen",
+        "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. A football jersey in pale sky-blue and white stripes with clearly visible number 10, displayed with a worn football and a pair of boots at the touchline of a floodlit football stadium, confetti and graceful curved passing routes in background, dynamic sports editorial illustration. No person or portrait, no logos. Only the number 10 as text. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
+        "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fe01000e-db0a-498e-b641-bfb3747e5067.png",
+        "encoding": "WebP quality 98",
+        "updated": "2026-10-19"
+      }
     },
     {
       "id": "G090",
@@ -1758,5 +1790,7 @@
       "name": "月球基地",
       "encoding": "WebP quality 98"
     }
-  ]
+  ],
+  "generated_card_art_count": 184,
+  "user_photo_card_count": 2
 }
