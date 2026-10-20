@@ -2,6 +2,8 @@ class_name GameState
 extends RefCounted
 const WaveRules = preload("res://scripts/wave_rules.gd")
 const SynergyRules = preload("res://scripts/synergy_rules.gd")
+const RenewalRules = preload("res://scripts/renewal_rules.gd")
+var renewal
 var synergy
 var wave
 ## Deterministic rules engine. Only act() mutates a normal match.
@@ -60,6 +62,7 @@ func _mulligan(p: int) -> void:
 func _init(seed_value: int = 0) -> void:
 	wave=WaveRules.new(self)
 	synergy=SynergyRules.new(self)
+	renewal=RenewalRules.new(self)
 	CardDB.load_all()
 	if seed_value == 0: rng.randomize()
 	else: rng.seed = seed_value
@@ -119,6 +122,7 @@ func alignments(id: String) -> Array:
 			a.erase("自由"); a.erase("保守")
 			if liberal: a.append("保守")
 			if conservative: a.append("自由")
+	if nodes.has(id) and nodes[id].has("mask"):a=nodes[id].mask.duplicate()
 	return a
 
 func stat(id: String, key: String,raw: bool=false) -> int:
@@ -138,7 +142,7 @@ func stat(id: String, key: String,raw: bool=false) -> int:
 			value+=nodes[id].get("ad_gp",0)
 			if nodes[id].get("compute",false):value=stat(id,"p",true)
 			value = mini(value, stat(id, "p",true))
-	value=synergy.adjust_stat(id,key,value)
+	value=renewal.adjust_stat(id,key,synergy.adjust_stat(id,key,value))
 	if not raw and key in ["p","gp"] and wave.devastated(id):value=value/2
 	return value
 
@@ -154,7 +158,7 @@ func depth(id: String) -> int:
 	return d
 
 func can_parent(parent: String, moving: String = "") -> bool:
-	return nodes.has(parent) and children(parent).size() < stat(parent, "slots") and (moving == "" or parent not in subtree(moving)) and (moving == "" or nodes[moving].parent != parent)
+	return (moving=="" or renewal.can_move(moving,parent)) and nodes.has(parent) and children(parent).size() < stat(parent, "slots") and (moving == "" or parent not in subtree(moving)) and (moving == "" or nodes[moving].parent != parent)
 
 func _enter(id: String, p: int, parent: String, action: int = 0) -> void:
 	hands[p].group.erase(id)
@@ -250,7 +254,7 @@ func observation(p: int) -> Dictionary:
 			previews[JSON.stringify(a)]=wave.disaster_preview(a);continue
 		if a.type!="attack":continue
 		var v=attack_preview(a.src,a.target,a.mode,a);var support=0
-		var context={"src":a.src,"target":a.target,"mode":a.mode,"attacker":p,"defender":owner(a.target)}
+		var context={"src":a.src,"target":a.target,"mode":a.mode,"attacker":p,"defender":owner(a.target),"solo":a.get("solo",false)}
 		for id in field(p):
 			if id!=a.src and token(id):support+=support_power(id,context)
 		v["support_max"]=support;previews[JSON.stringify(a)]=v
@@ -265,7 +269,7 @@ func _a(kind: String, label: String, args: Dictionary = {}) -> Dictionary:
 	return a
 
 func legal_actions(p: int) -> Array:
-	return synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))
+	return renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p))))
 
 func _base_legal_actions(p: int) -> Array:
 	var out: Array = []
@@ -328,6 +332,7 @@ func _base_legal_actions(p: int) -> Array:
 
 func _ability_actions(src: String,p: int) -> Array:
 	if not wave.available(src):return []
+	if int(src.substr(1))>=131:return renewal.ability_actions(src,p)
 	if int(src.substr(1))>=113:return synergy.ability_actions(src,p)
 	if int(src.substr(1))>=81:return wave.ability_actions(src,p)
 	var out: Array = []
@@ -348,7 +353,7 @@ func _ability_actions(src: String,p: int) -> Array:
 			if not decks.group.is_empty() or not discards.group.is_empty(): targets=[""]
 		"G013":
 			if not discards.plot.is_empty(): targets=[""]
-		"G015": targets=hands[p].plot.duplicate()
+		"G015": targets=renewal.plot_costs(p).duplicate()
 		"G016":targets=children(src).filter(func(id):return can_recharge(id) and not nodes[id].get("debt",false))
 		"G018":
 			for moving in children(src):
@@ -471,7 +476,7 @@ func support_power(id: String,b: Dictionary) -> int:return support_detail(id,b).
 func attack_options(src: String,target: String,mode: String,action: Dictionary={}) -> Dictionary:
 	# Pure preview. Uses the same eligibility functions as the live response window.
 	var p=owner(src)
-	var context={"src":src,"target":target,"mode":mode,"attacker":p,"defender":owner(target),"paid":[src]}
+	var context={"src":src,"target":target,"mode":mode,"attacker":p,"defender":owner(target),"paid":[src],"solo":action.get("solo",false)}
 	var supports: Array=[];var plots: Array=[];var total=0
 	for id in field(p):
 		if id==src or id==action.get("delegate","") or not token(id):continue
@@ -499,11 +504,14 @@ func attack_options(src: String,target: String,mode: String,action: Dictionary={
 
 func position_defense(id: String) -> int:
 	if not nodes.has(id) or is_root(id):return 0
-	return 10 if depth(id)==1 else (5 if depth(id)==2 else 0)
+	var value=10 if depth(id)==1 else (5 if depth(id)==2 else 0)
+	if renewal.ready("G142") and (id=="G142" or (nodes[id].parent=="G142" and has(id,"太空"))):value=maxi(5,value)
+	return value
 
 func loyalty_defense(id: String) -> int:
 	if not nodes.has(id) or is_root(id):return 0
 	var value=4*_common(id,nodes[id].parent)
+	if nodes[id].parent=="G140" and renewal.ready("G140") and has(id,"狂热"):value+=4
 	if nodes[id].parent=="G041" and has(id,"怪异"):value=maxi(value,8)
 	return value
 
@@ -542,7 +550,7 @@ func _plot_record_status(id: String,status: String) -> void:
 		if battle.entries[i].kind=="plot" and battle.entries[i].id==id:battle.entries[i].status=status;return
 
 func attack_preview(src: String,target: String,mode: String,action: Dictionary={}) -> Dictionary:
-	var b={"src":src,"target":target,"mode":mode,"attacker":owner(src),"defender":owner(target),"support_a":0,"support_d":0,"bonus_a":2 if action.get("training",false) else 0,"bonus_d":0,"self":0}
+	var b={"src":src,"target":target,"mode":mode,"attacker":owner(src),"defender":owner(target),"support_a":0,"support_d":0,"bonus_a":2 if action.get("training",false) else 0,"bonus_d":0,"self":0,"solo":action.get("solo",false)}
 	if action.get("use_plan",false) and wave.plans.has(owner(src)):b.fixed_dice=wave.plans[owner(src)]
 	return battle_values(b)
 
@@ -580,9 +588,15 @@ func battle_values(b: Dictionary = {}) -> Dictionary:
 
 func act(p: int,a: Dictionary) -> bool:
 	if a not in legal_actions(p):return false
+	var applied=_apply_command(p,a)
+	if applied:renewal.repair_slots()
+	return applied
+
+func _apply_command(p: int,a: Dictionary) -> bool:
 	a=a.duplicate(true)
 	motion_events.clear()
 	last_event={}
+	if renewal.handle(p,a):return true
 	if synergy.handle(p,a):return true
 	if wave.handle(p,a):return true
 	match a.type:
@@ -648,9 +662,11 @@ func _launch_attack(p: int,a: Dictionary) -> void:
 		hands[p].group.erase(a.target)
 	battle={"src":a.src,"target":a.target,"mode":a.mode,"attacker":p,"defender":owner(a.target),"responder":1-p,"passes":0,"paid":[a.src],"support_a":0,"support_d":0,"bonus_a":0,"bonus_d":0,"self":0,"rescue":false,"video":[],"spent":[],"entries":[],"before":field(p)}
 	wave.before_attack(p,a)
+	renewal.before_attack(a)
 	battle.hand_target=not nodes.has(a.target)
 	phase="battle";_log("%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"],"attack")
 	_battle_record("attack",p,a.src,a.target,"%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"])
+	wave.next_response_trigger()
 
 func _die() -> int:return rng.randi_range(1,6)
 func _who(p: int) -> String:return "你" if p==0 else "AI"
@@ -777,7 +793,7 @@ func _commit_plot(p: int,a: Dictionary) -> void:
 		if amount>0:message+=" · %s +%d"%["攻击" if p==battle.attacker else "防御",amount]
 		if a.id=="P16":message+=" · 令攻击失败"
 		_battle_record("plot",p,a.id,a.get("target",""),message,"待结算")
-	if ("P15" in hands[1-p].plot and "P15" not in locked) or (was_exposed and wave.available("G106",1-p) and token("G106") and not used.has("G106")):phase="plot_response"
+	if renewal.can_counter(1-p) or ("P15" in hands[1-p].plot and "P15" not in locked) or (was_exposed and wave.available("G106",1-p) and token("G106") and not used.has("G106")):phase="plot_response"
 	else:_resolve_plot()
 
 func _spent_plot(id: String) -> void:
@@ -840,9 +856,10 @@ func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 	if parent=="G069" and parent in before and has(id,"自由"):_reward_draw(parent,p,"group")
 	if parent=="G033" and parent in before and has(id,"怪异") and not rewards.has(parent):
 		rewards[parent]=true
-		if not hands[p].plot.is_empty():_set_choice(p,"潮流更替 · 可弃一张阴谋重抽",hands[p].plot,"emptyvee",{},true)
+		if not renewal.plot_costs(p).is_empty():_set_choice(p,"潮流更替 · 可弃一张阴谋重抽",renewal.plot_costs(p),"emptyvee",{},true)
 
 func _after_effect() -> void:
+	if renewal.repair_slots():return
 	if wave.drain():return
 	if phase=="choice" or phase=="discard" or phase=="battle" or phase=="plot_response":return
 	for p in [0,1]:
@@ -864,6 +881,10 @@ func _request_end() -> void:
 	else:_complete_end()
 
 func _complete_end() -> void:
+	if used.has("renewal:cleanup"):
+		for p in [0,1]:
+			if hands[p].plot.size()>hand_limit(p):_limit_choice(p);return
+		current=1-current;_start_turn();return
 	wave.end_turn()
 	turns[current]+=1
 	if mini(turns[0],turns[1])>=1:
@@ -872,8 +893,10 @@ func _complete_end() -> void:
 	for p in [0,1]:
 		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p));return
 	for id in nodes:
+		nodes[id].erase("mask");nodes[id].erase("mask_card")
 		nodes[id]["silenced"]=false;nodes[id]["flip"]=false;nodes[id]["ad_gp"]=0;nodes[id]["compute"]=false
-	current=1-current;_start_turn()
+	used["renewal:cleanup"]=true
+	_complete_end()
 
 func _finish(p: int,reason: String) -> void:
 	winner=p;phase="over";_log(reason,"victory")
@@ -885,7 +908,7 @@ func validate() -> Array:
 		for p in [0,1]:locations.append_array(hands[p][kind])
 	for p in [0,1]:locations.append_array(graves[p])
 	for id in nodes:
-		if children(id).size()>stat(id,"slots"):errors.append("Overfull "+id)
+		if choice.get("kind","")!="x_overflow" and children(id).size()>stat(id,"slots"):errors.append("Overfull "+id)
 		if nodes[id].token not in [0,1]:errors.append("Invalid token "+id)
 		if is_root(id):
 			if nodes[id].parent!="":errors.append("Root has parent "+id)
@@ -906,6 +929,10 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
+	if choice.get("kind","")=="x_overflow":
+		var held=choice.saved_choice
+		if held.get("kind","") in ["draw_keep","reorder"]:locations.append_array(held.options);locations.append_array(held.get("order",[]))
+		if held.get("kind","") in ["nasa","japan","w_draft"]:locations.append_array(held.peek)
 	var seen: Dictionary={}
 	for id in locations:
 		if seen.has(id):errors.append("Duplicate "+id)

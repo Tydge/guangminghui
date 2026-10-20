@@ -81,7 +81,8 @@ func ability_actions(src: String,p: int) -> Array:
 			for moving in g.children(src):
 				for parent in g.groups(p):
 					if g.has(parent,"沿海") and g.can_parent(parent,moving):out.append(g._a("ability","中转港 · %s → %s"%[g.title(moving),g.title(parent)],{"src":src,"target":moving,"parent":parent}))
-		"G102","G107":targets=g.hands[p].plot.duplicate()
+		"G102":targets=g.renewal.plot_costs(p).duplicate()
+		"G107":targets=g.hands[p].plot.duplicate()
 		"G105":
 			if not g.decks.group.is_empty() or not g.discards.group.is_empty():targets=[""]
 		"G109":targets=g.groups(p).filter(func(k):return devastated(k))
@@ -149,11 +150,13 @@ func support_detail(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	elif p!=b.defender:return {"id":id,"power":0,"basis":"—","reason":"不能支援"}
 	if normal(b) and enabled("G111",p) and g.has(id,"沿海") and g.has(b.target,"沿海"):d.basis="P";base=g.stat(id,"p");d.reason="班轮网络"
 	var override=g.synergy.support_override(id,b,base,d.basis,d.reason)
+	override=g.renewal.support_override(id,b,override)
 	base=override.base;d.basis=override.basis;d.reason=override.reason
 	if p==b.attacker and enabled("G095",1-p) and normal(b) and g.has(b.target,"沿海") and not g.has(id,"沿海") and d.basis=="GP":base=0;extra=0;d.reason="海峡屏障 · 禁止此GP支援"
 	if base<=0:d.power=0;return d
 	if normal(b) and enabled("G103",p) and g.has(id,"计算机") and b.get("computer_supports",[0,0])[p]==1:extra+=2;d.reason+=" · 并行计算+2"
 	if b.get("amplify",false) and id=="G104" and enabled(id):base*=2;d.reason+=" · 弹性扩容"
+	extra+=g.renewal.support_bonus(id,b)
 	var satellite=g.synergy.support_bonus(id,b)
 	if satellite>0:extra+=satellite;d.reason+=" · 遥感网络+1"
 	d.power=base+extra;d["base"]=base;d["extra"]=extra
@@ -176,7 +179,7 @@ func battle_actions(p: int,out: Array) -> Array:
 				if algorithm:out.append(g._a("support","算法时代 · %s (P +%d)"%[g.title(id),d.power],{"src":id,"power":d.power,"basis":d.basis,"algorithm":true}))
 				if id=="G104" and enabled(id):
 					context.amplify=true;d=g.support_detail(id,context)
-					for fee in g.hands[p].plot:out.append(g._a("support","弹性扩容 · +%d · 弃%s"%[d.power,g.title(fee)],{"src":id,"power":d.power,"basis":d.basis,"algorithm":algorithm,"amplify":true,"plot_fee":fee}))
+					for fee in g.renewal.plot_costs(p):out.append(g._a("support","弹性扩容 · +%d · 弃%s"%[d.power,g.title(fee)],{"src":id,"power":d.power,"basis":d.basis,"algorithm":algorithm,"amplify":true,"plot_fee":fee}))
 		if p==b.attacker and enabled("G100",b.defender) and g.has(b.target,"沿海") and b.get("support_counts",[0,0])[p]==1:
 			var revised: Array=[]
 			for a in out:
@@ -229,7 +232,7 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="fact_check":
 		g.nodes.G106.token=0;remember("G106")
 		g._battle_record("ability",p,"G106",g.pending_plot.id,"事实核查 · 追加弃牌费用")
-		g._set_choice(1-p,"事实核查 · 弃1张阴谋，否则取消出牌",g.hands[1-p].plot,"w_tax",{},true);return true
+		g._set_choice(1-p,"事实核查 · 弃1张阴谋，否则取消出牌",g.renewal.plot_costs(1-p),"w_tax",{},true);return true
 	return false
 
 func ability(p: int,a: Dictionary) -> void:
@@ -371,7 +374,7 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 		if g.has(b.target,"巨大"):ability=-4 if b.disaster=="P31" else (4 if b.disaster=="P35" else 0)
 		v.power=power;v.alignment=0;v.ability=ability;v.loyalty=0;v.position=0;v.base=g.stat(b.target,"r" if b.target=="G076" else "p")
 		v.strength=power+ability+b.bonus_a-v.base-v.defense-b.bonus_d-b.support_d-b.self
-	v=g.synergy.values(b,v)
+	v=g.renewal.values(b,g.synergy.values(b,v))
 	var chance=0;var kill=0;var threshold=4 if b.get("disaster","")=="P31" else 6
 	for x in range(1,7):
 		for y in range(1,7):
@@ -451,10 +454,11 @@ func resolve_battle() -> void:
 		dice=b.fixed_dice.duplicate() if b.has("fixed_dice") else [g._die(),g._die()]
 		b.rolled=dice
 	var success=dice.size()==2 and dice[0]+dice[1]<=mini(10,v.strength) and not b.get("foiled",false)
-	if not success and normal(b) and not b.get("rerolled",false) and not b.has("fixed_dice") and dice.size()==2 and dice[0]+dice[1]<=10 and enabled("G085",b.attacker) and b.get("supporters",[]).any(func(k):return k.id=="G085" and k.owner==b.attacker) and not g.hands[b.attacker].plot.is_empty():
-		g._set_choice(b.attacker,"安可 · 原骰%d＋%d · 可弃1张阴谋重掷"%dice,g.hands[b.attacker].plot,"w_reroll",{"source":"G085"},true);return
+	if not success and normal(b) and not b.get("rerolled",false) and not b.has("fixed_dice") and dice.size()==2 and dice[0]+dice[1]<=10 and enabled("G085",b.attacker) and b.get("supporters",[]).any(func(k):return k.id=="G085" and k.owner==b.attacker) and not g.renewal.plot_costs(b.attacker).is_empty():
+		g._set_choice(b.attacker,"安可 · 原骰%d＋%d · 可弃1张阴谋重掷"%dice,g.renewal.plot_costs(b.attacker),"w_reroll",{"source":"G085"},true);return
 	var p=b.attacker;var target=b.target;var enemy=g.nodes.has(target);var rescued=false;var destroyed_target=false;var new_devastated=false
 	var guarded=false
+	if enemy:b.old_attachments=g.nodes[target].attached.duplicate()
 	var target_name=g.title(target);var affected=g.subtree(target).size() if enemy else 1
 	var destroy=success and b.mode=="destroy"
 	if b.has("disaster"):destroy=destroy and b.disaster in ["P31","P34"] and v.strength-dice[0]-dice[1]>=(4 if b.disaster=="P31" else 6)
@@ -497,6 +501,7 @@ func resolve_battle() -> void:
 	if b.get("hand_target",false) and not success:g.hands[p].group.append(target)
 	g.battle={};g.phase="main"
 	g.synergy.battle_finished(b,success,destroyed_target)
+	g.renewal.battle_finished(b,success,destroyed_target)
 	if success and b.mode=="control" and not enemy:g._entry_rewards(target,p,b.src,b.before)
 	var outcome="保镖挡下摧毁" if guarded else ("救援撤离" if rescued else ("摧毁" if destroyed_target else ("受灾" if new_devastated else ("成功" if success else "失败"))))
 	if success and b.mode=="control" and affected>1:outcome+=" · 夺取整支%d张"%affected
@@ -504,7 +509,7 @@ func resolve_battle() -> void:
 	g._after_effect()
 
 func presentation_cards(p: int,a: Dictionary) -> Array:
-	var out: Array=g.synergy.presentation_cards(a)
+	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)
 	if a.type in ["ability","plot","counter","mediate","rescue","wave","fact_check","rebuild","trigger"]:out.append(a.get("id",a.get("src","")))
 	if a.type=="choose" and g.choice.get("kind","").begins_with("w_") and a.id!="":out.append(g.choice.get("source",""))
 	if a.type=="choose" and g.choice.get("kind","")=="w_draft" and p==1:out.append(a.id)
@@ -514,7 +519,10 @@ func presentation_cards(p: int,a: Dictionary) -> Array:
 		if enabled("G103",p) and normal(g.battle) and g.has(a.src,"计算机") and g.battle.get("computer_supports",[0,0])[p]==1:out.append("G103")
 		if a.has("group_fee"):out.append("G100")
 	if a.type=="end" and available("G088",p) and g.token("G088") and g.nodes.G088.get("training",0)<2:out.append("G088")
-	return out.filter(func(k):return k!="")
+	var unique: Array=[]
+	for id in out:
+		if id!="" and id not in unique:unique.append(id)
+	return unique
 
 func held_cards() -> Array:
 	return g.choice.get("peek",[]) if g.choice.get("kind","")=="w_draft" else []

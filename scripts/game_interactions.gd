@@ -58,7 +58,7 @@ func back() -> void:
 func pick(key: String,value) -> void:
 	picker.select(key,value);picker_page=0;step()
 func label_for(key: String) -> String:
-	var labels={"target":"选择目标团体","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择阴谋费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"选择是否用训练","algorithm":"选择支援方式","amplify":"选择扩容方式"}
+	var labels={"target":"选择目标团体","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"选择是否用训练","algorithm":"选择支援方式","amplify":"选择扩容方式","solo":"孤军破袭：忽略位置，禁用进攻支援","star":"是否占星：1–3额外+2"}
 	if key.begins_with("payers:"):return "选择第%d个支付行动的团体"%(int(key.get_slice(":",1))+1)
 	if key=="target" and picker.actions[0].get("id","") in ["P21","P23","P24","P25"]:return "选择支付行动的团体"
 	return labels.get(key,"选择操作")
@@ -102,9 +102,9 @@ func confirm() -> void:
 	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=heading.text
 	m.window_access.offer(p)
 	var lines: Array=[]
-	for key in ["target","parent","payer","fee","attachment","tag"]:
+	for key in ["target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
 		if a.get(key,"")=="":continue
-		lines.append({"target":"目标","parent":"移至","payer":"行动","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))
+		lines.append({"target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))
 	if not a.get("payers",[]).is_empty():lines.append("行动 · "+" / ".join(a.payers.map(func(id):return m.game.title(id))))
 	if lines.is_empty():lines.append(a.label)
 	m._paragraph("\n".join(lines),p,Rect2(28,88,extent.x-56,182),23)

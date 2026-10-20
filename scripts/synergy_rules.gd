@@ -65,7 +65,8 @@ func ability_actions(src: String,p: int) -> Array:
 	return out
 
 func can_detach(target: String,id: String) -> bool:
-	return id!="P19" or g.children(target).size()<=g.card(target).slots
+	var capacity=mini(3,int(g.card(target).slots)+int(g.nodes[target].parent=="G134" and g.renewal.ready("G134") and g.has(target,"共产")))
+	return id!="P19" or g.children(target).size()<=capacity
 
 func detach(target: String,id: String) -> void:
 	g.nodes[target].attached.erase(id);g.discards.plot.push_front(id)
@@ -102,7 +103,7 @@ func combat_plots(id: String,p: int,b: Dictionary) -> Array:
 	if id=="P48" and normal(b) and not b.get("mobilized",false) and g.field(p).any(func(k):return g.token(k) and g.has(k,"共产") and k not in b.get("paid",[]) and k not in [b.src,b.target]):
 		out.append(g._a("plot","联合动员 · 后续共产支援可用P",{"id":id,"src":id,"target":b.target}))
 	if id=="P50" and b.has("disaster"):
-		for fee in g.hands[p].plot:
+		for fee in g.renewal.plot_costs(p):
 			if fee==id:continue
 			var amount=6 if disaster_plot(fee) else 3
 			out.append(g._a("plot","连锁事故 +%d · 弃%s"%[amount,g.title(fee)],{"id":id,"src":id,"target":b.target,"fee":fee,"disaster_bonus":amount}))

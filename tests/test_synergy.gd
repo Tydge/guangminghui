@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==186,"All 186 cards")
+	check(CardDB.cards.size()==206,"All 206 cards")
 	check(CardDB.get_card("G081").align==["企业"] and CardDB.get_card("G083").align==["企业","和平"],"User requested Musk and Altman alignments")
 	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府"],"Preserved edited Moonbase")
 	check(CardDB.get_card("G114").align==["和平"] and CardDB.get_card("G115").gp==1 and CardDB.get_card("G116").gp==0,"Preserved edited space and magic stats")

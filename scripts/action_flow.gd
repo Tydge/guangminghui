@@ -4,7 +4,7 @@ extends RefCounted
 static func copy_state(source: GameState) -> GameState:
 	var copy=GameState.new(1)
 	for prop in source.get_property_list():
-		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy"]:continue
+		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal"]:continue
 		var value=source.get(prop.name)
 		copy.set(prop.name,value.duplicate(true) if value is Array or value is Dictionary else value)
 	copy.rng.seed=source.rng.seed;copy.rng.state=source.rng.state
@@ -50,5 +50,9 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 			target=candidate;source=played.id
 	# Battle results must be read on the rehearsal, before any live settlement or motion.
 	# after_effect may replace last_event with a victory/choice; last_battle stays intact.
+	if a.type=="ability" and a.src in ["G135","G138","G149"]:
+		target=a.target;source=a.get("attachment",a.src)
+	if a.type=="choose" and g.choice.get("kind","")=="x_rebuild" and a.id!="":target=a.id;source="G150"
+	var minor={"roll":copy.battle.get("star_roll",0)} if a.get("star",false) else {}
 	var result=copy.last_battle.duplicate(true) if not g.battle.is_empty() and copy.battle.is_empty() else {}
-	return {"moves":moves,"target":target,"source":source,"result":result}
+	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor}

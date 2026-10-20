@@ -35,6 +35,7 @@ func _value(id: String,o: Dictionary) -> float:
 	return value
 
 func _score(a: Dictionary,o: Dictionary) -> float:
+	if a.type in ["trick","militia"] or (a.type=="ability" and int(a.src.substr(1))>=131):return _renewal_score(a,o)
 	if a.type in ["synergy","lift"] or (a.type=="ability" and a.src in ["G116","G120","G127"]):return _synergy_score(a,o)
 	if a.type in ["rebuild","wave","fact_check"] or (a.type=="ability" and (a.src.begins_with("R") or int(a.src.substr(1))>=81)):return _expansion_score(a,o)
 	match a.type:
@@ -45,7 +46,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 			var kind=o.choice.get("kind","")
 			if a.id=="":return -20
 			var value=_value(a.id,o) if a.id.begins_with("G") else _plot_value(a.id)
-			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami"] else value
+			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry"] else value
 		"counter":return 30 if o.phase=="plot_response" else 0
 		"accept_plot":return 0
 		"auto":
@@ -109,6 +110,10 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 
 func _placement_value(id: String,parent: String,o: Dictionary) -> float:
 	var c=_card(id,o);var traits=c.align+c.tags
+	if parent=="G133" and "共产" in traits:return 7
+	if parent=="G134" and "共产" in traits:return 5
+	if parent=="G140" and "狂热" in traits:return 5
+	if parent=="G142" and "太空" in traits:return 3
 	if parent=="G113" and "太空" in traits:return 5
 	if parent=="G114" and "科学" in traits:return 5
 	if parent=="G119" and "共产" in traits:return 5
@@ -219,3 +224,24 @@ func _synergy_plot(a: Dictionary,o: Dictionary) -> float:
 		"P49":return 10+_value(a.target,o)*0.2
 		"P50":return 3+a.disaster_bonus-_plot_value(a.fee)*0.25 if strength<16 else -3
 	return -5
+
+func _renewal_score(a: Dictionary,o: Dictionary) -> float:
+	if a.type=="trick":return 25-(_plot_value(a.fee)*0.3 if a.fee.begins_with("P") else _value(a.fee,o)*0.2)
+	if a.type=="militia":return 7+a.power*0.5 if o.battle_values.strength>=2 else -2
+	match a.src:
+		"G135":return 9+_value(a.target,o)*0.1
+		"G138":
+			var own=o.nodes[a.target].owner==o.player
+			if a.attachment=="P45":return -8 if own else 9+_card(a.target,o).gp*2
+			return 7 if own else -8
+		"G141":return 2+_placement_value(a.target,a.src,o)
+		"G144":return 5
+		"G148":return 8-_value(a.fee,o)*0.2
+		"G149":
+			var new_align=CardDB.get_card(a.other).align
+			var value=-2.0
+			for target in o.hands.group:
+				var target_align=CardDB.get_card(target).align
+				value=maxf(value,2.0*(new_align.filter(func(v):return v in target_align and v!="狂热").size()-_card(a.target,o).align.filter(func(v):return v in target_align and v!="狂热").size()))
+			return value
+	return -4

@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "card_art_count": 186,
+  "card_art_count": 206,
   "ui_art_count": 4,
   "assets": [
     {
@@ -253,8 +253,8 @@
       "name": "美国航天局",
       "path": "assets/cards/G028.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: NASA. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9521ef26-be23-423b-8474-50a64b26ce4f.png",
+      "prompt": "Standalone square 1:1 game card illustration. Vivid modern high-recognition editorial realism, strong clear subject, natural color, crisp silhouettes readable on a small card. No text, card frame, logos, Illuminati symbols or occult motifs. American space agency. A huge white-and-orange lunar rocket launching beside a coastal launch tower, bright orange engine fire and white vapor clouds, a suited astronaut in the foreground looking toward the launch, recognizable Kennedy Space Center coastal wetlands, brilliant Florida blue sky. Rocket is dominant and fully readable in square composition.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f62cdbc2-c79a-4758-a09c-0b32bfdd1ea0.png",
       "encoding": "WebP quality 98"
     },
     {
@@ -603,7 +603,8 @@
       "name": "牙医",
       "path": "assets/cards/G067.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Dentists. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. Respectful fictional depictions of people, no recognizable real persons, no gore. One unique illustration only.",
+      "prompt": "Square 1:1 illustration for a modern strategy card game, vivid contemporary editorial realism with very clear subject and natural clinical colors. A believable dentist at work, shown from the side at medium distance. A masked dentist in navy blue scrubs and clear protective glasses is seated beside a reclining adult patient, gently examining the patient's teeth with one small dental mirror. A dental assistant stands in the background near clean mint-white cabinets. Prominent overhead articulated dental examination light, dental chair and recognizable instrument tray establish the dental clinic. Calm routine checkup, anatomically normal hands, practical professional posture. Do not pose toward the camera. Do not hold a giant tooth model. No giant props, no glamour portrait, no blood, no exaggerated open mouth, no text, logos, card frame, occult symbols or Illuminati motifs. Keep all faces and important hands within the square image.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1d149407-f496-4c72-bbb6-2acc0403225e.png",
       "encoding": "WebP quality 98"
     },
     {
@@ -699,7 +700,8 @@
       "name": "纽约",
       "path": "assets/cards/G077.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: New York. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. Respectful fictional depictions of people, no recognizable real persons, no gore. One unique illustration only.",
+      "prompt": "Standalone square 1:1 game card illustration. Vivid modern high-recognition editorial realism, strong clear subject, natural color, crisp silhouettes readable on a small card. No text, card frame, logos, Illuminati symbols or occult motifs. New York City. Iconic Manhattan skyline and Empire State Building at golden hour, Statue of Liberty clearly visible in foreground across blue harbor water, yellow taxi and Brooklyn Bridge as secondary details. Energetic recognizable New York without impossible architecture, warm sunlight and cyan harbor, clear city landmarks.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f702af4e-e684-45f3-b346-9058650f10e9.png",
       "encoding": "WebP quality 98"
     },
     {
@@ -1078,6 +1080,349 @@
       "prompt": "Use case: game-asset. One square full-bleed illustration for a strategy card game. Fan communities, joyful diverse concert fan club holding handmade heart-shaped signs without words, phones raised, supportive expressions, candy pink violet warm stage light, energetic readable illustration. Make the subject immediately recognizable at thumbnail size. Distinctive silhouette and scene-specific palette, professional finished artwork. No card border, no UI, no watermark. No eye-of-providence, secret-society pyramids, occult gold halos or repeated generic teal backgrounds. No text except the explicitly requested landmark sign or jersey number.",
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5f03bf3f-d70f-4b01-93d2-8b9555fdc99c.png",
       "updated": "2026-10-19",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G113",
+      "path": "assets/cards/G113.webp",
+      "method": "Built-in image_gen",
+      "generation_source": "C:/Users/Oliver/.codex/generated_images/01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2/exec-1566df10-9078-47e8-a5fa-09dbed082f30.png",
+      "prompt": "Use case: stylized-concept. Asset type: finished square card illustration for a strategy card game, Moonbase. A believable near-future lunar base on grey crater terrain, large pressurized white habitat modules and blue solar arrays clearly visible, a small lunar rover and the blue Earth above the black horizon. Crisp high-end cinematic science-fiction concept painting, bright silver and cobalt palette, strong readable silhouette at thumbnail size, rich material detail. One complete 1:1 square illustration only, important features comfortably within frame. No card border, no writing, no numbers, no watermark, no pyramid or occult eye symbols. Do not make a collage.",
+      "name": "月球基地",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G114",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Orbit One orbital space station. An elegant rotating research station with a central ring, white habitat modules and dark blue solar wings over the luminous curve of Earth. Clean silver, cobalt and a warm sunrise; dramatic near-future science-fiction realism.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e6ad293f-b22f-4925-8e7d-7bb8da45967f.png",
+      "path": "assets/cards/G114.webp",
+      "method": "Built-in image_gen",
+      "name": "轨道空间站",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G115",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Satellite Operators. A dramatic ground communications complex with three large white parabolic antennas and compact control buildings against a rugged mountain horizon, a tracking satellite tiny in a clear dawn sky. Bright ivory, desert ochre and electric blue, credible technology.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-728362fd-784b-4cdf-85df-804f8631f585.png",
+      "path": "assets/cards/G115.webp",
+      "method": "Built-in image_gen",
+      "name": "卫星运营商",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G116",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Templars. One imposing medieval knight in a white surcoat bearing a simple red cross, standing before a sealed stone archive in an old fortress library. Steel armor, red wax seals, dusty books, torchlight, historical fantasy. Hands anatomically correct, no extra limbs.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c2ef6433-41cd-4687-9206-5a403a1b0f52.png",
+      "path": "assets/cards/G116.webp",
+      "method": "Built-in image_gen",
+      "name": "圣殿骑士团",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G117",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: A witch coven. Three distinct mysterious witches around a luminous emerald cauldron in a moonlit forest clearing, floating herbs and rising sparks. Elegant dark fantasy illustration, indigo, purple and emerald. Medium-wide scene with clear silhouettes, natural anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-de06bbb0-7b14-40a0-b16f-b6d119fceb12.png",
+      "path": "assets/cards/G117.webp",
+      "method": "Built-in image_gen",
+      "name": "女巫集会",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G118",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Illusionists Guild. A single elegant stage magician in a midnight-blue coat on a velvet theatre stage, surrounded by curved mirrors reflecting impossible luminous ribbons and floating glass orbs. One person with two arms and two hands, refined magical realism, magenta, sapphire and warm gold.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-300bc87f-4a4e-48ae-8a38-2c2a5472d93e.png",
+      "path": "assets/cards/G118.webp",
+      "method": "Built-in image_gen",
+      "name": "幻术师协会",
+      "encoding": "WebP lossless"
+    },
+    {
+      "id": "G119",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: State Industrial Conglomerate. A vast modern integrated steel and heavy-machinery factory, glowing furnaces, steel beams, robotic cranes and a monumental assembly hall. A few tiny workers for scale. Red-orange molten metal against cool blue industrial steel, forceful readable industrial scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-930cb44f-ce1f-4e35-9fd8-b2b023f0a959.png",
+      "path": "assets/cards/G119.webp",
+      "method": "Built-in image_gen",
+      "name": "国营工业集团",
+      "encoding": "WebP lossless"
+    },
+    {
+      "id": "G120",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Agricultural Cooperatives. A modern cooperative harvest across lush green and golden fields: one bright combine harvester, grain storage silos and farmers working together beside stacked produce. Warm late-afternoon sunlight, green and amber, welcoming contemporary rural scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4f699079-b6f3-4877-a684-03191a2ff9ac.png",
+      "path": "assets/cards/G120.webp",
+      "method": "Built-in image_gen",
+      "name": "农业合作社",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G121",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Public Asset Administration. A dignified contemporary public planning office overlooking railway terminals, electrical infrastructure and public buildings. Foreground a large physical infrastructure scale model on a conference table, a few officials in the background. Architectural editorial art, red brick, slate blue and warm sunlight, no text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-30ec3313-c74a-4acb-9af8-2d39d2cebaba.png",
+      "path": "assets/cards/G121.webp",
+      "method": "Built-in image_gen",
+      "name": "公有资产管理局",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G122",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Defense Contractors. An industrial production line assembling wheeled armored trucks in a bright modern factory. Large vehicle body and robotic assembly arms dominate, technicians small in background, olive drab steel with yellow gantry cranes, no combat or real military insignia.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b3b60db7-b88f-4f71-b8c4-68ef7e034cc2.png",
+      "path": "assets/cards/G122.webp",
+      "method": "Built-in image_gen",
+      "name": "军工承包商",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G123",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Peacekeeping Forces. Blue-helmeted peacekeepers calmly escorting civilians past a white armored transport on a sunlit street after a ceasefire. Protective, humane, confident composition, blue and white strongly readable, distant ruined buildings, no real insignia, natural anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-242f0649-746e-46f9-a04a-54373f67c8ca.png",
+      "path": "assets/cards/G123.webp",
+      "method": "Built-in image_gen",
+      "name": "维和部队",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G124",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Recycling Centers. A vivid modern recycling facility: sorted colorful bales of metal, plastic and cardboard, a large conveyor and a yellow material handler. Green, yellow and clean daylight, clear circular-economy visual identity, no people closeups or lettering.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8b457fdb-71be-4569-960b-472f59c4652d.png",
+      "path": "assets/cards/G124.webp",
+      "method": "Built-in image_gen",
+      "name": "回收中心",
+      "encoding": "WebP lossless"
+    },
+    {
+      "id": "G125",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Dinosaur Park. A spectacular Tyrannosaurus rex stepping through a broken high-tech park fence, research domes and jungle behind it, morning sun and drifting mist. Playful cinematic science-fiction adventure art, saturated foliage greens and rusty orange dinosaur, strong full-body silhouette.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-349ab547-3bfc-4a28-89a8-1299230b3900.png",
+      "path": "assets/cards/G125.webp",
+      "method": "Built-in image_gen",
+      "name": "恐龙公园",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G126",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: A federation of labor unions. A diverse group of contemporary factory workers gathering at a factory gate for collective bargaining, safety helmets, plain unlettered placards and workwear. Bold red and blue accents, humane editorial illustration, medium-wide composition, natural anatomy and no extra hands.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-07fc4868-3e87-4c28-8e49-7c91887d06d9.png",
+      "path": "assets/cards/G126.webp",
+      "method": "Built-in image_gen",
+      "name": "工会联合会",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G127",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Lawyers. A sophisticated law firm conference room: elegant legal briefs, a brass balance scale, dark wood and two attorneys reviewing a plain folder across a desk. A courthouse visible through the window. Warm amber and navy, clear readable law theme, no readable text, anatomically correct hands.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-acbc231c-6382-4669-8f38-3a9d9d5a0174.png",
+      "path": "assets/cards/G127.webp",
+      "method": "Built-in image_gen",
+      "name": "律师事务所",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G128",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Consumer Watchdogs. An independent product-testing laboratory inspecting everyday household goods with precision scales and a magnifying glass mounted on a stand. Two researchers in background, a red shopping basket prominent, crisp white and turquoise with small red accents, no brands or text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-88d0cabb-4791-4d07-b644-f73b85321af0.png",
+      "path": "assets/cards/G128.webp",
+      "method": "Built-in image_gen",
+      "name": "消费者协会",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G129",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Credit Unions. A welcoming neighborhood cooperative bank with a modest glass counter, simple savings boxes and a small community of customers speaking to a teller. Daylight, sage green, cream and warm wood, human-scale finance rather than a sinister vault, natural anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-bdd3dd7e-0b30-4c68-ad09-3a3f98474d8e.png",
+      "path": "assets/cards/G129.webp",
+      "method": "Built-in image_gen",
+      "name": "信用合作社",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G130",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Celebrity Management Agencies. A busy backstage management office beside a brightly lit concert stage, an agent coordinating a performer through a doorway, wardrobe racks, plain contracts and a headset. Deep violet and warm gold spotlights, recognizable entertainment-business atmosphere, no text or brands.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-24b0f8a9-ee53-4e9d-b6ea-17d9593fab26.png",
+      "path": "assets/cards/G130.webp",
+      "method": "Built-in image_gen",
+      "name": "名人事务所",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G131",
+      "name": "成龙",
+      "path": "assets/cards/G131.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square editorial strategy-card illustration of recognizable Jackie Chan in a dark blue martial arts jacket on a practical film set; clear face, exactly two hands; no text, frame, logos or Illuminati motifs.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7cf8ee19-95a4-4322-afbb-67c30246ff20.png",
+      "encoding": "WebP quality 98",
+      "prompt_record": "Design summary reconstructed from the original call; verbatim prompt was not retained."
+    },
+    {
+      "id": "G132",
+      "name": "宫崎骏",
+      "path": "assets/cards/G132.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject and distinctive silhouette readable on a small card. Cinematic editorial painting with realistic materials and clean composition. No text, no typography, no card frame, no logos, no occult eye or Illuminati motifs. A recognizable portrait of Hayao Miyazaki, elderly Japanese animation director with white hair, white short beard and round glasses, wearing a white artist's apron over a blue shirt, seated peacefully at a hand drawing desk with pencils and paper, lush leafy garden outside the window and a little model airplane on a shelf. Cozy natural green and cream palette. Emphasize his recognizable face and kindly thoughtful expression. Exactly two natural hands, both near the drawing desk.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a0b37f07-db6b-444d-881e-21f5d82a34ae.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G133",
+      "name": "自治工厂",
+      "path": "assets/cards/G133.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject and distinctive silhouette readable on a small card. Cinematic editorial painting with realistic materials and clean composition. No text, no typography, no card frame, no logos, no occult eye or Illuminati motifs. Worker-managed modern factory. A female machinist and two coworkers in practical blue workwear discussing a technical drawing beside a bright industrial machine, one worker handing a factory key to another, daylight through tall sawtooth windows, modest red fabric banner without words. Solidarity and collective ownership, not a protest riot. Dominant warm red, steel blue and white, faces and machinery easy to identify.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ab28760a-7aa5-4efb-947c-54702e133094.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G134",
+      "name": "社区住房合作社",
+      "path": "assets/cards/G134.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject and distinctive silhouette readable on a small card. Cinematic editorial painting with realistic materials and clean composition. No text, no typography, no card frame, no logos, no occult eye or Illuminati motifs. Community housing cooperative courtyard, brick apartment buildings surrounding a shared garden, residents handing a young family a house key in the foreground, bicycles, laundry balconies and a cooperative noticeboard without readable text. Welcoming green and terracotta, contemporary lived-in residential scene, no grand government buildings.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-71d133d9-4e8d-4bcc-8bde-1e8f1fa59fff.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G135",
+      "name": "革命夜校",
+      "path": "assets/cards/G135.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject and distinctive silhouette readable on a small card. Cinematic editorial painting with realistic materials and clean composition. No text, no typography, no card frame, no logos, no occult eye or Illuminati motifs. Revolutionary community night school. Adults in workers' overalls studying at wooden desks under warm yellow lamps at night, an engaged woman teacher explaining a simple mechanical diagram on a blackboard without words, shelves of books, a red coat hanging by a rain-streaked window. Strong contrast of warm classroom and blue night, human learning and solidarity.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ffd659dc-45c6-49a5-961a-f57d8f8c7927.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G136",
+      "name": "公共储备粮仓",
+      "path": "assets/cards/G136.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject readable on a small card. Cinematic editorial painting, realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Public emergency grain reserves. A large bright agricultural grain warehouse with towering rows of burlap sacks, a farmer handing a sack to a community volunteer, open silo doors framing golden wheat fields, warm ochre and sage green palette. Food security and shared supplies, visible grain spilling from one opened sack.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c9f12df6-74e5-40c7-be4e-ad68e684053d.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G137",
+      "name": "江湖骗术团",
+      "path": "assets/cards/G137.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject readable on a small card. Cinematic editorial painting, realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Street con artists performing a three-cup street magic hustle at a busy evening market. A charismatic sly performer in a burgundy coat with exactly two hands over three cups, intrigued onlookers, clever reflections, purple and red warm lights, recognizable street trick scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e8dc9a9f-713a-4884-b33a-d36550ead065.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G138",
+      "name": "秘宝走私商",
+      "path": "assets/cards/G138.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject readable on a small card. Cinematic editorial painting, realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Arcane relic smugglers. A secretive antique dealer opening a travel case containing a luminous old carved amulet at a moonlit port bazaar; mysterious artifacts packed in cloth, turquoise glow and rusty orange shipping containers. Emphasize the exchange of a small enchanted relic between two different cases.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7b89cea5-01b9-4242-a998-2f46fd5d9ee8.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G139",
+      "name": "末日占星社",
+      "path": "assets/cards/G139.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject readable on a small card. Cinematic editorial painting, realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Doomsday astrologers. A dramatic observatory room with a brass celestial globe, old star charts without writing and a focused astrologer looking through an open roof at a vivid red comet. Deep indigo sky, red comet, ivory robes, strong clear silhouette, no triangles or eye symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-64995f40-6e28-4823-bfa6-be079f6eab6f.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G140",
+      "name": "隐秘誓约会",
+      "path": "assets/cards/G140.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Clear main subject readable on a small card. Cinematic editorial painting, realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Order of the hidden oath. Three solemn figures in dark green cloaks standing around a stone table, their hands placed on one closed book, austere mountain monastery and candles, a simple knotted cord emblem, silver and forest green palette. Trust and binding vows, no sinister eye, no pyramid.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fa7eaf69-7412-4c40-898e-502ae584b898.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G141",
+      "name": "自由轨道港",
+      "path": "assets/cards/G141.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Distinct main subject readable on a small card, cinematic editorial painting with realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Free orbit port. Wide futuristic orbital docking ring with a friendly compact spacecraft approaching Earth, bright white hulls with orange safety marks, many ships using open independent docking berths. Crisp blue planet and sunlit silver port, dynamic perspective, recognizable spaceport rather than city.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-26b2fba4-8b57-4d1f-93e4-3dcbe025203b.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G142",
+      "name": "深空殖民团",
+      "path": "assets/cards/G142.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Distinct main subject readable on a small card, cinematic editorial painting with realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Deep-space settlers. Rugged colonist in an orange pressure suit standing beside a modular greenhouse habitat on a dusty red alien plateau, another colonist unloading supplies, immense starry sky and small distant blue planet. Hard practical frontier science fiction, ochre and azure palette.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4aa516a0-5581-4f21-9867-6354e37159bf.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G143",
+      "name": "轨道私掠舰队",
+      "path": "assets/cards/G143.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Distinct main subject readable on a small card, cinematic editorial painting with realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Orbital privateer fleet. A powerful asymmetrical black and copper spacecraft with grappling docking arms and a smaller shuttle carrying a glowing sealed cargo chest, Saturn-like ringed planet beyond. Adventurous space piracy without skull logos, clear ship silhouette, purple and orange nebula.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8f8f196d-9a39-4d8b-ab3f-8e9d6483e6b1.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G144",
+      "name": "卫星盗播网",
+      "path": "assets/cards/G144.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Distinct main subject readable on a small card, cinematic editorial painting with realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Pirate satellite broadcasting network. Young independent radio operators with headsets at a rooftop satellite dish and compact broadcast console, urban skyline at blue dusk, glowing violet and cyan equipment lights, a low orbit satellite visible in the sky. Clear large dish, no legible screens.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0591ce77-02aa-4feb-b053-f61a7726ba28.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G145",
+      "name": "地方民兵联队",
+      "path": "assets/cards/G145.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Distinct main subject readable on a small card, cinematic editorial painting with realistic materials and clean composition. No text, no card frame, no logos, no occult eye or Illuminati motifs. Local militia. Three ordinary rural adults in mismatched olive field clothing watching a peaceful road checkpoint beside sandbags and a small pickup, modest equipment and defensive stance, forest-covered hills in warm morning light. Nonviolent scene, no extremist symbols or political flags, green and earth palette.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1d223bdf-23a5-46d0-a6aa-3b974908f001.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G146",
+      "name": "私营护送队",
+      "path": "assets/cards/G146.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Highly recognizable main subject, readable small-card silhouette, cinematic contemporary editorial painting, realistic materials. No text, card frame, logos, occult eyes or Illuminati imagery. Private escort companies. A professional close-protection team in smart dark suits with discreet earpieces guiding a civilian from a black armored SUV to a hotel entrance, lead guard scanning the street and another shielding the client. Clear people and convoy, cool gray city with amber afternoon light, calm security scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-682c903e-aee1-4aa6-9795-6c66e440472a.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G147",
+      "name": "革命游击队",
+      "path": "assets/cards/G147.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Highly recognizable main subject, readable small-card silhouette, cinematic contemporary editorial painting, realistic materials. No text, card frame, logos, occult eyes or Illuminati imagery. Revolutionary guerrillas. Small rugged group in mountain jungle field clothing with simple red scarves, radio operator and scout studying the terrain from a rocky ridge, no firing or injuries, no insignia or flags, lush emerald foliage and red-brown earth. Independent insurgent camp, clear radio and worn equipment.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-23d424a9-fd93-4aa9-9f9e-c72761d4427a.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G148",
+      "name": "末日避难营",
+      "path": "assets/cards/G148.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Highly recognizable main subject, readable small-card silhouette, cinematic contemporary editorial painting, realistic materials. No text, card frame, logos, occult eyes or Illuminati imagery. Doomsday enclave. Reinforced underground survival shelter entrance cut into a forest hillside, shelves of canned food and water visible through the heavy round door, a family preparing supplies and a calm watchkeeper, cool stormy exterior versus warm safe amber interior.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-997ca293-b271-4549-a4f1-3df6f5659f04.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G149",
+      "name": "身份伪造工坊",
+      "path": "assets/cards/G149.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Highly recognizable main subject, readable small-card silhouette, cinematic contemporary editorial painting, realistic materials. No text, card frame, logos, occult eyes or Illuminati imagery. Identity forgers. A secretive contemporary prop-document workshop, gloved hands comparing several clearly fictional blank portrait cards, small desktop printer, color swatches and disguises on a rack, abstract non-readable designs only, no official seals or usable ID details. Mint green and magenta lighting, unmistakable identity disguise theme.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1844c156-3d0e-4838-afb8-40a762ca95e3.png",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "G150",
+      "name": "废墟开发商",
+      "path": "assets/cards/G150.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Standalone square 1:1 illustration for a modern strategy card game. Highly recognizable main subject, readable small-card silhouette, cinematic contemporary editorial painting, realistic materials. No text, card frame, logos, occult eyes or Illuminati imagery. Ruins redevelopers. Ambitious property developer in a pale suit with rolled architectural plans walking beside a hard-hat surveyor in a damaged urban district, a crane rebuilding new apartment facades behind them, new trees and fresh concrete next to old rubble, warm sunny ochre and teal construction palette.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-74a9a48d-3d26-4a77-ad87-346e4bcc4bff.png",
       "encoding": "WebP quality 98"
     },
     {
@@ -1526,11 +1871,75 @@
       "encoding": "WebP quality 98"
     },
     {
-      "id": "panel",
-      "path": "assets/ui/panel.webp",
+      "id": "P43",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Sniper as a fictional strategy-game event. An anonymous silhouetted marksman and a large precision scope on a distant rooftop overlooking an empty futuristic civic plaza. Cinematic suspense, cold slate blue and a tiny warm focal light, no victim, no gore, no diagrams or operational annotations.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-94154372-ad89-48ed-b76a-7b7e472d4000.png",
+      "path": "assets/cards/P43.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: a usable 9-slice rectangular game UI panel texture, 1024x1024 square, straight-on perfectly flat orthographic. An elegant dark petrol teal enamel panel surrounded by slim antique brass frame and four small restrained engraved occult corners. The large center 85% is completely empty dark teal with very subtle material; no central decoration. Symmetric regular straight sides suitable for a 9-patch game interface, thick corners occupying only 8% of image. Hand-painted premium boardgame material, warm cream gold highlights, deep green shadows. This is the actual panel asset only, not a UI mockup or scene, no text, letters, buttons, cards, symbols in center, or watermark. Full opaque background.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-617a50aa-a586-402c-a53a-5e6e9534f729.png",
+      "name": "狙击",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P44",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Bodyguard. A professional bodyguard in a black suit calmly shielding a fictional female celebrity from a crowd of camera flashes at a red-carpet entrance. Dramatic black, ruby red and white flashes. Strong protective body language, no weapons, all people anatomically correct.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-100ac842-7f54-4396-9484-303edade00bd.png",
+      "path": "assets/cards/P44.webp",
+      "method": "Built-in image_gen",
+      "name": "保镖",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P45",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Regulatory Probe. A large blue official investigation folder, a magnifying glass resting on it, financial printouts without legible writing and a sealed transparent evidence bag on a stark desk. Modern institutional editorial still life, navy, cool white and warning red, no hands or readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-41823a02-935e-4639-87b7-bd17dd8c0e85.png",
+      "path": "assets/cards/P45.webp",
+      "method": "Built-in image_gen",
+      "name": "监管调查",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P46",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Technology Convergence. A physical futuristic research apparatus connecting three distinct luminous elements: a microprocessor circuit board, an atom-like laboratory model, and a small orbiting satellite. Flowing light bridges unify them, clean cobalt, cyan and amber, visually concrete sci-fi concept illustration, no labels.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-306e51b8-ee07-461a-9d91-3e1b4d1ba250.png",
+      "path": "assets/cards/P46.webp",
+      "method": "Built-in image_gen",
+      "name": "技术融合",
+      "encoding": "WebP lossless"
+    },
+    {
+      "id": "P47",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Arcane Echo. A luminous magical scroll emerging again from its reflection in a still dark pool inside an ancient stone chamber. Ripples repeat the same glowing spell motif, mysterious violet and warm amber, one elegant magical scene, no readable writing or occult eye or pyramid.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-18fcbdf6-924f-47b2-9743-c8d82d88eb0e.png",
+      "path": "assets/cards/P47.webp",
+      "method": "Built-in image_gen",
+      "name": "奥术回响",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P48",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Joint Mobilization. A coordinated logistics effort with railway freight cars, workers in practical overalls and cranes loading industrial supplies together. Several plain red banners, no writing, warm sunrise over a broad rail yard, optimistic monumental editorial art, contemporary equipment.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-eff6a7ac-aa63-4e46-a1c2-4a6a83573ce8.png",
+      "path": "assets/cards/P48.webp",
+      "method": "Built-in image_gen",
+      "name": "联合动员",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P49",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Equipment Financing. A contemporary bank finance desk with a compact model of an armored transport and equipment crates, coins and a plain signed folder, real vehicle shipment blurred beyond a glass window. Navy and warm brass, readable finance-to-equipment concept, no text or branding.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a489928e-7b72-468c-9105-a60dd6e6f34f.png",
+      "path": "assets/cards/P49.webp",
+      "method": "Built-in image_gen",
+      "name": "装备融资",
+      "encoding": "WebP quality 98"
+    },
+    {
+      "id": "P50",
+      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Cascading Accident. A dramatic chain of failures across an industrial harbor at dusk: a transformer showering sparks in foreground, broken power lines leading to a buckled crane and flooding near a warehouse behind. Cinematic orange sparks against storm-blue water and sky, no people injured, no gore.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d9355c2d-1c2d-4825-babe-0e40806b6125.png",
+      "path": "assets/cards/P50.webp",
+      "method": "Built-in image_gen",
+      "name": "连锁事故",
       "encoding": "WebP lossless"
     },
     {
@@ -1539,6 +1948,14 @@
       "method": "Built-in image_gen",
       "prompt": "Use case: stylized-concept. Asset type: card back texture for a premium occult conspiracy strategy card videogame, portrait 1024x1536. A symmetrical antique engraved golden tree of secret organizations branching downward around a single all-seeing eye medallion, on deep petrol teal leather, ornate slim brass border, elegant mysterious 1990s boardgame look. High contrast central tree silhouette, restrained intricate corner detail. Only one flat card back, fills image, orthographic front view. No writing, no letters, no numbers, no watermark.",
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f326eeaa-8ee3-4678-b81c-b2bf6af29ab0.png",
+      "encoding": "WebP lossless"
+    },
+    {
+      "id": "panel",
+      "path": "assets/ui/panel.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: a usable 9-slice rectangular game UI panel texture, 1024x1024 square, straight-on perfectly flat orthographic. An elegant dark petrol teal enamel panel surrounded by slim antique brass frame and four small restrained engraved occult corners. The large center 85% is completely empty dark teal with very subtle material; no central decoration. Symmetric regular straight sides suitable for a 9-patch game interface, thick corners occupying only 8% of image. Hand-painted premium boardgame material, warm cream gold highlights, deep green shadows. This is the actual panel asset only, not a UI mockup or scene, no text, letters, buttons, cards, symbols in center, or watermark. Full opaque background.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-617a50aa-a586-402c-a53a-5e6e9534f729.png",
       "encoding": "WebP lossless"
     },
     {
@@ -1555,240 +1972,6 @@
       "method": "Built-in image_gen",
       "prompt": "Use case: stylized-concept. Asset type: background texture for a premium occult conspiracy card videogame, landscape 1536x1024. Primary request: top-down antique dark petrol green velvet gaming table, subdued engraved golden alchemical circles and compass geometry near outer edges, four small antique brass corner ornaments, soft vignette and cinematic lamplight, restrained fine tactile material. The large middle 80% is mostly empty dark teal with subtle felt grain, to place readable cards over it. Style: sophisticated hand-painted boardgame material, mysterious 1990s conspiracy game atmosphere. No cards, no writing, no letters, no UI, no watermark. A clean usable flat game background, not a photograph of a whole room.",
       "encoding": "WebP lossless"
-    },
-    {
-      "id": "G114",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Orbit One orbital space station. An elegant rotating research station with a central ring, white habitat modules and dark blue solar wings over the luminous curve of Earth. Clean silver, cobalt and a warm sunrise; dramatic near-future science-fiction realism.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e6ad293f-b22f-4925-8e7d-7bb8da45967f.png",
-      "path": "assets/cards/G114.webp",
-      "method": "Built-in image_gen",
-      "name": "轨道空间站",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G115",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Satellite Operators. A dramatic ground communications complex with three large white parabolic antennas and compact control buildings against a rugged mountain horizon, a tracking satellite tiny in a clear dawn sky. Bright ivory, desert ochre and electric blue, credible technology.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-728362fd-784b-4cdf-85df-804f8631f585.png",
-      "path": "assets/cards/G115.webp",
-      "method": "Built-in image_gen",
-      "name": "卫星运营商",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G117",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: A witch coven. Three distinct mysterious witches around a luminous emerald cauldron in a moonlit forest clearing, floating herbs and rising sparks. Elegant dark fantasy illustration, indigo, purple and emerald. Medium-wide scene with clear silhouettes, natural anatomy.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-de06bbb0-7b14-40a0-b16f-b6d119fceb12.png",
-      "path": "assets/cards/G117.webp",
-      "method": "Built-in image_gen",
-      "name": "女巫集会",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G116",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Templars. One imposing medieval knight in a white surcoat bearing a simple red cross, standing before a sealed stone archive in an old fortress library. Steel armor, red wax seals, dusty books, torchlight, historical fantasy. Hands anatomically correct, no extra limbs.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c2ef6433-41cd-4687-9206-5a403a1b0f52.png",
-      "path": "assets/cards/G116.webp",
-      "method": "Built-in image_gen",
-      "name": "圣殿骑士团",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G120",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Agricultural Cooperatives. A modern cooperative harvest across lush green and golden fields: one bright combine harvester, grain storage silos and farmers working together beside stacked produce. Warm late-afternoon sunlight, green and amber, welcoming contemporary rural scene.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4f699079-b6f3-4877-a684-03191a2ff9ac.png",
-      "path": "assets/cards/G120.webp",
-      "method": "Built-in image_gen",
-      "name": "农业合作社",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G118",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Illusionists Guild. A single elegant stage magician in a midnight-blue coat on a velvet theatre stage, surrounded by curved mirrors reflecting impossible luminous ribbons and floating glass orbs. One person with two arms and two hands, refined magical realism, magenta, sapphire and warm gold.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-300bc87f-4a4e-48ae-8a38-2c2a5472d93e.png",
-      "path": "assets/cards/G118.webp",
-      "method": "Built-in image_gen",
-      "name": "幻术师协会",
-      "encoding": "WebP lossless"
-    },
-    {
-      "id": "G119",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: State Industrial Conglomerate. A vast modern integrated steel and heavy-machinery factory, glowing furnaces, steel beams, robotic cranes and a monumental assembly hall. A few tiny workers for scale. Red-orange molten metal against cool blue industrial steel, forceful readable industrial scene.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-930cb44f-ce1f-4e35-9fd8-b2b023f0a959.png",
-      "path": "assets/cards/G119.webp",
-      "method": "Built-in image_gen",
-      "name": "国营工业集团",
-      "encoding": "WebP lossless"
-    },
-    {
-      "id": "G121",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Public Asset Administration. A dignified contemporary public planning office overlooking railway terminals, electrical infrastructure and public buildings. Foreground a large physical infrastructure scale model on a conference table, a few officials in the background. Architectural editorial art, red brick, slate blue and warm sunlight, no text.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-30ec3313-c74a-4acb-9af8-2d39d2cebaba.png",
-      "path": "assets/cards/G121.webp",
-      "method": "Built-in image_gen",
-      "name": "公有资产管理局",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G122",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Defense Contractors. An industrial production line assembling wheeled armored trucks in a bright modern factory. Large vehicle body and robotic assembly arms dominate, technicians small in background, olive drab steel with yellow gantry cranes, no combat or real military insignia.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b3b60db7-b88f-4f71-b8c4-68ef7e034cc2.png",
-      "path": "assets/cards/G122.webp",
-      "method": "Built-in image_gen",
-      "name": "军工承包商",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G124",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Recycling Centers. A vivid modern recycling facility: sorted colorful bales of metal, plastic and cardboard, a large conveyor and a yellow material handler. Green, yellow and clean daylight, clear circular-economy visual identity, no people closeups or lettering.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8b457fdb-71be-4569-960b-472f59c4652d.png",
-      "path": "assets/cards/G124.webp",
-      "method": "Built-in image_gen",
-      "name": "回收中心",
-      "encoding": "WebP lossless"
-    },
-    {
-      "id": "G123",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Peacekeeping Forces. Blue-helmeted peacekeepers calmly escorting civilians past a white armored transport on a sunlit street after a ceasefire. Protective, humane, confident composition, blue and white strongly readable, distant ruined buildings, no real insignia, natural anatomy.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-242f0649-746e-46f9-a04a-54373f67c8ca.png",
-      "path": "assets/cards/G123.webp",
-      "method": "Built-in image_gen",
-      "name": "维和部队",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G125",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Dinosaur Park. A spectacular Tyrannosaurus rex stepping through a broken high-tech park fence, research domes and jungle behind it, morning sun and drifting mist. Playful cinematic science-fiction adventure art, saturated foliage greens and rusty orange dinosaur, strong full-body silhouette.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-349ab547-3bfc-4a28-89a8-1299230b3900.png",
-      "path": "assets/cards/G125.webp",
-      "method": "Built-in image_gen",
-      "name": "恐龙公园",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G127",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Lawyers. A sophisticated law firm conference room: elegant legal briefs, a brass balance scale, dark wood and two attorneys reviewing a plain folder across a desk. A courthouse visible through the window. Warm amber and navy, clear readable law theme, no readable text, anatomically correct hands.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-acbc231c-6382-4669-8f38-3a9d9d5a0174.png",
-      "path": "assets/cards/G127.webp",
-      "method": "Built-in image_gen",
-      "name": "律师事务所",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G126",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: A federation of labor unions. A diverse group of contemporary factory workers gathering at a factory gate for collective bargaining, safety helmets, plain unlettered placards and workwear. Bold red and blue accents, humane editorial illustration, medium-wide composition, natural anatomy and no extra hands.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-07fc4868-3e87-4c28-8e49-7c91887d06d9.png",
-      "path": "assets/cards/G126.webp",
-      "method": "Built-in image_gen",
-      "name": "工会联合会",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G129",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Credit Unions. A welcoming neighborhood cooperative bank with a modest glass counter, simple savings boxes and a small community of customers speaking to a teller. Daylight, sage green, cream and warm wood, human-scale finance rather than a sinister vault, natural anatomy.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-bdd3dd7e-0b30-4c68-ad09-3a3f98474d8e.png",
-      "path": "assets/cards/G129.webp",
-      "method": "Built-in image_gen",
-      "name": "信用合作社",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G128",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Consumer Watchdogs. An independent product-testing laboratory inspecting everyday household goods with precision scales and a magnifying glass mounted on a stand. Two researchers in background, a red shopping basket prominent, crisp white and turquoise with small red accents, no brands or text.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-88d0cabb-4791-4d07-b644-f73b85321af0.png",
-      "path": "assets/cards/G128.webp",
-      "method": "Built-in image_gen",
-      "name": "消费者协会",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P43",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Sniper as a fictional strategy-game event. An anonymous silhouetted marksman and a large precision scope on a distant rooftop overlooking an empty futuristic civic plaza. Cinematic suspense, cold slate blue and a tiny warm focal light, no victim, no gore, no diagrams or operational annotations.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-94154372-ad89-48ed-b76a-7b7e472d4000.png",
-      "path": "assets/cards/P43.webp",
-      "method": "Built-in image_gen",
-      "name": "狙击",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G130",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Celebrity Management Agencies. A busy backstage management office beside a brightly lit concert stage, an agent coordinating a performer through a doorway, wardrobe racks, plain contracts and a headset. Deep violet and warm gold spotlights, recognizable entertainment-business atmosphere, no text or brands.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-24b0f8a9-ee53-4e9d-b6ea-17d9593fab26.png",
-      "path": "assets/cards/G130.webp",
-      "method": "Built-in image_gen",
-      "name": "名人事务所",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P44",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Bodyguard. A professional bodyguard in a black suit calmly shielding a fictional female celebrity from a crowd of camera flashes at a red-carpet entrance. Dramatic black, ruby red and white flashes. Strong protective body language, no weapons, all people anatomically correct.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-100ac842-7f54-4396-9484-303edade00bd.png",
-      "path": "assets/cards/P44.webp",
-      "method": "Built-in image_gen",
-      "name": "保镖",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P46",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Technology Convergence. A physical futuristic research apparatus connecting three distinct luminous elements: a microprocessor circuit board, an atom-like laboratory model, and a small orbiting satellite. Flowing light bridges unify them, clean cobalt, cyan and amber, visually concrete sci-fi concept illustration, no labels.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-306e51b8-ee07-461a-9d91-3e1b4d1ba250.png",
-      "path": "assets/cards/P46.webp",
-      "method": "Built-in image_gen",
-      "name": "技术融合",
-      "encoding": "WebP lossless"
-    },
-    {
-      "id": "P45",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Regulatory Probe. A large blue official investigation folder, a magnifying glass resting on it, financial printouts without legible writing and a sealed transparent evidence bag on a stark desk. Modern institutional editorial still life, navy, cool white and warning red, no hands or readable text.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-41823a02-935e-4639-87b7-bd17dd8c0e85.png",
-      "path": "assets/cards/P45.webp",
-      "method": "Built-in image_gen",
-      "name": "监管调查",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P47",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Arcane Echo. A luminous magical scroll emerging again from its reflection in a still dark pool inside an ancient stone chamber. Ripples repeat the same glowing spell motif, mysterious violet and warm amber, one elegant magical scene, no readable writing or occult eye or pyramid.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-18fcbdf6-924f-47b2-9743-c8d82d88eb0e.png",
-      "path": "assets/cards/P47.webp",
-      "method": "Built-in image_gen",
-      "name": "奥术回响",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P49",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Equipment Financing. A contemporary bank finance desk with a compact model of an armored transport and equipment crates, coins and a plain signed folder, real vehicle shipment blurred beyond a glass window. Navy and warm brass, readable finance-to-equipment concept, no text or branding.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a489928e-7b72-468c-9105-a60dd6e6f34f.png",
-      "path": "assets/cards/P49.webp",
-      "method": "Built-in image_gen",
-      "name": "装备融资",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P48",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Joint Mobilization. A coordinated logistics effort with railway freight cars, workers in practical overalls and cranes loading industrial supplies together. Several plain red banners, no writing, warm sunrise over a broad rail yard, optimistic monumental editorial art, contemporary equipment.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-eff6a7ac-aa63-4e46-a1c2-4a6a83573ce8.png",
-      "path": "assets/cards/P48.webp",
-      "method": "Built-in image_gen",
-      "name": "联合动员",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "P50",
-      "prompt": "Use case: stylized-concept. Asset type: finished illustration for one strategy-game card. One square 1:1 image only, no collage, no card frame, no captions, no numbers, no watermark, no real brand logos or occult eye or pyramid symbols. Clear large subject easily recognizable as a small card, important elements inside the frame. Polished cinematic editorial concept art with rich physical detail and distinct scene colors. Subject: Cascading Accident. A dramatic chain of failures across an industrial harbor at dusk: a transformer showering sparks in foreground, broken power lines leading to a buckled crane and flooding near a warehouse behind. Cinematic orange sparks against storm-blue water and sky, no people injured, no gore.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d9355c2d-1c2d-4825-babe-0e40806b6125.png",
-      "path": "assets/cards/P50.webp",
-      "method": "Built-in image_gen",
-      "name": "连锁事故",
-      "encoding": "WebP lossless"
-    },
-    {
-      "id": "G113",
-      "path": "assets/cards/G113.webp",
-      "method": "Built-in image_gen",
-      "generation_source": "C:/Users/Oliver/.codex/generated_images/01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2/exec-1566df10-9078-47e8-a5fa-09dbed082f30.png",
-      "prompt": "Use case: stylized-concept. Asset type: finished square card illustration for a strategy card game, Moonbase. A believable near-future lunar base on grey crater terrain, large pressurized white habitat modules and blue solar arrays clearly visible, a small lunar rover and the blue Earth above the black horizon. Crisp high-end cinematic science-fiction concept painting, bright silver and cobalt palette, strong readable silhouette at thumbnail size, rich material detail. One complete 1:1 square illustration only, important features comfortably within frame. No card border, no writing, no numbers, no watermark, no pyramid or occult eye symbols. Do not make a collage.",
-      "name": "月球基地",
-      "encoding": "WebP quality 98"
     }
   ],
   "generated_card_art_count": 184,

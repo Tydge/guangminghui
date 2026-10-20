@@ -39,7 +39,7 @@ cd guangminghui
 
 ## 本版内容
 
-6 种光明会、130 种团体、50 种阴谋，共186种。两种共享牌堆每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
+6 种光明会、150 种团体、50 种阴谋，共206种。两种共享牌堆每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
 
 实现共享牌堆循环、主动能力、筛牌与私密排序、弃牌回收、行动恢复额度、位置与忠诚防御、整支夺取、摧毁下属回手、红十字会救援、吸血鬼转化、附着牌、单一公共秩序、交替响应、骗局反制、失败招募区与回合末胜利检查。
 
@@ -85,7 +85,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/main.gd`：菜单、对局、响应、选择、图鉴和设置。
 - `scripts/window_access.gd`：动效时暂藏窗口、暂停查看战场及原操作恢复。
 - `scripts/panel_drag_handle.gd`：浮动窗口标题的鼠标/触摸拖动、边界约束及手势释放。
-- `data/cards.json`：全部186种卡牌，可修改数值和文案。
+- `data/cards.json`：全部206种卡牌，可修改数值和文案。
 - `docs/光明会_全部卡牌完整效果_当前版.md`：与用户共同维护的唯一完整卡牌文档。
 - `tools/card_table.py`：卡牌表格与数据的双向合并、冲突检测及完整性检查。
 - `assets/cards/`：逐卡插画，稳定 ID 命名。
@@ -102,6 +102,8 @@ godot --headless --path . --script res://tests/test_rules.gd
 godot --headless --path . --script res://tests/test_effects.gd
 godot --headless --path . --script res://tests/test_expansion.gd
 godot --headless --path . --script res://tests/test_synergy.gd
+godot --headless --path . --script res://tests/test_renewal.gd
+godot --headless --path . --script res://tests/test_renewal_ui.gd
 godot --headless --path . --script res://tests/test_opening_balance.gd
 godot --headless --path . --script res://tests/test_interaction_polish.gd
 godot --headless --path . --script res://tests/test_ui.gd
@@ -121,7 +123,7 @@ python tests/test_card_sync.py
 
 ## 素材
 
-- 卡牌、桌布、框与牌背：184张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西改用用户提供的真人照片，选取方形构图后无损转换。190张运行图像合计约213 MB。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
+- 卡牌、桌布、框与牌背：204张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西改用用户提供的真人照片，选取方形构图后无损转换。210张运行图像合计约225 MB。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
 - 音效：[Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds)，CC0，原始许可见 `assets/audio/Kenney-License.txt`。用于选牌、按钮、落牌、开启、关闭、掷骰、成功、失败及反制；可在设置静音。
 - 字体：[Google Fonts / Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc)，SIL Open Font License，许可见 `assets/fonts/OFL.txt`。
 - 名称和主题参考 Steve Jackson Games 的 INWO。本项目是本地非官方简化改编；卡牌数值、能力和插画均不代表原版卡面。
