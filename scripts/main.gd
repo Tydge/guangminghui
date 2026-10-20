@@ -29,6 +29,7 @@ var thinking=false
 var compact=false
 var reduced_motion=false
 var sound_volume=0.6
+var faction_page=0
 var font: Font
 var sounds: Dictionary={}
 var audio_pool: Array=[]
@@ -169,6 +170,7 @@ func _menu() -> void:
 	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.position=Vector2(0,size.y-65);foot.size.x=size.x
 
 func _start_game(seed_value: int=0) -> void:
+	faction_page=0
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
 	_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear()
 	game=GameState.new(seed_value);selected="";action_candidates.clear();modal_open=false;board.visible=true;board.initialized=false;_refresh();_sound("open")
@@ -241,7 +243,11 @@ func _context_actions(parent: Control) -> void:
 		if not recruits.is_empty():_button("攻击招募",func():_target(recruits,"src","选择带头团体"),parent)
 	elif selected in game.hands[0].plot:
 		var plots=legal.filter(func(a):return a.type=="plot" and a.id==selected)
-		if not plots.is_empty():_button("打出阴谋",func():_action_list(plots),parent,true)
+		if not plots.is_empty():_button("宣告胜利" if game.covenant.is_goal(selected) else "打出阴谋",func():_action_list(plots),parent,true)
+		elif game.covenant.is_goal(selected):
+			var progress=game.covenant.progress(0,selected)
+			var note="首轮结束后可宣告" if progress.met and mini(game.turns[0],game.turns[1])<1 else ("己方主要阶段可宣告" if progress.met else progress.text)
+			_label(note,parent,18,Color("b8ae93"))
 		else:_label("等待卡牌适用时机",parent,18,Color("b8ae93"))
 	elif game.owner(selected)==0:
 		for mode in ["control","destroy"]:
@@ -427,6 +433,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	var v=CardView.new();v.name="PresentedCard";v.configure(id,game,true);v.size=Vector2(card_width,extent.y);v.mouse_filter=Control.MOUSE_FILTER_IGNORE;body.add_child(v)
 	var x=card_width+40;var text_width=extent.x-x
 	var kind=a.get("presentation_role","打出阴谋" if is_plot else "发动能力")
+	if is_plot and game.covenant.is_goal(c.id):kind="宣告胜利"
 	if a.type=="trigger":kind="效果触发"
 	if a.type=="rebuild":kind="重建地点"
 	if a.type=="lift":kind="解除监管"
@@ -437,6 +444,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	var effect_name=c.category if is_plot else c.effect.get_slice("：",0)
 	if c.kind=="plot" and not is_plot:effect_name=c.name
 	if is_plot:
+		if game.covenant.is_goal(a.id):effect_name="目标达成 · 等待反制"
 		match a.id:
 			"P43":effect_name="本次忽略位置防御"
 			"P44":effect_name="保护1次普通摧毁"
@@ -549,16 +557,24 @@ func _phase_overlay() -> void:
 
 func _setup_overlay() -> void:
 	_dim(overlay);var factions=game.phase=="setup_faction"
-	var heading=_label("选择你的光明会" if factions else "选择初始手下",overlay,38,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,68);heading.size.x=size.x
-	var note=_label("双方主牌同时揭晓 · 后手额外1张阴谋" if factions else "从这五张中选一张 · 其余四张保留在手中",overlay,20);note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;note.position=Vector2(0,130);note.size.x=size.x
-	var actions=game.legal_actions(0).filter(func(a):return a.type in ["faction","initial"]);var count=actions.size();var cw=minf(250,(size.x-160)/maxi(1,count)-18);var ch=400.0;var x=(size.x-(cw+18)*count+18)/2
+	var heading=_label("选择你的光明会" if factions else "选择初始手下",overlay,38,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,55);heading.size.x=size.x
+	var note=_label("双方主牌同时揭晓 · 点击卡面查看完整能力" if factions else "从这五张中选一张 · 其余四张保留在手中",overlay,20);note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;note.position=Vector2(0,117);note.size.x=size.x
+	var actions=game.legal_actions(0).filter(func(a):return a.type in ["faction","initial"])
+	var pages=ceili(actions.size()/4.0) if factions else 1
+	if factions:
+		faction_page=clampi(faction_page,0,pages-1);actions=actions.slice(faction_page*4,mini(actions.size(),faction_page*4+4))
+	var count=actions.size();var cw=minf(250,(size.x-160)/maxi(1,count)-18);var ch=minf(400,size.y-405);var x=(size.x-(cw+18)*count+18)/2
 	for i in actions.size():
-		var a=actions[i];var frame=Control.new();frame.position=Vector2(x+i*(cw+18),215);frame.size=Vector2(cw,ch+155);overlay.add_child(frame)
+		var a=actions[i];var frame=Control.new();frame.position=Vector2(x+i*(cw+18),185);frame.size=Vector2(cw,ch+110);overlay.add_child(frame)
 		var v=CardView.new();v.configure(a.id,game);v.size=Vector2(cw,ch);frame.add_child(v);v.selected.connect(_inspect);v.inspected.connect(_inspect)
 		if factions:
 			var desc=_label(game.card(a.id).style,frame,19,TEAL);desc.position=Vector2(0,ch+12);desc.size.x=cw;desc.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		var choose=_button("选择",func():_do_action(0,a),frame,true);choose.position=Vector2(0,ch+48);choose.size=Vector2(cw,55)
 	_button("返回主菜单",_menu,overlay).position=Vector2(35,size.y-80)
+	if factions and pages>1:
+		var previous=_button("上一页",func():faction_page-=1;_phase_overlay(),overlay);previous.name="FactionPrevious";previous.position=Vector2(size.x/2-240,size.y-80);previous.size=Vector2(150,55);previous.disabled=faction_page==0
+		var page=_label("%d / %d"%[faction_page+1,pages],overlay,23,GOLD);page.position=Vector2(size.x/2-50,size.y-69);page.size.x=100;page.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		var next=_button("下一页",func():faction_page+=1;_phase_overlay(),overlay);next.name="FactionNext";next.position=Vector2(size.x/2+90,size.y-80);next.size=Vector2(150,55);next.disabled=faction_page==pages-1
 	if not factions:
 		var remaining=2-game.mulligans[0]
 		var reroll=_button("重随 · 剩余%d次"%remaining,func():_perform_type("mulligan"),overlay,true);reroll.name="OpeningMulligan";reroll.position=Vector2(235,size.y-80);reroll.size.x=230;reroll.disabled=remaining==0;reroll.tooltip_text="全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。"
@@ -665,7 +681,9 @@ func _inspect(id: String,nested: bool=false) -> void:
 	_label(c.name,p,32,GOLD).position=Vector2(x,22)
 	var col=_scroll_column(p,Rect2(x,92,extent.x-x-30,extent.y-190));col.get_parent().name="ReaderScroll"
 	interactions.attachment_buttons(id,col)
-	if c.kind=="plot":_wrapped(CardDB.plot_text(c),col,23)
+	if c.kind=="plot":
+		_wrapped(CardDB.plot_text(c),col,23)
+		if game!=null and game.covenant.is_goal(c.id):_wrapped(game.covenant.reader_text(c.id),col,22,TEAL)
 	else:
 		_wrapped(c.effect,col,23,TEAL)
 		_wrapped(_card_context_text(id),col,23)
@@ -714,6 +732,7 @@ func _card_context_text(id: String) -> String:
 	if n.get("prepared",false):lines.append("防备 · 下次灾难%s防御+4，发动时消耗。"%("或普通摧毁" if id=="G148" and game.renewal.ready(id) else ""))
 	if id in ["G136","G137","G139","G145","G146"] and not game.renewal.unused(id):lines.append("本回合限次效果已用。")
 	if n.get("learned",0)>0:lines.append("革命课堂 · 在场强化 P+%d。"%n.learned)
+	if n.get("pacified",false):lines.append("化干戈 · 暴力转为和平，在场期间保留。")
 	if n.has("mask"):lines.append("伪造身份 · 本回合阵营："+" / ".join(n.mask))
 	if n.parent=="G133" and game.renewal.ready("G133") and game.has(id,"共产"):lines.append("自治工厂 · 直属共产下属 P+2。")
 	if game.renewal.housing_bonus(id):lines.append("社区住房合作社 · 本团体下属槽+1，上限3。")
@@ -756,7 +775,9 @@ func _mobile_detail(id: String) -> void:
 		if game!=null and game.nodes.has(id) and not game.is_root(id):_label("忠诚 +%d   位置 +%d"%[game.loyalty_defense(id),game.position_defense(id)],p,24,TEAL).position=Vector2(x+270,249)
 	else:_label(c.category,p,28,TEAL).position=Vector2(x,140)
 	var text=c.effect
-	if c.kind=="plot":text=CardDB.plot_text(c)
+	if c.kind=="plot":
+		text=CardDB.plot_text(c)
+		if game!=null and game.covenant.is_goal(c.id):text+="\n\n"+game.covenant.reader_text(c.id)
 	if c.kind=="faction":text+="\n\n胜利 · "+c.get("goal","")
 	var body_y=305 if c.kind!="plot" else 205
 	var col=_scroll_column(p,Rect2(Vector2(x,body_y),Vector2(p.size.x-x-45,p.size.y-body_y-100)));col.get_parent().name="ReaderScroll"
@@ -848,9 +869,9 @@ func _help(page: String="basic") -> void:
 	var tabs=HBoxContainer.new();tabs.position=Vector2(28,77);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
 	for key in ["basic","disaster","cards","controls"]:_button({"basic":"基础","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
 	var pages={
-		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查胜利。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
+		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
 		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
-		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：只加给直属下属，来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。",
+		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
 	_button("返回设置",_settings,p).position=Vector2(640,585)

@@ -39,7 +39,9 @@ cd guangminghui
 
 ## 本版内容
 
-6 种光明会、150 种团体、50 种阴谋，共206种。两种共享牌堆每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
+8 种光明会、150 种团体、55 种阴谋，共213种。两种共享牌堆每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
+
+目标阴谋藏在手牌中并占阴谋上限，每人最多保留1张。己方主要阶段达标后主动打出「宣告胜利」，可以被普通反制取消；不会在回合末自动亮出。未公开的目标及进度只对持有者显示。主牌目标仍在回合末检查。香格里拉可将暴力转为和平，赫尔墨斯门徒让魔法团体以P互相支援普通攻击和防守。
 
 实现共享牌堆循环、主动能力、筛牌与私密排序、弃牌回收、行动恢复额度、位置与忠诚防御、整支夺取、摧毁下属回手、红十字会救援、吸血鬼转化、附着牌、单一公共秩序、交替响应、骗局反制、失败招募区与回合末胜利检查。
 
@@ -49,7 +51,7 @@ cd guangminghui
 
 太空、科学、魔法、共产、军队、名人和绿色标签可相互配合。保镖挡下一次普通摧毁，监管调查将GP降为0且可用目标行动解除；律师可移除合法附着。技术融合和公有化授予的标签随易主保留、离场清除。抽牌和标签收益通过触发队列逐项显示来源，展示结束后结算。
 
-大卡、小卡、手牌、选牌窗口和移动详情的图片区统一1:1，原图等比完整显示。选牌卡宽度统一、按钮始终可见；长卡名适配字号后换行。普通团体和阴谋按各自主题使用不同色彩与场景，不套用统一的光明会符号背景。
+大卡、小卡、手牌、选牌窗口和移动详情的图片区统一1:1，原图等比完整显示。选牌卡宽度统一、按钮始终可见；长卡名适配字号后换行。8张主牌分页选择，每页4张。光明会插画采用高辨识度的神秘主义象征；普通团体和阴谋继续按各自主题使用清晰的当代场景。
 
 手牌分类与操作按钮共用一行，桌面在900逻辑像素高时可见高度489（原405）。场上卡138×192、手牌94×142；层间距28。己方/对手定位同时考虑树的宽度与高度，深层结构可完整纳入镜头，再用缩放和平移查看细节。
 
@@ -77,6 +79,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/game_state.gd`：规则、合法操作和信息边界。
 - `scripts/wave_rules.gd`：名人、地点、灾难、重建及相应触发队列。
 - `scripts/synergy_rules.gd`：太空、魔法、共产、军队等标签联动，以及保镖和监管附着。
+- `scripts/covenant_rules.gd`：主牌目标、隐藏目标阴谋、主动宣告、和平转化和秘术共鸣。
 - `scripts/ai_agent.gd`：离线 AI。
 - `scripts/board_view.gd`：势力树布局、镜头、折叠和移动。
 - `scripts/card_view.gd`、`scripts/card_text_layout.gd`：卡面完整行排版、悬停、长按与选择。
@@ -85,7 +88,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/main.gd`：菜单、对局、响应、选择、图鉴和设置。
 - `scripts/window_access.gd`：动效时暂藏窗口、暂停查看战场及原操作恢复。
 - `scripts/panel_drag_handle.gd`：浮动窗口标题的鼠标/触摸拖动、边界约束及手势释放。
-- `data/cards.json`：全部206种卡牌，可修改数值和文案。
+- `data/cards.json`：全部213种卡牌，可修改数值和文案。
 - `docs/光明会_全部卡牌完整效果_当前版.md`：与用户共同维护的唯一完整卡牌文档。
 - `tools/card_table.py`：卡牌表格与数据的双向合并、冲突检测及完整性检查。
 - `assets/cards/`：逐卡插画，稳定 ID 命名。
@@ -103,6 +106,9 @@ godot --headless --path . --script res://tests/test_effects.gd
 godot --headless --path . --script res://tests/test_expansion.gd
 godot --headless --path . --script res://tests/test_synergy.gd
 godot --headless --path . --script res://tests/test_renewal.gd
+godot --headless --path . --script res://tests/test_housing_clone.gd
+godot --headless --path . --script res://tests/test_covenant.gd
+godot --headless --path . --script res://tests/test_covenant_ui.gd
 godot --headless --path . --script res://tests/test_renewal_ui.gd
 godot --headless --path . --script res://tests/test_opening_balance.gd
 godot --headless --path . --script res://tests/test_interaction_polish.gd
@@ -123,7 +129,7 @@ python tests/test_card_sync.py
 
 ## 素材
 
-- 卡牌、桌布、框与牌背：204张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西改用用户提供的真人照片，选取方形构图后无损转换。210张运行图像合计约225 MB。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
+- 卡牌、桌布、框与牌背：211张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西改用用户提供的真人照片，选取方形构图后无损转换。217张运行图像合计约220 MB。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
 - 音效：[Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds)，CC0，原始许可见 `assets/audio/Kenney-License.txt`。用于选牌、按钮、落牌、开启、关闭、掷骰、成功、失败及反制；可在设置静音。
 - 字体：[Google Fonts / Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc)，SIL Open Font License，许可见 `assets/fonts/OFL.txt`。
 - 名称和主题参考 Steve Jackson Games 的 INWO。本项目是本地非官方简化改编；卡牌数值、能力和插画均不代表原版卡面。

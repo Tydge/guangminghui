@@ -61,4 +61,5 @@ static func ids(kind: String) -> Array:
 	return cards.keys().filter(func(id): return cards[id].kind == kind)
 
 static func plot_text(c: Dictionary) -> String:
+	if c.get("category","").ends_with("·目标"):return "胜利 · "+c.effect+"\n费用 · "+c.cost
 	return "目标 · "+c.get("target","")+"\n效果 · "+c.get("effect","")+"\n费用 · "+c.get("cost","")

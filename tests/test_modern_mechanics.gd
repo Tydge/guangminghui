@@ -113,18 +113,17 @@ func _initialize() -> void:
 	apply(g,1,"support",{"src":"G075"})
 	check(g.nodes.G075.token==0 and g.battle_values().strength==france_strength-g.stat("G075","p")-4,"France spends a token and its bonus appears in actual battle values")
 	check(g.battle.entries.back().text.contains("+8"),"France's complete support contribution is public")
-	# Bavaria needs both six non-root groups and forty-five total effective P.
+	# User-adjusted Bavaria goal: eight groups and fifty total effective P.
 	g=fresh();g.factions[0]="I01";g.nodes.R0.card="I01"
 	for id in ["G005","G007","G003"]:place(g,id,0,"R0")
 	for id in ["G011","G020"]:place(g,id,0,"G005")
-	check(not g.goal(0).met and g.goal(0).text.contains("5/6") and g.goal(0).text.ends_with("/45"),"Bavaria no longer wins at the old five-group threshold")
-	place(g,"G073",0,"G007")
-	check(not g.goal(0).met and g.goal(0).text.contains("6/6") and g.goal(0).text.ends_with("44/45"),"Six groups still need forty-five power")
-	g._return_subtree("G073")
-	place(g,"G071",0,"G007")
-	check(g.goal(0).met,"Bavaria wins only when both new count and power thresholds are met")
-	g._return_subtree("G071");check(not g.goal(0).met,"Losing a group breaks Bavaria's new victory condition")
-	check(g.validate().is_empty(),"New victory thresholds preserve the normal game structure")
+	check(not g.goal(0).met and g.goal(0).text.contains("5/8") and g.goal(0).text.ends_with("/50"),"Bavaria uses the user's current thresholds")
+	for id in ["G073","G015","G010"]:place(g,id,0,"G007")
+	check(not g.goal(0).met and g.goal(0).text.contains("8/8") and g.goal(0).values.power==49,"Eight groups still need fifty power")
+	g.nodes.G010.learned=1
+	check(g.goal(0).met,"Bavaria wins at both thresholds")
+	g._return_subtree("G010");check(not g.goal(0).met,"Losing a group breaks Bavaria's new victory condition")
+	check(g.validate().is_empty(),"New victory thresholds preserve normal game structure")
 	# Streaming triggers on resolved plots once, never on a countered plot.
 	g=fresh();place(g,"G035",0,"R0");place(g,"G032",0,"G035");give(g,"P26",0)
 	g.decks.plot.erase("P10");g.decks.plot.push_front("P10")

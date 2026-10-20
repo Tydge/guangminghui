@@ -150,6 +150,7 @@ func support_detail(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	elif p!=b.defender:return {"id":id,"power":0,"basis":"—","reason":"不能支援"}
 	if normal(b) and enabled("G111",p) and g.has(id,"沿海") and g.has(b.target,"沿海"):d.basis="P";base=g.stat(id,"p");d.reason="班轮网络"
 	var override=g.synergy.support_override(id,b,base,d.basis,d.reason)
+	override=g.covenant.support_override(id,b,override)
 	override=g.renewal.support_override(id,b,override)
 	base=override.base;d.basis=override.basis;d.reason=override.reason
 	if p==b.attacker and enabled("G095",1-p) and normal(b) and g.has(b.target,"沿海") and not g.has(id,"沿海") and d.basis=="GP":base=0;extra=0;d.reason="海峡屏障 · 禁止此GP支援"

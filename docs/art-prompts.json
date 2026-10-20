@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "card_art_count": 206,
+  "card_art_count": 213,
   "ui_art_count": 4,
   "assets": [
     {
@@ -8,27 +8,30 @@
       "name": "地方警察",
       "path": "assets/cards/G001.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Local Police Departments. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f050bcdb-bcd2-442c-9079-f2953c16bcd4.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Local Police Departments: two clearly recognizable modern American uniformed patrol officers beside a blue-and-white patrol car on a busy neighborhood street at late afternoon. One officer raises an open palm to manage traffic, the other speaks into a shoulder radio. Clear blue uniforms, distinctive metal badges and emergency lights; local storefronts and crosswalk in the background. Everyday street policing, believable friendly-serious faces, no violence, no weapons drawn.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-edfdb440-bdaa-4c8e-8839-d74aa981f4c6.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G002",
       "name": "联邦调查局",
       "path": "assets/cards/G002.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: F.B.I.. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-82253291-83c2-40fd-aeb5-da140a11d14e.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Federal Bureau of Investigation: two federal investigators in navy windbreakers with gold shield-shaped badges examine neatly arranged evidence in a bright forensic field office. A female investigator in blue gloves studies an evidence bag, a male investigator holds a tablet; detailed fingerprint screens and a case board in the background without legible text. Strong navy and gold, professional federal investigation, exactly two adult foreground figures with normal hands.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2cb1fd60-deae-42cc-b1a2-67d5d0664233.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G003",
       "name": "中央情报局",
       "path": "assets/cards/G003.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: C.I.A.. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-36f21dbc-bba4-45a1-8f5f-9bc8366224ce.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Central Intelligence Agency: a highly focused female intelligence analyst in a modern secure operations center listens through a discreet headset, comparing a foreign-city surveillance photograph with a large wall map and satellite screens. A second suited field agent is seen through glass, entering a secure doorway. Cool blue and amber light, unmistakable espionage and global intelligence, discreet credible technology, no weapons or occult symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4d673cb4-1925-428d-ae41-0b5c805eac62.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G004",
@@ -44,9 +47,10 @@
       "name": "五角大楼",
       "path": "assets/cards/G005.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Pentagon. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-de297710-8d6c-406a-9c44-04ea771db6f4.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Pentagon: a clean high oblique aerial view of the unmistakable five-sided Pentagon building, five concentric pentagonal office rings surrounding a large open green pentagonal courtyard. The entire building and its exactly five outer corners are clearly visible, realistic Washington landscape and roads in soft focus, a tiny pair of military helicopters far away for scale. Bright crisp morning light, accurate iconic architectural silhouette, no added skyscraper or star-shaped building.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-45b70733-d928-49f1-be9e-437876ca9481.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G006",
@@ -108,9 +112,10 @@
       "name": "美联储",
       "path": "assets/cards/G012.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Federal Reserve. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d3a2d5e4-b82b-4400-80b1-954f9eeb9aa3.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Federal Reserve: the imposing white marble Eccles central bank building in Washington, photographed from a low foreground angle with its classical entrance clear. In the foreground, a central banking official's hand sets a simple brass interest-rate lever beside stacks of US dollar banknotes and a modern financial terminal showing abstract rate curves without readable words. Institutional monetary authority, white stone, deep green and restrained gold, no giant currency-eye emblem.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-01329034-3c1e-4f8f-baf7-9cced74c6790.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G013",
@@ -135,9 +140,10 @@
       "name": "储蓄贷款社",
       "path": "assets/cards/G015.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Savings and Loans. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b5055e0f-70e2-472f-8b32-494610958c6a.png",
-      "encoding": "WebP lossless"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. Savings and Loans: a welcoming community savings-and-mortgage bank counter, a young couple considering a small realistic house model while a professional loan officer shows a simple mortgage document. In the foreground a clear glass savings jar and neatly stacked coins establish saving and lending. Soft daylight, warm wood and sage green, practical personal finance, precisely three adults with believable hands, no luxury vault or mysterious robes.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-91046f30-0f37-4b74-9212-ab4e8602fe71.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G016",
@@ -162,9 +168,10 @@
       "name": "弗诺德汽车公司",
       "path": "assets/cards/G018.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Fnord Motor Company. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-dd3f6992-1b63-49db-adb8-0d8ba4df3a42.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. Fnord Motor Company: a wide modern automotive assembly line with clearly recognizable unfinished passenger cars moving down the center and orange industrial robotic arms installing parts. A blue-clad factory supervisor with a tablet stands in the foreground, rows of completed cars visible through a vast bright factory hall. Crisp silver, orange and industrial blue, strong automobile manufacturing identity, no real car brand logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-291d3126-3f1b-4aa6-b72b-83d1cd03509b.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G019",
@@ -181,9 +188,10 @@
       "name": "核电公司",
       "path": "assets/cards/G020.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Nuclear Power Companies. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f92d409e-6bc9-4275-852e-36d7ab41bc1b.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. High-recognition cinematic editorial realism, natural anatomy, crisp readable focal composition at thumbnail size. This is an ordinary modern organization, not an occult faction. No mystical imagery, Illuminati eyes, pyramid symbols, sacred geometry, card frame, watermark or decorative lettering. Nuclear Power Companies: a modern nuclear power station beside a river at bright blue hour, two huge hyperboloid cooling towers releasing clean white water vapor and a recognizable rounded reactor containment dome. In the foreground a female plant engineer in hard hat and high-visibility vest checks a tablet at a safety railing. Clean advanced energy infrastructure, turquoise, white and safety orange, no disaster, no explosions, no green glowing liquid.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2e3d937c-0747-4dcf-b07d-df0f122c2967.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G021",
@@ -224,21 +232,23 @@
     },
     {
       "id": "G025",
-      "name": "电话公司",
+      "name": "电信公司",
       "path": "assets/cards/G025.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Phone Company. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-92e3512b-8b74-4b3e-b788-ecba05fa138d.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. Telecommunications Company: a modern telecom network technician in a white hard hat splices glowing multicolored fiber-optic cables in the foreground; behind her a large clean cellular communications mast with obvious panel antennas rises against a clear sky over a city, with a server switching rack at one side. Clear physical connection between fiber backbone and mobile phone network, brilliant cyan and safety yellow, recognizable contemporary telecommunications rather than an old telephone handset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-80577ff7-d509-4b3f-b0b6-3451788e9b9b.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G026",
       "name": "电子前哨基金会",
       "path": "assets/cards/G026.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: EFF. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8f47c207-9489-408a-bc97-f23e12d0a3fc.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. Electronic Frontier Foundation, digital civil liberties: a diverse small team of contemporary technologists and a civil-rights lawyer in a sunlit nonprofit workspace defend online privacy. At center a focused woman holds a laptop showing a simple large padlock and shield icon; behind her a colleague unplugs an oversized intrusive surveillance camera from a demo rack while another studies a public digital-rights poster with only abstract symbols. Clean cobalt blue, white and warm daylight, human-centered internet freedom, no aggressive hackers or occult symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-eca6ae29-8a2a-4be9-a671-1977c52dc998.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G027",
@@ -263,9 +273,10 @@
       "name": "L-4协会",
       "path": "assets/cards/G029.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: L-4 Society. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a2eef3cc-24b0-4865-9b12-2976be3f850a.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. L-4 Society: a visionary near-future space-settlement advocacy scene, two civilian space engineers in a bright design studio examining a precise physical model of an O'Neill cylinder habitat. Through a huge circular projection behind them we see the inside of the planned spinning cylinder: green farmland, a small town, blue lakes and a curved sky, with Earth small beyond an orbital window. White, fresh green and deep space blue, unmistakable peaceful human settlement in space, not a generic rocket launch, no mystical elements.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-97db385a-ce99-4f15-bf1a-ecb706b27ef7.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G030",
@@ -290,9 +301,10 @@
       "name": "有线电视",
       "path": "assets/cards/G032.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Cable TV. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-6fad17d9-3c17-4a1f-be0f-385e61783531.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed contemporary strategy group-card illustration. Highly recognizable cinematic editorial realism, bright readable focal composition and natural anatomy, credible modern or near-future subject matter. Ordinary group-card art, not an occult Illuminati faction: no mystical sigils, Illuminati eye, pyramid, magic circles, card frame, watermark or readable decorative text. Cable TV: a lively contemporary cable television master-control room, a professional broadcast engineer at a mixing console beneath a large wall grid of distinct screens showing ordinary news, sports, cooking and drama scenes. In the foreground a recognizable coaxial cable connector and bundled cable run connect to rack-mounted signal equipment. Warm screen light and cobalt blue, clear broadcast-distribution identity, not a streaming-phone app, no logos or legible channel titles.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-912a5313-034c-4836-8c06-92445881331e.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "G033",
@@ -1432,55 +1444,80 @@
       "name": "巴伐利亚光明会",
       "path": "assets/cards/I01.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Bavarian Illuminati: a towering all-seeing golden eye above an ancient triangular temple, hooded council silhouettes, mountain fortress and midnight clouds.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d5e0b621-86c3-4cb8-8a69-4ac90c9d4c05.png",
-      "encoding": "WebP quality 100"
+      "prompt": "Square 1:1 full-bleed premium strategy-card faction illustration. Strong occult mysticism, iconic central silhouette readable at tiny thumbnail, luxurious painterly cinematic fantasy realism with clear dramatic lighting, richly crafted but not cluttered. This is an Illuminati master faction, visually more symbolic and numinous than ordinary contemporary group cards. No lettering, numbers, captions, card borders, watermarks. Bavarian Illuminati: a monumental luminous golden all-seeing eye suspended inside a stepped obsidian pyramid above a secret council chamber; distant hooded silhouettes give scale. Baroque Bavarian architectural arches, precise concentric sacred geometry, beams of amber light piercing deep midnight blue. One unmistakable eye and pyramid is the dominant identity, ominous command over the world.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0f4377b8-2b44-41e1-98f2-07f53b29461d.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "I02",
       "name": "苏黎世侏儒",
       "path": "assets/cards/I02.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Gnomes of Zurich: eccentric tiny secretive bankers in an underground Swiss vault, mountains of gold, enormous old ledger, icy Alpine window.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ac05356b-8dc9-4c63-967a-8b8c7b3c327e.png",
-      "encoding": "WebP quality 100"
+      "prompt": "Square 1:1 full-bleed premium strategy-card faction illustration. Strong occult mysticism, iconic central silhouette readable at tiny thumbnail, luxurious painterly cinematic fantasy realism with clear dramatic lighting, richly crafted but not cluttered. This is an Illuminati master faction, visually more symbolic and numinous than ordinary contemporary group cards. No lettering, numbers, captions, card borders, watermarks. Gnomes of Zurich: a single unmistakable ancient fantasy gnome banker, pointed crimson hood, intelligent weathered face and short stature, enthroned on an intricate Swiss bank vault in a mountain cavern. Behind him a huge enchanted gold coin floats inside a circular astrological mechanism, cascading gold bars and spectral account ledgers without readable writing. Emerald green and warm gold with ruby accents, secret financial sorcery, dignified enigmatic expression. Natural anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-b6bb7eb2-70c1-4aeb-83b3-6f86ccd251f4.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "I03",
       "name": "网络",
       "path": "assets/cards/I03.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: The Network: a luminous web of old 1990s computer terminals and neon cables surrounding a mysterious digital eye, human silhouettes connected globally.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-19debdd2-03dd-47af-a6a1-9978b2a13f22.png",
-      "encoding": "WebP lossless"
+      "prompt": "Square 1:1 full-bleed premium strategy-card faction illustration. Strong occult mysticism, iconic central silhouette readable at tiny thumbnail, luxurious painterly cinematic fantasy realism with clear dramatic lighting, richly crafted but not cluttered. This is an Illuminati master faction, visually more symbolic and numinous than ordinary contemporary group cards. No lettering, numbers, captions, card borders, watermarks. The Network: an enormous radiant electric-cyan neural web sphere in a black subterranean cyber cathedral. Hundreds of luminous cables and fiber-optic lines converge into a single faceted crystalline core shaped like a watchful iris, holographic geometric ritual circles orbiting it. Tiny hooded operators at distant terminals for scale. Cold cyan, violet and silver, highly distinctive digital omniscience, no pyramid, no coins, no generic golden temple.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8831ca02-fbbd-41dc-b2e9-96e4109e68ef.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "I04",
       "name": "混沌社",
       "path": "assets/cards/I04.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Discordian Society: a golden apple floating over an absurd masked carnival council, chaotic spirals, playful irreverent occult comedy.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fcc1a3a7-cda3-4d70-9218-a561edb2ed2a.png",
-      "encoding": "WebP lossless"
+      "prompt": "Square 1:1 full-bleed premium strategy-card faction illustration. Strong occult mysticism, iconic central silhouette readable at tiny thumbnail, luxurious painterly cinematic fantasy realism with clear dramatic lighting, richly crafted but not cluttered. This is an Illuminati master faction, visually more symbolic and numinous than ordinary contemporary group cards. No lettering, numbers, captions, card borders, watermarks. Discordian Society: a brilliant golden apple levitates above a cracked black-and-white checkerboard altar, inside an impossible hall with upside-down columns, a huge spiraling violet doorway and floating carnival masks. A mysterious smiling jester-like goddess silhouette watches from the portal, not a portrait. Golden apple dominates the center, magenta violet and acid turquoise, beautiful ordered chaos, playful but truly uncanny. No all-seeing eye, no pyramid.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4a0c1143-a60c-4d34-a50b-b3e82b92e910.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "I05",
       "name": "克苏鲁仆从",
       "path": "assets/cards/I05.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Servants of Cthulhu: a vast ancient tentacled sea idol rising over a candlelit cult ritual in a stormy flooded temple, cosmic dread without gore.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-581948c1-10c0-48b1-bca9-4c0d4b6d2688.png",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed premium strategy-card Illuminati master faction illustration. Strong occult mysticism and numinous atmosphere; one iconic silhouette readable at small thumbnail; painterly cinematic fantasy realism, dramatic clear light and rich crafted detail. Visually symbolic, not ordinary modern documentary art. No lettering, numbers, captions, border or watermark. Servants of Cthulhu: a colossal unmistakable tentacle-faced elder god rises from a black ocean before a drowned cyclopean city. His immense winged silhouette and luminous green eyes fill the upper frame; tiny robed cultists surround a jade ritual beacon on rocks in the foreground. Malachite emerald, ink black and cold sea foam, awe and cosmic dread. No gore, no pyramid, no gold council.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-196c2db4-2199-47ee-b9ec-22fb61d20ce8.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "I06",
       "name": "百慕大三角",
       "path": "assets/cards/I06.webp",
       "method": "Built-in image_gen",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-30b34678-c838-4700-b310-adff71d15168.png",
-      "art_direction": "Square strategy-card illustration for 百慕大三角 (Bermuda Triangle); recognizable subject, distinctive palette; no frame or UI.",
-      "updated": "2026-10-19",
-      "encoding": "WebP quality 98"
+      "prompt": "Square 1:1 full-bleed premium strategy-card Illuminati master faction illustration. Strong occult mysticism and numinous atmosphere; one iconic silhouette readable at small thumbnail; painterly cinematic fantasy realism, dramatic clear light and rich crafted detail. Visually symbolic, not ordinary modern documentary art. No lettering, numbers, captions, border or watermark. Bermuda Triangle: a gigantic sharp equilateral triangular portal of turquoise light floats above a deep midnight Atlantic whirlpool. Through it a sunlit ship and a small vintage aircraft appear trapped between impossible mirrored horizons. Three points of the luminous triangle anchor to the ocean with beams; subtle arcane star navigation geometry circles the vortex. Indigo, luminous sea turquoise, silver white, unmistakable triangle at sea; no central eye.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2a3de4f5-6eff-4fcd-b587-cbf529408d9a.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "I07",
+      "name": "香格里拉",
+      "path": "assets/cards/I07.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed premium strategy-card Illuminati master faction illustration. Strong occult mysticism and numinous atmosphere; one iconic silhouette readable at small thumbnail; painterly cinematic fantasy realism, dramatic clear light and rich crafted detail. Visually symbolic, not ordinary modern documentary art. No lettering, numbers, captions, border or watermark. Shangri-La: a secret Himalayan sanctuary at dawn, its ivory and saffron tiered temple nestled between snowy peaks. A single enormous radiant lotus mandala floats above the valley like an otherworldly sunrise; a calm robed guardian silhouette in the foreground extends open hands toward the warm light. Peaceful spiritual mystery and awe, lotus central identity, pearlescent ivory, apricot gold and rose-violet, no war, no pyramid, no surveillance eye.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2241702b-0876-4b48-a4ad-49aafca4cc63.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "I08",
+      "name": "赫尔墨斯门徒",
+      "path": "assets/cards/I08.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed premium strategy-card Illuminati master faction illustration. Strong occult mysticism and numinous atmosphere; one iconic silhouette readable at small thumbnail; painterly cinematic fantasy realism, dramatic clear light and rich crafted detail. Visually symbolic, not ordinary modern documentary art. No lettering, numbers, captions, border or watermark. Adepts of Hermes: a mysterious hooded alchemist in a deep violet robe holds an emerald tablet with abstract non-readable luminous marks, standing within a vast zodiac wheel. An elegant golden caduceus, one staff with two clearly entwined serpents and winged top, rises above the tablet as the dominant symbol. Floating alchemical glass vessels, a small transmutation glow, antique celestial library behind. Amethyst purple, emerald green and burnished gold, true hermetic occult ceremony, balanced anatomy with exactly two hands, no pyramid, no generic eye.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c4a40aab-ae28-4907-a110-25edf64a7bbd.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "P01",
@@ -1943,6 +1980,56 @@
       "method": "Built-in image_gen",
       "name": "连锁事故",
       "encoding": "WebP lossless"
+    },
+    {
+      "id": "P51",
+      "name": "犯罪霸权",
+      "path": "assets/cards/P51.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy card illustration. Highly recognizable editorial cinematic realism, clear readable focal subject at thumbnail size, natural anatomy, crisp realistic materials, rich attractive light and color. An ordinary conspiracy plot card, NOT an occult Illuminati faction: no mystical sigils, pyramid, omniscient eye, magic circle, watermark, card border or readable text. Criminal Overlords: a powerful fictional underworld boss in an understated dark suit sits at a modern city penthouse conference table, with two distinct lieutenants and stacks of sealed black cash cases, a night city and shipping port seen through panoramic windows. Emphasize secret criminal command, no weapons pointed or violence. Red and midnight blue, clear face and money-case silhouette, only three adults in the foreground.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-41c21e1e-f498-42e7-82ec-ad45d6d36d1c.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "P52",
+      "name": "草根接管",
+      "path": "assets/cards/P52.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy card illustration. Highly recognizable editorial cinematic realism, clear readable focal subject at thumbnail size, natural anatomy, crisp realistic materials, rich attractive light and color. An ordinary conspiracy plot card, NOT an occult Illuminati faction: no mystical sigils, pyramid, omniscient eye, magic circle, watermark, card border or readable text. Grassroots Takeover: a lively diverse group of ordinary residents, shopkeepers, a delivery cyclist and a factory worker gather around a modest community notice board on a bright city street. In the foreground an older woman places one small colorful organizing pin on a simple city map as others lean forward in solidarity. Many small civic organizations uniting, warm daylight, human and energetic, no real political logos or readable slogans.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-6ead0f92-1e5c-46a9-bc26-cc869465d944.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "P53",
+      "name": "铁腕统治",
+      "path": "assets/cards/P53.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy card illustration. Highly recognizable editorial cinematic realism, clear readable focal subject at thumbnail size, natural anatomy, crisp realistic materials, rich attractive light and color. An ordinary conspiracy plot card, NOT an occult Illuminati faction: no mystical sigils, pyramid, omniscient eye, magic circle, watermark, card border or readable text. Rule by Force: a stern fictional military commander in contemporary uniform stands before an expansive operations room with four orderly rows of personnel and large abstract strategic map displays, holding a baton at rest. Outside a window armored transport silhouettes cross a distant parade ground. Strong military control and hierarchy, steel grey, olive and orange sunset, no actual war location, no gore, no national extremist symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1eb95a28-73b8-4ffc-903c-7f78dd9a1521.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "P54",
+      "name": "聚光灯帝国",
+      "path": "assets/cards/P54.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy card illustration. Highly recognizable editorial cinematic realism, clear readable focal subject at thumbnail size, natural anatomy, crisp realistic materials, rich attractive light and color. An ordinary conspiracy plot card, NOT an occult Illuminati faction: no mystical sigils, pyramid, omniscient eye, magic circle, watermark, card border or readable text. Spotlight Empire: three fictional contemporary entertainers, a charismatic singer, a celebrated actor and a sports star, stand on a glamorous television studio stage surrounded by bright broadcast cameras and giant screens repeating their faces. A female producer in headset confidently directs the show from the side foreground. High visibility public fame and control of media, magenta, blue and warm spotlights, distinct believable adult faces, no real celebrity likeness or logos. Revision: Edit the referenced square image with one precise anatomical correction. The on-stage female singer in the silver dress currently has THREE arms. REMOVE ENTIRELY the extra upright arm and raised hand extending high above her head on the left side of the stage. Reconstruct the blue and magenta studio screens and lighting naturally in the removed area. The singer must have EXACTLY TWO arms: one arm bent naturally holding the microphone at her mouth, and the other arm hanging naturally at her side. Both belong to anatomically correct shoulders. Preserve her face, silver dress, pose of the two retained arms, the two men beside her, the foreground female producer with her two arms, cameras, stage, screens, framing, bright cinematic color palette, square 1:1 composition and all other content. No extra limbs or floating hands.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d0118ec5-b8b0-4549-a07d-e10ed40fb56e.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "P55",
+      "name": "万象归一",
+      "path": "assets/cards/P55.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy card illustration. Highly recognizable editorial cinematic realism, clear readable focal subject at thumbnail size, natural anatomy, crisp realistic materials, rich attractive light and color. An ordinary conspiracy plot card, NOT an occult Illuminati faction: no mystical sigils, pyramid, omniscient eye, magic circle, watermark, card border or readable text. All Sides of the World: an overhead-angled round international conference table with exactly ten distinct small color-coded desk flags of abstract geometric designs, and representatives from very different walks of life seated around it: a scientist, business executive, worker, soldier, artist, environmentalist and others. A brightly lit terrestrial globe stands in the middle; subtle open differences between delegates yet one shared world. Clean blue daylight and varied saturated accents, no real flags or text, no occult geometry.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a43c302e-311d-4d76-9401-21e2fd541aaa.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-20"
     },
     {
       "id": "group_back",

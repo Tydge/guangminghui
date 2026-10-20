@@ -30,11 +30,25 @@ func _value(id: String,o: Dictionary) -> float:
 	if faction=="I04" and "怪异" in traits:value+=5
 	if faction=="I05":value+=c.p*0.35
 	if faction=="I06" and "地点" in traits:value+=7+int("巨大" in traits)*3
+	if faction=="I07" and ("和平" in traits or "暴力" in traits):value+=6
+	if faction=="I08" and "魔法" in traits:value+=10
+	for goal_id in o.get("secret_goals",{}):
+		match goal_id:
+			"P51":value+=6 if "犯罪" in traits else 0
+			"P52":value+=4 if c.p<=3 else 0
+			"P53":value+=5 if "军队" in traits else 0
+			"P54":value+=3*int("名人" in traits)+3*int("媒体" in traits)
+			"P55":
+				for a in c.align:
+					if a not in o.secret_goals[goal_id].covered:value+=2
 	if o.nodes.has(id) and o.nodes[id].get("devastated",false):value*=0.55
 	if id in ["G012","G066","G028","G063","G021"]:value+=3
 	return value
 
 func _score(a: Dictionary,o: Dictionary) -> float:
+	if a.type=="plot" and CovenantRules.PLOTS.has(a.id):return 1000
+	if a.type=="ability" and a.get("pacify",false):
+		return 40+_card(a.target,o).p if o.goals[o.player].ratio<1 else -1
 	if a.type in ["trick","militia"] or (a.type=="ability" and int(a.src.substr(1))>=131):return _renewal_score(a,o)
 	if a.type in ["synergy","lift"] or (a.type=="ability" and a.src in ["G116","G120","G127"]):return _synergy_score(a,o)
 	if a.type in ["rebuild","wave","fact_check"] or (a.type=="ability" and (a.src.begins_with("R") or int(a.src.substr(1))>=81)):return _expansion_score(a,o)
@@ -44,8 +58,9 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 		"draw":return float(int(a.group)+int(a.plot))*5+int(a.get("filter_group",false))+int(a.get("filter_plot",false))
 		"choose":
 			var kind=o.choice.get("kind","")
+			if kind=="c_goal_limit":return _plot_value(a.id,o)
 			if a.id=="":return -20
-			var value=_value(a.id,o) if a.id.begins_with("G") else _plot_value(a.id)
+			var value=_value(a.id,o) if a.id.begins_with("G") else _plot_value(a.id,o)
 			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry"] else value
 		"counter":return 30 if o.phase=="plot_response" else 0
 		"accept_plot":return 0
@@ -58,7 +73,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 				"G003","G059":return 6+_value(a.target,o)*0.2
 				"G004","G080":return 4
 				"G010","G011","G013","G028","G056":return 12
-				"G015":return 5-_plot_value(a.target)*0.15
+				"G015":return 5-_plot_value(a.target,o)*0.15
 				"G016":return 15+_value(a.target,o)*0.1
 				"G036":return 10+int(o.nodes.has("G035"))*3
 				"G037":return 8 if o.nodes[a.target].token>0 else -1
@@ -99,7 +114,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 			if ours and strength>=10:return -2
 			if not ours and strength<2:return -2
 			var cost=_value(a.group_fee,o)*0.1 if a.has("group_fee") else 0.0
-			if a.has("plot_fee"):cost+=_plot_value(a.plot_fee)*0.2
+			if a.has("plot_fee"):cost+=_plot_value(a.plot_fee,o)*0.2
 			return 4+n*0.4+_value(leader,o)*0.04-cost
 		"rescue":return 24
 		"mediate":return 5.2+_value(o.battle.target,o)*0.04 if o.battle_values.strength>=2 else -2
@@ -127,7 +142,8 @@ func _placement_value(id: String,parent: String,o: Dictionary) -> float:
 	if "名人" in traits and "地点" in _card(parent,o).tags:return 1
 	return 0
 
-func _plot_value(id: String) -> float:
+func _plot_value(id: String,o: Dictionary={}) -> float:
+	if CovenantRules.PLOTS.has(id):return 8+80*o.get("secret_goals",{}).get(id,{}).get("ratio",0)
 	if id in ["P15","P16","P12","P13","P17"]:return 12
 	if id in ["P21","P23","P24","P25","P27"]:return 9
 	return 5
@@ -163,8 +179,8 @@ func _expansion_score(a: Dictionary,o: Dictionary) -> float:
 		"G096":
 			var v=_value(a.target,o)
 			return 8+v*0.2 if not o.nodes.has(a.target) else 3
-		"G102":return 7-_plot_value(a.target)*0.25
-		"G107":return 10 if a.target in o.revealed.get("own_plot",[]) else 5-_plot_value(a.target)*0.2
+		"G102":return 7-_plot_value(a.target,o)*0.25
+		"G107":return 10 if a.target in o.revealed.get("own_plot",[]) else 5-_plot_value(a.target,o)*0.2
 		"G109":return 25+_value(a.target,o)*0.2
 		"G110":return 7+_value(a.target,o)*0.12
 	return -3
@@ -193,7 +209,7 @@ func _synergy_score(a: Dictionary,o: Dictionary) -> float:
 		if a.effect=="illusion":return o.battle_values.alignment*2.0 if o.battle_values.strength>=2 else -3
 		return 5 if o.battle_values.strength<16 else -2
 	match a.src:
-		"G116":return 8+_plot_value(a.target)*0.3
+		"G116":return 8+_plot_value(a.target,o)*0.3
 		"G120":return 9+_value(a.target,o)*0.25-_value(a.fee,o)*0.18
 		"G127":
 			var own=o.nodes[a.target].owner==o.player
@@ -214,7 +230,7 @@ func _synergy_plot(a: Dictionary,o: Dictionary) -> float:
 			if (a.tag=="太空" and parent=="G113") or (a.tag=="科学" and parent=="G114"):value+=6
 			if a.tag=="太空" and o.nodes.has("G115") and o.nodes.G115.owner==o.player:value+=3
 			return value
-		"P47":return 7+_plot_value(a.target)*0.35
+		"P47":return 7+_plot_value(a.target,o)*0.35
 		"P48":
 			var gain=0
 			for id in o.nodes:
@@ -222,11 +238,11 @@ func _synergy_plot(a: Dictionary,o: Dictionary) -> float:
 				if "共产" in _card(id,o).tags:gain+=maxi(0,_card(id,o).p-_card(id,o).gp)
 			return 4+gain if gain>0 and strength<10 else -3
 		"P49":return 10+_value(a.target,o)*0.2
-		"P50":return 3+a.disaster_bonus-_plot_value(a.fee)*0.25 if strength<16 else -3
+		"P50":return 3+a.disaster_bonus-_plot_value(a.fee,o)*0.25 if strength<16 else -3
 	return -5
 
 func _renewal_score(a: Dictionary,o: Dictionary) -> float:
-	if a.type=="trick":return 25-(_plot_value(a.fee)*0.3 if a.fee.begins_with("P") else _value(a.fee,o)*0.2)
+	if a.type=="trick":return 25-(_plot_value(a.fee,o)*0.3 if a.fee.begins_with("P") else _value(a.fee,o)*0.2)
 	if a.type=="militia":return 7+a.power*0.5 if o.battle_values.strength>=2 else -2
 	match a.src:
 		"G135":return 9+_value(a.target,o)*0.1

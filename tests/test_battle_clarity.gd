@@ -25,7 +25,7 @@ func fresh() -> GameState:
 	g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}]
 	g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")}
 	g.nodes.R0.token=1;g.nodes.R1.token=1
-	place(g,"G025",0,"R0");place(g,"G001",0,"R0");place(g,"G021",0,"R0")
+	place(g,"G025",0,"R0");place(g,"G001",0,"R0");place(g,"G056",0,"R0")
 	place(g,"G024",0,"G025");place(g,"G043",0,"G025")
 	place(g,"G023",1,"R1");place(g,"G006",1,"G023");place(g,"G063",1,"R1")
 	for id in ["P05","P04","P02","P12","P13","P15","P24"]:give(g,id,0)
@@ -64,9 +64,9 @@ func run() -> void:
 	var options=g.attack_options("G025","G023","control")
 	check(before==JSON.stringify([g.nodes,g.hands,g.decks,g.battle,g.phase,g.used,g.recharged,g.last_event]) and g.rng.state==random_before,"Preflight does not spend actions, move cards or consume randomness")
 	var video=options.supports.filter(func(entry):return entry.id=="G024")[0]
-	var hacker=options.supports.filter(func(entry):return entry.id=="G021")[0]
+	var supporter=options.supports.filter(func(entry):return entry.id=="G056")[0]
 	check(video.basis=="P" and video.power==3,"Direct child uses P with telephone command")
-	check(hacker.basis=="GP" and hacker.power==2,"Unmatched non-child uses GP")
+	check(supporter.basis=="GP" and supporter.power==1,"Unmatched non-child uses GP")
 	check(not options.supports.any(func(entry):return entry.id=="G001"),"Zero GP and no full-power qualification cannot support")
 	check(status(options,"P05")=="可用" and status(options,"P12")=="可用","Leader alignment and control plot available before attack")
 	check(status(options,"P04")=="先支援","Criminal plot requires the GP supporter to join first")
@@ -75,7 +75,7 @@ func run() -> void:
 	check(not JSON.stringify(options).contains("P10") and not JSON.stringify(options).contains("P01"),"Preflight does not reveal enemy plots")
 	apply(g,0,"attack",{"src":"G025","target":"G023","mode":"control"});apply(g,1,"pass")
 	check(not g.legal_actions(0).any(func(a):return a.type=="plot" and a.id=="P04"),"Conditional plot is not legal before support payment")
-	apply(g,0,"support",{"src":"G021"});check(g.battle.support_a==2,"Live GP support matches preflight value")
+	apply(g,0,"support",{"src":"G056"});check(g.battle.support_a==1,"Live GP support matches preflight value")
 	apply(g,1,"pass");apply(g,0,"plot",{"id":"P04"})
 	check(g.battle.bonus_a==4,"GP supporter receives the full fixed plot bonus")
 

@@ -25,7 +25,7 @@ func run() -> void:
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main);await process_frame;main.sound_volume=0;main.reduced_motion=true;main.presentation_time_scale=0.12
 	main._start_game(181);main._refresh();await process_frame
 	var faction_views=main.overlay.find_children("*","Control",true,false).filter(func(n):return n is CardView)
-	check(faction_views.size()==6,"Six faction cards fit opening selection")
+	check(faction_views.size()==4,"Four readable faction cards per opening page")
 	for v in faction_views:check(v.global_position.x>=0 and v.global_position.x+v.size.x<=main.size.x,"Faction selection stays within viewport")
 	for card_size in [Vector2(94,142),Vector2(138,192),Vector2(292,520),Vector2(350,742)]:
 		var frame=CardView.art_frame(card_size,8 if card_size.x<300 else 14)

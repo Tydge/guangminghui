@@ -153,6 +153,7 @@ func text_layout() -> Array:
 		if not n.attached.is_empty():flags.append("附着 · "+" / ".join(n.attached.map(func(k):return CardDB.name_of(k))))
 		if n.get("devastated",false):flags.append("受灾 · P/GP减半")
 		if n.get("prepared",false):flags.append("防备+4")
+		if n.get("pacified",false):flags.append("化干戈")
 		if n.get("silenced",false):flags.append("能力失效")
 		if id=="G088":flags.append("训练%d"%n.get("training",0))
 		if state.used.has(id):flags.append("能力已用")
