@@ -58,10 +58,35 @@ func back() -> void:
 func pick(key: String,value) -> void:
 	picker.select(key,value);picker_page=0;step()
 func label_for(key: String) -> String:
-	var labels={"target":"选择目标团体","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"选择是否用训练","algorithm":"选择支援方式","amplify":"选择扩容方式","solo":"孤军破袭：忽略位置，禁用进攻支援","star":"是否占星：1–3额外+2"}
+	var labels={"target":"选择目标团体","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
 	if key.begins_with("payers:"):return "选择第%d个支付行动的团体"%(int(key.get_slice(":",1))+1)
 	if key=="target" and picker.actions[0].get("id","") in ["P21","P23","P24","P25"]:return "选择支付行动的团体"
 	return labels.get(key,"选择操作")
+func support_value(options: Array) -> String:
+	var values: Array=[]
+	for a in options:
+		var value="%s +%d"%[a.get("basis","支援"),a.get("power",0)]
+		if value not in values:values.append(value)
+	return " / ".join(values)
+func mode_title(key: String,value: bool) -> String:
+	var options=picker.actions.filter(func(a):return a.get(key,false)==value)
+	# Later optional bonuses have their own step; quote the unmodified support here.
+	var plain=options.filter(func(a):return (key=="amplify" or picker.chosen.has("amplify") or not a.get("amplify",false)) and (key=="star" or not a.get("star",false)))
+	var strength=support_value(plain if not plain.is_empty() else options)
+	match key:
+		"algorithm":return ("算法时代 · "+strength+"（本战限1次）") if value else "普通支援 · "+strength
+		"amplify":return ("弹性扩容 · "+strength+" · 另弃1张牌") if value else "普通支援 · "+strength
+		"star":return ("星象助阵 · "+strength+"，骰1–3再+2") if value else "普通支援 · "+strength
+		"training":return "消耗1训练 · 攻击强度+2" if value else "不使用训练"
+		"solo":return "孤军破袭 · 忽略位置，禁用进攻支援" if value else "普通摧毁 · 可接受进攻支援"
+		"use_plan":
+			var dice=m.game.wave.plans.get(m.game.owner(picker.actions[0].src),[])
+			return "采用预案 · %d＋%d＝%d"%[dice[0],dice[1],dice[0]+dice[1]] if value and dice.size()==2 else "正常掷骰 · 两颗骰子"
+	return "启用" if value else "不启用"
+func mode_context() -> String:
+	var a=picker.actions[0];var source=m.game.title(a.get("src",""))
+	if a.type=="support":return source+" · 支援"+("进攻" if m.game.owner(a.src)==m.game.battle.attacker else "防守")+" · 消耗1行动"
+	return source+" → "+m.game.title(a.get("target",""))
 func step() -> void:
 	m._clear(m.large_layer);m._clear(m.hover_layer);m._clear(m.overlay);m.action_candidates.clear()
 	var key=picker.next_key()
@@ -74,18 +99,22 @@ func options() -> void:
 	var key=picker.next_key()
 	if key=="":confirm();return
 	m._clear(m.large_layer);m._dim(m.large_layer,0.55)
-	var extent=Vector2(minf(1100,m.size.x-100),minf(690,m.size.y-90));var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="StepPicker"
-	m._label(label_for(key),p,29,m.GOLD).position=Vector2(28,22)
+	var mode=key in ActionPicker.MODE_KEYS
+	var extent=Vector2(minf(760 if mode else 1100,m.size.x-100),minf(400 if mode else 690,m.size.y-90));var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="StepPicker"
+	var heading=m._label(label_for(key),p,29,m.GOLD);heading.position=Vector2(28,22);heading.size.x=extent.x-230;heading.clip_text=true
+	if mode:m._paragraph(mode_context(),p,Rect2(28,80,extent.x-56,52),21,m.TEAL)
 	m.window_access.offer(p)
 	var values=picker.values(key);var per_page=8;var pages=ceili(values.size()/float(per_page));picker_page=clampi(picker_page,0,maxi(0,pages-1))
-	var col=m._scroll_column(p,Rect2(28,80,extent.x-56,extent.y-180))
+	var top=140 if mode else 80
+	var col=m._scroll_column(p,Rect2(28,top,extent.x-56,extent.y-top-100))
 	for value in values.slice(picker_page*per_page,(picker_page+1)*per_page):
 		var row=HBoxContainer.new();row.add_theme_constant_override("separation",10);col.add_child(row)
 		var card=value is String and CardDB.get_card(value).has("kind")
 		if card:
 			var v=CardView.new();v.configure(value,m.game);v.custom_minimum_size=Vector2(76,116);row.add_child(v);v.selected.connect(m._inspect);v.inspected.connect(m._inspect)
-		var title=m.game.title(value) if card else ("是" if value is bool and value else ("否" if value is bool else str(value)))
-		var choose=m._button(title,func():pick(key,value),row,true);choose.custom_minimum_size=Vector2(230,50);choose.size_flags_vertical=Control.SIZE_SHRINK_CENTER
+		var title=m.game.title(value) if card else (mode_title(key,value) if value is bool else str(value))
+		var choose=m._button(title,func():pick(key,value),row,true);choose.name="ModeEnabled" if value is bool and value else ("ModeDefault" if value is bool else "ChooseOption");choose.custom_minimum_size=Vector2(230,56 if mode else 50);choose.size_flags_vertical=Control.SIZE_SHRINK_CENTER
+		if mode:choose.size_flags_horizontal=Control.SIZE_EXPAND_FILL;choose.alignment=HORIZONTAL_ALIGNMENT_LEFT
 		if card:m._button("查看",func():m._inspect(value),row).size_flags_vertical=Control.SIZE_SHRINK_CENTER
 	m._button("上一步",back,p).position=Vector2(28,extent.y-76)
 	m._button("取消",cancel,p).position=Vector2(150,extent.y-76)
@@ -102,6 +131,12 @@ func confirm() -> void:
 	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=heading.text
 	m.window_access.offer(p)
 	var lines: Array=[]
+	if a.type=="support":
+		lines.append(("支援进攻" if m.game.owner(a.src)==m.game.battle.attacker else "支援防守")+" · "+support_value([a]))
+		if a.get("algorithm",false):lines.append("算法时代 · 本战限1次")
+		if a.get("amplify",false):lines.append("弹性扩容 · 基础支援翻倍")
+		if a.get("star",false):lines.append("星象助阵 · 骰1–3再+2")
+		lines.append("消耗该团体1行动")
 	for key in ["target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
 		if a.get(key,"")=="":continue
 		lines.append({"target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))

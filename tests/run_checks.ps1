@@ -4,7 +4,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $projectPath = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
-foreach ($script in @('test_rules.gd', 'test_effects.gd', 'test_expansion.gd', 'test_synergy.gd', 'test_renewal.gd', 'test_housing_clone.gd', 'test_covenant.gd', 'test_covenant_ui.gd', 'test_renewal_ui.gd', 'test_opening_balance.gd', 'test_ui.gd', 'test_battle_clarity.gd', 'test_modern_mechanics.gd', 'test_modern_ui.gd', 'test_presentation.gd', 'test_dice_sequence.gd', 'test_flow_order.gd', 'test_expansion_ui.gd', 'test_synergy_ui.gd', 'test_interaction_polish.gd', 'test_match.gd')) {
+foreach ($script in @('test_rules.gd', 'test_effects.gd', 'test_expansion.gd', 'test_synergy.gd', 'test_renewal.gd', 'test_housing_clone.gd', 'test_covenant.gd', 'test_covenant_ui.gd', 'test_renewal_ui.gd', 'test_opening_balance.gd', 'test_ui.gd', 'test_battle_clarity.gd', 'test_modern_mechanics.gd', 'test_modern_ui.gd', 'test_presentation.gd', 'test_dice_sequence.gd', 'test_flow_order.gd', 'test_expansion_ui.gd', 'test_synergy_ui.gd', 'test_interaction_polish.gd', 'test_support_modes_ui.gd', 'test_match.gd')) {
     $testOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) 2>&1
     $testCode = $LASTEXITCODE
     $testOutput | Write-Output

@@ -4,14 +4,16 @@ var active=false
 var actions: Array=[]
 var chosen: Dictionary={}
 var history: Array=[]
-const KEYS=["target","leader","src","parent","payer","other","attachment","fee","plot_fee","group_fee","tag","payers","use_plan","training","algorithm","amplify","solo","star"]
+const MODE_KEYS=["use_plan","training","algorithm","amplify","solo","star"]
+# Choose an optional mode before its fees, so declining it remains possible.
+const KEYS=["target","leader","src","parent","payer","other","attachment","use_plan","training","algorithm","amplify","solo","star","fee","plot_fee","group_fee","tag","payers"]
 func begin(options: Array) -> void:
 	active=true;actions=options.duplicate(true);chosen={};history=[]
 func clear() -> void:active=false;actions=[];chosen={};history=[]
 func values(key: String) -> Array:
 	var result: Array=[]
 	for a in actions:
-		var candidates=a.get("payers",[]) if key.begins_with("payers:") else [a.get(key,false) if key in ["use_plan","training","algorithm","amplify","solo","star"] else a.get(key)]
+		var candidates=a.get("payers",[]) if key.begins_with("payers:") else [a.get(key,false) if key in MODE_KEYS else a.get(key)]
 		for v in candidates:
 			if key.begins_with("payers:") and v in chosen.values():continue
 			if v!=null and v not in result:result.append(v)
