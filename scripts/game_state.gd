@@ -829,7 +829,9 @@ func _resolve_battle() -> void:
 	wave.resolve_battle()
 
 func _reward_draw(src: String,p: int,kind: String) -> void:
-	if current==p and owner(src)==p and not rewards.has(src):rewards[src]=true;_draw(p,kind)
+	if current==p and owner(src)==p and not rewards.has(src):
+		rewards[src]=true
+		wave.defer({"kind":"draw","source":src,"player":p,"deck":kind,"amount":1,"message":"抽牌收益 · 抽1张"+("团体" if kind=="group" else "阴谋")})
 
 func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 	if p!=current:return

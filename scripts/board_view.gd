@@ -4,6 +4,7 @@ extends Control
 signal card_selected(id: String)
 signal card_inspected(id: String)
 signal card_hovered(id: String,showing: bool)
+signal settlement_finished(completed: bool)
 
 var game: GameState
 var cards: Dictionary={}
@@ -26,6 +27,30 @@ var initialized=false
 var collapsed: Dictionary={}
 var interaction_enabled=true
 var input_blocked_at: Callable
+var motion_time_scale=1.0
+var visual_tweens: Array=[]
+var settlement_result: Dictionary={}
+var settling=false
+
+func track_motion(tween: Tween) -> Tween:
+	visual_tweens.append(tween)
+	tween.finished.connect(func():visual_tweens.erase(tween),CONNECT_ONE_SHOT)
+	return tween
+func reset_motion() -> void:
+	for tween in visual_tweens:
+		if tween.is_valid():tween.kill()
+	visual_tweens.clear()
+	settlement_result={}
+	if settling:settling=false;settlement_finished.emit(false)
+func is_settled() -> bool:
+	if not visual_tweens.is_empty():return false
+	for id in cards:
+		if positions[id].distance_to(targets[id])*zoom>0.5:return false
+	return true
+func wait_for_settlement() -> bool:
+	if is_settled():return true
+	settling=true
+	return await settlement_finished
 
 func _ready() -> void:
 	clip_contents=true;mouse_filter=Control.MOUSE_FILTER_STOP
@@ -33,16 +58,18 @@ func _ready() -> void:
 
 func sync(g: GameState) -> void:
 	game=g
+	var outcome=g.last_event if settlement_result.is_empty() else settlement_result
 	for id in g.nodes:
 		if not cards.has(id):reveal([id])
 	for id in cards.keys():
 		if not g.nodes.has(id):
 			var fading=cards[id];cards.erase(id);positions.erase(id)
-			var tween=create_tween().set_parallel(true)
-			if id==g.last_event.get("target","") and g.last_event.get("mode","")=="destroy" and not g.last_event.get("rescued",false):
-				tween.tween_property(fading,"modulate",Color(1.0,0.3,0.18,0.0),0.45);tween.tween_property(fading,"scale",fading.scale*0.75,0.45)
+			var tween=track_motion(create_tween().set_parallel(true))
+			var duration=(0.10 if reduced_motion else 0.5)*motion_time_scale
+			if id==outcome.get("target","") and outcome.get("mode","")=="destroy" and not outcome.get("rescued",false):
+				tween.tween_property(fading,"modulate",Color(1.0,0.3,0.18,0.0),duration);tween.tween_property(fading,"scale",fading.scale*0.75,duration)
 			else:
-				tween.tween_property(fading,"position",Vector2(size.x-35,-130) if fading.enemy else Vector2(45,size.y+50),0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT);tween.tween_property(fading,"modulate:a",0.0,0.5)
+				tween.tween_property(fading,"position",Vector2(size.x-35,-130) if fading.enemy else Vector2(45,size.y+50),duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT);tween.tween_property(fading,"modulate:a",0.0,duration)
 			tween.chain().tween_callback(fading.queue_free)
 	var left_width=_width(g.root(0));var right_width=_width(g.root(1))
 	_layout(g.root(0),Vector2(left_width/2,0))
@@ -52,11 +79,12 @@ func sync(g: GameState) -> void:
 			var view=CardView.new();view.configure(id,g);view.size=card_size;add_child(view)
 			view.selected.connect(func(k):card_selected.emit(k));view.inspected.connect(func(k):card_inspected.emit(k));view.hovered.connect(func(k,showing):card_hovered.emit(k,showing));view.wheel_zoom.connect(_wheel)
 			cards[id]=view;positions[id]=targets[id]+Vector2(0,100);view.modulate.a=0
-			create_tween().tween_property(view,"modulate:a",1.0,0.3)
+			track_motion(create_tween()).tween_property(view,"modulate:a",1.0,0.3*motion_time_scale)
 		cards[id].visible=not hidden_by_collapse(id)
 		cards[id].collapsed_count=g.subtree(id).size()-1 if collapsed.get(id,false) else 0
 		cards[id].enemy=g.owner(id)==1;cards[id].chosen=id==selected_id;cards[id].legal=id in legal_ids;cards[id].queue_redraw()
 	if not initialized and not g.nodes.is_empty():initialized=true;fit_all()
+	settlement_result={}
 	queue_redraw()
 
 func _width(id: String) -> float:
@@ -80,9 +108,10 @@ func _process(delta: float) -> void:
 		zoom=lerpf(zoom,zoom_target,1.0-exp(-delta*12))
 		if pan.distance_to(camera_target)<0.5 and absf(zoom-zoom_target)<0.001:pan=camera_target;zoom=zoom_target;camera_animating=false
 	for id in cards:
-		positions[id]=targets[id] if reduced_motion else positions[id].lerp(targets[id],1.0-exp(-delta*10))
+		positions[id]=targets[id] if reduced_motion else positions[id].lerp(targets[id],1.0-exp(-delta*10/maxf(0.01,motion_time_scale)))
 		cards[id].position=positions[id]*zoom+pan-card_size*zoom/2
 		cards[id].scale=Vector2.ONE*zoom
+	if settling and is_settled():settling=false;settlement_finished.emit(true)
 	queue_redraw()
 
 func _draw() -> void:

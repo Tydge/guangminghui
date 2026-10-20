@@ -22,11 +22,13 @@ cd guangminghui
 - 单击选牌后使用下方动作。自动接管选择上级，新团体当回合无行动标记且不能额外恢复；攻击选择目标后先预览，再确认花费行动。
 - 可先选对手团体，点击「控制 / 摧毁」，再选高亮的己方带头团体；也保留先选带头者的方式。两种路径都先进入预览，确认前不消耗行动。
 - 拖动战斗窗口或攻击预览的标题栏移动窗口；鼠标和触摸均支持。战斗响应刷新后保留位置，可将窗口暂时移至边缘查看势力树；标题始终保留可抓取的区域。
+- 选择、战斗和预览窗口的「查看战场」可暂时收起窗口，平移缩放并查看场上与手牌；此时对局与AI暂停。点击「返回操作窗口」继续原来的选择，保留已选目标和阅读位置。
 - 攻击预览简短列出可支援的团体及P/GP加值、可用阴谋与需先支援的阴谋；其余阴谋手牌折叠，点卡可查看具体条件。预览不支付标记或出牌。
 - 悬停半秒、右键、长按或「查看大卡」查看完整卡面；移动超过 8 像素会取消长按，长按结束不触发普通点击。
 - 大卡显示当前忠诚、位置、被动防御、控制/摧毁防御拆分、印刷与有效数值、附着及行动恢复状态；移动布局可滚动阅读；点击附着牌按钮可读完整效果，关闭后回到原团体和阅读位置。
 - 战斗中轮流追加支援、阴谋或救援，双方连续放行后才掷骰。每项响应旁的「查看」可以先读卡。
 - 骰子先滚动并展示结果，窗口完全淡出后才开始目标控制转移、摧毁及下属回手。结果窗口存在期间真实场面与随机状态保持不变；决定胜负的一击也先展示结果，再进入胜利界面。
+- 桌面动效期间，战斗等覆盖窗口暂时隐藏，完成后恢复。所有操作都等待进场、离场及布局移动完成，再继续后续选择或触发；战后抽牌、恢复行动逐项展示来源并结算，最后才宣告胜利。
 - 战斗右侧持续记录双方支援团体、P/GP数值、阴谋对象与反制结果。结算后点击桌面的「最近战斗」回看。
 - 双方打出阴谋、发动主动能力，以及救援/斡旋时，中央淡入完整卡牌、行动方和能力名，停留后淡出。展示彻底结束才支付费用和执行效果；期间阻止重复操作及AI继续行动。「减少动态效果」缩短淡入淡出，保留阅读停留与相同的结算顺序。
 - 重组等多目标操作分步选择团体、上级和费用，场上高亮可选目标，允许返回或取消；确认前不支付。
@@ -79,6 +81,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/action_flow.gd`：规则副本预演、抽弃牌和目标移动计划，保持真实对局及 RNG 在动效结束前不变。
 - `scripts/action_picker.gd`、`scripts/game_interactions.gd`：分步选目标、分页图鉴、附着牌阅读与移动动效。
 - `scripts/main.gd`：菜单、对局、响应、选择、图鉴和设置。
+- `scripts/window_access.gd`：动效时暂藏窗口、暂停查看战场及原操作恢复。
 - `scripts/panel_drag_handle.gd`：浮动窗口标题的鼠标/触摸拖动、边界约束及手势释放。
 - `data/cards.json`：全部186种卡牌，可修改数值和文案。
 - `docs/光明会_全部卡牌完整效果_当前版.md`：与用户共同维护的唯一完整卡牌文档。
@@ -105,6 +108,7 @@ godot --headless --path . --script res://tests/test_modern_mechanics.gd
 godot --headless --path . --script res://tests/test_modern_ui.gd
 godot --headless --path . --script res://tests/test_presentation.gd
 godot --headless --path . --script res://tests/test_dice_sequence.gd
+godot --headless --path . --script res://tests/test_flow_order.gd
 godot --headless --path . --script res://tests/test_expansion_ui.gd
 godot --headless --path . --script res://tests/test_synergy_ui.gd
 godot --headless --path . --script res://tests/test_match.gd

@@ -42,6 +42,12 @@ func low_dice(g: GameState) -> void:
 func resolve(g: GameState) -> void:
 	low_dice(g)
 	while g.phase=="battle":apply(g,g.battle.responder,"pass")
+	automatic(g)
+
+func automatic(g: GameState) -> void:
+	for i in 12:
+		if g.phase!="choice" or g.choice.kind!="w_auto":return
+		apply(g,g.choice.player,"trigger")
 
 func _initialize() -> void:
 	CardDB.load_all()
@@ -143,6 +149,7 @@ func _initialize() -> void:
 		var incoming={"G033":"G043","G044":"G023","G069":"G064"}[source];give(g,incoming,0)
 		if source=="G033":give(g,"P10",0)
 		apply(g,0,"auto",{"id":incoming,"parent":"R0" if source=="G044" else source})
+		automatic(g)
 		if source=="G033":apply(g,0,"choose",{"id":"P10"});check(g.hands[0].plot.size()==1 and "P10" in g.discards.plot,"Empty Vee optional replace")
 		else:check(g.hands[0].group.size()==1,source+" entry reward")
 		check(g.validate().is_empty(),source+" entry conservation")

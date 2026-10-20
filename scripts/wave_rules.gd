@@ -203,10 +203,13 @@ func handle(p: int,a: Dictionary) -> bool:
 		var c=g.choice.duplicate(true);g.choice={};g.phase=c.resume
 		var task=c.task
 		if task.kind=="prepared" and g.nodes.has(task.target):g.nodes[task.target].prepared=false
-		if task.kind=="draw" and once(task.quota):
-			remember(task.quota)
+		if task.kind=="draw" and (not task.has("quota") or once(task.quota)):
+			if task.has("quota"):remember(task.quota)
 			for i in task.amount:g._draw(p,task.get("deck","plot"))
 			g._log(g.title(a.src)+" · "+task.get("message","抽牌收益"),"ability",{"id":a.src})
+		if task.kind=="battle_recharge" and g.owner(task.source)==p and g.can_recharge(task.source):
+			g.nodes[task.source].token=1;g.recharged[task.source]=true
+			g._log(g.title(task.source)+" · 战后恢复行动标记","ability",{"id":task.source})
 		if c.resume=="battle":next_response_trigger()
 		else:g._after_effect()
 		return true
@@ -346,6 +349,9 @@ func start_disaster(a: Dictionary) -> void:
 func auto_trigger(task: Dictionary,resume: String) -> void:
 	g._set_choice(task.player,g.title(task.source)+" · 效果生效",[],"w_auto",{"source":task.source,"task":task,"resume":resume})
 
+func defer(task: Dictionary) -> void:
+	queue.append({"kind":"deferred","player":task.player,"task":task})
+
 func next_response_trigger() -> void:
 	while not response_queue.is_empty():
 		var task=response_queue.pop_front()
@@ -417,6 +423,7 @@ func drain() -> bool:
 	while not queue.is_empty():
 		var task=queue.pop_front();var p=task.player
 		match task.kind:
+			"deferred":auto_trigger(task.task,"main");return true
 			"synergy":return g.synergy.queue_task(task.task)
 			"recharge":
 				var options=task.options.filter(func(k):return g.nodes.has(k) and g.owner(k)==p and g.can_recharge(k))
@@ -463,7 +470,8 @@ func resolve_battle() -> void:
 			else:g._enter(target,p,b.src);g.captured[target]=true;g.failed_recruits.erase(target)
 			if b.src=="G014" and g.has(target,"企业"):g._reward_draw(b.src,p,"plot")
 			if b.src=="G023" and g.has(target,"计算机"):g._reward_draw(b.src,p,"group")
-			if announced.get(target,-1)==p:g._draw(p,"plot");announced.erase(target)
+			if announced.get(target,-1)==p:
+				defer({"kind":"draw","source":"G090","player":p,"deck":"plot","amount":1,"message":"产品发布 · 招募后抽1张阴谋"});announced.erase(target)
 		elif b.rescue:rescued=true;g._return_subtree(target)
 		elif destroy and g.synergy.guard_blocks(b):guarded=true
 		elif destroy:
@@ -480,7 +488,7 @@ func resolve_battle() -> void:
 			if b.disaster=="P35" and g.has(target,"巨大"):queue.append({"kind":"epidemic","target":target,"player":b.defender})
 	if b.has("disaster") and not rescued and (destroyed_target or new_devastated):queue.append({"kind":"insurance","player":b.defender,"amount":2 if destroyed_target else 1})
 	for entry in b.video:
-		if g.owner(entry.id)==entry.owner and g.can_recharge(entry.id):g.nodes[entry.id].token=1;g.recharged[entry.id]=true
+		if g.owner(entry.id)==entry.owner and g.can_recharge(entry.id):defer({"kind":"battle_recharge","source":entry.id,"player":entry.owner})
 	for entry in b.get("supporters",[]):
 		if g.owner(entry.id)==entry.owner and "P39" in g.nodes[entry.id].attached:
 			queue.append({"kind":"recharge","source":"P39","quota":"brand:"+entry.id,"player":entry.owner,"options":g.groups(entry.owner).filter(func(k):return g.has(k,"企业") and g.can_recharge(k))})

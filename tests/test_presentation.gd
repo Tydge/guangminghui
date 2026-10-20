@@ -152,6 +152,7 @@ func run() -> void:
 	main._do_action(0,action(g,0,"plot",{"id":"P29"}));main.presentation_tween.pause();main.presentation_tween.custom_step(0.5)
 	check(main.presenting and g.world=="","Reduced motion retains the reading pause instead of flashing past the card")
 	main.presentation_tween.custom_step(0.9)
+	await wait_idle()
 	check(not main.busy and g.world=="P29","Reduced-motion production cue still settles only after its final fade")
 	main.presentation_time_scale=0.15
 	# Reactions wait as well: the committed plot can only be countered after both cues.

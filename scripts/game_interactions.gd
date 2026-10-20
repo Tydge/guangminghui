@@ -76,6 +76,7 @@ func options() -> void:
 	m._clear(m.large_layer);m._dim(m.large_layer,0.55)
 	var extent=Vector2(minf(1100,m.size.x-100),minf(690,m.size.y-90));var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="StepPicker"
 	m._label(label_for(key),p,29,m.GOLD).position=Vector2(28,22)
+	m.window_access.offer(p)
 	var values=picker.values(key);var per_page=8;var pages=ceili(values.size()/float(per_page));picker_page=clampi(picker_page,0,maxi(0,pages-1))
 	var col=m._scroll_column(p,Rect2(28,80,extent.x-56,extent.y-180))
 	for value in values.slice(picker_page*per_page,(picker_page+1)*per_page):
@@ -98,7 +99,8 @@ func confirm() -> void:
 		picker.clear();m._review_action(a);return
 	m._clear(m.large_layer);m._dim(m.large_layer,0.2)
 	var extent=Vector2(minf(720,m.size.x-100),370);var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="ActionConfirmation"
-	var source=a.get("id",a.get("src",""));m._label(m.game.title(source),p,30,m.GOLD).position=Vector2(28,24)
+	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=heading.text
+	m.window_access.offer(p)
 	var lines: Array=[]
 	for key in ["target","parent","payer","fee","attachment","tag"]:
 		if a.get(key,"")=="":continue

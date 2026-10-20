@@ -129,6 +129,8 @@ func _initialize() -> void:
 	g=fresh();place(g,"G035",0,"R0");place(g,"G032",0,"G035");give(g,"P26",0)
 	g.decks.plot.erase("P10");g.decks.plot.push_front("P10")
 	apply(g,0,"plot",{"id":"P26","target":"G032"})
+	check(g.phase=="choice" and g.choice.get("source","")=="G035" and g.hands[0].plot.is_empty(),"Streaming dividend is queued after plot settlement")
+	apply(g,0,"trigger")
 	check(g.hands[0].plot==["P10"] and g.rewards.has("G035"),"First settled plot pays one streaming dividend")
 	give(g,"P27",0);apply(g,0,"plot",{"id":"P27","target":"G032"})
 	check(g.hands[0].plot==["P10"],"Streaming does not repeat within a turn")

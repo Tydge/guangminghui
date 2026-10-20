@@ -17,6 +17,7 @@ var hover_layer: Control
 var detail_layer: Control
 var inspection_was_paused=false
 var interactions: GameInteractions
+var window_access: WindowAccess
 var notification: Label
 var selected=""
 var hand_tab="group"
@@ -47,6 +48,9 @@ var presentation_time_scale=1.0
 
 func _set_busy(value: bool) -> void:
 	busy=value
+	if window_access!=null:
+		if value:window_access.begin_effect()
+		else:window_access.end_effect()
 	board.interaction_enabled=not value
 	if value:
 		board.cancel_card_gestures();board.drag=false;board.fingers.clear();board.touch_distance=0
@@ -73,6 +77,7 @@ func _ready() -> void:
 	CardDB.load_all()
 	interactions=GameInteractions.new(self)
 	add_child(interactions)
+	window_access=WindowAccess.new(self);add_child(window_access)
 	font=CardDB.readable_font()
 	var t=Theme.new();t.default_font=font;t.default_font_size=20;theme=t
 	compact=OS.has_feature("mobile");_load_settings();_build_shell();resized.connect(_resize)
@@ -86,7 +91,7 @@ func _style(color: Color=Color("142e32"),border: Color=Color("846e47"),width: in
 
 func _button(text: String,callback: Callable,parent: Node,accent: bool=false) -> Button:
 	var b=Button.new();b.text=text;b.custom_minimum_size=Vector2(104,46);b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;b.add_theme_color_override("font_color",CREAM);b.add_theme_color_override("font_hover_color",Color.WHITE);b.add_theme_stylebox_override("normal",_style(Color("254b47") if accent else Color("142c2e"),GOLD if accent else Color("6e7056")));b.add_theme_stylebox_override("hover",_style(Color("315953"),GOLD));b.add_theme_stylebox_override("pressed",_style(Color("416c60"),TEAL,2));b.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),TEAL,2));b.pressed.connect(func():
-		if not busy:_sound("click");callback.call());parent.add_child(b);return b
+		if not busy and not window_access.transitioning:_sound("click");callback.call());parent.add_child(b);return b
 
 func _label(text: String,parent: Node,fs: int=20,color: Color=CREAM) -> Label:
 	var l=Label.new();l.text=text;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;parent.add_child(l);return l
@@ -137,7 +142,7 @@ func _resize() -> void:
 	notification.position=Vector2(0,113);notification.size=Vector2(size.x,38)
 	if game!=null:
 		_refresh(not busy)
-		if not preview_action.is_empty() and not busy:_review_action(preview_action)
+		if not preview_action.is_empty() and not busy and not window_access.browsing and not window_access.transitioning:_review_action(preview_action)
 	if presenting:
 		for panel_name in ["RevealBody","DiceResult"]:
 			var body=presentation_layer.get_node_or_null(panel_name)
@@ -152,7 +157,7 @@ func _dim(layer: Control,opacity: float=0.85) -> void:
 	var d=ColorRect.new();d.color=Color(0.015,0.04,0.045,opacity);d.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);layer.add_child(d)
 
 func _menu() -> void:
-	match_id+=1;_finish_presentation(false);interactions.reset();_set_busy(false);thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
+	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
 	_clear(overlay);_clear(hud);_clear(hand_layer);_clear(inspector);_clear(large_layer);game=null;board.visible=false;modal_open=true;_dim(overlay)
 	var c=size/2
 	var heading=_label("ILLUMINATI",overlay,82,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,c.y-300);heading.size.x=size.x
@@ -164,17 +169,17 @@ func _menu() -> void:
 	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.position=Vector2(0,size.y-65);foot.size.x=size.x
 
 func _start_game(seed_value: int=0) -> void:
-	match_id+=1;_finish_presentation(false);interactions.reset();_set_busy(false);thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
+	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
 	_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear()
 	game=GameState.new(seed_value);selected="";action_candidates.clear();modal_open=false;board.visible=true;board.initialized=false;_refresh();_sound("open")
 
 func _refresh(with_modal: bool=true) -> void:
 	if game==null:return
 	_clear(hud);_clear(hand_layer);_clear(inspector)
-	board.game=game;board.selected_id=selected;board.legal_ids=interactions.picker.values(target_key) if interactions.picker.active and not action_candidates.is_empty() else action_candidates.map(func(a):return a.get(target_key,""));board.reduced_motion=reduced_motion
+	board.game=game;board.selected_id=selected;board.legal_ids=[] if window_access.browsing else (interactions.picker.values(target_key) if interactions.picker.active and not action_candidates.is_empty() else action_candidates.map(func(a):return a.get(target_key,"")));board.reduced_motion=reduced_motion;board.motion_time_scale=presentation_time_scale
 	if not game.nodes.is_empty():board.sync(game)
 	_draw_hud();_draw_hand();_draw_inspector()
-	if with_modal:_phase_overlay()
+	if with_modal and not window_access.browsing and not window_access.transitioning:_phase_overlay()
 
 func _draw_hud() -> void:
 	var w=size.x;var h=size.y
@@ -182,33 +187,36 @@ func _draw_hud() -> void:
 	_label("ILLUMINATI",hud,30,GOLD).position=Vector2(35,20)
 	var status="选择光明会" if game.phase.begins_with("setup") else ("你的回合" if game.current==0 else "AI 的回合")
 	if game.phase=="battle":status="战斗响应"
-	if game.phase=="over":status="对局结束"
+	if busy:status="效果结算"
+	elif game.phase=="over":status="对局结束"
 	_label(status,hud,25,TEAL if game.current==0 else Color("df9c8d")).position=Vector2(w/2-80,20)
 	if not game.nodes.is_empty():
 		_label("你 · "+CardDB.name_of(game.factions[0])+"   "+game.goal(0).text,hud,18).position=Vector2(35,70)
 		_label("AI · "+CardDB.name_of(game.factions[1])+"   "+game.goal(1).text,hud,18,Color("d69b8e")).position=Vector2(w/2+20,70)
-	var menu=_button("☰",_settings,hud);menu.position=Vector2(w-92,16);menu.custom_minimum_size.x=54;menu.size=Vector2(54,46)
+	var menu=_button("☰",_settings,hud);menu.position=Vector2(w-92,16);menu.custom_minimum_size.x=54;menu.size=Vector2(54,46);menu.disabled=window_access.browsing
 	var camera=HBoxContainer.new();camera.position=Vector2(35,105);camera.add_theme_constant_override("separation",7);hud.add_child(camera)
 	_button("己方",func():board.focus(0),camera);_button("对手",func():board.focus(1),camera);_button("全局",func():board.fit_all(),camera)
 	var minus=_button("−",func():board.zoom_at(0.85,board.size/2),camera);minus.custom_minimum_size.x=48
 	var plus=_button("＋",func():board.zoom_at(1.18,board.size/2),camera);plus.custom_minimum_size.x=48
 	for kind in ["group","plot"]:
-		var piles=_button(("团体 " if kind=="group" else "阴谋 ")+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-355+(0 if kind=="group" else 163),105);piles.size=Vector2(155,46)
+		var piles=_button(("团体 " if kind=="group" else "阴谋 ")+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-355+(0 if kind=="group" else 163),105);piles.size=Vector2(155,46);piles.disabled=window_access.browsing
 		var back="res://assets/ui/%s_back.webp"%kind
 		if ResourceLoader.exists(back):piles.icon=load(back);piles.expand_icon=true;piles.add_theme_constant_override("icon_max_width",22)
 	if game.world!="":
 		var order=_button("秩序 · "+CardDB.name_of(game.world).replace("新世界秩序：",""),func():_inspect(game.world),hud);order.position=Vector2(515,105)
-	var eventtext=game.logs.back() if not game.logs.is_empty() else ""
+	var eventtext="查看战场 · 对局暂停" if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
 	var log_width=w-(385 if not compact else 70)-(155 if not game.last_battle.is_empty() else 0)
-	var log_button=_button("◈  "+eventtext,_journal,hud);log_button.add_theme_font_size_override("font_size",16);log_button.custom_minimum_size.y=42;log_button.position=Vector2(35,h-249);log_button.size=Vector2(log_width,42);log_button.clip_text=true
+	var log_button=_button("◈  "+eventtext,_journal,hud);log_button.add_theme_font_size_override("font_size",16);log_button.custom_minimum_size.y=42;log_button.position=Vector2(35,h-249);log_button.size=Vector2(log_width,42);log_button.clip_text=true;log_button.disabled=window_access.browsing
 	if not game.last_battle.is_empty():
-		var history_button=_button("最近战斗",_battle_history,hud);history_button.add_theme_font_size_override("font_size",16);history_button.custom_minimum_size.y=42;history_button.position=Vector2(45+log_width,h-249);history_button.size=Vector2(145,42)
+		var history_button=_button("最近战斗",_battle_history,hud);history_button.add_theme_font_size_override("font_size",16);history_button.custom_minimum_size.y=42;history_button.position=Vector2(45+log_width,h-249);history_button.size=Vector2(145,42);history_button.disabled=window_access.browsing
 	var tabs_width=8.0
 	for caption in _hand_tab_labels():tabs_width+=maxf(104,font.get_string_size(caption,HORIZONTAL_ALIGNMENT_LEFT,-1,20).x+32)
 	var actions_x=35+tabs_width+18
 	var action_scroll=ScrollContainer.new();action_scroll.name="ActionToolbar";action_scroll.position=Vector2(actions_x,h-205);action_scroll.size=Vector2(w-(350 if not compact else 35)-actions_x,54);action_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;hud.add_child(action_scroll)
 	var actions=HBoxContainer.new();actions.size_flags_vertical=Control.SIZE_SHRINK_BEGIN;actions.add_theme_constant_override("separation",8);action_scroll.add_child(actions)
-	if not action_candidates.is_empty():
+	if window_access.browsing:
+		_button("返回操作窗口",window_access.resume,actions,true)
+	elif not action_candidates.is_empty():
 		var hint=_label(action_hint,actions,19,TEAL);hint.clip_text=true;hint.custom_minimum_size.x=clampf(action_scroll.size.x-360,180,380);hint.tooltip_text=action_hint
 		_button("上一步",interactions.back,actions) if interactions.picker.active else null
 		_button("取消",func():interactions.cancel(),actions);_button("列出目标",func():interactions.show_targets(action_candidates),actions)
@@ -216,7 +224,7 @@ func _draw_hud() -> void:
 	else:_label("AI 正在行动…" if thinking else "",actions,20,GOLD)
 	if selected!="":_button("查看大卡",func():_inspect(selected),actions)
 	if game.nodes.has(selected) and not game.children(selected).is_empty():_button("展开" if board.collapsed.get(selected,false) else "收起",func():board.collapsed[selected]=not board.collapsed.get(selected,false);_refresh(false),actions)
-	if game.phase=="main" and game.current==0:
+	if game.phase=="main" and game.current==0 and not window_access.browsing:
 		var pending=game.failed_recruits.filter(func(id):return id in game.hands[0].group).size()
 		var end=_button("结束回合 · 招募弃%d"%pending if pending>0 else "结束回合  →",func():_perform_type("end"),hud,true);end.position=Vector2(w-330,h-80);end.size=Vector2(285,56)
 	_label("对手手牌 · 团体 %d  /  阴谋 %d"%[game.hands[1].group.size(),game.hands[1].plot.size()],hud,16,Color("abafa0")).position=Vector2(w-342,h-128)
@@ -278,8 +286,10 @@ func _draw_inspector() -> void:
 	var v=CardView.new();v.configure(id,game);v.position=Vector2(size.x-327,165);v.size=Vector2(292,minf(520,size.y-380));inspector.add_child(v);v.inspected.connect(_inspect);v.selected.connect(_inspect)
 
 func _select_card(id: String) -> void:
-	if busy:return
+	if busy or window_access.transitioning:return
 	_sound("select");_clear(hover_layer)
+	if window_access.browsing:
+		selected=id;_refresh(false);return
 	if interactions.picker.active and not action_candidates.is_empty():
 		if id in interactions.picker.values(target_key):interactions.pick(target_key,id)
 		return
@@ -293,13 +303,16 @@ func _select_card(id: String) -> void:
 	_refresh(false)
 
 func _target(actions: Array,key: String,hint: String) -> void:
+	if window_access.browsing:return
 	action_candidates=actions;target_key=key;action_hint=hint;board.reveal(interactions.picker.values(key) if interactions.picker.active else actions.map(func(a):return a.get(key,"")));_refresh(false)
 	if compact:board.focus(1 if actions.any(func(a):return game.owner(a.get(key,""))==1) else 0)
 
 func _action_list(actions: Array) -> void:
+	if window_access.browsing:return
 	interactions.begin(actions)
 
 func _review_action(a: Dictionary,all_plots: bool=false) -> void:
+	if window_access.browsing:return
 	if a.type=="plot" and a.id in ["P31","P32","P33","P34","P35"]:_review_disaster(a);return
 	if a.type=="ability" and a.src=="G096":
 		_review_action({"type":"attack","src":a.leader,"target":a.target,"mode":"control","use_plan":a.get("use_plan",false),"delegate":"G096","delegate_command":a},all_plots);return
@@ -309,7 +322,8 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	var extent=Vector2(minf(1120,size.x-100),minf(670,size.y-130))
 	var p=_panel(large_layer,Rect2((size-extent)/2,extent))
 	_drag_title(p,"控制攻击" if a.mode=="control" else "摧毁攻击","preview")
-	_label(game.title(a.src)+"  →  "+game.title(a.target),p,24).position=Vector2(28,68)
+	window_access.offer(p,Vector2(-1,62))
+	var heading=_label(game.title(a.src)+"  →  "+game.title(a.target),p,24);heading.position=Vector2(28,68);heading.size.x=extent.x-230;heading.clip_text=true;heading.tooltip_text=heading.text
 	var v=game.attack_preview(a.src,a.target,a.mode,a)
 	if a.get("use_plan",false):_paragraph("采用预案 · %d＋%d"%game.wave.plans[0],p,Rect2(28,222,380,35),20,TEAL)
 	var left_w=extent.x*0.39;var right_x=left_w+40
@@ -349,7 +363,7 @@ func _perform_type(kind: String) -> void:
 		if a.type==kind:_do_action(0,a);return
 
 func _do_action(p: int,a: Dictionary) -> void:
-	if busy or panel_dragging or game==null or a not in game.legal_actions(p):return
+	if busy or window_access.browsing or window_access.transitioning or panel_dragging or game==null or a not in game.legal_actions(p):return
 	var this_match=match_id
 	var old_phase=game.phase
 	interactions.picker.clear()
@@ -376,6 +390,12 @@ func _do_action(p: int,a: Dictionary) -> void:
 	if not game.act(p,a):_set_busy(false);_refresh();_schedule_ai();return
 	if a.type=="attack":floating_positions.erase("battle")
 	if selected!="" and not game.nodes.has(selected) and selected not in game.hands[0].group and selected not in game.hands[0].plot:selected=""
+	# Every action waits for board entry, exit and layout motion, including abilities
+	# and turn-end effects. No new choice, automatic trigger or victory may overtake it.
+	board.settlement_result=plan.result
+	_refresh(false)
+	await board.wait_for_settlement()
+	if game==null or this_match!=match_id:return
 	if a.type in ["auto","move","ability"]:_sound("card")
 	if p==1 and a.type in ["support","self_defend","rescue","mediate","plot","counter"]:
 		var history=game.battle.get("entries",[]) if not game.battle.is_empty() else game.last_battle.get("entries",[])
@@ -425,6 +445,8 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	if a.type=="rebuild":effect_name="重建"
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="prepared":effect_name="防备消耗 · 防御+4"
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="s_guard":effect_name="保镖 · 挡下摧毁"
+	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="draw":effect_name=game.choice.task.get("message","抽牌收益")
+	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="battle_recharge":effect_name="战后恢复行动标记"
 	if a.type=="choose" and game.choice.get("kind","")=="w_draft":effect_name="推荐流"
 	if effect_name.length()>18:effect_name="主动能力"
 	_paragraph(effect_name,body,Rect2(x,extent.y*0.58,text_width,80),25,CREAM)
@@ -487,6 +509,7 @@ func _present_result(e: Dictionary) -> bool:
 	return await presentation_finished
 
 func _phase_overlay() -> void:
+	if busy or window_access.browsing:return
 	_clear(overlay)
 	if interactions.picker.active:return
 	if game.phase=="main":return
@@ -494,7 +517,7 @@ func _phase_overlay() -> void:
 	if game.phase=="over":_victory_overlay();return
 	if game.phase=="draw" and game.current==0:
 		_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(310,170),Vector2(620,340)))
-		_label("抽牌",p,34,GOLD).position=Vector2(28,20);_label("从两个共享牌堆各抽一张。",p,20).position=Vector2(28,78)
+		window_access.offer(p);_label("抽牌",p,34,GOLD).position=Vector2(28,20);_label("从两个共享牌堆各抽一张。",p,20).position=Vector2(28,78)
 		var filtering=game.owner("G066")==0 or game.owner("G012")==0
 		var all=_button("两类都抽 · 启用筛选" if filtering else "各抽一张",func():_do_action(0,game.legal_actions(0)[0]),p,true);all.position=Vector2(30,135);all.size=Vector2(560,65)
 		var more=_button("其他抽牌方式",func():_action_list(game.legal_actions(0)),p);more.position=Vector2(30,220);more.size=Vector2(560,55)
@@ -505,7 +528,7 @@ func _phase_overlay() -> void:
 		if game.pending_plot.player==1:
 			if not game.battle.is_empty():_battle_overlay()
 			_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(370,255),Vector2(740,510)))
-			_label("AI 打出「%s」"%game.title(game.pending_plot.id),p,28,GOLD).position=Vector2(26,25)
+			var heading=_label("AI 打出「%s」"%game.title(game.pending_plot.id),p,28,GOLD);heading.position=Vector2(26,25);heading.size.x=p.size.x-225;heading.clip_text=true;window_access.offer(p)
 			var col=_scroll_column(p,Rect2(26,90,688,290));_wrapped(CardDB.plot_text(game.card(game.pending_plot.id)),col,22)
 			var row=HBoxContainer.new();row.position=Vector2(26,410);row.add_theme_constant_override("separation",20);p.add_child(row)
 			for a in game.legal_actions(0):_button(a.label,func():_do_action(0,a),row,a.type=="counter")
@@ -529,7 +552,7 @@ func _setup_overlay() -> void:
 
 func _choice_overlay() -> void:
 	_dim(overlay);var c=game.choice;var p=_panel(overlay,Rect2(Vector2(75,105),size-Vector2(150,200)))
-	_label(c.label,p,29,GOLD).position=Vector2(28,24)
+	var heading=_label(c.label,p,29,GOLD);heading.position=Vector2(28,24);heading.size.x=p.size.x-235;heading.clip_text=true;heading.tooltip_text=c.label;window_access.offer(p)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(28,86);scroll.size=p.size-Vector2(56,125);p.add_child(scroll)
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",20);scroll.add_child(row)
@@ -552,7 +575,7 @@ func _choice_overlay() -> void:
 func _battle_overlay() -> void:
 	var b=game.battle;var v=game.battle_values();var width=minf(1320,size.x-100);var height=minf(680,size.y-170)
 	var p=_panel(overlay,Rect2(Vector2((size.x-width)/2,size.y-height-30),Vector2(width,height)))
-	_drag_title(p,(game.title(b.disaster) if b.has("disaster") else ("控制" if b.mode=="control" else "摧毁"))+" · "+game.title(b.src)+" → "+game.title(b.target),"battle")
+	_drag_title(p,(game.title(b.disaster) if b.has("disaster") else ("控制" if b.mode=="control" else "摧毁"))+" · "+game.title(b.src)+" → "+game.title(b.target),"battle");window_access.offer(p,Vector2(-1,62))
 	var left_w=width*0.49
 	_label("强度 %d    成功率 %.1f%%"%[v.strength,v.chance*100],p,32,TEAL).position=Vector2(26,66)
 	var calculation="力量 %d  阵营 %+d  能力 %+d  支援 +%d  阴谋 +%d\n防御 %d  忠诚 %d  位置 %d  自卫/支援 %d  其他 %d"%[v.power,v.alignment,v.ability,v.support_a,v.bonus_a,v.base,v.loyalty,v.position,v.support_d,v.defense+v.bonus_d]
@@ -596,6 +619,7 @@ func _scroll_feed_end(scroll: ScrollContainer) -> void:
 	if is_instance_valid(scroll):scroll.scroll_vertical=int(scroll.get_v_scroll_bar().max_value)
 
 func _battle_history() -> void:
+	if window_access.browsing:return
 	modal_open=true;_clear(large_layer);_dim(large_layer)
 	var extent=Vector2(minf(1000,size.x-120),minf(730,size.y-110));var p=_panel(large_layer,Rect2((size-extent)/2,extent))
 	_label("最近战斗",p,30,GOLD).position=Vector2(26,16)
@@ -606,6 +630,7 @@ func _battle_history() -> void:
 	_button("收起战况",func():_clear(large_layer);modal_open=false;_schedule_ai(),p,true).position=Vector2(extent.x-180,extent.y-75)
 
 func _victory_overlay() -> void:
+	if busy:return
 	_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(350,245),Vector2(700,490)))
 	_label("势均力敌" if game.winner==-1 else ("计划得逞" if game.winner==0 else "暗流反噬"),p,60,GOLD).position=Vector2(210,48)
 	_label(game.logs.back(),p,23).position=Vector2(90,155)
@@ -614,7 +639,7 @@ func _victory_overlay() -> void:
 	var menu=_button("主菜单",_menu,p);menu.position=Vector2(375,370);menu.size=Vector2(240,58)
 
 func _inspect(id: String,nested: bool=false) -> void:
-	if busy:return
+	if busy or window_access.transitioning:return
 	if detail_layer.get_child_count()==0:inspection_was_paused=modal_open
 	if not nested:interactions.reader_stack.clear()
 	interactions.reader_id=id;modal_open=true
@@ -637,7 +662,7 @@ func _inspect(id: String,nested: bool=false) -> void:
 	var close=_button("返回团体" if not interactions.reader_stack.is_empty() else "收起大卡",_close_inspection,p,true);close.position=Vector2(extent.x-245,extent.y-78);close.size=Vector2(215,54);_sound("open")
 
 func _preview_note(id: String) -> String:
-	if preview_action.is_empty() or game==null:return ""
+	if preview_action.is_empty() or not preview_action.has("mode") or game==null:return ""
 	var options=game.attack_options(preview_action.src,preview_action.target,preview_action.mode,preview_action)
 	for entry in options.supports:
 		if entry.id==id:return "本次可支援 +%d（%s）\n%s；需要1个行动标记。"%[entry.power,entry.basis,entry.reason]
@@ -729,13 +754,13 @@ func _close_inspection() -> void:
 	_clear(detail_layer);modal_open=inspection_was_paused;_sound("close");_schedule_ai()
 
 func _hover(id: String,showing: bool) -> void:
-	if compact or modal_open or busy or not large_layer.get_children().is_empty() or not detail_layer.get_children().is_empty():return
+	if compact or (modal_open and not window_access.browsing) or busy or (large_layer.visible and not large_layer.get_children().is_empty()) or not detail_layer.get_children().is_empty():return
 	_clear(hover_layer)
 	if not showing:return
 	var v=CardView.new();v.configure(id,game,true);v.mouse_filter=Control.MOUSE_FILTER_IGNORE;v.position=Vector2(size.x-415,145);v.size=Vector2(380,size.y-230);hover_layer.add_child(v)
 
 func _schedule_ai() -> void:
-	if interactions.picker.active or thinking or busy or panel_dragging or modal_open or game==null or game.phase=="over" or game.phase.begins_with("setup"):return
+	if window_access.browsing or window_access.transitioning or interactions.picker.active or thinking or busy or panel_dragging or modal_open or game==null or game.phase=="over" or game.phase.begins_with("setup"):return
 	var forced=game.legal_actions(0)
 	if forced.size()==1 and forced[0].type in ["pass","trigger"]:_forced_pass();return
 	var legal=game.legal_actions(1)
@@ -744,7 +769,7 @@ func _schedule_ai() -> void:
 	thinking=true;await get_tree().create_timer(0.12 if reduced_motion or legal.size()==1 else 0.55).timeout
 	if this_match!=match_id:return
 	thinking=false
-	if game==null or busy or panel_dragging or modal_open:return
+	if game==null or window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open:return
 	var o=game.observation(1)
 	if not o.actions.is_empty():_do_action(1,ai.pick(o))
 
@@ -754,7 +779,7 @@ func _forced_pass() -> void:
 	await get_tree().create_timer(0.15).timeout
 	if this_match!=match_id:return
 	forced_pending=false
-	if game==null or busy or panel_dragging or modal_open:return
+	if game==null or window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open:return
 	var legal=game.legal_actions(0)
 	if legal.size()==1 and legal[0].type in ["pass","trigger"]:_do_action(0,legal[0])
 
@@ -763,6 +788,7 @@ func _toast(text: String) -> void:
 	var tween=create_tween();tween.tween_interval(3);tween.tween_property(notification,"modulate:a",0.0,0.4)
 
 func _journal() -> void:
+	if window_access.browsing:return
 	modal_open=true
 	_clear(large_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(440,330),Vector2(880,660)))
 	_label("暗流记录",p,30,GOLD).position=Vector2(26,20)
@@ -774,6 +800,7 @@ func _journal() -> void:
 	_button("关闭",func():_clear(large_layer);modal_open=false;_schedule_ai(),p).position=Vector2(725,592)
 
 func _piles() -> void:
+	if window_access.browsing:return
 	modal_open=true
 	_clear(large_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(440,320),Vector2(880,640)))
 	_label("公开牌区",p,30,GOLD).position=Vector2(26,20)
@@ -786,6 +813,7 @@ func _piles() -> void:
 	_button("关闭",func():_clear(large_layer);modal_open=false;_schedule_ai(),p).position=Vector2(725,570)
 
 func _settings() -> void:
+	if window_access.browsing:return
 	modal_open=true;_clear(large_layer);_clear(hover_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(340,310),Vector2(680,620)))
 	_label("设置",p,34,GOLD).position=Vector2(28,20);_label("音效",p,22).position=Vector2(30,100)
 	var slider=HSlider.new();slider.min_value=0;slider.max_value=1;slider.step=0.05;slider.value=sound_volume;slider.position=Vector2(165,100);slider.size=Vector2(455,40);p.add_child(slider);slider.value_changed.connect(func(v):sound_volume=v;_save_settings())
@@ -818,11 +846,12 @@ func _load_settings() -> void:
 	if c.load("user://settings.cfg")==OK:sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	if busy:return
+	if busy or window_access.transitioning:return
 	if e is InputEventKey and e.pressed and e.keycode==KEY_ESCAPE:
 		if not detail_layer.get_children().is_empty():_close_inspection()
+		elif window_access.browsing:window_access.resume()
 		elif interactions.picker.active:interactions.back()
-		elif not large_layer.get_children().is_empty():_clear(large_layer);modal_open=false;_schedule_ai()
+		elif not large_layer.get_children().is_empty():preview_action={};_clear(large_layer);modal_open=false;_schedule_ai()
 		elif not action_candidates.is_empty():action_candidates.clear();_refresh(false)
 		else:_settings()
 
@@ -853,15 +882,18 @@ func _capture_snapshot() -> void:
 
 func _exit_tree() -> void:
 	match_id+=1;_finish_presentation(false)
+	board.reset_motion();window_access.reset()
 	CardDB.finish_art_requests()
 	for player in audio_pool:
 		if is_instance_valid(player):player.stop();player.stream=null
 	sounds.clear()
 
 func _review_disaster(a: Dictionary) -> void:
-	preview_action={};_clear(large_layer);_clear(hover_layer);_dim(large_layer,0.12)
+	if window_access.browsing:return
+	preview_action=a.duplicate(true);_clear(large_layer);_clear(hover_layer);_dim(large_layer,0.12)
 	var extent=Vector2(minf(960,size.x-100),minf(640,size.y-120));var panel=_panel(large_layer,Rect2((size-extent)/2,extent))
 	_drag_title(panel,game.title(a.id)+" → "+game.title(a.target),"disaster_preview")
+	window_access.offer(panel,Vector2(-1,62))
 	var v=game.wave.disaster_preview(a)
 	_label("强度 %d"%v.strength,panel,38,TEAL).position=Vector2(30,100)
 	_label("成功 %.1f%%   摧毁 %.1f%%"%[v.chance*100,v.destroy_chance*100],panel,28).position=Vector2(30,160)
@@ -871,6 +903,6 @@ func _review_disaster(a: Dictionary) -> void:
 	for id in game.hands[0].plot:
 		var context={"src":a.payer,"target":a.target,"mode":"destroy","disaster":a.id,"attacker":0,"defender":1,"paid":[a.payer]}
 		if id not in game.locked and not game._combat_plot_actions(id,0,context).is_empty():_button(game.title(id),func():_inspect(id),row)
-	_button("返回",func():_clear(large_layer),panel).position=Vector2(30,extent.y-80)
+	_button("返回",func():preview_action={};_clear(large_layer),panel).position=Vector2(30,extent.y-80)
 	_button("查看目标",func():_inspect(a.target),panel).position=Vector2(extent.x-400,extent.y-80)
-	_button("发动灾难",func():_clear(large_layer);_do_action(0,a),panel,true).position=Vector2(extent.x-220,extent.y-80)
+	_button("发动灾难",func():preview_action={};_clear(large_layer);_do_action(0,a),panel,true).position=Vector2(extent.x-220,extent.y-80)
