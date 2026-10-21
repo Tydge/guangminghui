@@ -43,6 +43,8 @@ func _value(id: String,o: Dictionary) -> float:
 					if a not in o.secret_goals[goal_id].covered:value+=2
 	if o.nodes.has(id) and o.nodes[id].get("devastated",false):value*=0.55
 	if id in ["G012","G066","G028","G063","G021"]:value+=3
+	if id=="G034" and o.hands.group.any(func(k):return "名人" in CardDB.get_card(k).tags):value+=3
+	if "名人" in traits and o.nodes.has("G034") and o.nodes.G034.owner==o.player and not o.nodes.G034.get("silenced",false):value+=2
 	return value
 
 func _score(a: Dictionary,o: Dictionary) -> float:
@@ -117,7 +119,6 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 			if a.has("plot_fee"):cost+=_plot_value(a.plot_fee,o)*0.2
 			return 4+n*0.4+_value(leader,o)*0.04-cost
 		"rescue":return 24
-		"mediate":return 5.2+_value(o.battle.target,o)*0.04 if o.battle_values.strength>=2 else -2
 		"pass":return 0
 		"move":return -20
 		"end":return 0
@@ -132,6 +133,7 @@ func _placement_value(id: String,parent: String,o: Dictionary) -> float:
 	if parent=="G113" and "太空" in traits:return 5
 	if parent=="G114" and "科学" in traits:return 5
 	if parent=="G119" and "共产" in traits:return 5
+	if parent=="G008" and "政府" in traits and _card(parent,o).gp<_card(parent,o).p:return 4
 	if parent=="G017" and c.p<=2:return 8
 	if parent=="G035" and "媒体" in traits:return 6
 	if parent=="G073" and ("企业" in traits or "科学" in traits):return 4
@@ -158,6 +160,7 @@ func _attack_score(a: Dictionary,o: Dictionary) -> float:
 	var chance=minf(0.917,(strength-1.0)/9.0)
 	var value=_value(a.target,o)
 	if enemy:value+=8
+	if enemy and a.target=="G067" and not o.nodes.G067.get("silenced",false) and not o.hands.plot.is_empty():value-=(1-chance)*6
 	if a.mode=="destroy":value*=0.7;value+=6 if o.factions[o.player]=="I05" else 0
 	if enemy and o.goals[1-o.player].ratio>=0.8:value+=15
 	return chance*value-3

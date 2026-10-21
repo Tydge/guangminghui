@@ -141,6 +141,7 @@ func stat(id: String, key: String,raw: bool=false) -> int:
 		if world == "P28" and "正统" in alignments(id) and key in ["p", "r"]: value += 1
 		if key=="r" and parent=="G073" and (has(id,"企业") or has(id,"科学")):value+=2
 		if key == "gp":
+			if id=="G008" and wave.enabled(id):value+=children(id).filter(func(k):return has(k,"政府")).size()
 			if factions[owner(id)] == "I03" and has(id, "计算机"): value += 1
 			if parent=="G077" and (has(id,"企业") or has(id,"银行")):value+=1
 			value+=nodes[id].get("ad_gp",0)
@@ -419,8 +420,6 @@ func _battle_actions(p: int) -> Array:
 				out.append(_a("support","支援 · %s (%s +%d)"%[title(id),detail.basis,detail.power],{"src":id,"power":detail.power,"basis":detail.basis}))
 	if p==battle.defender and battle.mode=="destroy" and owner("G063")==p and nodes[battle.target].parent=="G063" and token("G063") and not used.has("G063"):
 		out.append(_a("rescue","人道撤离 · 红十字会",{"src":"G063"}))
-	if p==battle.defender and battle.mode=="destroy" and owner("G008")==p and token("G008") and not used.has("G008"):
-		out.append(_a("mediate","和平斡旋 · 联合国（防御 +3）",{"src":"G008"}))
 	for id in hands[p].plot:
 		if id in locked:continue
 		out.append_array(_combat_plot_actions(id,p,battle))
@@ -516,22 +515,23 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 	if mode=="control":
 		if factions[owner(id)]=="I04" and has(id,"怪异"):value+=2
 		if "G006" in children(id):value+=2
-		if id=="G067":value+=2
-		if id=="G034":value+=1
 		if id=="G042":value+=3
 		if id=="G039" and src!="" and has(src,"政府"):value+=2
 	else:
-		if id in ["G030","G049","G058"]:value+=2
+		if id in ["G049","G058"]:value+=2
 		if id=="G071":value+=10
 		if id=="G061" and src!="" and has(src,"暴力"):value+=3
 	return value
+
+func disaster_defense(id: String,src: String="") -> int:
+	return passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)
 
 func card_context(id: String) -> Dictionary:
 	if not nodes.has(id):return {"on_board":false,"loyalty":0,"position":0}
 	var c=card(id);var position=position_defense(id);var loyalty=loyalty_defense(id)
 	var control=passive_defense(id,"control");var destroy=passive_defense(id,"destroy")
 	var destroy_base=stat(id,"r" if id=="G076" else "p")
-	return {"on_board":true,"owner":owner(id),"root":is_root(id),"parent":nodes[id].parent,"depth":depth(id),"loyalty":loyalty,"position":position,"control_passive":control,"destroy_passive":destroy,"control_total":stat(id,"r")+loyalty+position+control,"destroy_base":destroy_base,"destroy_total":destroy_base+position+destroy,"token":int(token(id)),"can_recharge":can_recharge(id),"recharged":recharged.has(id),"captured":captured.has(id),"used":used.has(id),"occupied":children(id).size(),"slots":stat(id,"slots"),"attached":nodes[id].attached.duplicate(),"printed":{"p":c.p,"gp":c.gp,"r":c.r,"slots":c.slots}}
+	return {"on_board":true,"owner":owner(id),"root":is_root(id),"parent":nodes[id].parent,"depth":depth(id),"loyalty":loyalty,"position":position,"control_passive":control,"destroy_passive":destroy,"disaster_passive":disaster_defense(id),"control_total":stat(id,"r")+loyalty+position+control,"destroy_base":destroy_base,"destroy_total":destroy_base+position+destroy,"token":int(token(id)),"can_recharge":can_recharge(id),"recharged":recharged.has(id),"captured":captured.has(id),"used":used.has(id),"occupied":children(id).size(),"slots":stat(id,"slots"),"attached":nodes[id].attached.duplicate(),"printed":{"p":c.p,"gp":c.gp,"r":c.r,"slots":c.slots}}
 
 func _battle_record(kind: String,p: int,id: String,target: String,message: String,status: String="") -> void:
 	if battle.is_empty():return
@@ -624,12 +624,11 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 		"move":nodes[a.payer].token=0;nodes[a.src].parent=a.parent;_log("%s重组了势力结构"%_who(p),"move",{"id":a.src})
 		"ability":_ability(p,a)
 		"attack":_launch_attack(p,a)
-		"self_defend", "rescue", "mediate":
+		"self_defend", "rescue":
 			nodes[a.src].token=0;battle.paid.append(a.src)
 			var message=""
 			if a.type=="self_defend":battle.self=stat(a.src,"p")*2;message="%s 自卫 · 防御 +%d"%[title(a.src),battle.self]
 			elif a.type=="rescue":battle.rescue=true;used[a.src]=true;message="%s 登记人道撤离 → %s"%[title(a.src),title(battle.target)]
-			elif a.type=="mediate":battle.bonus_d+=3;used[a.src]=true;message="联合国 和平斡旋 · 防御 +3"
 			_battle_record(a.type,p,a.src,battle.target,message)
 			_log(_who(p)+" · "+message,"support",{"id":a.src,"player":p})
 			_response_changed(p)

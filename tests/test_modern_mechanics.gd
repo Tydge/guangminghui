@@ -113,14 +113,15 @@ func _initialize() -> void:
 	apply(g,1,"support",{"src":"G075"})
 	check(g.nodes.G075.token==0 and g.battle_values().strength==france_strength-g.stat("G075","p")-4,"France spends a token and its bonus appears in actual battle values")
 	check(g.battle.entries.back().text.contains("+8"),"France's complete support contribution is public")
-	# User-adjusted Bavaria goal: eight groups and fifty total effective P.
+	# Bavaria counts eight groups and their 45 effective P, excluding the root.
 	g=fresh();g.factions[0]="I01";g.nodes.R0.card="I01"
 	for id in ["G005","G007","G003"]:place(g,id,0,"R0")
 	for id in ["G011","G020"]:place(g,id,0,"G005")
-	check(not g.goal(0).met and g.goal(0).text.contains("5/8") and g.goal(0).text.ends_with("/50"),"Bavaria uses the user's current thresholds")
+	check(not g.goal(0).met and g.goal(0).text.contains("5/8") and g.goal(0).text.ends_with("/45"),"Bavaria uses the user's current thresholds")
 	for id in ["G073","G015","G010"]:place(g,id,0,"G007")
-	check(not g.goal(0).met and g.goal(0).text.contains("8/8") and g.goal(0).values.power==49,"Eight groups still need fifty power")
-	g.nodes.G010.learned=1
+	g.nodes.G010.learned=7
+	check(not g.goal(0).met and g.goal(0).text.contains("8/8") and g.goal(0).values.power==44,"Eight groups still need 45 group power; root is excluded")
+	g.nodes.G010.learned=8
 	check(g.goal(0).met,"Bavaria wins at both thresholds")
 	g._return_subtree("G010");check(not g.goal(0).met,"Losing a group breaks Bavaria's new victory condition")
 	check(g.validate().is_empty(),"New victory thresholds preserve normal game structure")
@@ -163,14 +164,13 @@ func _initialize() -> void:
 	apply(g,0,"ability",{"src":"G074","target":"P10"})
 	check(g.hands[0].plot==["P10"] and "P10" in g.locked and "P10" in g.exposed and g.discards.plot==["P14","P15"],"England recovers and locks the chosen combat plot, preserving other positions")
 	check(g.validate().is_empty(),"England conservation")
-	# UN is an explicit response, logged with value, unavailable on control attacks.
-	g=fresh();place(g,"G005",0,"R0");place(g,"G043",1,"R1");place(g,"G008",1,"R1")
-	apply(g,0,"attack",{"src":"G005","target":"G043","mode":"destroy"})
-	var strength=g.battle_values().strength;apply(g,1,"mediate")
-	check(g.battle_values().strength==strength-3 and not g.token("G008") and g.used.has("G008"),"Mediation spends UN marker and reduces attack strength by three")
-	check(g.battle.entries.back().kind=="mediate" and g.battle.entries.back().text.contains("+3"),"Mediation has a public battle entry")
-	g=fresh();place(g,"G005",0,"R0");place(g,"G043",1,"R1");place(g,"G008",1,"R1")
-	apply(g,0,"attack",{"src":"G005","target":"G043","mode":"control"})
-	check(find(g,1,"mediate").is_empty(),"UN mediation is not available on control attacks")
+	# UN gains effective GP from direct government children; old mediation is removed.
+	g=fresh();place(g,"G005",0,"R0");place(g,"G051",1,"R1");place(g,"G008",1,"R1");place(g,"G010",1,"G008")
+	check(g.stat("G008","gp")==2,"Direct government child adds one UN global power")
+	apply(g,0,"attack",{"src":"G005","target":"G051","mode":"destroy"})
+	check(find(g,1,"mediate").is_empty(),"Obsolete UN mediation is no longer available")
+	var strength=g.battle_values().strength;apply(g,1,"support",{"src":"G008"})
+	check(g.battle_values().strength==strength-2 and not g.token("G008"),"UN supports using its updated effective GP")
+	check(g.battle.entries.back().text.contains("+2（GP）"),"Updated UN support has a public battle entry")
 	print("MODERN MECHANICS: %d checks, %d failures"%[checks,failures.size()])
 	var f=FileAccess.open("res://tests/modern-mechanics-report.json",FileAccess.WRITE);f.store_string(JSON.stringify({"checks":checks,"failures":failures},"\t"));quit(0 if failures.is_empty() else 1)

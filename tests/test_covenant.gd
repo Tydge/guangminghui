@@ -40,7 +40,7 @@ func goal_fixture(id: String) -> GameState:
 	return g
 func _initialize() -> void:
 	CardDB.load_all();check(CardDB.ids("faction").size()==8 and CardDB.ids("plot").size()==55,"Expanded card pool")
-	var expected={"I01":[8,50],"I02":[6,30],"I03":[5,28],"I04":[5,26],"I07":[6,30],"I08":[5,25]}
+	var expected={"I01":[8,45],"I02":[6,30],"I03":[5,26],"I04":[5,25],"I07":[6,25],"I08":[5,25]}
 	for id in expected:
 		check(CovenantRules.FACTIONS[id].groups==expected[id][0] and CovenantRules.FACTIONS[id].power==expected[id][1],"User thresholds "+id)
 	var g=fresh("I06")

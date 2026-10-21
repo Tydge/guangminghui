@@ -36,6 +36,7 @@ func hand_discarded(p: int,id: String,reason: String) -> void:
 
 func entry_reward(id: String,p: int,before: Array) -> void:
 	if p==g.current and "G129" in before and g.card(id).p<=2:draw_reward("G129",p,"plot")
+	if p==g.current and "G034" in before and g.has(id,"名人"):draw_reward("G034",p,"plot")
 
 func committed(p: int,a: Dictionary) -> void:
 	var payer=a.get("payer",a.get("target","") if a.id in ["P21","P23","P24","P25"] else "")
@@ -156,6 +157,13 @@ func handle(p: int,a: Dictionary) -> bool:
 			"s_draw":
 				g._draw(p,task.deck)
 				g._log(g.title(task.source)+" · 抽1张"+("阴谋" if task.deck=="plot" else "团体"),"ability",{"id":task.source,"player":p,"passive":true})
+			"s_bill":
+				if not g.hands[p].plot.is_empty():
+					var discarded=g.hands[p].plot[g.rng.randi_range(0,g.hands[p].plot.size()-1)]
+					g._discard(p,discarded)
+					var message="高额账单 · %s弃「%s」"%[g._who(p),g.title(discarded)]
+					g.last_battle.entries.append({"kind":"ability","player":g.owner(task.source),"id":task.source,"target":task.source,"text":message,"status":"已生效"})
+					g._log(message,"ability",{"id":task.source,"player":g.owner(task.source),"discarded":discarded})
 			"s_tag":
 				if g.nodes.has(task.target) and g.owner(task.target)==p:
 					add_tag(task.target,"共产")
@@ -218,6 +226,8 @@ func guard_blocks(b: Dictionary) -> bool:
 func battle_finished(b: Dictionary,success: bool,destroyed: bool) -> void:
 	if not normal(b):return
 	var p=b.attacker
+	if not success and b.target=="G067" and ready("G067",b.defender) and not g.hands[p].plot.is_empty():
+		enqueue({"kind":"s_bill","source":"G067","player":p})
 	if success and b.mode=="control" and p==g.current and ready("G121",p) and g.has(b.src,"共产") and not g.has(b.target,"共产"):
 		var quota="synergy:G121:"+str(p)
 		if not g.used.has(quota):

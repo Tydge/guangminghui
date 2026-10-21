@@ -74,10 +74,10 @@ func run() -> void:
 	check(resources.any(func(label):return label.contains("电子游戏") and label.contains("GP +4")),"Preflight uses boosted effective GP without expanding rule text")
 	await capture("光明会_新机制_攻击预览")
 	main._clear(main.large_layer);main.preview_action={}
-	g=fresh();main._start_game(4318);main.game=g;place(g,"G005",0,"R0");place(g,"G043",1,"R1");place(g,"G008",1,"R1")
-	await main._do_action(0,action(g,"attack",{"src":"G005","target":"G043","mode":"destroy"}))
-	var mediation=g.legal_actions(1).filter(func(a):return a.type=="mediate")[0];await main._do_action(1,mediation);main.modal_open=true;main._refresh();await process_frame
-	check(text_labels(main.overlay).contains("联合国 和平斡旋 · 防御 +3"),"New battle response appears in the public action feed")
+	g=fresh();main._start_game(4318);main.game=g;place(g,"G005",0,"R0");place(g,"G051",1,"R1");place(g,"G008",1,"R1");place(g,"G010",1,"G008")
+	await main._do_action(0,action(g,"attack",{"src":"G005","target":"G051","mode":"destroy"}))
+	var support=g.legal_actions(1).filter(func(a):return a.type=="support" and a.src=="G008")[0];await main._do_action(1,support);main.modal_open=true;main._refresh();await process_frame
+	check(text_labels(main.overlay).contains("联合国 支援防守 +2（GP）"),"Updated effective GP appears in the public action feed")
 	await capture("光明会_新机制_联合国响应")
 	check(g.validate().is_empty(),"Modern UI actions conserve cards")
 	await create_timer(0.25).timeout

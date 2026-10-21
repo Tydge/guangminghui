@@ -342,6 +342,7 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	_paragraph("力量 %d   阵营 %+d   能力 %+d\n\n防御 %d   忠诚 %d   位置 %d\n被动防御 %d"%[v.power,v.alignment,v.ability,v.base,v.loyalty,v.position,v.defense],p,Rect2(28,267,left_w-20,180),21)
 	var note="墨西哥支付行动，带头者保留标记。\n" if a.has("delegate") else ""
 	if v.get("no_self",false):note+="目标本次不能自卫。\n"
+	if a.target=="G067" and game.wave.enabled("G067"):note+="高额账单 · 失败后随机弃1阴谋。\n"
 	if a.get("solo",false):note+="孤军破袭 · 忽略位置，无进攻支援。\n"
 	_paragraph(note+"尚未计入支援与阴谋。\n确认后双方交替响应。",p,Rect2(28,extent.y-185,left_w-20,85),18,Color("aabbb0"))
 	var options=game.attack_options(a.src,a.target,a.mode,a)
@@ -410,7 +411,7 @@ func _do_action(p: int,a: Dictionary) -> void:
 	await board.wait_for_settlement()
 	if game==null or this_match!=match_id:return
 	if a.type in ["auto","move","ability"]:_sound("card")
-	if p==1 and a.type in ["support","self_defend","rescue","mediate","plot","counter"]:
+	if p==1 and a.type in ["support","self_defend","rescue","plot","counter"]:
 		var history=game.battle.get("entries",[]) if not game.battle.is_empty() else game.last_battle.get("entries",[])
 		if not history.is_empty():_toast(history.back().text)
 	if old_phase=="setup_group" and a.type=="initial":_toast("先手骰点 · 你 %d + %d / AI %d + %d"%[game.initiative[0][0],game.initiative[0][1],game.initiative[1][0],game.initiative[1][1]])
@@ -457,12 +458,12 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	if a.has("presentation_role"):effect_name="采用印刷阵营 · "+" / ".join(c.align)
 	if a.has("minor_roll"):effect_name="骰点 %d · 支援%s"%[a.minor_roll,"+2" if a.minor_roll<=3 else "不变"]
 	if a.type=="trick":effect_name="弃1张阴谋 · 取消对手阴谋"
-	if a.type=="mediate":effect_name="和平斡旋"
 	if a.type=="rescue":effect_name="救援撤离"
 	if a.type=="lift":effect_name="花1行动 · 解除监管"
 	if a.type=="rebuild":effect_name="重建"
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="prepared":effect_name="防备消耗 · 防御+4"
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="s_guard":effect_name="保镖 · 挡下摧毁"
+	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="s_bill":effect_name="高额账单 · 对手随机弃1阴谋"
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="draw":effect_name=game.choice.task.get("message","抽牌收益")
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="battle_recharge":effect_name="战后恢复行动标记"
 	if a.type=="choose" and game.choice.get("kind","")=="w_draft":effect_name="推荐流"
@@ -611,6 +612,7 @@ func _battle_overlay() -> void:
 	if b.has("disaster"):calculation="威力%d  修正%+d  阴谋%+d\n防御%d  被动%d  支援/自卫%d  其他%d\n摧毁概率 %.1f%%"%[v.power,v.ability,v.bonus_a,v.base,v.defense,v.support_d,v.bonus_d,v.destroy_chance*100]
 	_paragraph(calculation,p,Rect2(26,125,left_w-42,88),18)
 	var changes: Array=[]
+	if not b.has("disaster") and b.target=="G067" and game.wave.enabled("G067"):changes.append("高额账单 · 失败弃1阴谋")
 	if v.get("no_self",false):changes.append("目标不能自卫")
 	if b.get("sniped",false):changes.append("忽略位置")
 	if b.get("alignment_zero",false):changes.append("阵营归零")
@@ -740,12 +742,15 @@ func _card_context_text(id: String) -> String:
 	if n.get("silenced",false):lines.append("公关危机 · 本回合卡面能力失效。")
 	if id=="G088":lines.append("训练 %d / 2"%n.get("training",0))
 	if id=="G119" and game.synergy.ready(id):lines.append("联合生产 · 直属共产下属提供P+%d（上限2）。"%mini(2,game.children(id).filter(func(k):return game.has(k,"共产")).size()))
+	if id=="G008" and game.wave.enabled(id):lines.append("联合协作 · 直属政府下属%d个。"%game.children(id).filter(func(k):return game.has(k,"政府")).size())
 	if "P44" in n.attached:lines.append("保镖 · 挡下1次普通摧毁，随后弃掉并清空本团体标记。")
 	if "P45" in n.attached:lines.append("监管调查 · GP 0；己方主要阶段可花本团体1标记解除。")
 	if game.synergy.ready("G128",context.owner) and not game.has(id,"企业"):lines.append("消费者协会 · 抵御企业的控制攻击时，防御+2。")
 	if id=="G083" and game.wave.plans.has(context.owner):lines.append("公开预案 · %d＋%d"%game.wave.plans[context.owner])
 	if n.parent=="G081" and game.wave.enabled("G081"):lines.append("跨界整合 · 当前标签："+" / ".join(game.tags(id)))
-	if game.has(id,"地点"):lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.destroy_base,context.destroy_passive,4 if n.get("prepared",false) else 0])
+	if game.has(id,"地点"):
+		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.destroy_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
+		if game.wave.enabled("G030",context.owner):lines.append("国际气象组织 · 灾难防御+5。")
 	if n.get("debt",false):lines.append("借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。")
 	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+2，不超过有效P。")
 	if n.get("compute",false):lines.append("算力调度：本回合GP等于有效P。")

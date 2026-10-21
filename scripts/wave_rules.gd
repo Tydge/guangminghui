@@ -374,6 +374,7 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 		var ability=0
 		if g.has(b.target,"巨大"):ability=-4 if b.disaster=="P31" else (4 if b.disaster=="P35" else 0)
 		v.power=power;v.alignment=0;v.ability=ability;v.loyalty=0;v.position=0;v.base=g.stat(b.target,"r" if b.target=="G076" else "p")
+		v.defense=g.disaster_defense(b.target,b.src)
 		v.strength=power+ability+b.bonus_a-v.base-v.defense-b.bonus_d-b.support_d-b.self
 	v=g.renewal.values(b,g.synergy.values(b,v))
 	var chance=0;var kill=0;var threshold=4 if b.get("disaster","")=="P31" else 6
@@ -511,7 +512,7 @@ func resolve_battle() -> void:
 
 func presentation_cards(p: int,a: Dictionary) -> Array:
 	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)
-	if a.type in ["ability","plot","counter","mediate","rescue","wave","fact_check","rebuild","trigger"]:out.append(a.get("id",a.get("src","")))
+	if a.type in ["ability","plot","counter","rescue","wave","fact_check","rebuild","trigger"]:out.append(a.get("id",a.get("src","")))
 	if a.type=="choose" and g.choice.get("kind","").begins_with("w_") and a.id!="":out.append(g.choice.get("source",""))
 	if a.type=="choose" and g.choice.get("kind","")=="w_draft" and p==1:out.append(a.id)
 	if a.type=="support":

@@ -2,13 +2,13 @@ class_name CovenantRules
 extends RefCounted
 ## One evaluator for public faction plans and private, actively played goal plots.
 const FACTIONS={
-	"I01":{"groups":8,"power":50,"root_power":true},
+	"I01":{"groups":8,"power":45},
 	"I02":{"traits":["企业","银行"],"groups":6,"power":30},
-	"I03":{"traits":["计算机"],"groups":5,"power":28},
-	"I04":{"traits":["怪异"],"groups":5,"power":26},
+	"I03":{"traits":["计算机"],"groups":5,"power":26},
+	"I04":{"traits":["怪异"],"groups":5,"power":25},
 	"I05":{"destroyed":6},
 	"I06":{"traits":["地点"],"groups":5,"huge":2,"power":30},
-	"I07":{"traits":["和平"],"groups":6,"power":30},
+	"I07":{"traits":["和平"],"groups":6,"power":25},
 	"I08":{"traits":["魔法"],"groups":5,"power":25}
 }
 const PLOTS={
@@ -39,7 +39,6 @@ func progress(p: int,id: String) -> Dictionary:
 		for a in g.alignments(k):
 			if a in ALIGNMENTS and a not in coverage:coverage.append(a)
 	values.alignments=coverage.size()
-	if rule.get("root_power",false) and g.nodes.has(g.root(p)):values.power+=g.stat(g.root(p),"p")
 	var parts: Array=[];var ratio=1.0;var met=not rule.is_empty()
 	for key in LABELS:
 		if not rule.has(key):continue
