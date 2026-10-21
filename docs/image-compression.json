@@ -1,9 +1,9 @@
 {
-  "images": 230,
-  "original_bytes": 651678389,
-  "bytes": 227883386,
+  "images": 237,
+  "original_bytes": 667007566,
+  "bytes": 230801186,
   "lowest_display_block_ssim": 0.9970149986911565,
-  "mean_display_rgb_mae": 0.9435703494410584,
+  "mean_display_rgb_mae": 0.9391388979474535,
   "elapsed_seconds": 236.19,
   "assets": [
     {
@@ -735,19 +735,6 @@
       "display_psnr_db": 43.55128479003906
     },
     {
-      "original_path": "assets/cards/G057.png",
-      "path": "assets/cards/G057.webp",
-      "original_bytes": 2955526,
-      "bytes": 822408,
-      "width": 1254,
-      "height": 1254,
-      "encoding": "WebP quality 98",
-      "sha256": "42841bd9c9346f9286a94ccd0748e0dfcb8acc4b49520669f41c02c7aa99c0f0",
-      "display_block_ssim": 0.9993624091148376,
-      "display_rgb_mae": 1.3916536569595337,
-      "display_psnr_db": 40.50265837242157
-    },
-    {
       "original_path": "assets/cards/G058.png",
       "path": "assets/cards/G058.webp",
       "original_bytes": 3395168,
@@ -876,19 +863,6 @@
       "display_block_ssim": 0.9984910628409125,
       "display_rgb_mae": 0.6966221928596497,
       "display_psnr_db": 47.77899422543441
-    },
-    {
-      "original_path": "assets/cards/G068.png",
-      "path": "assets/cards/G068.webp",
-      "original_bytes": 2990412,
-      "bytes": 780112,
-      "width": 1254,
-      "height": 1254,
-      "encoding": "WebP quality 98",
-      "sha256": "ddc8bdf9ec5c7a0ada54a59d401fd27633d21642a4ea6d77e59814ad31fb5e27",
-      "display_block_ssim": 0.9994689226150513,
-      "display_rgb_mae": 1.102770447731018,
-      "display_psnr_db": 43.45044222935531
     },
     {
       "original_path": "assets/cards/G069.png",
@@ -3013,6 +2987,123 @@
       "display_rgb_mae": 1.1681429545084636,
       "display_psnr_db": 41.67800101339723,
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-978c65cf-3caa-4f3f-9873-fda43902c329.png"
+    },
+    {
+      "id": "G057",
+      "path": "assets/cards/G057.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2303239,
+      "bytes": 493836,
+      "encoding": "WebP quality 98",
+      "sha256": "3d7d5386b4bfb6b7ec9a47693614bb8ea505178aab251e9ca217167bdb763e2b",
+      "display_rgb_mae": 0.806695302327474,
+      "display_psnr_db": 46.308110493880406,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-525ebfa7-18a1-46b9-9edd-149fde688b24.png"
+    },
+    {
+      "id": "G068",
+      "path": "assets/cards/G068.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2080966,
+      "bytes": 323310,
+      "encoding": "WebP quality 98",
+      "sha256": "e09cbfbdfe5a30ed67c5bb0a7d5be80f71184a323286d140b67b5f69c58ec832",
+      "display_rgb_mae": 0.649298350016276,
+      "display_psnr_db": 48.44739211146045,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-50bdc463-8d97-41ef-8b7b-e03af796ac03.png"
+    },
+    {
+      "id": "E11",
+      "path": "assets/cards/E11.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2654127,
+      "bytes": 593436,
+      "encoding": "WebP quality 98",
+      "sha256": "cd1271d3d3d3a9f3754feb63f8b3b989bd9df9fbc47c37827a205ed27a42a0df",
+      "display_rgb_mae": 0.8325119018554688,
+      "display_psnr_db": 45.79857189888871,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e52a5e11-ba54-484b-a16a-6f12cad9fbee.png"
+    },
+    {
+      "id": "E12",
+      "path": "assets/cards/E12.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2117213,
+      "bytes": 496048,
+      "encoding": "WebP quality 98",
+      "sha256": "2031f2f8da8bc4ab323d9a265b218d05825b08d2e9856905c0cc5b263797c468",
+      "display_rgb_mae": 1.3060379028320312,
+      "display_psnr_db": 39.988677165169086,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0a7ddeb9-11b4-4629-aaa3-2e5fdd3490dc.png"
+    },
+    {
+      "id": "E13",
+      "path": "assets/cards/E13.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2432002,
+      "bytes": 580332,
+      "encoding": "WebP quality 98",
+      "sha256": "de341e7806d5b016b7e27bd5b886f147ce2913412e9990c9a47f6871df321a0b",
+      "display_rgb_mae": 1.0647964477539062,
+      "display_psnr_db": 42.93174614168034,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-785e1adf-4d33-470f-a4cf-c58886ebc85a.png"
+    },
+    {
+      "id": "E14",
+      "path": "assets/cards/E14.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 3115436,
+      "bytes": 831242,
+      "encoding": "WebP quality 98",
+      "sha256": "b5f02aa20df0c8066e29f3f7c2f1d22b2b25a6ff23efa1bcdd1b44ef7d70c221",
+      "display_rgb_mae": 1.2225290934244792,
+      "display_psnr_db": 41.92362987466162,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e9cbac11-6c55-4ca6-ab57-c0eba9ed65d8.png"
+    },
+    {
+      "id": "E15",
+      "path": "assets/cards/E15.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2044023,
+      "bytes": 341962,
+      "encoding": "WebP quality 98",
+      "sha256": "234519d07ac6035c12da8c1c3876e92d4fba4655cafa889347cc701eae4897d7",
+      "display_rgb_mae": 0.724639892578125,
+      "display_psnr_db": 46.897274949577394,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-72db450e-483f-4b0e-96bd-be3eb31493e0.png"
+    },
+    {
+      "id": "P59",
+      "path": "assets/cards/P59.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2143152,
+      "bytes": 383014,
+      "encoding": "WebP quality 98",
+      "sha256": "6c24b2281b6698679a60077b1e9ad9824646399529314bf1ca222a5df35701bf",
+      "display_rgb_mae": 0.6952107747395834,
+      "display_psnr_db": 47.49363339693701,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2597480b-25ed-4aaa-99e0-4713c9937192.png"
+    },
+    {
+      "id": "P60",
+      "path": "assets/cards/P60.webp",
+      "width": 1254,
+      "height": 1254,
+      "original_bytes": 2384957,
+      "bytes": 477140,
+      "encoding": "WebP quality 98",
+      "sha256": "a2adce148520170ca70f8ba4a3cbcb78396a483c396857b10e74ee5afe479097",
+      "display_rgb_mae": 0.747442881266276,
+      "display_psnr_db": 47.10671044897402,
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1e1af882-bb85-4051-80b1-1095123ac79f.png"
     }
   ],
   "method": "Original batch retained source dimensions. G084 and G089 now use user-supplied photographs: square source framing followed by pixel-exact lossless WebP encoding. All game artwork is displayed using contain, without stretching or automatic cropping.",

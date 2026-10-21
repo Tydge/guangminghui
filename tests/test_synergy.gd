@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==226,"All 226 cards")
+	check(CardDB.cards.size()==233,"All 233 cards")
 	check(CardDB.get_card("G081").align==["企业"] and CardDB.get_card("G083").align==["企业","和平"],"User requested Musk and Altman alignments")
 	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府","和平"],"Preserved edited Moonbase")
 	check(CardDB.get_card("G114").align==["和平"] and CardDB.get_card("G115").gp==1 and CardDB.get_card("G116").gp==0,"Preserved edited space and magic stats")
@@ -63,7 +63,7 @@ func _initialize() -> void:
 	g.nodes.G094.token=0;give(g,"G044",0);check(action(g,0,"ability",{"src":"G120"}).is_empty(),"Cooperative once-per-turn and recharge limit")
 	g=fresh();put(g,"G121",0);put(g,"G119",0);give(g,"G043",0);apply(g,0,"attack",{"src":"G119","target":"G043","mode":"control"});finish(g);check(not g.has("G043","共产") and g.choice.get("source","")=="G121","Nationalization awaits cue");automatic(g);check(g.has("G043","共产") and not g.can_recharge("G043"),"Nationalization grants tag without entry action")
 	g.nodes.G043.owner=1;g.nodes.G043.parent="R1";check(g.has("G043","共产"),"Granted Communist tag survives capture");g._return_subtree("G043");check(not g.has("G043","共产"),"Granted tag clears on leaving")
-	g=fresh();put(g,"G122",0);put(g,"G005",0);put(g,"G043",1);apply(g,0,"attack",{"src":"G005","target":"G043","mode":"destroy"});finish(g);automatic(g);check(g.hands[0].plot.size()==1 and g.destroyed[0]==1,"Military contractor rewards true ordinary Military leader kill")
+	g=fresh();put(g,"G122",0);put(g,"G005",0);put(g,"G043",1);apply(g,0,"attack",{"src":"G005","target":"G043","mode":"destroy"});finish(g);automatic(g);check(g.hands[0].resource.size()==1 and g.destroyed[0]==1,"Military contractor rewards true ordinary Military leader kill")
 	g=fresh();put(g,"G123",1);put(g,"G125",1);d=g.support_detail("G123",context("R0","G125"));check(d.basis=="P" and d.reason=="维和护卫","Peacekeepers P for Place defense")
 	put(g,"G052",1);d=g.support_detail("G123",context("R0","G052"));check(d.basis=="GP","Peacekeepers not full P for other unmatched target")
 	g=fresh();put(g,"G124",0);give(g,"G043",0);g._discard(0,"G043");g._after_effect();check(g.hands[0].plot.is_empty(),"Recycling cue precedes reward");automatic(g);check(g.hands[0].plot.size()==1,"Recycling discarded group hand reward")

@@ -58,10 +58,11 @@ func back() -> void:
 func pick(key: String,value) -> void:
 	picker.select(key,value);picker_page=0;step()
 func label_for(key: String) -> String:
+	if key=="other" and picker.actions[0].get("id","")=="P60":return "选择己方交换资源"
 	if key=="supply":return "选择部署费用"
 	var labels={"replace":"资源已满 · 选择报废替换的资源","target":"选择目标","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
 	if key.begins_with("payers:"):return "选择第%d个支付行动的团体"%(int(key.get_slice(":",1))+1)
-	if key=="target" and (picker.actions[0].type=="resource" or picker.actions[0].get("id","") in ResourceRules.PLOTS):return "选择目标资源" if picker.actions[0].get("src","")=="G093" or picker.actions[0].get("id","") in ["P56","P58"] else "选择目标团体"
+	if key=="target" and (picker.actions[0].type=="resource" or picker.actions[0].get("id","") in ResourceRules.PLOTS):return "选择目标资源" if picker.actions[0].get("src","")=="G093" or picker.actions[0].get("id","") in ["P56","P58","P59","P60"] else "选择目标团体"
 	if key=="target" and picker.actions[0].get("id","") in ["P21","P23","P24","P25"]:return "选择支付行动的团体"
 	return labels.get(key,"选择操作")
 func support_value(options: Array) -> String:
@@ -193,7 +194,7 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 	elif place=="choice":center=Vector2(m.size.x*0.5,m.size.y*0.45)
 	return Rect2(center-area*0.5,area)
 func known(id: String) -> bool:
-	return m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
+	return id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
 func flight(id: String,kind: String,show_face: bool) -> Control:
 	var view=Panel.new();view.name="MovingCard";view.size=Vector2(94,142);view.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_theme_stylebox_override("panel",m._style(Color("142c2e"),m.GOLD,2));m.presentation_layer.add_child(view)
 	if show_face:
@@ -228,16 +229,6 @@ func target_cue(id: String,target: String) -> bool:
 	return await m.presentation_finished
 func moves(events: Array) -> bool:
 	if events.is_empty():return true
-	for event in events:
-		if event.to not in ["resource_left","resource_right"]:continue
-		var landing=anchor(event.to,event.player,event.kind,event.id)
-		if m.board.get_global_rect().grow(-20).encloses(landing):continue
-		m.presenting=true;m.board.camera_animating=false;m._clear(m.presentation_layer)
-		var desired=m.board.pan+m.board.get_global_rect().get_center()-landing.get_center()
-		m.presentation_tween=m.create_tween();m.presentation_tween.tween_property(m.board,"pan",desired,(0.08 if m.reduced_motion else 0.30)*m.presentation_time_scale).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
-		if not await m.presentation_finished:return false
-		m.board._process(0)
 	m.presenting=true;m._clear(m.presentation_layer)
 	var caption=m._label("",m.presentation_layer,24,m.GOLD);caption.position=Vector2(35,m.size.y-255)
 	m.presentation_tween=m.create_tween().set_parallel(true)
@@ -248,7 +239,7 @@ func moves(events: Array) -> bool:
 		var start=anchor(event.from,event.get("from_player",event.player),event.kind,event.id,event.get("from_target",""));var finish=anchor(event.to,event.player,event.kind,event.id)
 		var source=visible_card(event.id)
 		if event.from in ["hand","board"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.0 if event.from=="board" else 0.12
-		var show_face=(known(event.id) and event.from not in ["deck","choice"]) or event.to in ["resource_left","resource_right"]
+		var show_face=(known(event.id) and event.from!="deck" and (event.from!="choice" or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
 		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
@@ -258,3 +249,41 @@ func moves(events: Array) -> bool:
 		last_end=delay+index*0.07+(0.22 if m.reduced_motion else 0.42)+0.08;index+=1
 	m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
 	return await m.presentation_finished
+
+func prepare_board(plan: Dictionary) -> bool:
+	var ids=plan.get("camera_ids",[])
+	if ids.is_empty() or m.game.phase.begins_with("setup"):return true
+	var board=m.board
+	board.reveal(ids)
+	# Reveal future parents too, without constructing a future public card on the live board.
+	for id in ids:
+		var parent=plan.board_after.get(id,{}).get("parent","")
+		board.reveal([parent]);board.collapsed.erase(parent)
+	board.sync(m.game)
+	if not await board.wait_for_settlement():return false
+	var before=BoardView.layout_nodes(plan.board_before,board.card_size,board.collapsed)
+	var after=BoardView.layout_nodes(plan.board_after,board.card_size,board.collapsed)
+	var bounds=Rect2();var first=true
+	for id in ids:
+		for positions in [before,after]:
+			if not positions.has(id):continue
+			var rect=Rect2(positions[id]-board.card_size/2,board.card_size)
+			bounds=rect if first else bounds.merge(rect);first=false
+	if first:return true
+	board.camera_animating=false
+	var safe=Rect2(Vector2(40,40),board.size-Vector2(80,80))
+	var screen=Rect2(bounds.position*board.zoom+board.pan,bounds.size*board.zoom)
+	# Ignore subpixel rounding so consecutive effects do not nudge the same framing.
+	if safe.grow(1.0).encloses(screen):return true
+	var zoom=minf(board.zoom,minf(safe.size.x/bounds.size.x,safe.size.y/bounds.size.y))
+	zoom=clampf(zoom,0.10,1.8)
+	var pan=board.size/2-bounds.get_center()*zoom
+	m.presenting=true;m._clear(m.presentation_layer)
+	m.presentation_tween=m.create_tween().set_parallel(true)
+	var duration=(0.08 if m.reduced_motion else 0.32)*m.presentation_time_scale
+	m.presentation_tween.tween_property(board,"pan",pan,duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	m.presentation_tween.tween_property(board,"zoom",zoom,duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
+	if not await m.presentation_finished:return false
+	board._process(0)
+	return true

@@ -1,6 +1,6 @@
 {
   "date": "2026-10-21",
-  "card_art_count": 226,
+  "card_art_count": 233,
   "ui_art_count": 4,
   "assets": [
     {
@@ -529,15 +529,6 @@
       "updated": "2026-10-20"
     },
     {
-      "id": "G057",
-      "name": "枪支游说团",
-      "path": "assets/cards/G057.webp",
-      "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: Gun Lobby. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. Respectful fictional depictions of people, no recognizable real persons, no gore. One unique illustration only.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a869ad28-e8f7-4595-9f52-cd22eeec18c7.png",
-      "encoding": "WebP quality 98"
-    },
-    {
       "id": "G058",
       "name": "生存主义者",
       "path": "assets/cards/G058.webp",
@@ -619,14 +610,6 @@
       "method": "Built-in image_gen",
       "prompt": "Square 1:1 illustration for a modern strategy card game, vivid contemporary editorial realism with very clear subject and natural clinical colors. A believable dentist at work, shown from the side at medium distance. A masked dentist in navy blue scrubs and clear protective glasses is seated beside a reclining adult patient, gently examining the patient's teeth with one small dental mirror. A dental assistant stands in the background near clean mint-white cabinets. Prominent overhead articulated dental examination light, dental chair and recognizable instrument tray establish the dental clinic. Calm routine checkup, anatomically normal hands, practical professional posture. Do not pose toward the camera. Do not hold a giant tooth model. No giant props, no glamour portrait, no blood, no exaggerated open mouth, no text, logos, card frame, occult symbols or Illuminati motifs. Keep all faces and important hands within the square image.",
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1d149407-f496-4c72-bbb6-2acc0403225e.png",
-      "encoding": "WebP quality 98"
-    },
-    {
-      "id": "G068",
-      "name": "美国医学会",
-      "path": "assets/cards/G068.webp",
-      "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: unique illustration for an occult conspiracy strategy card game. A single square illustration, no card frame, no text or numbers, no watermark. Style: sophisticated 1990s satirical conspiracy trading-card art, painted gouache with crisp engraved ink detail, dramatic cinematic chiaroscuro, antique cream highlights, deep petrol teal, aged gold and small vermilion accents. Intriguing, playful, mysterious and immediately recognizable even as a small card thumbnail. Detailed composition centered, important subject within central 80%. Not photorealistic, not flat icon. Subject: A.M.A.. Depict this organization or place through a memorable themed scene with people, architecture and evocative objects; satirical conspiracy boardgame interpretation, not official logos. Respectful fictional depictions of people, no recognizable real persons, no gore. One unique illustration only.",
       "encoding": "WebP quality 98"
     },
     {
@@ -2189,6 +2172,96 @@
       "method": "Built-in image_gen",
       "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a data center server rack behind a closed metal security gate, a prominent red access-denied padlock icon on a nearby monitor, cold blue light with red warning reflection, clear visual of technology access being blocked. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-978c65cf-3caa-4f3f-9873-fda43902c329.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "G057",
+      "name": "枪支游说团",
+      "path": "assets/cards/G057.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset: square 1:1 full-bleed high-recognition contemporary strategy-card illustration of an AMERICAN GUN LOBBY. Strong unmistakable composition readable as a thumbnail: foreground a sharply detailed, secured display rack of several recognizable hunting rifles and shotguns with trigger locks and a large handgun under glass, no weapon held or aimed at anyone. Middle ground two professionally dressed gun-rights advocates in American flag lapel pins present a legislative folder to a suited senator across a congressional committee desk. Background the unmistakable US Capitol rotunda through a tall window, American flags. Make the secured guns occupy the lower third and the lobby negotiation the center, bright balanced editorial cinematic realism, contemporary believable setting. No mystical symbols, pyramids, eyes, card border, watermark. Natural anatomy, each person exactly two arms.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-525ebfa7-18a1-46b9-9edd-149fde688b24.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "G068",
+      "name": "美国医学会",
+      "path": "assets/cards/G068.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A recognizable national medical association meeting in a modern American auditorium: three physicians in white coats and formal business dress discussing public health recommendations at a conference table, a large elegant medical staff-and-serpent emblem on the backdrop, subtle American flag at the side, stethoscopes and professional credentials. Clear doctors and medical professional organization. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-50bdc463-8d97-41ef-8b7b-e03af796ac03.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E11",
+      "name": "卫星通讯终端",
+      "path": "assets/cards/E11.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A rugged portable satellite communications terminal: open dark green field case, small white dish antenna deployed beside it, blue signal screen and coiled cables, a field command tent and distant mountains in daylight, detailed recognizable communications hardware. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e52a5e11-ba54-484b-a16a-6f12cad9fbee.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E12",
+      "name": "数字诱饵",
+      "path": "assets/cards/E12.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A cybersecurity honeypot station in a contemporary server room: one isolated glowing decoy server in amber, network connections lead into it while the real blue server racks stay protected behind glass, a nearby screen shows a simple mannequin-shaped digital decoy icon without text. Clear visual metaphor of false digital identity, realistic equipment and cinematic editorial illustration. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0a7ddeb9-11b4-4629-aaa3-2e5fdd3490dc.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E13",
+      "name": "私人博物馆",
+      "path": "assets/cards/E13.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A small private museum vault gallery with illuminated glass display cases holding antique coins, bird-shaped pendants and fragments of old manuscripts, polished dark wood and warm spotlights. One unmistakable curated collection of valuable artifacts, no people, no secret society symbols. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-785e1adf-4d33-470f-a4cf-c58886ebc85a.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E14",
+      "name": "重型抢修车",
+      "path": "assets/cards/E14.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A large yellow mobile utility repair truck with a folded crane and rugged tool compartments beside a damaged rural power line after a storm, a crew in hard hats in the distant background, freshly cleared road, bright hopeful daylight. Heavy engineering equipment is the strong central recognizable subject. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e9cbac11-6c55-4ca6-ab57-c0eba9ed65d8.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E15",
+      "name": "命运硬币",
+      "path": "assets/cards/E15.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A single ornate antique silver coin balanced on its edge on a dark wooden gaming table, a clear classical profile face engraved on the coin, warm dramatic side lighting, subtle gleaming rim and shallow depth of field. Photographic detail, powerful simple composition, no text, no additional coins, no pyramid or eye emblems. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-72db450e-483f-4b0e-96bd-be3eb31493e0.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "P59",
+      "name": "资产征用",
+      "path": "assets/cards/P59.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. A government asset requisition in a modern equipment warehouse: an official in a business suit affixes a plain red inventory tag to a large scientific instrument case while another official holds signed paperwork on a clipboard, orderly racks of electronic devices, calm formal administrative scene, believable anatomy. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2597480b-25ed-4aaa-99e0-4713c9937192.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "P60",
+      "name": "技术交换",
+      "path": "assets/cards/P60.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Square 1:1 full-bleed contemporary strategy card artwork, high-recognition cinematic editorial realism matching modern group cards, rich natural color and a clear focal subject readable at thumbnail size. Two research teams exchanging compact scientific instrument cases across a bright modern laboratory meeting table, one team in blue work jackets and the other in warm gray, devices and technical diagrams visible, a respectful cooperative technology transfer with recognizable equipment. Natural anatomy and clear composition. No captions, lettering, card frame, watermark, Illuminati eyes, pyramids, or occult faction backgrounds. Coherent equipment and natural human anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1e1af882-bb85-4051-80b1-1095123ac79f.png",
       "encoding": "WebP quality 98",
       "updated": "2026-10-21"
     }

@@ -80,7 +80,7 @@ func run() -> void:
 			for i in 2:check(model.act(p,action(model,p,"mulligan")) and model.hands[p].group.size()==5 and model.decks.group.size()==deck_n and model.hands[p].plot==plot_copy[p].plot and model.validate().is_empty(),"Both players' mulligan conserves cards and plots")
 		check(not model.act(0,{"type":"mulligan","label":"重随"}),"Third mulligan rejected")
 	# Large reorganization spaces become two board selections and one review.
-	g=fixture();var choices=g.legal_actions(0).filter(func(a):return a.type=="plot" and a.id=="P18")
+	g=fixture();await main.board.wait_for_settlement();var choices=g.legal_actions(0).filter(func(a):return a.type=="plot" and a.id=="P18")
 	check(choices.size()>20,"Reorganization fixture has a real combinatorial target space")
 	main._action_list(choices);check(main.target_key=="target" and main.interactions.picker.active and main.large_layer.get_child_count()==0,"First step highlights unique movable groups")
 	main._select_card("G001");check(main.target_key=="parent" and main.interactions.picker.actions.all(func(a):return a.target=="G001"),"Second step retains selected group and asks for parent")

@@ -44,7 +44,7 @@ func run() -> void:
 		for a in g.resources.field(0)+g.resources.field(1):
 			for b in g.nodes:
 				if a!=b:check(not main.board.cards[a].get_global_rect().intersects(main.board.cards[b].get_global_rect()),"Resource layout never overlaps "+a+b+profile.name)
-		check(labels(main.hand_layer).contains("资源 2/2") and labels(main.hud).contains("资源 4"),"Three decks and resource hand cap visible "+profile.name)
+		check(labels(main.hand_layer).contains("资源 2/2") and labels(main.hud).contains("资源 9"),"Three decks and resource hand cap visible "+profile.name)
 		var toolbar=main.hud.get_node("ActionToolbar")
 		for button in main.hand_layer.find_children("*","Button",true,false):check(not toolbar.get_global_rect().intersects(button.get_global_rect()),"Resource tab does not overlap action toolbar "+profile.name)
 		var small=main.board.cards.E01.text_layout();check(not small.any(func(row):return row.text.contains("P0")),"Resource card omits P GP R")
@@ -67,6 +67,6 @@ func run() -> void:
 	check(labels(main.large_layer).contains("弃牌 · 地方警察"),"Australia confirmation preserves selected fee")
 	main.interactions.cancel();main.modal_open=true
 	check(g.token("R0") and "G001" in g.hands[0].group and not g.nodes.has("E01"),"Cancel deployment preserves root, fee and resource")
-	main._catalog();check(labels(main.large_layer).contains("资源 · 10"),"Catalog includes resources");main._clear(main.large_layer)
+	main._catalog();check(labels(main.large_layer).contains("资源 · 15"),"Catalog includes resources");main._clear(main.large_layer)
 	CardDB.finish_art_requests();main.queue_free();await process_frame;await process_frame
 	print("RESOURCE UI TESTS: %d checks, %d failures"%[checks,failures.size()]);quit(0 if failures.is_empty() else 1)

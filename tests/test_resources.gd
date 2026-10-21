@@ -27,17 +27,17 @@ func apply(g: GameState,p: int,type: String,args: Dictionary={}) -> void:
 	if not a.is_empty():check(g.act(p,a),"Applied "+type)
 	check(g.validate().is_empty(),"Conservation "+str(g.validate()))
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.ids("resource").size()==10 and CardDB.ids("plot").size()==58,"New card counts")
-	var g=GameState.new(44);apply(g,0,"faction",{"id":"I01"});apply(g,0,"initial",{"id":g.hands[0].group[0]})
-	check(g.hands[0].resource.size()==1 and g.hands[1].resource.size()==1 and g.decks.resource.size()==8,"Opening resource each, separate deck")
+	CardDB.load_all();check(CardDB.ids("resource").size()==15 and CardDB.ids("plot").size()==60,"New card counts")
+	var g=GameState.new(44);apply(g,0,"faction",{"id":"I01"});apply(g,0,"initial",{"id":g.hands[0].group[0]});apply(g,0,"initial_resource",{"id":g.resource_candidates[0][0]})
+	check(g.hands[0].resource.size()==1 and g.hands[1].resource.size()==1 and g.decks.resource.size()==13,"Opening resource each, separate deck")
 	check(g.decks.group.all(func(k):return g.card(k).kind=="group"),"Group deck contains no resources")
 	g=fresh();var count=g.decks.resource.size();apply(g,0,"draw",{}) if false else null
 	g.phase="draw";apply(g,0,"draw",{"group":true,"plot":true,"filter_group":false,"filter_plot":false})
 	check(g.decks.resource.size()==count and g.hands[0].resource.is_empty(),"Normal turn draw never draws resources")
-	apply(g,0,"research");check(g.hands[0].resource.size()==1 and not g.token("R0") and not g.auto_used,"Root draw costs action but not deployment quota")
-	g.nodes.R0.token=1;apply(g,0,"research");g.nodes.R0.token=1
+	apply(g,0,"research",{"deck":"resource"});check(g.hands[0].resource.size()==1 and not g.token("R0") and not g.auto_used,"Root draw costs action but not deployment quota")
+	g.nodes.R0.token=1;apply(g,0,"research",{"deck":"resource"});g.nodes.R0.token=1
 	var snapshot=g.decks.resource.duplicate();var before_rng=g.rng.state
-	check(action(g,0,"research").is_empty() and g._draw(0,"resource")=="" and snapshot==g.decks.resource and before_rng==g.rng.state,"Full resource hand blocks draws without changing deck or RNG")
+	check(action(g,0,"research",{"deck":"resource"}).is_empty() and g._draw(0,"resource")=="" and snapshot==g.decks.resource and before_rng==g.rng.state,"Full resource hand blocks draws without changing deck or RNG")
 	g=fresh();give(g,"E01");var d=action(g,0,"deploy",{"id":"E01"});var plan=ActionFlow.plan(g,0,d)
 	check(not g.nodes.has("E01") and g.token("R0") and "E01" in g.hands[0].resource,"Deployment rehearsal leaves actual state unchanged")
 	apply(g,0,"deploy",{"id":"E01"});check(not g.token("E01") and not g.resources.recoverable("E01") and g.auto_used,"Entry resources cannot act or recharge")
@@ -86,5 +86,5 @@ func _initialize() -> void:
 	g=fresh();put(g,"E05",1);put(g,"G023");put(g,"G001",1);give(g,"P58");apply(g,0,"plot",{"id":"P58","target":"E05"});check(not g.resources.ready("E05") and g.resource_hand_limit(1)==2,"Blockade disables passive and cap")
 	g._complete_end();check(g.resources.ready("E05"),"Blockade expires at turn end")
 	for seed in 12:
-		g=GameState.new(seed+100);apply(g,0,"faction",{"id":"I01"});apply(g,0,"initial",{"id":g.hands[0].group[0]});check(g.validate().is_empty(),"Opening conservation across seeds")
+		g=GameState.new(seed+100);apply(g,0,"faction",{"id":"I01"});apply(g,0,"initial",{"id":g.hands[0].group[0]});apply(g,0,"initial_resource",{"id":g.resource_candidates[0][0]});check(g.validate().is_empty(),"Opening conservation across seeds")
 	print("RESOURCE TESTS: %d checks, %d failures"%[checks,failures.size()]);quit(0 if failures.is_empty() else 1)

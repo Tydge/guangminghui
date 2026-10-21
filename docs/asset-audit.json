@@ -1,11 +1,91 @@
 {
   "date": "2026-10-21",
-  "card_images": 226,
+  "card_images": 233,
   "missing": [],
   "duplicate_images": [],
   "artwork_frame_ratio": "1:1",
   "display": "Contain entire image, preserve aspect ratio, no cropping or stretching",
   "assets": [
+    {
+      "id": "E01",
+      "path": "assets/cards/E01.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 440992,
+      "sha256": "1f18bc0333385de0c1ebf6e1db739ffb1a822ec52bad3348f976b6daf142ceac"
+    },
+    {
+      "id": "E02",
+      "path": "assets/cards/E02.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 541724,
+      "sha256": "93ee4f1ad5871f2d91e99a0120fde5788047ec841d3fb371935d6fe89704df08"
+    },
+    {
+      "id": "E03",
+      "path": "assets/cards/E03.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 883786,
+      "sha256": "5844721de5f3f8595ec4af2beaef7032bd6690c19aef377da9ebf89044da36ad"
+    },
+    {
+      "id": "E04",
+      "path": "assets/cards/E04.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 377000,
+      "sha256": "1131b84b20cc35b9c41ff4ba3a3098ddbc4a1e82e4e7bb4e351d7c70b351f1cc"
+    },
+    {
+      "id": "E05",
+      "path": "assets/cards/E05.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 615062,
+      "sha256": "b48b6ac9f4f14c70d78171d32e1f6c5cb737fa87675020898e89a8dd8e037d50"
+    },
+    {
+      "id": "E06",
+      "path": "assets/cards/E06.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 608710,
+      "sha256": "aa51938d5bbcfdbd7f560b8487241e83b1ee4dbc2b83adfaef4fe7ef47014f79"
+    },
+    {
+      "id": "E07",
+      "path": "assets/cards/E07.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 576252,
+      "sha256": "e5c91c3a9929ec27600b6e67de3642c85565c866a776c34e69b79fabb65f3410"
+    },
+    {
+      "id": "E08",
+      "path": "assets/cards/E08.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 452942,
+      "sha256": "375c039d20ed139101f4b3b1ecc21428236be849ac7dd04fa39552d35aa29080"
+    },
+    {
+      "id": "E09",
+      "path": "assets/cards/E09.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 794386,
+      "sha256": "c0ebe9cbb84a5025c6e5db20ada6268aceda9866d62a373f5c97a50449cedebd"
+    },
+    {
+      "id": "E10",
+      "path": "assets/cards/E10.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 566194,
+      "sha256": "6ef0c772456368ae89c16f13fd3fad93cb614ef9f4386c40c69992758a91abb5"
+    },
     {
       "id": "G001",
       "path": "assets/cards/G001.webp",
@@ -459,8 +539,8 @@
       "path": "assets/cards/G057.webp",
       "width": 1254,
       "height": 1254,
-      "bytes": 822408,
-      "sha256": "42841bd9c9346f9286a94ccd0748e0dfcb8acc4b49520669f41c02c7aa99c0f0"
+      "bytes": 493836,
+      "sha256": "3d7d5386b4bfb6b7ec9a47693614bb8ea505178aab251e9ca217167bdb763e2b"
     },
     {
       "id": "G058",
@@ -547,8 +627,8 @@
       "path": "assets/cards/G068.webp",
       "width": 1254,
       "height": 1254,
-      "bytes": 780112,
-      "sha256": "ddc8bdf9ec5c7a0ada54a59d401fd27633d21642a4ea6d77e59814ad31fb5e27"
+      "bytes": 323310,
+      "sha256": "e09cbfbdfe5a30ed67c5bb0a7d5be80f71184a323286d140b67b5f69c58ec832"
     },
     {
       "id": "G069",
@@ -1711,86 +1791,6 @@
       "sha256": "141fc71d1eebd31058a42ba74817d8f44d90fca625963f3ebf5634b41cd4370d"
     },
     {
-      "id": "E01",
-      "path": "assets/cards/E01.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 440992,
-      "sha256": "1f18bc0333385de0c1ebf6e1db739ffb1a822ec52bad3348f976b6daf142ceac"
-    },
-    {
-      "id": "E02",
-      "path": "assets/cards/E02.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 541724,
-      "sha256": "93ee4f1ad5871f2d91e99a0120fde5788047ec841d3fb371935d6fe89704df08"
-    },
-    {
-      "id": "E03",
-      "path": "assets/cards/E03.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 883786,
-      "sha256": "5844721de5f3f8595ec4af2beaef7032bd6690c19aef377da9ebf89044da36ad"
-    },
-    {
-      "id": "E04",
-      "path": "assets/cards/E04.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 377000,
-      "sha256": "1131b84b20cc35b9c41ff4ba3a3098ddbc4a1e82e4e7bb4e351d7c70b351f1cc"
-    },
-    {
-      "id": "E05",
-      "path": "assets/cards/E05.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 615062,
-      "sha256": "b48b6ac9f4f14c70d78171d32e1f6c5cb737fa87675020898e89a8dd8e037d50"
-    },
-    {
-      "id": "E06",
-      "path": "assets/cards/E06.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 608710,
-      "sha256": "aa51938d5bbcfdbd7f560b8487241e83b1ee4dbc2b83adfaef4fe7ef47014f79"
-    },
-    {
-      "id": "E07",
-      "path": "assets/cards/E07.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 576252,
-      "sha256": "e5c91c3a9929ec27600b6e67de3642c85565c866a776c34e69b79fabb65f3410"
-    },
-    {
-      "id": "E08",
-      "path": "assets/cards/E08.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 452942,
-      "sha256": "375c039d20ed139101f4b3b1ecc21428236be849ac7dd04fa39552d35aa29080"
-    },
-    {
-      "id": "E09",
-      "path": "assets/cards/E09.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 794386,
-      "sha256": "c0ebe9cbb84a5025c6e5db20ada6268aceda9866d62a373f5c97a50449cedebd"
-    },
-    {
-      "id": "E10",
-      "path": "assets/cards/E10.webp",
-      "width": 1254,
-      "height": 1254,
-      "bytes": 566194,
-      "sha256": "6ef0c772456368ae89c16f13fd3fad93cb614ef9f4386c40c69992758a91abb5"
-    },
-    {
       "id": "P56",
       "path": "assets/cards/P56.webp",
       "width": 1254,
@@ -1813,6 +1813,62 @@
       "height": 1254,
       "bytes": 531712,
       "sha256": "55cc07eb334bd5d3dbc16700b6d505b0b02279e5f53874fe4aff6a9fb6d125b8"
+    },
+    {
+      "id": "E11",
+      "path": "assets/cards/E11.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 593436,
+      "sha256": "cd1271d3d3d3a9f3754feb63f8b3b989bd9df9fbc47c37827a205ed27a42a0df"
+    },
+    {
+      "id": "E12",
+      "path": "assets/cards/E12.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 496048,
+      "sha256": "2031f2f8da8bc4ab323d9a265b218d05825b08d2e9856905c0cc5b263797c468"
+    },
+    {
+      "id": "E13",
+      "path": "assets/cards/E13.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 580332,
+      "sha256": "de341e7806d5b016b7e27bd5b886f147ce2913412e9990c9a47f6871df321a0b"
+    },
+    {
+      "id": "E14",
+      "path": "assets/cards/E14.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 831242,
+      "sha256": "b5f02aa20df0c8066e29f3f7c2f1d22b2b25a6ff23efa1bcdd1b44ef7d70c221"
+    },
+    {
+      "id": "E15",
+      "path": "assets/cards/E15.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 341962,
+      "sha256": "234519d07ac6035c12da8c1c3876e92d4fba4655cafa889347cc701eae4897d7"
+    },
+    {
+      "id": "P59",
+      "path": "assets/cards/P59.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 383014,
+      "sha256": "6c24b2281b6698679a60077b1e9ad9824646399529314bf1ca222a5df35701bf"
+    },
+    {
+      "id": "P60",
+      "path": "assets/cards/P60.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 477140,
+      "sha256": "a2adce148520170ca70f8ba4a3cbcb78396a483c396857b10e74ee5afe479097"
     }
   ]
 }

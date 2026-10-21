@@ -25,11 +25,11 @@ class CardSyncTests(unittest.TestCase):
 
     def test_new_resource_exports_and_preserves_notes(self):
         cards = copy.deepcopy(CARDS)
-        cards['E11'] = copy.deepcopy(cards['E01'])
-        cards['E11'].update(id='E11', name='测试资源')
+        cards['E999'] = copy.deepcopy(cards['E01'])
+        cards['E999'].update(id='E999', name='测试资源')
         rendered = sync.render(DOCUMENT + '\n保留这条资源备注。\n', cards, json.dumps(cards).encode())
         self.assertEqual(sync.parse_table(rendered, cards), cards)
-        self.assertIn('## 资源 · 11种', rendered)
+        self.assertIn(f"## 资源 · {sum(c['kind']=='resource' for c in CARDS.values())+1}种", rendered)
         self.assertIn('保留这条资源备注。', rendered)
 
     def test_statistics_count_each_card_once_per_attribute(self):

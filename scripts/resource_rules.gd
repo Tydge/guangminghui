@@ -1,7 +1,7 @@
 class_name ResourceRules
 extends RefCounted
 ## Resources belong to a player, never to a branch of the power structure.
-const PLOTS=["P56","P57","P58"]
+const PLOTS=["P56","P57","P58","P59","P60"]
 var state: WeakRef
 var g:
 	get:return state.get_ref()
@@ -11,7 +11,27 @@ func ready(id: String,p: int=-1) -> bool:return g.wave.enabled(id,p) and g.card(
 func recoverable(id: String) -> bool:return ready(id) and g.card(id).action and g.can_recharge(id)
 func can_draw(p: int) -> bool:return g.hands[p].resource.size()<g.resource_hand_limit(p)
 func opening() -> void:
-	for p in [0,1]:g._draw(p,"resource")
+	g.phase="setup_resource"
+	for p in [0,1]:g.resource_candidates[p]=g._take(p,"resource",5)
+func opening_score(id: String,p: int) -> float:
+	var value=12+int(g.card(id).action)*2
+	if id in ["E03","E04","E05"]:value+=3
+	if id=="E14" and g.groups(p).any(func(k):return g.has(k,"巨大")):value+=6
+	if id=="E09" and g.groups(p).any(func(k):return g.has(k,"沿海")):value+=6
+	if id=="E11" and g.groups(p).any(func(k):return g.stat(k,"p")>g.stat(k,"gp")+2):value+=6
+	if id=="E13" and not g.hands[p].resource.any(func(k):return "秘宝" in g.card(k).tags):value-=4
+	return value
+func reroll(p: int) -> void:
+	var pool=g.resource_candidates[p].duplicate()
+	for id in pool:g.decks.resource.append(id);g._flow(id,"choice","deck",p)
+	g._shuffle(g.decks.resource);g.resource_candidates[p]=g._take(p,"resource",pool.size());g.resource_rerolls[p]+=1
+	g._log(g._who(p)+"重随了资源候选","resource_mulligan",{"player":p})
+func select_opening(p: int,id: String) -> void:
+	g.hands[p].resource.append(id);g._flow(id,"choice","hand",p)
+	for other in g.resource_candidates[p]:
+		if other!=id:g.decks.resource.append(other)
+	g.resource_candidates[p]=[]
+func deck_available(kind: String) -> bool:return not g.decks[kind].is_empty() or not g.discards[kind].is_empty()
 func repair_hand() -> bool:
 	if g.phase!="main":return false
 	for p in [0,1]:
@@ -21,8 +41,13 @@ func repair_hand() -> bool:
 func refill(p: int) -> void:
 	for id in field(p):g.nodes[id].token=1 if g.card(id).action else 0
 func remove(id: String) -> void:
-	var p=g.owner(id)
+	var p=g.owner(id);var relic="秘宝" in g.tags(id)
 	g.nodes.erase(id);g.scrap.append(id);g._flow(id,"board","scrap",p)
+	if relic and ready("E13",p) and not g.used.has("e_museum:%d"%p):
+		g.used["e_museum:%d"%p]=true
+		var task={"kind":"draw","source":"E13","player":p,"deck":"plot","amount":1,"message":"私人博物馆 · 抽1张阴谋"}
+		if g.battle.is_empty():g.wave.defer(task)
+		else:g.wave.response_queue.append(task)
 func entry_reward(p: int) -> void:
 	if ready("E04",p) and not g.used.has("e_archive"):
 		g.used.e_archive=true
@@ -32,14 +57,26 @@ func support_detail(id: String,d: Dictionary) -> Dictionary:
 		d.power+=1;d.extra=d.get("extra",0)+1;d.reason+=" · 海底光缆+1"
 	return d
 func country_actions(src: String,p: int) -> Array:
-	if src!="G093" or not g.wave.available(src,p) or not g.token(src) or g.used.has(src):return []
+	if src not in ["G091","G093"] or not g.wave.available(src,p) or not g.token(src) or g.used.has(src):return []
+	if src=="G091":
+		var actions: Array=[]
+		if can_draw(p) and deck_available("resource"):
+			for fee in g.hands[p].group:actions.append(g._a("resource","矿产出口 · 弃1团体，抽1资源",{"src":src,"fee":fee}))
+		return actions
 	var out: Array=[]
 	for id in field(p):
 		if recoverable(id) and "装置" in g.tags(id):out.append(g._a("resource","军工整备 → "+g.title(id),{"src":src,"target":id}))
 	return out
 func augment_actions(p: int,out: Array) -> Array:
+	if g.phase=="setup_resource":
+		if p==0:
+			for id in g.resource_candidates[0]:out.append(g._a("initial_resource","选择「%s」"%g.title(id),{"id":id}))
+			if g.resource_rerolls[0]<2:out.append(g._a("reroll_resource","重随资源",{}))
+		return out
 	if g.phase=="main" and g.current==p:
-		if g.token(g.root(p)) and can_draw(p) and (not g.decks.resource.is_empty() or not g.discards.resource.is_empty()):out.append(g._a("research","抽1张资源 · 花主牌1行动",{"src":g.root(p)}))
+		if g.token(g.root(p)):
+			for kind in ["group","resource","plot"]:
+				if deck_available(kind) and (kind!="resource" or can_draw(p)):out.append(g._a("research","抽1张"+{"group":"团体","resource":"资源","plot":"阴谋"}[kind],{"src":g.root(p),"deck":kind}))
 		if not g.auto_used:
 			for id in g.hands[p].resource:
 				var replacements=field(p) if field(p).size()>=2 else [""]
@@ -58,6 +95,9 @@ func augment_actions(p: int,out: Array) -> Array:
 					if not g.decks.group.is_empty() or not g.discards.group.is_empty():out.append(g._a("resource","量子计算机 · 抽2弃1团体",{"src":id}))
 				"E08":
 					if can_draw(p) and not g.decks.resource.is_empty():out.append(g._a("resource","深空探测器 · 查看资源堆顶3张",{"src":id}))
+				"E11":
+					for target in g.groups(p):
+						if g.stat(target,"p")>g.stat(target,"gp"):out.append(g._a("resource","卫星通讯 · 本回合GP等于P",{"src":id,"target":target}))
 				"E10":
 					for target in g.groups(p):
 						for parent in g.field(p):
@@ -65,6 +105,9 @@ func augment_actions(p: int,out: Array) -> Array:
 	elif g.phase=="battle" and g.battle.responder==p:
 		var b=g.battle
 		if not b.has("disaster"):
+			var opposing="support_d" if p==b.attacker else "support_a"
+			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-4 · 报废",{"src":"E12","target":b.target}))
+			if ready("E15",p) and b.get("fixed_dice",[])!=[3,4]:out.append(g._a("resource","命运硬币 · 骰点固定3＋4 · 报废",{"src":"E15","target":b.target}))
 			if p==b.attacker and ready("E01",p) and g.token("E01"):out.append(g._a("resource","战术雷达 · 强度+2 · 花资源1行动",{"src":"E01","target":b.target}))
 			if p==b.defender and b.mode=="destroy" and ready("E07",p):out.append(g._a("resource","凤凰护符 · 防御+6 · 报废资源",{"src":"E07","target":b.target}))
 	return out
@@ -74,6 +117,16 @@ func plot_actions(id: String,p: int) -> Array:
 		if can_draw(p) and not g.decks.resource.is_empty():out.append(g._a("plot","逆向研发 · 查看2张资源，取1张",{"id":id,"src":id,"target":""}))
 	elif g.can_enemy(p):
 		for target in field(1-p):
+			if id in ["P59","P60"]:
+				if id=="P59" and (not can_draw(p) or "装置" not in g.tags(target)):continue
+				var required_tag="政府" if id=="P59" else "科学"
+				for payer in g.groups(p):
+					if not g.token(payer) or not g.has(payer,required_tag):continue
+					for other in ([""] if id=="P59" else field(p)):
+						var args={"id":id,"src":id,"target":target,"payer":payer}
+						if other!="":args.other=other
+						out.append(g._a("plot",g.title(id)+" → "+g.title(target),args))
+				continue
 			if id=="P58" and not ready(target):continue
 			if id=="P56":
 				for payer in g.groups(p):
@@ -81,8 +134,13 @@ func plot_actions(id: String,p: int) -> Array:
 			else:out.append(g._a("plot","技术封锁 → "+g.title(target),{"id":id,"src":id,"target":target}))
 	return out
 func handle(p: int,a: Dictionary) -> bool:
+	if a.type=="reroll_resource":reroll(p);return true
+	if a.type=="initial_resource":
+		while g.resource_rerolls[1]<2 and g.resource_candidates[1].all(func(k):return opening_score(k,1)<15):reroll(1)
+		var pool=g.resource_candidates[1].duplicate();pool.sort_custom(func(x,y):return opening_score(x,1)>opening_score(y,1))
+		select_opening(0,a.id);select_opening(1,pool[0]);g._shuffle(g.decks.resource);g._finish_opening();return true
 	if a.type=="research":
-		g.nodes[g.root(p)].token=0;g._draw(p,"resource");g._log(g._who(p)+"花主牌1行动抽取资源","research",{"player":p});g._after_effect();return true
+		g.nodes[g.root(p)].token=0;g._draw(p,a.deck);g._log(g._who(p)+"花主牌1行动抽取"+{"group":"团体","resource":"资源","plot":"阴谋"}[a.deck],"research",{"player":p});g._after_effect();return true
 	if a.type=="deploy":
 		var slot=g.nodes[a.replace].resource_slot if a.get("replace","")!="" else (1 if field(p).any(func(k):return g.nodes[k].resource_slot==0) else 0)
 		if a.get("replace","")!="":remove(a.replace)
@@ -95,10 +153,15 @@ func handle(p: int,a: Dictionary) -> bool:
 		g._log(g._who(p)+"部署了「"+g.title(a.id)+"」","deploy",{"id":a.id,"player":p});g._after_effect();return true
 	if a.type=="resource":
 		var src=a.src;var target=a.get("target","")
-		if src=="G093":g.nodes[src].token=0;g.used[src]=true;g.nodes[target].token=1;g.recharged[target]=true
+		if src=="G091":g.nodes[src].token=0;g.used[src]=true;g._discard(p,a.fee);g._draw(p,"resource")
+		elif src=="G093":g.nodes[src].token=0;g.used[src]=true;g.nodes[target].token=1;g.recharged[target]=true
 		else:
 			if g.card(src).action:g.nodes[src].token=0
 			match src:
+				"E11":g.nodes[target].compute=true
+				"E12":
+					remove(src);var opposing="support_d" if p==g.battle.attacker else "support_a";g.battle[opposing]=maxi(0,g.battle[opposing]-4)
+				"E15":remove(src);g.battle.fixed_dice=[3,4]
 				"E01":g.battle.bonus_a+=2
 				"E02":remove(src);g.nodes[target].token=1;g.recharged[target]=true
 				"E06":
@@ -126,6 +189,15 @@ func resolve_plot(a: Dictionary) -> bool:
 		"P56":remove(a.target)
 		"P57":probe(a.player,2,false)
 		"P58":g.nodes[a.target].silenced=true
+		"P59":
+			var previous=g.owner(a.target);g.nodes.erase(a.target);g.hands[a.player].resource.append(a.target)
+			g._flow(a.target,"board","hand",a.player);g.motion_events.back().from_player=previous
+			g._log(g._who(a.player)+"征用了「"+g.title(a.target)+"」","resource_transfer",{"id":a.target})
+		"P60":
+			var own=g.nodes[a.other];var enemy=g.nodes[a.target];var old_slot=own.resource_slot
+			own.owner=enemy.owner;own.resource_slot=enemy.resource_slot;enemy.owner=a.player;enemy.resource_slot=old_slot
+			for id in [a.other,a.target]:g.nodes[id].token=0;g.captured[id]=true
+			g._log("技术交换 · "+g.title(a.other)+" ↔ "+g.title(a.target),"resource_swap",{"id":a.other,"target":a.target})
 	g._spent_plot(a.id);g.wave.plot_rewards(a.player,a.id,a);g._after_effect();return true
 func probe(p: int,n: int,optional: bool) -> void:
 	var peek=g._take(p,"resource",mini(n,g.decks.resource.size()))
@@ -151,4 +223,5 @@ func reader(id: String) -> String:
 	else:text+="\n"+{"持续":"持续生效 · 无需行动","触发":"满足条件自动触发 · 无需行动","一次性":"报废自身发动 · 无需行动"}.get(c.mode,c.mode)
 	if not ready(id):text+="\n技术封锁 · 失效至本回合结束"
 	if id=="E04" and g.used.has("e_archive"):text+="\n本回合抽牌次数已用"
+	if id=="E13" and g.used.has("e_museum:%d"%g.owner(id)):text+="\n本回合抽牌次数已用"
 	return text

@@ -60,7 +60,10 @@ func run() -> void:
 			dice_tween.custom_step(fade+0.1)
 			check(not main.presentation_layer.has_node("DiceResult"),"Dice window is removed before aftermath: "+mode)
 			if mode=="destroy":
-				check(main.busy and snapshot(g)==before and main.presentation_layer.find_child("MovingCard",true,false)!=null,"Descendant return begins only after dice close, before live settlement")
+				check(main.busy and snapshot(g)==before,"Camera framing follows dice close without committing live settlement")
+				var deadline=Time.get_ticks_msec()+2000
+				while main.busy and main.presentation_layer.find_child("MovingCard",true,false)==null and Time.get_ticks_msec()<deadline:await process_frame
+				check(main.presentation_layer.find_child("MovingCard",true,false)!=null and snapshot(g)==before and not main.presentation_layer.has_node("DiceResult"),"Descendant return follows camera framing and fully closed dice, before live settlement")
 			await idle();main.modal_open=true
 			check(g.last_battle.dice==planned.dice and g.last_battle.success,"Displayed rehearsal matches the eventual real roll")
 			if mode=="control":check(g.owner("G001")==0 and g.owner("G024")==0 and g.owner("G025")==0 and g.nodes.G001.parent=="G005","Control transfers the entire branch after the result closes")

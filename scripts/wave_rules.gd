@@ -45,7 +45,7 @@ func augment_actions(p: int,out: Array) -> Array:
 			var actors=g.field(p).filter(func(k):return g.token(k))
 			if g.world=="P37" and once("resilient:%d"%p):out.append(g._a("rebuild","韧性社会 · 免费重建「%s」"%g.title(target),{"src":"P37","target":target,"payers":[]}))
 			for i in actors.size():
-				if not g.has(target,"巨大"):out.append(g._a("rebuild","重建「%s」 · %s行动"%[g.title(target),g.title(actors[i])],{"src":target,"target":target,"payers":[actors[i]]}))
+				if not g.has(target,"巨大") or g.resources.ready("E14",p):out.append(g._a("rebuild","重建「%s」 · %s行动"%[g.title(target),g.title(actors[i])],{"src":target,"target":target,"payers":[actors[i]]}))
 				else:
 					for j in range(i+1,actors.size()):out.append(g._a("rebuild","重建「%s」 · %s＋%s"%[g.title(target),g.title(actors[i]),g.title(actors[j])],{"src":target,"target":target,"payers":[actors[i],actors[j]]}))
 		var attacks=out.filter(func(a):return a.type=="attack")
@@ -297,7 +297,6 @@ func support(p: int,a: Dictionary) -> void:
 	if a.has("plot_fee"):message+=" · 弃"+g.title(a.plot_fee)
 	if a.has("group_fee"):message+=" · 通行费弃"+g.title(a.group_fee)
 	g._battle_record("support",p,a.src,b.target,message);g._log(g._who(p)+" · "+message,"support",{"id":a.src,"player":p})
-	if normal(b) and enabled("G091",p) and once("G091") and g.has(a.src,"科学") and not g.hands[p].group.is_empty():response_queue.append({"kind":"export","player":p})
 	g._response_changed(p)
 
 func plot_committed(p: int,a: Dictionary) -> void:
@@ -355,11 +354,7 @@ func defer(task: Dictionary) -> void:
 func next_response_trigger() -> void:
 	while not response_queue.is_empty():
 		var task=response_queue.pop_front()
-		if task.kind=="export":
-			var p=task.player
-			if enabled("G091",p) and once("G091") and not g.hands[p].group.is_empty():
-				g._set_choice(p,"矿产出口 · 可将1张团体放到堆底，抽1张阴谋",g.hands[p].group,"w_export",{"source":"G091","resume":"battle"},true);return
-		else:auto_trigger(task,"battle");return
+		auto_trigger(task,"battle");return
 
 func values(b: Dictionary,v: Dictionary) -> Dictionary:
 	if not b.has("disaster"):
@@ -395,8 +390,6 @@ func cancel_pending() -> void:
 func choose(id: String) -> void:
 	var c=g.choice.duplicate(true);var p=c.player;g.choice={};g.phase=c.get("resume","main")
 	match c.kind:
-		"w_export":
-			if id!="":g.hands[p].group.erase(id);g.decks.group.append(id);remember("G091");g._draw(p,"plot")
 		"w_draft":
 			g.hands[p][g.card(id).kind].append(id);if_not_exposed(id);c.peek.erase(id)
 			g._log(g._who(p)+" · 推荐流选择「"+g.title(id)+"」","reveal",{"id":id,"player":p})

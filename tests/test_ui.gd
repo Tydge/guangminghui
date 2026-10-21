@@ -18,6 +18,8 @@ func run() -> void:
 	await main._do_action(0,main.game.legal_actions(0)[0]);await process_frame
 	check(main.game.phase=="setup_group" and main.game.legal_actions(0).filter(func(a):return a.type=="initial").size()==5,"Five opening cards")
 	await main._do_action(0,main.game.legal_actions(0)[0]);await process_frame
+	check(main.game.phase=="setup_resource","Resource selection follows initial group")
+	await main._do_action(0,main.game.legal_actions(0)[0]);await process_frame
 	# Stop the scheduled AI while this deterministic fixture exercises UI handlers.
 	main.modal_open=true;main.game.current=0;main.game.phase="main"
 	for id in main.game.field(0):main.game.nodes[id].token=1

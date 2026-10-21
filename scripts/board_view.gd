@@ -73,12 +73,7 @@ func sync(g: GameState) -> void:
 			else:
 				tween.tween_property(fading,"position",Vector2(size.x-35,-130) if fading.enemy else Vector2(45,size.y+50),duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT);tween.tween_property(fading,"modulate:a",0.0,duration)
 			tween.chain().tween_callback(fading.queue_free)
-	var left_width=maxf(_width(g.root(0)),card_size.x*3+96);var right_width=maxf(_width(g.root(1)),card_size.x*3+96)
-	_layout(g.root(0),Vector2(left_width/2,0))
-	_layout(g.root(1),Vector2(left_width+240+right_width/2,0))
-	for p in [0,1]:
-		if targets.has(g.root(p)):
-			for id in g.resources.field(p):targets[id]=targets[g.root(p)]+Vector2((-1 if g.nodes[id].resource_slot==0 else 1)*(card_size.x+32),0)
+	targets=layout_nodes(g.nodes,card_size,collapsed)
 	for id in g.nodes:
 		if not cards.has(id):
 			var view=CardView.new();view.configure(id,g);view.size=card_size;add_child(view)
@@ -93,19 +88,36 @@ func sync(g: GameState) -> void:
 	settlement_result={}
 	queue_redraw()
 
-func _width(id: String) -> float:
-	if game==null or not game.nodes.has(id) or collapsed.get(id,false):return card_size.x+30
-	var sum=0.0
-	for child in game.children(id):sum+=_width(child)
-	return maxf(card_size.x+30,sum)
-
-func _layout(id: String,center: Vector2) -> void:
-	if game==null or not game.nodes.has(id):return
-	targets[id]=center
-	if collapsed.get(id,false):return
-	var kids=game.children(id);var start=center.x-_width(id)/2
+static func layout_children(nodes: Dictionary,id: String) -> Array:
+	return nodes.keys().filter(func(k):return nodes[k].get("parent","")==id)
+static func layout_width(nodes: Dictionary,id: String,extent: Vector2,folded: Dictionary) -> float:
+	if not nodes.has(id) or folded.get(id,false):return extent.x+30
+	var width=0.0
+	for child in layout_children(nodes,id):width+=layout_width(nodes,child,extent,folded)
+	return maxf(extent.x+30,width)
+static func layout_branch(nodes: Dictionary,id: String,center: Vector2,extent: Vector2,folded: Dictionary,out: Dictionary) -> void:
+	if not nodes.has(id):return
+	out[id]=center
+	var kids=layout_children(nodes,id);var width=layout_width(nodes,id,extent,folded)
+	# Hidden descendants still need stable positions for processing and later expansion.
+	if folded.get(id,false):
+		width=0
+		for child in kids:width+=layout_width(nodes,child,extent,folded)
+	var start=center.x-width/2
 	for child in kids:
-		var w=_width(child);_layout(child,Vector2(start+w/2,center.y+card_size.y+28));start+=w
+		var child_width=layout_width(nodes,child,extent,folded)
+		layout_branch(nodes,child,Vector2(start+child_width/2,center.y+extent.y+28),extent,folded,out);start+=child_width
+static func layout_nodes(nodes: Dictionary,extent: Vector2,folded: Dictionary={}) -> Dictionary:
+	var out: Dictionary={}
+	var left=maxf(layout_width(nodes,"R0",extent,folded),extent.x*3+96)
+	var right=maxf(layout_width(nodes,"R1",extent,folded),extent.x*3+96)
+	layout_branch(nodes,"R0",Vector2(left/2,0),extent,folded,out)
+	layout_branch(nodes,"R1",Vector2(left+240+right/2,0),extent,folded,out)
+	for id in nodes:
+		if not nodes[id].has("resource_slot"):continue
+		var root_id="R%d"%nodes[id].owner
+		if out.has(root_id):out[id]=out[root_id]+Vector2((-1 if nodes[id].resource_slot==0 else 1)*(extent.x+32),0)
+	return out
 
 func _process(delta: float) -> void:
 	if game==null:return

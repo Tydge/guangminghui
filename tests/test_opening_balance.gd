@@ -17,7 +17,7 @@ func _initialize() -> void:
 	for seed_value in range(1,33):
 		var g=GameState.new(seed_value);g.act(0,g.legal_actions(0)[0])
 		check(g.hands[0].plot.size()==2 and g.hands[1].plot.size()==2,"Both players have two plots before initiative")
-		var initial=g.legal_actions(0)[0];g.act(0,initial);var first=g.current;var second=1-first;first_players.append(first)
+		var initial=g.legal_actions(0)[0];g.act(0,initial);g.act(0,g.legal_actions(0)[0]);var first=g.current;var second=1-first;first_players.append(first)
 		check(g.hands[first].plot.size()==2 and g.hands[second].plot.size()==3,"Only actual second player receives exactly one additional plot")
 		check(g.decks.plot.size()==CardDB.ids("plot").size()-5 and g.exposed.is_empty(),"Compensation draws once from shared deck and does not reveal identity")
 		check(g.hands[0].group.size()==4 and g.hands[1].group.size()==4,"Compensation leaves opening group selection unchanged")

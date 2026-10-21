@@ -60,13 +60,14 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 	match a.type:
 		"faction":return 1
 		"initial":return _value(a.id,o)
+		"initial_resource":return _value(a.id,o)
 		"draw":return float(int(a.group)+int(a.plot))*5+int(a.get("filter_group",false))+int(a.get("filter_plot",false))
 		"choose":
 			var kind=o.choice.get("kind","")
 			if kind=="c_goal_limit":return _plot_value(a.id,o)
 			if a.id=="":return -20
 			var value=_value(a.id,o) if a.id.begins_with("G") or a.id.begins_with("E") else _plot_value(a.id,o)
-			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry","e_limit","e_discard"] else value
+			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry","e_limit","e_discard"] else value
 		"counter":return 30 if o.phase=="plot_response" else 0
 		"accept_plot":return 0
 		"auto":
@@ -274,8 +275,14 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		var old=a.get("replace","")
 		if old!="" and _value(a.id,o)<=_value(old,o):return -5
 		return 57+_value(a.id,o)-(6 if a.has("fee") else 0)-(8 if old!="" else 0)
-	if a.type=="research":return 14 if owned.size()<2 else (-2 if o.hands.resource.size()>0 else 2)
+	if a.type=="research":
+		match a.deck:
+			"group":return 10 if o.hands.group.size()<3 else 1
+			"plot":return 11 if o.hands.plot.size()<3 else 2
+		return 14 if owned.size()<2 else (-2 if o.hands.resource.size()>0 else 2)
 	if a.type=="plot":
+		if a.id=="P59":return 22+_value(a.target,o)
+		if a.id=="P60":return 8+_value(a.target,o)-_value(a.other,o)
 		if a.id=="P56":return 20+_value(a.target,o)
 		if a.id=="P57":return 17 if owned.size()<2 else 5
 		return 9
@@ -286,5 +293,9 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		"E06":return 15
 		"E08":return 12 if owned.size()<2 else 3
 		"E10":return _placement_value(a.target,a.parent,o)-5
+		"E11":return 8+_card(a.target,o).p-_card(a.target,o).gp
+		"E12":return 10 if o.battle_values.strength>=2 and o.battle_values.strength<=13 else -3
+		"E15":return (18 if o.battle_values.strength>=7 else -4) if o.battle.attacker==o.player else (18 if o.battle_values.strength<7 else -4)
+		"G091":return 13-_value(a.fee,o)*0.2
 		"G093":return 17
 	return -2

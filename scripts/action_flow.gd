@@ -18,6 +18,8 @@ static func zones(g: GameState) -> Dictionary:
 			for id in (g.decks[kind] if place=="deck" else g.discards[kind]):result[id]={"place":place,"player":-1,"kind":kind}
 		for p in [0,1]:
 			for id in g.hands[p][kind]:result[id]={"place":"hand","player":p,"kind":kind}
+	for p in [0,1]:
+		for id in g.resource_candidates[p]:result[id]={"place":"choice","player":p,"kind":"resource"}
 	for id in g.scrap:result[id]={"place":"scrap","player":-1,"kind":"resource"}
 	for id in g.nodes:
 		if not g.is_root(id):result[id]={"place":"board","player":g.owner(id),"kind":g.card(id).kind}
@@ -57,4 +59,44 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 	if a.type=="resource" and a.get("target","")!="":target=a.target;source=a.src
 	var minor={"roll":copy.battle.get("star_roll",0)} if a.get("star",false) else {}
 	var result=copy.last_battle.duplicate(true) if not g.battle.is_empty() and copy.battle.is_empty() else {}
-	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor}
+	var affected: Array=[]
+	for id in g.nodes.keys()+copy.nodes.keys():
+		if id in affected:continue
+		if node_visual(g.nodes.get(id,{}))!=node_visual(copy.nodes.get(id,{})) or public_values(g,id)!=public_values(copy,id):affected.append(id)
+	for key in ["src","target","parent","other","replace"]:
+		var id=a.get(key,"")
+		if (g.nodes.has(id) or copy.nodes.has(id)) and id not in affected:affected.append(id)
+	if not result.is_empty():
+		for key in ["src","target"]:
+			var id=result.get(key,"")
+			if id!="" and id not in affected:affected.append(id)
+	for id in affected.duplicate():
+		var previous=g.nodes.get(id,{});var next=copy.nodes.get(id,{})
+		if previous.get("parent","")!=next.get("parent","") or previous.get("owner",-1)!=next.get("owner",-1):
+			for nodes in [g.nodes,copy.nodes]:
+				for candidate in nodes:
+					var ancestor=nodes[candidate].get("parent","")
+					while ancestor!="" and nodes.has(ancestor):
+						if ancestor==id:
+							if candidate not in affected:affected.append(candidate)
+							break
+						ancestor=nodes[ancestor].get("parent","")
+		for nodes in [g.nodes,copy.nodes]:
+			var node=nodes.get(id,{})
+			var parent="R%d"%node.owner if node.has("resource_slot") else node.get("parent","")
+			if parent!="" and parent not in affected:affected.append(parent)
+	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor,"camera_ids":affected,"board_before":g.nodes.duplicate(true),"board_after":copy.nodes.duplicate(true),"other_target":played.get("other","") if not source.is_empty() and played.get("id","")=="P60" else ""}
+
+static func node_visual(node: Dictionary) -> Dictionary:
+	if node.is_empty():return {}
+	var out: Dictionary={}
+	for key in node:
+		var value=node[key]
+		if (value is bool and not value) or ((value is int or value is float) and value==0) or (value is String and value=="") or (value is Array and value.is_empty()):continue
+		out[key]=value
+	return out
+
+static func public_values(g: GameState,id: String) -> Array:
+	if not g.nodes.has(id):return []
+	if g.card(id).kind=="resource":return [g.resources.ready(id)]
+	return [g.stat(id,"p"),g.stat(id,"gp"),g.stat(id,"r"),g.stat(id,"slots"),g.alignments(id),g.tags(id)]

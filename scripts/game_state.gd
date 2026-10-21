@@ -49,6 +49,8 @@ var initiative: Array = []
 var initial_ai = ""
 var mulligans: Array=[0,0]
 var motion_events: Array=[]
+var resource_candidates: Array=[[],[]]
+var resource_rerolls: Array=[0,0]
 
 func _flow(id: String,from: String,to: String,p: int) -> void:
 	motion_events.append({"id":id,"from":from,"to":to,"player":p,"kind":card(id).kind})
@@ -336,7 +338,7 @@ func _base_legal_actions(p: int) -> Array:
 
 func _ability_actions(src: String,p: int) -> Array:
 	if not wave.available(src):return []
-	if src in ["G093","G092","G098"]:return resources.country_actions(src,p)
+	if src in ["G091","G093","G092","G098"]:return resources.country_actions(src,p)
 	if int(src.substr(1))>=131:return renewal.ability_actions(src,p)
 	if int(src.substr(1))>=113:return synergy.ability_actions(src,p)
 	if int(src.substr(1))>=81:return wave.ability_actions(src,p)
@@ -526,12 +528,12 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 	if mode=="control":
 		if factions[owner(id)]=="I04" and has(id,"怪异"):value+=2
 		if "G006" in children(id):value+=2
-		if id=="G042":value+=3
+		if id=="G042" and src!="" and (has(src,"科学") or has(src,"太空")):value+=4
 		if id=="G039" and src!="" and has(src,"政府"):value+=2
 	else:
-		if id in ["G049","G058"]:value+=2
+		if id in ["G049","G058"]:value+=3 if id=="G049" else 2
 		if id=="G071":value+=10
-		if id=="G061" and src!="" and has(src,"暴力"):value+=3
+		if id=="G061" and src!="" and has(src,"暴力"):value+=4
 	return value
 
 func disaster_defense(id: String,src: String="") -> int:
@@ -577,7 +579,7 @@ func battle_values(b: Dictionary = {}) -> Dictionary:
 		if factions[p]=="I01":ability+=1
 		if factions[p]=="I02" and (has(src,"企业") or has(src,"银行")):ability+=2
 		var traits={"G001":"犯罪","G029":"太空","G032":"媒体","G040":"保守","G045":"太空","G048":"魔法","G060":"犯罪","G062":"绿色","G064":"自由","G070":"保守"}
-		if traits.has(src) and has(target,traits[src]):ability+=3 if src in ["G029","G048"] else 2
+		if traits.has(src) and has(target,traits[src]):ability+=3 if src in ["G029","G048","G062"] else 2
 	else:
 		if factions[p]=="I05":ability+=2
 		if world=="P29":ability-=2
@@ -619,13 +621,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 			while mulligans[1]<2 and _initial_score(initial_ai,1)<11:_mulligan(1)
 			_enter(a.id,0,root(0));_enter(initial_ai,1,root(1));_shuffle(decks.group)
 			resources.opening()
-			while true:
-				initiative=[[_die(),_die()],[_die(),_die()]]
-				if initiative[0][0]+initiative[0][1]!=initiative[1][0]+initiative[1][1]:break
-			current=0 if initiative[0][0]+initiative[0][1]>initiative[1][0]+initiative[1][1] else 1
-			_draw(1-current,"plot")
-			_log("初始手下同时亮出 · 你 %d，AI %d · %s先手 · %s后手额外抽1张阴谋"%[initiative[0][0]+initiative[0][1],initiative[1][0]+initiative[1][1],"你" if current==0 else "AI",_who(1-current)],"initiative")
-			_start_turn()
+			_log("初始手下同时亮出 · 选择初始资源","opening_resource")
 		"draw":_begin_draw(a)
 		"choose":_choose(a.id)
 		"auto":
@@ -677,6 +673,15 @@ func _launch_attack(p: int,a: Dictionary) -> void:
 	phase="battle";_log("%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"],"attack")
 	_battle_record("attack",p,a.src,a.target,"%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"])
 	wave.next_response_trigger()
+
+func _finish_opening() -> void:
+	while true:
+		initiative=[[_die(),_die()],[_die(),_die()]]
+		if initiative[0][0]+initiative[0][1]!=initiative[1][0]+initiative[1][1]:break
+	current=0 if initiative[0][0]+initiative[0][1]>initiative[1][0]+initiative[1][1] else 1
+	_draw(1-current,"plot")
+	_log("初始手下同时亮出 · 你 %d，AI %d · %s先手 · %s后手额外抽1张阴谋"%[initiative[0][0]+initiative[0][1],initiative[1][0]+initiative[1][1],"你" if current==0 else "AI",_who(1-current)],"initiative")
+	_start_turn()
 
 func _die() -> int:return rng.randi_range(1,6)
 func _who(p: int) -> String:return "你" if p==0 else "AI"
@@ -793,7 +798,7 @@ func _commit_plot(p: int,a: Dictionary) -> void:
 	wave.plot_committed(p,a)
 	if a.id=="P14":_discard(p,a.target)
 	if a.id in ["P21","P23","P24","P25"]:nodes[a.target].token=0
-	if a.id=="P30":nodes[a.payer].token=0
+	if a.id in ["P30","P59","P60"]:nodes[a.payer].token=0
 	resume_phase=phase;pending_plot=a.duplicate(true);pending_plot.player=p;pending_plot.was_exposed=was_exposed
 	_log("%s打出%s"%[_who(p),title(a.id)],"plot",{"id":a.id})
 	var message="打出「%s」"%title(a.id)
@@ -925,6 +930,7 @@ func validate() -> Array:
 		for p in [0,1]:locations.append_array(hands[p][kind])
 	for p in [0,1]:locations.append_array(graves[p])
 	locations.append_array(scrap)
+	for pool in resource_candidates:locations.append_array(pool)
 	for id in nodes:
 		if choice.get("kind","")!="x_overflow" and children(id).size()>stat(id,"slots"):errors.append("Overfull "+id)
 		if nodes[id].token not in [0,1]:errors.append("Invalid token "+id)

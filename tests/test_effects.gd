@@ -52,15 +52,15 @@ func automatic(g: GameState) -> void:
 func _initialize() -> void:
 	CardDB.load_all()
 	# Every simple control modifier is checked against the approved value.
-	var cases={"G001":["G051",2],"G029":["G045",3],"G032":["G038",2],"G040":["G070",2],"G045":["G029",2],"G048":["G080",3],"G060":["G051",2],"G062":["G059",2],"G064":["G069",2],"G070":["G074",2]}
+	var cases={"G001":["G051",2],"G029":["G045",3],"G032":["G038",2],"G040":["G070",2],"G045":["G029",2],"G048":["G080",3],"G060":["G051",2],"G062":["G059",3],"G064":["G069",2],"G070":["G074",2]}
 	for id in cases:
 		var g=fresh();place(g,id,0,"R0");give(g,cases[id][0],0)
 		check(g.attack_preview(id,cases[id][0],"control").ability==cases[id][1],id+" control modifier")
 	for row in [["G019","G059",2],["G027","G066",2],["G053","G043",2],["G057","G043",2],["G079","G051",2]]:
 		var g=fresh();place(g,row[0],0,"R0");place(g,row[1],1,"R1");check(g.attack_preview(row[0],row[1],"destroy").ability==row[2],row[0]+" destroy modifier")
-	for row in [["G049",2],["G058",2],["G061",3],["G071",10]]:
+	for row in [["G049",3],["G058",2],["G061",4],["G071",10]]:
 		var g=fresh();place(g,"G001",0,"R0");place(g,row[0],1,"R1");check(g.attack_preview("G001",row[0],"destroy").defense==row[1],row[0]+" destroy defense")
-	for row in [["G042",3],["G039",2]]:
+	for row in [["G042",0],["G039",2]]:
 		var g=fresh();place(g,"G001",0,"R0");place(g,row[0],1,"R1");check(g.attack_preview("G001",row[0],"control").defense==row[1],row[0]+" control defense")
 	var g=fresh();place(g,"G076",1,"R1");check(g.attack_preview("R0","G076","destroy").base==7,"Swiss resistance destroy base")
 	place(g,"G005",0,"R0");place(g,"G006",0,"G005");place(g,"G001",1,"R1")

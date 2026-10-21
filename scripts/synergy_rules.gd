@@ -28,6 +28,7 @@ func draw_reward(source: String,p: int,deck: String,in_battle: bool=false) -> vo
 	var quota="synergy:"+source+":"+str(p)
 	if not ready(source,p) or g.used.has(quota):return
 	g.used[quota]=true
+	if deck=="resource" and not g.resources.can_draw(p):return
 	enqueue({"kind":"s_draw","source":source,"player":p,"deck":deck},in_battle)
 
 func hand_discarded(p: int,id: String,reason: String) -> void:
@@ -156,7 +157,7 @@ func handle(p: int,a: Dictionary) -> bool:
 		match task.kind:
 			"s_draw":
 				g._draw(p,task.deck)
-				g._log(g.title(task.source)+" · 抽1张"+("阴谋" if task.deck=="plot" else "团体"),"ability",{"id":task.source,"player":p,"passive":true})
+				g._log(g.title(task.source)+" · 抽1张"+{"plot":"阴谋","group":"团体","resource":"资源"}[task.deck],"ability",{"id":task.source,"player":p,"passive":true})
 			"s_bill":
 				if not g.hands[p].plot.is_empty():
 					var discarded=g.hands[p].plot[g.rng.randi_range(0,g.hands[p].plot.size()-1)]
@@ -232,7 +233,7 @@ func battle_finished(b: Dictionary,success: bool,destroyed: bool) -> void:
 		var quota="synergy:G121:"+str(p)
 		if not g.used.has(quota):
 			g.used[quota]=true;enqueue({"kind":"s_tag","source":"G121","target":b.target,"player":p})
-	if p==g.current and destroyed and g.has(b.src,"军队"):draw_reward("G122",p,"plot")
+	if p==g.current and destroyed and g.has(b.src,"军队"):draw_reward("G122",p,"resource")
 	if p==g.current and g.has(b.src,"名人"):draw_reward("G130",p,"group")
 	var holder=g.owner("G114")
 	if holder==g.current and ready("G114",holder):

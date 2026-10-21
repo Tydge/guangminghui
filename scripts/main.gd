@@ -187,7 +187,7 @@ func _draw_hud() -> void:
 	var w=size.x;var h=size.y
 	var strip=ColorRect.new();strip.color=Color("071d21db");strip.position=Vector2(20,12);strip.size=Vector2(w-40,85);strip.mouse_filter=Control.MOUSE_FILTER_IGNORE;hud.add_child(strip)
 	_label("ILLUMINATI",hud,30,GOLD).position=Vector2(35,20)
-	var status="选择光明会" if game.phase.begins_with("setup") else ("你的回合" if game.current==0 else "AI 的回合")
+	var status={"setup_faction":"选择光明会","setup_group":"选择初始手下","setup_resource":"选择初始资源"}.get(game.phase,"你的回合" if game.current==0 else "AI 的回合")
 	if game.phase=="battle":status="战斗响应"
 	if busy:status="效果结算"
 	elif game.phase=="over":status="对局结束"
@@ -233,10 +233,9 @@ func _draw_hud() -> void:
 
 func _context_actions(parent: Control) -> void:
 	var legal=game.legal_actions(0)
-	if hand_tab=="resource" or game.is_root(selected):
-		var draws=legal.filter(func(a):return a.type=="research")
-		var draw_button=_button("资源手牌已满" if not game.resources.can_draw(0) else "抽资源 · 1行动",func():_action_list(draws),parent,true)
-		draw_button.disabled=draws.is_empty();draw_button.tooltip_text="己方主要阶段，花主牌1行动抽1张资源；不包含部署。"
+	var draws=legal.filter(func(a):return a.type=="research")
+	var draw_button=_button("抽牌",_draw_deck_picker,parent,true)
+	draw_button.disabled=draws.is_empty();draw_button.tooltip_text="花主牌1行动，从团体、资源或阴谋堆抽1张。"
 	if selected=="":_label("选择手牌或场上团体",parent,20,Color("a5b6a6"));return
 	if selected in game.hands[0].resource:
 		var deploys=legal.filter(func(a):return a.type=="deploy" and a.id==selected)
@@ -367,8 +366,8 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 		b.add_theme_font_size_override("font_size",18);b.tooltip_text=entry.reason+"；消耗1个行动标记。点击查看卡牌。"
 	if options.supports.is_empty():_label("暂无可用支援",col,18,Color("9aaca0"))
 	if options.mobilized_supports>0:_label("联合动员可增强%d个支援"%options.mobilized_supports,col,17,TEAL)
-	var available_resources=game.resources.field(0).filter(func(k):return game.resources.ready(k) and ((k=="E01" and game.token(k)) or (k=="E07" and a.mode=="destroy" and game.owner(a.target)==0)))
-	for k in available_resources:_button(game.title(k)+(" · 强度+2" if k=="E01" else " · 防御+6"),func():_inspect(k),col)
+	var available_resources=game.resources.field(0).filter(func(k):return game.resources.ready(k) and (k in ["E12","E15"] or (k=="E01" and game.token(k)) or (k=="E07" and a.mode=="destroy" and game.owner(a.target)==0)))
+	for k in available_resources:_button(game.title(k)+{"E01":" · 强度+2","E07":" · 防御+6","E12":" · 对手支援-4","E15":" · 固定骰点3＋4"}[k],func():_inspect(k),col)
 	var usable=options.plots.filter(func(entry):return entry.status!="不可用")
 	_label("阴谋  %d张可用 · %d张需先支援"%[usable.filter(func(entry):return entry.status=="可用").size(),usable.filter(func(entry):return entry.status=="先支援").size()],col,23,GOLD)
 	var plot_flow=HFlowContainer.new();plot_flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;plot_flow.add_theme_constant_override("h_separation",8);plot_flow.add_theme_constant_override("v_separation",8);col.add_child(plot_flow)
@@ -404,11 +403,14 @@ func _do_action(p: int,a: Dictionary) -> void:
 		var actor=game.owner(reveal) if game.nodes.has(reveal) else p
 		var completed=await _present_action(actor,shown)
 		if not completed or game==null or this_match!=match_id:return
-	if plan.target!="":
-		if not await interactions.target_cue(plan.source,plan.target):return
-		if game==null or this_match!=match_id:return
 	if not plan.result.is_empty():
 		if not await _present_result(plan.result):return
+		if game==null or this_match!=match_id:return
+	if not await interactions.prepare_board(plan):return
+	if game==null or this_match!=match_id:return
+	for target in [plan.target,plan.get("other_target","")]:
+		if target=="":continue
+		if not await interactions.target_cue(plan.source,target):return
 		if game==null or this_match!=match_id:return
 	if not plan.moves.is_empty():
 		if not await interactions.moves(plan.moves):return
@@ -428,10 +430,10 @@ func _do_action(p: int,a: Dictionary) -> void:
 	if p==1 and a.type in ["support","self_defend","rescue","plot","counter"]:
 		var history=game.battle.get("entries",[]) if not game.battle.is_empty() else game.last_battle.get("entries",[])
 		if not history.is_empty():_toast(history.back().text)
-	if old_phase=="setup_group" and a.type=="initial":_toast("先手骰点 · 你 %d + %d / AI %d + %d"%[game.initiative[0][0],game.initiative[0][1],game.initiative[1][0],game.initiative[1][1]])
+	if old_phase=="setup_resource" and a.type=="initial_resource":_toast("先手骰点 · 你 %d + %d / AI %d + %d"%[game.initiative[0][0],game.initiative[0][1],game.initiative[1][0],game.initiative[1][1]])
 	_set_busy(false)
 	_refresh();_schedule_ai()
-	if old_phase=="setup_group":board.opening_view(compact)
+	if old_phase=="setup_resource" and a.type=="initial_resource":board.opening_view(compact)
 
 func _present_action(player: int,a: Dictionary) -> bool:
 	presenting=true
@@ -449,7 +451,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	var x=card_width+40;var text_width=extent.x-x
 	var kind=a.get("presentation_role","打出阴谋" if is_plot else "发动能力")
 	if a.type=="deploy":kind="部署资源"
-	if a.type=="research":kind="主牌行动 · 抽资源"
+	if a.type=="research":kind="主牌行动 · 抽牌"
 	if a.type=="resource":kind="使用资源" if c.kind=="resource" else "发动能力"
 	if is_plot and game.covenant.is_goal(c.id):kind="宣告胜利"
 	if a.type=="trigger":kind="效果触发"
@@ -554,7 +556,7 @@ func _phase_overlay() -> void:
 	if game.phase=="over":_victory_overlay();return
 	if game.phase=="draw" and game.current==0:
 		_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(310,170),Vector2(620,340)))
-		window_access.offer(p);_label("抽牌",p,34,GOLD).position=Vector2(28,20);_label("从两个共享牌堆各抽一张。",p,20).position=Vector2(28,78)
+		window_access.offer(p);_label("抽牌",p,34,GOLD).position=Vector2(28,20);_label("从团体和阴谋堆各抽一张。",p,20).position=Vector2(28,78)
 		var filtering=game.owner("G066")==0 or game.owner("G012")==0
 		var all=_button("两类都抽 · 启用筛选" if filtering else "各抽一张",func():_do_action(0,game.legal_actions(0)[0]),p,true);all.position=Vector2(30,135);all.size=Vector2(560,65)
 		var more=_button("其他抽牌方式",func():_action_list(game.legal_actions(0)),p);more.position=Vector2(30,220);more.size=Vector2(560,55)
@@ -575,10 +577,10 @@ func _phase_overlay() -> void:
 	elif game.phase=="battle":_battle_overlay()
 
 func _setup_overlay() -> void:
-	_dim(overlay);var factions=game.phase=="setup_faction"
-	var heading=_label("选择你的光明会" if factions else "选择初始手下",overlay,38,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,55);heading.size.x=size.x
-	var note=_label("双方主牌同时揭晓 · 点击卡面查看完整能力" if factions else "从这五张中选一张 · 其余四张保留在手中",overlay,20);note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;note.position=Vector2(0,117);note.size.x=size.x
-	var actions=game.legal_actions(0).filter(func(a):return a.type in ["faction","initial"])
+	_dim(overlay);var factions=game.phase=="setup_faction";var resources=game.phase=="setup_resource"
+	var heading=_label("选择你的光明会" if factions else ("选择初始资源" if resources else "选择初始手下"),overlay,38,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,55);heading.size.x=size.x
+	var note=_label("双方主牌同时揭晓 · 点击卡面查看完整能力" if factions else ("选1张加入手牌 · 其余返回资源堆" if resources else "从这五张中选一张 · 其余四张保留在手中"),overlay,20);note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;note.position=Vector2(0,117);note.size.x=size.x
+	var actions=game.legal_actions(0).filter(func(a):return a.type in ["faction","initial","initial_resource"])
 	var pages=ceili(actions.size()/4.0) if factions else 1
 	if factions:
 		faction_page=clampi(faction_page,0,pages-1);actions=actions.slice(faction_page*4,mini(actions.size(),faction_page*4+4))
@@ -595,8 +597,8 @@ func _setup_overlay() -> void:
 		var page=_label("%d / %d"%[faction_page+1,pages],overlay,23,GOLD);page.position=Vector2(size.x/2-50,size.y-69);page.size.x=100;page.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		var next=_button("下一页",func():faction_page+=1;_phase_overlay(),overlay);next.name="FactionNext";next.position=Vector2(size.x/2+90,size.y-80);next.size=Vector2(150,55);next.disabled=faction_page==pages-1
 	if not factions:
-		var remaining=2-game.mulligans[0]
-		var reroll=_button("重随 · 剩余%d次"%remaining,func():_perform_type("mulligan"),overlay,true);reroll.name="OpeningMulligan";reroll.position=Vector2(235,size.y-80);reroll.size.x=230;reroll.disabled=remaining==0;reroll.tooltip_text="全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。"
+		var remaining=2-(game.resource_rerolls[0] if resources else game.mulligans[0])
+		var reroll=_button("重随 · 剩余%d次"%remaining,func():_perform_type("reroll_resource" if resources else "mulligan"),overlay,true);reroll.name="ResourceMulligan" if resources else "OpeningMulligan";reroll.position=Vector2(235,size.y-80);reroll.size.x=230;reroll.disabled=remaining==0;reroll.tooltip_text="将5张候选资源放回并重抽；不影响团体和阴谋。" if resources else "全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。"
 
 func _choice_overlay() -> void:
 	_dim(overlay);var c=game.choice;var p=_panel(overlay,Rect2(Vector2(75,105),size-Vector2(150,200)))
@@ -635,6 +637,7 @@ func _battle_overlay() -> void:
 	if b.get("sniped",false):changes.append("忽略位置")
 	if b.get("alignment_zero",false):changes.append("阵营归零")
 	if b.get("mobilized",false):changes.append("共产支援可用P")
+	if b.has("fixed_dice"):changes.append("固定骰点 %d＋%d"%b.fixed_dice)
 	if not changes.is_empty():_label(" · ".join(changes),p,16,GOLD).position=Vector2(26,201)
 	_label("本次战斗",p,24,GOLD).position=Vector2(left_w+22,65)
 	_battle_feed(p,Rect2(left_w+22,110,width-left_w-48,height-136),b.get("entries",[]))
@@ -739,7 +742,8 @@ func _card_context_text(id: String) -> String:
 		lines.append("摧毁防御 %d = %s%d + 位置%d + 被动%d"%[context.destroy_total,"抗性" if id=="G076" else "力量",context.destroy_base,context.position,context.destroy_passive])
 		lines.append("可自卫 +%d（消耗1标记）"%(2*game.stat(id,"p")) if context.token>0 else "无标记 · 当前不可支援或自卫")
 		if id=="G039":lines.append("对政府团体的控制攻击，额外防御 +2。")
-		if id=="G061":lines.append("对暴力团体的摧毁攻击，额外防御 +3。")
+		if id=="G061":lines.append("对暴力团体的摧毁攻击，额外防御 +4。")
+		if id=="G042":lines.append("抵御科学或太空团体的控制攻击，额外防御 +4。")
 		lines.append("以上未计攻击者能力、支援与阴谋。")
 	else:lines.append("主牌不可成为攻击目标。")
 	var printed=context.printed
@@ -771,9 +775,10 @@ func _card_context_text(id: String) -> String:
 		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.destroy_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
 		if game.wave.enabled("G030",context.owner):lines.append("国际气象组织 · 灾难防御+5。")
 		if game.resources.ready("E03",context.owner):lines.append("防灾卫星 · 灾难防御+3。")
+		if game.wave.devastated(id) and game.has(id,"巨大") and game.resources.ready("E14",context.owner):lines.append("重型抢修车 · 重建只需1行动。")
 	if n.get("debt",false):lines.append("借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。")
 	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+2，不超过有效P。")
-	if n.get("compute",false):lines.append("算力调度：本回合GP等于有效P。")
+	if n.get("compute",false):lines.append("本回合GP等于有效P。")
 	if not n.get("extra_tags",[]).is_empty():lines.append("新增标签 · "+" / ".join(n.extra_tags)+"（离场清除）")
 	if n.parent=="G073" and (game.has(id,"企业") or game.has(id,"科学")):lines.append("工业标准：来自德国的抗性 +2。")
 	if n.parent=="G077" and (game.has(id,"企业") or game.has(id,"银行")):lines.append("资本枢纽：来自纽约的GP +1，不超过P。")
@@ -894,9 +899,9 @@ func _help(page: String="basic") -> void:
 	var tabs=HBoxContainer.new();tabs.position=Vector2(28,77);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
 	for key in ["basic","disaster","cards","controls"]:_button({"basic":"基础","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
 	var pages={
-		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n开局每人抽1张资源。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
-		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
-		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n资源：主要阶段花主牌1行动抽1张，满手不可抽。手牌默认上限2。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。",
+		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n初始团体选完后，从5张资源候选中选1张入手，可独立重随2次。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
+		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
+		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
 	_button("返回设置",_settings,p).position=Vector2(640,585)
@@ -926,7 +931,7 @@ func _snapshot_setup() -> void:
 	if snapshot_mode=="factions":_refresh();await _capture_snapshot();return
 	game.act(0,game.legal_actions(0)[0])
 	if snapshot_mode=="initial":_refresh();await _capture_snapshot();return
-	game.act(0,game.legal_actions(0)[0]);game.current=0;game.phase="main"
+	game.act(0,game.legal_actions(0)[0]);game.act(0,game.legal_actions(0)[0]);game.current=0;game.phase="main"
 	for id in game.field(0):game.nodes[id].token=1
 	if snapshot_mode!="setup":
 		for _i in range(3):
@@ -972,3 +977,16 @@ func _review_disaster(a: Dictionary) -> void:
 	_button("返回",func():preview_action={};_clear(large_layer),panel).position=Vector2(30,extent.y-80)
 	_button("查看目标",func():_inspect(a.target),panel).position=Vector2(extent.x-400,extent.y-80)
 	_button("发动灾难",func():preview_action={};_clear(large_layer);_do_action(0,a),panel,true).position=Vector2(extent.x-220,extent.y-80)
+
+func _draw_deck_picker() -> void:
+	var options=game.legal_actions(0).filter(func(a):return a.type=="research")
+	_clear(large_layer);_dim(large_layer,0.35)
+	var extent=Vector2(minf(650,size.x-100),390);var p=_panel(large_layer,Rect2((size-extent)/2,extent));p.name="DrawDeckPicker"
+	_label("选择牌堆",p,30,GOLD).position=Vector2(28,22)
+	_label("花主牌1行动 · 抽1张",p,21,TEAL).position=Vector2(28,78);window_access.offer(p)
+	for i in 3:
+		var deck=["group","resource","plot"][i];var choices=options.filter(func(a):return a.deck==deck)
+		var caption={"group":"团体","resource":"资源","plot":"阴谋"}[deck]
+		if choices.is_empty():caption+=" · "+("手牌已满" if deck=="resource" and not game.resources.can_draw(0) else "牌堆已空")
+		var b=_button(caption,func():_do_action(0,choices[0]),p,true);b.position=Vector2(28+i*(extent.x-56)/3,142);b.size=Vector2((extent.x-76)/3,90);b.disabled=choices.is_empty()
+	_button("返回",func():_clear(large_layer),p).position=Vector2(28,extent.y-78)

@@ -179,6 +179,96 @@
       "装置"
     ]
   },
+  "E11": {
+    "action": true,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，花本资源1行动，使1个己方团体本回合GP等于P。",
+    "en": "Satellite Terminal",
+    "gp": 0,
+    "id": "E11",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "卫星通讯终端",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E12": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "普通战斗响应时，报废本资源，使对手本次支援力量-4，最低0。",
+    "en": "Digital Decoy",
+    "gp": 0,
+    "id": "E12",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "数字诱饵",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E13": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "每回合首次报废己方秘宝资源后，抽1张阴谋。",
+    "en": "Private Museum",
+    "gp": 0,
+    "id": "E13",
+    "kind": "resource",
+    "mode": "触发",
+    "name": "私人博物馆",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E14": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "己方巨大地点重建只需1个团体行动。",
+    "en": "Heavy Repair Vehicle",
+    "gp": 0,
+    "id": "E14",
+    "kind": "resource",
+    "mode": "持续",
+    "name": "重型抢修车",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E15": {
+    "action": false,
+    "align": [],
+    "category": "秘宝",
+    "effect": "普通战斗响应时，报废本资源，将本次骰点固定为3＋4。",
+    "en": "Coin of Fate",
+    "gp": 0,
+    "id": "E15",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "命运硬币",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "秘宝"
+    ]
+  },
   "G001": {
     "align": [
       "政府",
@@ -954,7 +1044,7 @@
       "狂热"
     ],
     "category": "组织",
-    "effect": "抵御控制攻击时，防御+3。",
+    "effect": "抵御科学或太空团体发起的控制攻击时，防御+4。",
     "en": "Flat Earthers",
     "gp": 0,
     "id": "G042",
@@ -1011,7 +1101,7 @@
     "kind": "group",
     "name": "星际迷航迷",
     "p": 2,
-    "r": 4,
+    "r": 3,
     "slots": 1,
     "tags": [
       "太空"
@@ -1075,9 +1165,9 @@
       "怪异"
     ],
     "category": "组织",
-    "effect": "抵御摧毁攻击时，防御+2。",
+    "effect": "抵御摧毁攻击时，防御+3。",
     "en": "Druids",
-    "gp": 1,
+    "gp": 0,
     "id": "G049",
     "kind": "group",
     "name": "德鲁伊",
@@ -1289,7 +1379,7 @@
       "和平"
     ],
     "category": "组织",
-    "effect": "抵御暴力团体发起的摧毁攻击时，防御+3。",
+    "effect": "抵御暴力团体发起的摧毁攻击时，防御+4。",
     "en": "Antiwar Activists",
     "gp": 0,
     "id": "G061",
@@ -1306,7 +1396,7 @@
       "和平"
     ],
     "category": "组织",
-    "effect": "对绿色目标发动控制攻击时，攻击强度+2。",
+    "effect": "对绿色目标发动控制攻击时，攻击强度+3。",
     "en": "Anti-Nuclear Activists",
     "gp": 0,
     "id": "G062",
@@ -1863,7 +1953,7 @@
       "和平"
     ],
     "category": "地点",
-    "effect": "矿产出口：己方科学团体提供普通支援后，可将1张团体手牌公开置于共享团体堆底，抽1张阴谋；每回合1次。",
+    "effect": "矿产出口（主动）：弃1张团体手牌，抽1张资源。",
     "en": "South Africa",
     "gp": 0,
     "id": "G091",
@@ -2479,7 +2569,7 @@
       "暴力"
     ],
     "category": "组织",
-    "effect": "补给合同：己方回合首次有己方军队带头摧毁敌方团体后，抽1张阴谋。",
+    "effect": "补给合同：己方回合首次有己方军队带头摧毁敌方团体后，抽1张资源。",
     "en": "Defense Contractors",
     "gp": 1,
     "id": "G122",
@@ -4084,5 +4174,37 @@
     "slots": 0,
     "tags": [],
     "target": "敌方1张在场资源。"
+  },
+  "P59": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花己方1个政府团体的行动。",
+    "effect": "将目标移入己方资源手牌。",
+    "en": "Asset Requisition",
+    "gp": 0,
+    "id": "P59",
+    "kind": "plot",
+    "name": "资产征用",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "敌方1张在场装置资源。"
+  },
+  "P60": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花己方1个科学团体的行动。",
+    "effect": "交换目标资源。",
+    "en": "Technology Exchange",
+    "gp": 0,
+    "id": "P60",
+    "kind": "plot",
+    "name": "技术交换",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "双方各1张在场资源。"
   }
 }

@@ -87,7 +87,7 @@ func run() -> void:
 		main.interactions.cancel()
 		# Combat plots fly to an unobscured battlefield, then restore the response window.
 		g=fresh();put(g,"G005",0,"R0");put(g,"G001",1,"R1");give(g,"P01",0);battle(g,"G005","G001","control");g.battle.passes=0
-		main.floating_positions.battle=Vector2(40,165);main._refresh();var position=main.overlay.get_node("BattleWindow").position
+		main.floating_positions.battle=Vector2(40,165);await settle();var position=main.overlay.get_node("BattleWindow").position
 		var response=snapshot(g);button(main.overlay,"查看战场").pressed.emit();await transition();main._schedule_ai();check(snapshot(g)==response and main.window_access.browsing,"Battle responses pause while looking around");main.window_access.resume();await transition();main.modal_open=true
 		var plot=action(g,0,"plot",{"id":"P01"});pending=snapshot(g);main._do_action(0,plot);main.modal_open=true;main.presentation_tween.pause()
 		check(not main.overlay.visible and main.busy and snapshot(g)==pending,"Battle window is hidden throughout plot reveal without paying early")
@@ -150,7 +150,7 @@ func run() -> void:
 	for source in ["G052","G122"]:
 		check(g.choice.get("source","")==source,"Chained reward source retains queue order: "+source)
 		var state=snapshot(g);main._do_action(0,action(g,0,"trigger"));main.modal_open=true;main.presentation_tween.pause();check(snapshot(g)==state,"Chained reward waits through its source cue: "+source);finish_cues();await idle();main.modal_open=true
-	check(g.hands[0].group.size()==1 and g.hands[0].plot.size()==1 and g.validate().is_empty(),"Both rewards resolve once through separate presentations")
+	check(g.hands[0].group.size()==1 and g.hands[0].resource.size()==1 and g.validate().is_empty(),"Both rewards resolve once through separate presentations")
 	# Disaster preview can also be parked and rebuilt on resize.
 	g=fresh();put(g,"G043",0,"R0");put(g,"G093",1,"R1");give(g,"P31",0);main._refresh();var disaster=action(g,0,"plot",{"id":"P31"});main._review_action(disaster);main.window_access.peek();await transition();root.size=Vector2i(1520,860);await process_frame;main._resize();main.window_access.resume();await transition();main.modal_open=true
 	check(main.preview_action==disaster and button(main.large_layer,"发动灾难")!=null,"Disaster preview keeps its unpaid command through browse and resize")
