@@ -144,9 +144,6 @@ func support_detail(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 		if normal(b) and ((enabled("G111",p) and g.has(id,"沿海") and g.has(b.target,"沿海")) or id in b.get("pass_to",[])):
 			d.basis="P";base=g.stat(id,"p");d.reason="班轮网络" if id not in b.get("pass_to",[]) else "关键传球"
 		if b.get("algorithm",false) and normal(b) and g.world=="P36" and g.has(id,"媒体") and d.basis=="GP" and not b.get("algorithm_used",false):d.basis="P";base=g.stat(id,"p");d.reason="算法时代"
-		if id=="G092" and enabled(id):
-			for child in g.children(id):
-				if g.has(child,"计算机") and not devastated(child) and g.stat(child,"p")>base:base=g.stat(child,"p");d.basis="借P";d.reason="数字外包 · "+g.title(child)
 	elif p!=b.defender:return {"id":id,"power":0,"basis":"—","reason":"不能支援"}
 	if normal(b) and enabled("G111",p) and g.has(id,"沿海") and g.has(b.target,"沿海"):d.basis="P";base=g.stat(id,"p");d.reason="班轮网络"
 	var override=g.synergy.support_override(id,b,base,d.basis,d.reason)
@@ -259,7 +256,7 @@ func ability(p: int,a: Dictionary) -> void:
 				g._log("幸运押注 · 骰点 %d · %s"%[roll,"抽3张阴谋" if roll>=4 else "未获收益"],"ability",{"id":src});g._after_effect();return
 			"G105":
 				var peek=g._take(p,"group",3)
-				if not peek.is_empty():g._set_choice(p,"推荐流 · 选择1张团体",peek,"w_draft",{"peek":peek,"initiator":p,"round":0})
+				if not peek.is_empty():g._set_choice(p,"推荐流 · 选择1张势力牌",peek,"w_draft",{"peek":peek,"initiator":p,"round":0})
 			"G107":
 				var revealed=target in g.exposed;g.hands[p].plot.erase(target);g.decks.plot.append(target);g._shuffle(g.decks.plot);g._draw(p,"plot")
 				if revealed:g._draw(p,"group")
@@ -342,7 +339,6 @@ func start_disaster(a: Dictionary) -> void:
 	if g.nodes[target].get("prepared",false):
 		defense=4
 		response_queue.append({"kind":"prepared","source":"G110","player":g.owner(target),"target":target})
-		if enabled("G098",g.owner(target)) and not g.has(target,"巨大") and once("G098"):response_queue.append({"kind":"draw","source":"G098","quota":"G098","player":g.owner(target),"amount":1,"deck":"group","message":"灾害演练 · 抽1张团体"})
 	g.attacked[p]=true
 	g.battle={"src":a.payer,"target":target,"disaster":a.id,"mode":"destroy","attacker":p,"defender":g.owner(target),"responder":1-p,"passes":0,"paid":[a.payer],"support_a":0,"support_d":0,"bonus_a":0,"bonus_d":defense,"self":0,"rescue":false,"video":[],"spent":[a.id],"entries":[],"before":g.field(p)}
 	g.phase="battle";g._battle_record("plot",p,a.id,target,g.title(a.id)+" → "+g.title(target),"已生效")
@@ -402,7 +398,7 @@ func choose(id: String) -> void:
 		"w_export":
 			if id!="":g.hands[p].group.erase(id);g.decks.group.append(id);remember("G091");g._draw(p,"plot")
 		"w_draft":
-			g.hands[p].group.append(id);if_not_exposed(id);c.peek.erase(id)
+			g.hands[p][g.card(id).kind].append(id);if_not_exposed(id);c.peek.erase(id)
 			g._log(g._who(p)+" · 推荐流选择「"+g.title(id)+"」","reveal",{"id":id,"player":p})
 			if c.round==0 and not c.peek.is_empty():g._set_choice(1-p,"推荐流 · 对方选择1张",c.peek,"w_draft",{"peek":c.peek,"initiator":c.initiator,"round":1});return
 			for rest in c.peek:g.discards.group.push_front(rest)
@@ -415,7 +411,6 @@ func choose(id: String) -> void:
 			if id!="":g._discard(p,id);g.battle.erase("rolled");g.battle.rerolled=true
 			else:g.battle.rerolled=true
 			g.phase="battle";resolve_battle();return
-		"w_inherit":g.battle.heir=id;g.battle.inherit_chosen=true;g.phase="battle";resolve_battle();return
 		"w_hurricane":
 			if id!="" and g.removable(id):g.nodes[id].token=0
 		"w_tsunami":g._return_subtree(id)
@@ -465,8 +460,6 @@ func resolve_battle() -> void:
 	var destroy=success and b.mode=="destroy"
 	if b.has("disaster"):destroy=destroy and b.disaster in ["P31","P34"] and v.strength-dice[0]-dice[1]>=(4 if b.disaster=="P31" else 6)
 	if g.synergy.prepare_guard(b,destroy):return
-	if destroy and not b.rescue and target=="G093" and enabled(target) and not b.get("inherit_chosen",false) and not g.children(target).is_empty():
-		g._set_choice(b.defender,"战略纵深 · 可选择继任分支",g.children(target),"w_inherit",{"source":"G093"},true);return
 	if success:
 		if b.mode=="control":
 			if enemy:
@@ -481,8 +474,6 @@ func resolve_battle() -> void:
 		elif b.rescue:rescued=true;g._return_subtree(target)
 		elif destroy and g.synergy.guard_blocks(b):guarded=true
 		elif destroy:
-			var heir=b.get("heir","")
-			if heir!="" and g.nodes.has(heir):g.nodes[heir].parent=g.nodes[target].parent
 			for child in g.children(target):g._return_subtree(child)
 			for attachment in g.nodes[target].attached:g.discards.plot.push_front(attachment)
 			g.nodes.erase(target);g.graves[p].append(target);g.destroyed[p]+=1;destroyed_target=true
@@ -511,7 +502,7 @@ func resolve_battle() -> void:
 	g._after_effect()
 
 func presentation_cards(p: int,a: Dictionary) -> Array:
-	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)
+	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)+g.resources.presentation_cards(a)
 	if a.type in ["ability","plot","counter","rescue","wave","fact_check","rebuild","trigger"]:out.append(a.get("id",a.get("src","")))
 	if a.type=="choose" and g.choice.get("kind","").begins_with("w_") and a.id!="":out.append(g.choice.get("source",""))
 	if a.type=="choose" and g.choice.get("kind","")=="w_draft" and p==1:out.append(a.id)

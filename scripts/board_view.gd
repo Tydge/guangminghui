@@ -64,6 +64,8 @@ func sync(g: GameState) -> void:
 	for id in cards.keys():
 		if not g.nodes.has(id):
 			var fading=cards[id];cards.erase(id);positions.erase(id)
+			# Resource departures already land in the scrap pile during ActionFlow.
+			if fading.definition.kind=="resource":fading.queue_free();continue
 			var tween=track_motion(create_tween().set_parallel(true))
 			var duration=(0.10 if reduced_motion else 0.5)*motion_time_scale
 			if id==outcome.get("target","") and outcome.get("mode","")=="destroy" and not outcome.get("rescued",false):
@@ -71,15 +73,19 @@ func sync(g: GameState) -> void:
 			else:
 				tween.tween_property(fading,"position",Vector2(size.x-35,-130) if fading.enemy else Vector2(45,size.y+50),duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT);tween.tween_property(fading,"modulate:a",0.0,duration)
 			tween.chain().tween_callback(fading.queue_free)
-	var left_width=_width(g.root(0));var right_width=_width(g.root(1))
+	var left_width=maxf(_width(g.root(0)),card_size.x*3+96);var right_width=maxf(_width(g.root(1)),card_size.x*3+96)
 	_layout(g.root(0),Vector2(left_width/2,0))
 	_layout(g.root(1),Vector2(left_width+240+right_width/2,0))
+	for p in [0,1]:
+		if targets.has(g.root(p)):
+			for id in g.resources.field(p):targets[id]=targets[g.root(p)]+Vector2((-1 if g.nodes[id].resource_slot==0 else 1)*(card_size.x+32),0)
 	for id in g.nodes:
 		if not cards.has(id):
 			var view=CardView.new();view.configure(id,g);view.size=card_size;add_child(view)
 			view.selected.connect(func(k):card_selected.emit(k));view.inspected.connect(func(k):card_inspected.emit(k));view.hovered.connect(func(k,showing):card_hovered.emit(k,showing));view.wheel_zoom.connect(_wheel)
 			cards[id]=view;positions[id]=targets[id]+Vector2(0,100);view.modulate.a=0
-			track_motion(create_tween()).tween_property(view,"modulate:a",1.0,0.3*motion_time_scale)
+			if g.card(id).kind=="resource":positions[id]=targets[id];view.modulate.a=1
+			else:track_motion(create_tween()).tween_property(view,"modulate:a",1.0,0.3*motion_time_scale)
 		cards[id].visible=not hidden_by_collapse(id)
 		cards[id].collapsed_count=g.subtree(id).size()-1 if collapsed.get(id,false) else 0
 		cards[id].enemy=g.owner(id)==1;cards[id].chosen=id==selected_id;cards[id].legal=id in legal_ids;cards[id].queue_redraw()

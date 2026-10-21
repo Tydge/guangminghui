@@ -38,7 +38,7 @@ func give(g: GameState,id: String,p: int) -> void:
 
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==213,"213 definitions")
+	check(CardDB.cards.size()==226,"226 definitions")
 	check(CardDB.get_card("G071").p==7 and "共产" in CardDB.get_card("G071").tags and "巨大" in CardDB.get_card("G071").tags,"Human China adjustment and location tags")
 	check(CardDB.get_card("G012").p==5 and CardDB.get_card("G100").p==3,"Latest Bank and Suez user edits")
 	check(CardDB.get_card("G072").p==4 and CardDB.get_card("G072").r==5 and CardDB.get_card("G074").p==4 and CardDB.get_card("G074").gp==2,"Latest Japan and England table edits")

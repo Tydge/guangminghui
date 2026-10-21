@@ -9,7 +9,7 @@ func action(g: GameState,p: int,kind: String,args: Dictionary={}) -> Dictionary:
 		if a.type==kind and args.keys().all(func(k):return a.get(k)==args[k]):return a
 	return {}
 func fresh() -> GameState:
-	var g=GameState.new(81);g.act(0,g.legal_actions(0)[0]);g.phase="main";g.current=0;g.turns=[1,1];g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.nodes.R0.token=1;g.nodes.R1.token=1;return g
+	var g=GameState.new(81);g.act(0,g.legal_actions(0)[0]);g.phase="main";g.current=0;g.turns=[1,1];g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.nodes.R0.token=1;g.nodes.R1.token=1;return g
 func put(g: GameState,id: String,parent: String) -> void:g.decks.group.erase(id);g._enter(id,0,parent,1)
 func give(g: GameState,id: String) -> void:g.decks[g.card(id).kind].erase(id);g.hands[0][g.card(id).kind].append(id)
 func _initialize() -> void:

@@ -1,4 +1,184 @@
 {
+  "E01": {
+    "action": true,
+    "align": [],
+    "category": "装置",
+    "effect": "普通战斗响应时，花本资源1行动，使己方本次进攻强度+2。",
+    "en": "Tactical Radar",
+    "gp": 0,
+    "id": "E01",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "战术雷达",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E02": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，报废本资源，使1个己方团体恢复1行动。",
+    "en": "Emergency Battery",
+    "gp": 0,
+    "id": "E02",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "应急电池",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E03": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "己方团体抵御灾难时，防御+3。",
+    "en": "Disaster Monitoring Satellite",
+    "gp": 0,
+    "id": "E03",
+    "kind": "resource",
+    "mode": "持续",
+    "name": "防灾卫星",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E04": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "每个己方回合，首次从手牌控制团体后，抽1张阴谋。",
+    "en": "Private Archives",
+    "gp": 0,
+    "id": "E04",
+    "kind": "resource",
+    "mode": "触发",
+    "name": "私人档案库",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E05": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "己方阴谋与资源手牌上限各+1。",
+    "en": "Secret Vault",
+    "gp": 0,
+    "id": "E05",
+    "kind": "resource",
+    "mode": "持续",
+    "name": "秘密保险库",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E06": {
+    "action": true,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，花本资源1行动，抽2张团体，再弃1张团体手牌。",
+    "en": "Quantum Computer",
+    "gp": 0,
+    "id": "E06",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "量子计算机",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E07": {
+    "action": false,
+    "align": [],
+    "category": "秘宝",
+    "effect": "抵御普通摧毁的响应中，报废本资源，使本次防御+6。",
+    "en": "Phoenix Amulet",
+    "gp": 0,
+    "id": "E07",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "凤凰护符",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "秘宝"
+    ]
+  },
+  "E08": {
+    "action": true,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，花本资源1行动，查看资源堆顶3张，可取1张，其余沉底。",
+    "en": "Deep Space Probe",
+    "gp": 0,
+    "id": "E08",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "深空探测器",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E09": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "己方沿海团体用GP支援时，支援力量+1。",
+    "en": "Submarine Cable",
+    "gp": 0,
+    "id": "E09",
+    "kind": "resource",
+    "mode": "持续",
+    "name": "海底光缆",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E10": {
+    "action": true,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，花本资源1行动，移动1个己方团体至合法上级。",
+    "en": "Logistics Drone",
+    "gp": 0,
+    "id": "E10",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "后勤无人机",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
   "G001": {
     "align": [
       "政府",
@@ -1703,7 +1883,7 @@
       "政府"
     ],
     "category": "地点",
-    "effect": "数字外包：支援普通进攻时，可用1个未受灾直属计算机下属的P代替自身P／GP，下属不花标记。",
+    "effect": "技术外包：己方每有1张在场资源，本团体GP+1。",
     "en": "India",
     "gp": 1,
     "id": "G092",
@@ -1724,7 +1904,7 @@
       "暴力"
     ],
     "category": "地点",
-    "effect": "战略纵深：本团体被摧毁时，可让1个直属下属整支接到本团体原来的位置；其余下属照常回手。",
+    "effect": "军工整备（主动）：使1张己方装置资源恢复1行动。",
     "en": "Russia",
     "gp": 1,
     "id": "G093",
@@ -1831,7 +2011,7 @@
       "和平"
     ],
     "category": "地点",
-    "effect": "灾害演练：己方非巨大地点消耗防备时，抽1张团体；每回合1次。",
+    "effect": "矿产供给：部署资源时，可弃1张团体手牌代替主牌行动。",
     "en": "Australia",
     "gp": 1,
     "id": "G098",
@@ -3856,5 +4036,53 @@
     "slots": 0,
     "tags": [],
     "target": "满足本牌条件的己方势力。"
+  },
+  "P56": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花己方1个团体的行动。",
+    "effect": "报废目标资源。",
+    "en": "Precision Demolition",
+    "gp": 0,
+    "id": "P56",
+    "kind": "plot",
+    "name": "精密爆破",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "敌方1张在场资源。"
+  },
+  "P57": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌。",
+    "effect": "查看堆顶2张，取1张加入手牌，其余沉底。",
+    "en": "Reverse Engineering",
+    "gp": 0,
+    "id": "P57",
+    "kind": "plot",
+    "name": "逆向研发",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "资源牌堆。"
+  },
+  "P58": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌。",
+    "effect": "目标失效至本回合结束。",
+    "en": "Technology Blockade",
+    "gp": 0,
+    "id": "P58",
+    "kind": "plot",
+    "name": "技术封锁",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "敌方1张在场资源。"
   }
 }

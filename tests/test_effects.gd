@@ -10,7 +10,7 @@ func fresh() -> GameState:
 	var g=GameState.new(151)
 	g.act(0,g.legal_actions(0)[2])
 	g.factions=["I03","I03"];g.nodes.R1.card="I03";g.phase="main";g.current=0;g.turns=[2,2]
-	g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.discards={"group":[],"plot":[]}
+	g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.discards={"group":[],"plot":[],"resource":[]}
 	g.nodes.R0.token=1;g.nodes.R1.token=1
 	return g
 

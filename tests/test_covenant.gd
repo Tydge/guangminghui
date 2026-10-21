@@ -5,7 +5,7 @@ func check(ok: bool,label: String) -> void:
 	checks+=1
 	if not ok:failures.append(label);push_error(label)
 func fresh(faction: String="I05") -> GameState:
-	var g=GameState.new(196);g.nodes={};g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.discards={"group":[],"plot":[]};g.graves=[[],[]];g.factions=[faction,"I01"];g.phase="main";g.current=0;g.turns=[2,2]
+	var g=GameState.new(196);g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.discards={"group":[],"plot":[],"resource":[]};g.graves=[[],[]];g.factions=[faction,"I01"];g.phase="main";g.current=0;g.turns=[2,2]
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	return g
 func remove(g: GameState,id: String) -> void:
@@ -39,7 +39,7 @@ func goal_fixture(id: String) -> GameState:
 	g.decks.plot.erase(id);g.hands[0].plot.append(id)
 	return g
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.ids("faction").size()==8 and CardDB.ids("plot").size()==55,"Expanded card pool")
+	CardDB.load_all();check(CardDB.ids("faction").size()==8 and CardDB.ids("plot").size()==58,"Expanded card pool")
 	var expected={"I01":[8,45],"I02":[6,30],"I03":[5,26],"I04":[5,25],"I07":[6,25],"I08":[5,25]}
 	for id in expected:
 		check(CovenantRules.FACTIONS[id].groups==expected[id][0] and CovenantRules.FACTIONS[id].power==expected[id][1],"User thresholds "+id)

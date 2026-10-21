@@ -104,7 +104,7 @@ func _draw() -> void:
 	draw_rect(info,paper)
 	for run in text_layout():
 		draw_multiline_string(font,run.rect.position+Vector2(0,font.get_ascent(run.fs)),run.text,HORIZONTAL_ALIGNMENT_LEFT,run.rect.size.x,run.fs,-1,run.color)
-	if state!=null and state.nodes.has(id):
+	if state!=null and state.nodes.has(id) and (definition.kind!="resource" or definition.action):
 		var n=state.nodes[id]
 		var action_color=Color("70e2c7") if state.token(id) else Color("41514a")
 		if n.get("devastated",false):draw_rect(Rect2(6,32,36,23),Color("7d3931"));_text("灾",Vector2(12,49),15,Color("ffe1bf"))
@@ -117,6 +117,8 @@ func _draw() -> void:
 		if n.get("vampire",false) or n.get("flip",false):_text("转化",Vector2(9,art_h+2),11,Color("f6c68e"))
 		if collapsed_count>0:
 			draw_rect(Rect2(6,6,45,23),Color("173436"));_text("＋%d"%collapsed_count,Vector2(9,23),13,gold)
+	if state!=null and definition.kind=="resource" and state.nodes.has(id) and not state.resources.ready(id):
+		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text("失效",Vector2(9,23),12,Color("f6d6a0"))
 	if state!=null and id in state.failed_recruits:
 		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text("待招募",Vector2(9,23),11,Color("f6d6a0"))
 
@@ -131,7 +133,7 @@ func text_layout() -> Array:
 	var rows: Array=[];var ink=Color("182d30");var muted=Color("655d42");var teal=Color("548082")
 	rows.append({"text":definition.name,"fs":22 if full else (16 if summary else (14 if board_small else 12)),"color":ink})
 	if full:rows.append({"text":definition.en,"fs":13,"color":muted})
-	if definition.kind!="plot":
+	if definition.kind not in ["plot","resource"]:
 		var stats: Array=[]
 		for key in ["p","gp","r","slots"]:stats.append(state.stat(id,key) if state!=null and state.nodes.has(id) else definition[key])
 		var line="P%d / GP%d  "%[stats[0],stats[1]]+("主牌" if definition.kind=="faction" else "R%d"%stats[2])
@@ -139,13 +141,13 @@ func text_layout() -> Array:
 		if not small:line+="  槽%d"%stats[3]
 		rows.append({"text":line,"fs":17 if full else (12 if summary or board_small else (11 if readable_small else 9)),"color":ink})
 	var align=state.alignments(id) if state!=null else definition.align
-	var trait_text=definition.category if definition.kind=="plot" else " · ".join(align)
-	if readable_small and not board_small and definition.kind!="plot":trait_text=" ".join(align)
+	var trait_text=(definition.category+" · "+definition.mode if definition.kind=="resource" else definition.category) if definition.kind in ["plot","resource"] else " · ".join(align)
+	if readable_small and not board_small and definition.kind not in ["plot","resource"]:trait_text=" ".join(align)
 	if trait_text!="":rows.append({"text":trait_text,"fs":14 if full else (12 if board_small else (11 if summary or readable_small else 8)),"color":ink if not full else muted})
 	if not small:
 		var current_tags=state.tags(id) if state!=null else definition.tags
-		if not current_tags.is_empty():rows.append({"text":" / ".join(current_tags),"fs":13 if full else 11,"color":teal})
-		if full and state!=null and state.nodes.has(id) and not state.is_root(id):rows.append({"text":"忠诚 +%d   位置 +%d"%[state.loyalty_defense(id),state.position_defense(id)],"fs":13,"color":teal})
+		if not current_tags.is_empty() and (definition.kind!="resource" or current_tags!=[definition.category]):rows.append({"text":" / ".join(current_tags),"fs":13 if full else 11,"color":teal})
+		if full and state!=null and state.nodes.has(id) and not state.is_root(id) and definition.kind!="resource":rows.append({"text":"忠诚 +%d   位置 +%d"%[state.loyalty_defense(id),state.position_defense(id)],"fs":13,"color":teal})
 	var effect=definition.effect if definition.kind!="plot" else CardDB.plot_text(definition)
 	if definition.kind=="faction":effect=effect+"\n胜利 · "+definition.get("goal","") if full else "胜利 · "+definition.get("goal","")+"\n"+effect
 	if state!=null and state.nodes.has(id):

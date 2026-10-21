@@ -11,7 +11,7 @@ func check(ok: bool,text: String) -> void:
 func fresh() -> GameState:
 	var g=GameState.new(81);g.act(0,g.legal_actions(0)[1]);g.factions=["I02","I02"];g.nodes.R1.card="I02"
 	g.turns=[2,2];g.phase="main";g.current=0;g.nodes.R0.token=1;g.nodes.R1.token=1
-	g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")}
+	g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")}
 	return g
 
 func place(g: GameState,id: String,p: int,parent: String) -> void:g.decks.group.erase(id);g._enter(id,p,parent,1)

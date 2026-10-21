@@ -22,8 +22,8 @@ func give(g: GameState,id: String,p: int) -> void:
 func fresh() -> GameState:
 	var g=GameState.new(151);g.act(0,g.legal_actions(0)[0])
 	g.factions=["I01","I04"];g.nodes.R1.card="I04";g.turns=[2,2];g.current=0;g.phase="main"
-	g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}]
-	g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")}
+	g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}]
+	g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")}
 	g.nodes.R0.token=1;g.nodes.R1.token=1
 	place(g,"G025",0,"R0");place(g,"G001",0,"R0");place(g,"G056",0,"R0")
 	place(g,"G024",0,"G025");place(g,"G043",0,"G025")

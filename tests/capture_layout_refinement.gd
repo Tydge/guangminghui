@@ -1,7 +1,7 @@
 extends "res://tests/capture_expansion_ui.gd"
 var layout_metrics: Array=[]
 func deep_fixture() -> GameState:
-	main._start_game(81);var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.factions=["I06","I03"];g.current=0;g.turns=[2,2];g.phase="main"
+	main._start_game(81);var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.factions=["I06","I03"];g.current=0;g.turns=[2,2];g.phase="main"
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	for entry in [["G073",0,"R0"],["G019",0,"G073"],["G097",0,"G019"],["G099",0,"G097"],["G023",0,"G099"],["G106",0,"G023"],["G104",0,"G106"],["G071",0,"R0"],["G103",0,"G071"],["G093",1,"R1"],["G095",1,"G093"],["G091",1,"G095"],["G100",1,"G091"],["G101",1,"G100"],["G098",1,"G101"]]:put(g,entry[0],entry[1],entry[2])
 	for id in ["G088","G105","P31","P35","P37","P41"]:

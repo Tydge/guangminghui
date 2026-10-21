@@ -3,6 +3,8 @@ extends RefCounted
 const WaveRules = preload("res://scripts/wave_rules.gd")
 const SynergyRules = preload("res://scripts/synergy_rules.gd")
 const RenewalRules = preload("res://scripts/renewal_rules.gd")
+var resources
+var scrap: Array=[]
 var covenant
 var renewal
 var synergy
@@ -12,9 +14,9 @@ var wave
 
 var rng = RandomNumberGenerator.new()
 var nodes: Dictionary = {}
-var hands: Array = [{"group": [], "plot": []}, {"group": [], "plot": []}]
-var decks: Dictionary = {"group": [], "plot": []}
-var discards: Dictionary = {"group": [], "plot": []}
+var hands: Array = [{"group": [], "plot": [], "resource": []}, {"group": [], "plot": [], "resource": []}]
+var decks: Dictionary = {"group": [], "plot": [], "resource": []}
+var discards: Dictionary = {"group": [], "plot": [], "resource": []}
 var graves: Array = [[], []]
 var factions: Array = ["", ""]
 var turns: Array = [0, 0]
@@ -62,6 +64,7 @@ func _mulligan(p: int) -> void:
 	_log(_who(p)+"重随初始团体 · 剩余%d次"%(2-mulligans[p]),"mulligan",{"player":p})
 
 func _init(seed_value: int = 0) -> void:
+	resources=ResourceRules.new(self)
 	wave=WaveRules.new(self)
 	synergy=SynergyRules.new(self)
 	renewal=RenewalRules.new(self)
@@ -101,7 +104,7 @@ func card(id: String) -> Dictionary: return CardDB.get_card(nodes[id].card if no
 func owner(id: String) -> int: return nodes[id].owner if nodes.has(id) else -1
 func title(id: String) -> String: return card(id).get("name", id)
 func is_root(id: String) -> bool: return id.begins_with("R")
-func field(p: int) -> Array: return nodes.keys().filter(func(id): return nodes[id].owner == p)
+func field(p: int) -> Array: return nodes.keys().filter(func(id): return nodes[id].owner == p and card(id).kind!="resource")
 func groups(p: int) -> Array: return field(p).filter(func(id): return not is_root(id))
 func children(id: String) -> Array: return nodes.keys().filter(func(k): return nodes[k].parent == id)
 func token(id: String) -> bool: return nodes.has(id) and nodes[id].token > 0 and not wave.devastated(id)
@@ -141,6 +144,7 @@ func stat(id: String, key: String,raw: bool=false) -> int:
 		if world == "P28" and "正统" in alignments(id) and key in ["p", "r"]: value += 1
 		if key=="r" and parent=="G073" and (has(id,"企业") or has(id,"科学")):value+=2
 		if key == "gp":
+			if id=="G092" and wave.enabled(id):value+=resources.field(owner(id)).size()
 			if id=="G008" and wave.enabled(id):value+=children(id).filter(func(k):return has(k,"政府")).size()
 			if factions[owner(id)] == "I03" and has(id, "计算机"): value += 1
 			if parent=="G077" and (has(id,"企业") or has(id,"银行")):value+=1
@@ -170,10 +174,11 @@ func _enter(id: String, p: int, parent: String, action: int = 0) -> void:
 	nodes[id] = {"card": id, "owner": p, "parent": parent, "token": action, "attached": [], "vampire": false, "flip": false}
 
 func _draw(p: int, kind: String,destination: String="hand") -> String:
+	if kind=="resource" and not resources.can_draw(p):return ""
 	if decks[kind].is_empty() and not discards[kind].is_empty():
 		decks[kind] = discards[kind].duplicate(); discards[kind].clear(); _shuffle(decks[kind])
 	if decks[kind].is_empty(): return ""
-	var id = decks[kind].pop_front(); hands[p][kind].append(id)
+	var id = decks[kind].pop_front(); hands[p][card(id).kind].append(id)
 	_flow(id,"deck",destination,p)
 	return id
 
@@ -181,7 +186,7 @@ func _take(p: int, kind: String, n: int) -> Array:
 	var result: Array = []
 	for _i in n:
 		var id = _draw(p, kind,"choice")
-		if id != "": hands[p][kind].erase(id); result.append(id)
+		if id != "": hands[p][card(id).kind].erase(id); result.append(id)
 	return result
 
 func _discard(p: int, id: String,reason: String="effect") -> void:
@@ -234,7 +239,11 @@ func hand_limit(p: int) -> int:
 	var n = 5
 	if owner("G026") == p: n += 1
 	if owner("G051") == p: n += mini(2, children("G051").filter(func(id): return has(id,"犯罪")).size())
+	if resources.ready("E05",p):n+=1
 	return n
+
+func resource_hand_limit(p: int) -> int:
+	return 2+int(resources.ready("E05",p))
 
 func goal(p: int) -> Dictionary:
 	return covenant.faction_goal(p)
@@ -257,14 +266,14 @@ func observation(p: int) -> Dictionary:
 	for kind in revealed:
 		for id in hands[1-p][kind]:
 			if id in exposed: revealed[kind].append(id)
-	return {"player":p,"nodes":public_nodes,"effective":effective,"hands":hands[p].duplicate(true),"opponent_counts":{"group":hands[1-p].group.size(),"plot":hands[1-p].plot.size()},"revealed":revealed,"decks":{"group":decks.group.size(),"plot":decks.plot.size()},"discards":discards.duplicate(true),"graves":graves.duplicate(true),"factions":factions.duplicate(),"goals":[goal(0),goal(1)],"secret_goals":covenant.private_goals(p),"turns":turns.duplicate(),"current":current,"phase":phase,"world":world,"battle":battle.duplicate(true),"battle_values":battle_values(),"choice":choice.duplicate(true) if choice.get("player",-1)==p else {},"actions":actions,"previews":previews}
+	return {"player":p,"nodes":public_nodes,"effective":effective,"hands":hands[p].duplicate(true),"opponent_counts":{"group":hands[1-p].group.size(),"plot":hands[1-p].plot.size(),"resource":hands[1-p].resource.size()},"revealed":revealed,"resource_hand_limit":resource_hand_limit(p),"decks":{"group":decks.group.size(),"plot":decks.plot.size(),"resource":decks.resource.size()},"discards":discards.duplicate(true),"scrap":scrap.duplicate(),"graves":graves.duplicate(true),"factions":factions.duplicate(),"goals":[goal(0),goal(1)],"secret_goals":covenant.private_goals(p),"turns":turns.duplicate(),"current":current,"phase":phase,"world":world,"battle":battle.duplicate(true),"battle_values":battle_values(),"choice":choice.duplicate(true) if choice.get("player",-1)==p else {},"actions":actions,"previews":previews}
 
 func _a(kind: String, label: String, args: Dictionary = {}) -> Dictionary:
 	var a = args.duplicate(); a["type"] = kind; a["label"] = label
 	return a
 
 func legal_actions(p: int) -> Array:
-	return covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))))
+	return resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p))))))
 
 func _base_legal_actions(p: int) -> Array:
 	var out: Array = []
@@ -327,6 +336,7 @@ func _base_legal_actions(p: int) -> Array:
 
 func _ability_actions(src: String,p: int) -> Array:
 	if not wave.available(src):return []
+	if src in ["G093","G092","G098"]:return resources.country_actions(src,p)
 	if int(src.substr(1))>=131:return renewal.ability_actions(src,p)
 	if int(src.substr(1))>=113:return synergy.ability_actions(src,p)
 	if int(src.substr(1))>=81:return wave.ability_actions(src,p)
@@ -377,6 +387,7 @@ func _ability_actions(src: String,p: int) -> Array:
 	return out
 
 func _main_plot_actions(id: String,p: int) -> Array:
+	if id in ResourceRules.PLOTS:return resources.plot_actions(id,p)
 	if covenant.is_goal(id):return covenant.main_plots(id,p)
 	if int(id.substr(1))>=43:return synergy.main_plots(id,p)
 	if int(id.substr(1))>=31:return wave.main_plots(id,p)
@@ -443,7 +454,7 @@ func _combat_plot_actions(id: String,p: int,b: Dictionary) -> Array:
 
 func support_detail(id: String,b: Dictionary) -> Dictionary:
 	var unavailable={"id":id,"power":0,"basis":"—","reason":"不能支援"}
-	if not nodes.has(id) or id==b.src or id==b.target:return unavailable
+	if not nodes.has(id) or card(id).kind=="resource" or id==b.src or id==b.target:return unavailable
 	var p = owner(id); var full = false
 	var reason="无完整力量资格，使用全球力量"
 	if p==b.attacker:
@@ -463,7 +474,7 @@ func support_detail(id: String,b: Dictionary) -> Dictionary:
 	if id=="G068" and p==b.defender and has(b.target,"科学"):value+=2
 	if id=="G075" and p==b.defender and has(b.target,"自由"):value+=4;reason+=" · 法国防守自由目标 +4"
 	if id=="G050":value+=mini(2,children(id).filter(func(k):return has(k,"怪异")).size())
-	return wave.support_detail(id,b,{"id":id,"power":value,"basis":"P" if full else "GP","reason":reason,"base":base,"extra":value-base})
+	return resources.support_detail(id,wave.support_detail(id,b,{"id":id,"power":value,"basis":"P" if full else "GP","reason":reason,"base":base,"extra":value-base}))
 
 func support_power(id: String,b: Dictionary) -> int:return support_detail(id,b).power
 
@@ -524,10 +535,11 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 	return value
 
 func disaster_defense(id: String,src: String="") -> int:
-	return passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)
+	return passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)+(3 if resources.ready("E03",owner(id)) else 0)
 
 func card_context(id: String) -> Dictionary:
 	if not nodes.has(id):return {"on_board":false,"loyalty":0,"position":0}
+	if card(id).kind=="resource":return resources.context(id)
 	var c=card(id);var position=position_defense(id);var loyalty=loyalty_defense(id)
 	var control=passive_defense(id,"control");var destroy=passive_defense(id,"destroy")
 	var destroy_base=stat(id,"r" if id=="G076" else "p")
@@ -592,6 +604,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 	a=a.duplicate(true)
 	motion_events.clear()
 	last_event={}
+	if resources.handle(p,a):return true
 	if covenant.handle(p,a):return true
 	if renewal.handle(p,a):return true
 	if synergy.handle(p,a):return true
@@ -605,6 +618,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 		"initial":
 			while mulligans[1]<2 and _initial_score(initial_ai,1)<11:_mulligan(1)
 			_enter(a.id,0,root(0));_enter(initial_ai,1,root(1));_shuffle(decks.group)
+			resources.opening()
 			while true:
 				initiative=[[_die(),_die()],[_die(),_die()]]
 				if initiative[0][0]+initiative[0][1]!=initiative[1][0]+initiative[1][1]:break
@@ -685,13 +699,14 @@ func _advance_draw() -> void:
 			var options=_take(current,kind,2)
 			if options.size()>1:
 				_set_choice(current,"抽二留一 · 选择加入手牌",options,"draw_keep",{"deck":kind});return
-			for id in options:hands[current][kind].append(id)
+			for id in options:hands[current][card(id).kind].append(id)
 		else:_draw(current,kind)
 	if owner("G031")==current and children("G031").filter(func(id):return has(id,"媒体")).size()>=2:_draw(current,"plot")
 	for id in field(current):
 		if wave.devastated(id):nodes[id].token=0;continue
 		if nodes[id].get("debt",false):nodes[id].debt=false;_log("%s偿还借贷 · 本次不补行动标记"%title(id),"debt",{"id":id})
 		else:nodes[id].token=1
+	resources.refill(current)
 	phase="main";_log("%s的主要阶段"%_who(current),"turn")
 
 func _set_choice(p: int,label: String,options: Array,kind: String,data: Dictionary={},optional: bool=false) -> void:
@@ -702,7 +717,7 @@ func _choose(id: String) -> void:
 	match c.kind:
 		"draw_keep":
 			var deck_kind=c.deck
-			hands[p][deck_kind].append(id)
+			hands[p][card(id).kind].append(id)
 			for k in c.options:
 				if k!=id:decks[deck_kind].append(k)
 			_advance_draw();return
@@ -710,7 +725,7 @@ func _choose(id: String) -> void:
 		"discard_group":_discard(p,id)
 		"agent":_discard(1-p,id);_log("安插特工弃掉了%s"%title(id),"discard")
 		"nasa", "japan":
-			if id!="":hands[p].group.append(id)
+			if id!="":hands[p][card(id).kind].append(id)
 			for k in c.peek:
 				if k!=id:decks.group.append(k)
 		"reorder":
@@ -740,7 +755,7 @@ func _ability(p: int,a: Dictionary) -> void:
 			for _i in mini(3,decks[kind].size()):peek.append(decks[kind].pop_front())
 			_set_choice(p,"选择最先抽到的牌",peek,"reorder",{"deck":kind,"order":[]})
 		"G010":
-			_draw(p,"plot");_set_choice(p,"投递 · 弃一张手牌",hands[p].group+hands[p].plot,"discard_any")
+			_draw(p,"plot");_set_choice(p,"投递 · 弃一张手牌",hands[p].group+hands[p].plot+hands[p].resource,"discard_any")
 		"G011":
 			_draw(p,"group");_draw(p,"group");_set_choice(p,"授信 · 弃一张团体",hands[p].group,"discard_group")
 		"G013":
@@ -752,7 +767,7 @@ func _ability(p: int,a: Dictionary) -> void:
 		"G028":
 			var peek: Array=[]
 			for _i in mini(3,decks.group.size()):peek.append(decks.group.pop_front())
-			var valid=peek.filter(func(k):return has(k,"科学") or has(k,"太空"))
+			var valid=peek.filter(func(k):return card(k).kind=="group" and (has(k,"科学") or has(k,"太空")))
 			_set_choice(p,"轨道观测 · 可选择一张",valid,"nasa",{"peek":peek},true)
 		"G036":
 			if not nodes[target].has("extra_tags"):nodes[target].extra_tags=[]
@@ -764,7 +779,7 @@ func _ability(p: int,a: Dictionary) -> void:
 		"G072":
 			var peek: Array=[]
 			for _i in mini(4,decks.group.size()):peek.append(decks.group.pop_front())
-			var valid=peek.filter(func(k):return has(k,"媒体") or has(k,"怪异"))
+			var valid=peek.filter(func(k):return card(k).kind=="group" and (has(k,"媒体") or has(k,"怪异")))
 			_set_choice(p,"内容出海 · 可选择一张",valid,"japan",{"peek":peek},true)
 		"G074":discards.plot.erase(target);hands[p].plot.append(target);locked.append(target);exposed.append(target)
 		"G078":nodes[target].compute=true
@@ -800,6 +815,7 @@ func _resolve_plot() -> void:
 	var a=pending_plot.duplicate(true);pending_plot={};phase=resume_phase
 	var p=a.player;var id=a.id;var target=a.get("target","");var stays=false
 	_plot_record_status(id,"已生效")
+	if resources.resolve_plot(a):return
 	if covenant.resolve_plot(a):return
 	if wave.resolve_plot(a):return
 	var index=int(id.substr(1))
@@ -848,6 +864,7 @@ func _reward_draw(src: String,p: int,kind: String) -> void:
 
 func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 	if p!=current:return
+	resources.entry_reward(p)
 	synergy.entry_reward(id,p,before)
 	if "G044" in before and owner("G044")==p and card(id).p>card("G044").p and (has(id,"科学") or has(id,"太空")):_reward_draw("G044",p,"group")
 	if parent=="G069" and parent in before and has(id,"自由"):_reward_draw(parent,p,"group")
@@ -857,6 +874,7 @@ func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 
 func _after_effect() -> void:
 	if renewal.repair_slots():return
+	if resources.repair_hand():return
 	if covenant.repair_hand():return
 	if wave.drain():return
 	if phase=="choice" or phase=="discard" or phase=="battle" or phase=="plot_response":return
@@ -906,6 +924,7 @@ func validate() -> Array:
 		locations.append_array(decks[kind]);locations.append_array(discards[kind])
 		for p in [0,1]:locations.append_array(hands[p][kind])
 	for p in [0,1]:locations.append_array(graves[p])
+	locations.append_array(scrap)
 	for id in nodes:
 		if choice.get("kind","")!="x_overflow" and children(id).size()>stat(id,"slots"):errors.append("Overfull "+id)
 		if nodes[id].token not in [0,1]:errors.append("Invalid token "+id)
@@ -913,6 +932,7 @@ func validate() -> Array:
 			if nodes[id].parent!="":errors.append("Root has parent "+id)
 			continue
 		locations.append(id);locations.append_array(nodes[id].attached)
+		if card(id).kind=="resource":continue
 		var parent=nodes[id].parent
 		if not nodes.has(parent) or owner(parent)!=owner(id):errors.append("Invalid parent "+id)
 		var visited: Array=[id];var k=parent
@@ -928,6 +948,7 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
+	if choice.get("kind","")=="e_probe":locations.append_array(choice.peek)
 	if choice.get("kind","")=="x_overflow":
 		var held=choice.saved_choice
 		if held.get("kind","") in ["draw_keep","reorder"]:locations.append_array(held.options);locations.append_array(held.get("order",[]))
@@ -936,6 +957,8 @@ func validate() -> Array:
 	for id in locations:
 		if seen.has(id):errors.append("Duplicate "+id)
 		seen[id]=true
-	var expected=CardDB.ids("group").size()+CardDB.ids("plot").size()
+	var expected=CardDB.ids("group").size()+CardDB.ids("plot").size()+CardDB.ids("resource").size()
+	for p in [0,1]:
+		if resources.field(p).size()>2:errors.append("Resource capacity")
 	if seen.size()!=expected:errors.append("Card conservation %d/%d"%[seen.size(),expected])
 	return errors

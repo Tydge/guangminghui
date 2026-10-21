@@ -5,7 +5,7 @@ func check(ok: bool,label: String) -> void:
 	checks+=1
 	if not ok:failures.append(label);push_error(label)
 func fresh() -> GameState:
-	var g=GameState.new(81);g.nodes.clear();g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.discards={"group":[],"plot":[]};g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.graves=[[],[]];g.factions=["I01","I05"];g.phase="main";g.current=0;g.turns=[2,2]
+	var g=GameState.new(81);g.nodes.clear();g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.discards={"group":[],"plot":[],"resource":[]};g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.graves=[[],[]];g.factions=["I01","I05"];g.phase="main";g.current=0;g.turns=[2,2]
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	return g
 func remove(g: GameState,id: String) -> void:
@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==213,"All 213 cards")
+	check(CardDB.cards.size()==226,"All 226 cards")
 	check(CardDB.get_card("G081").align==["企业"] and CardDB.get_card("G083").align==["企业","和平"],"User requested Musk and Altman alignments")
 	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府","和平"],"Preserved edited Moonbase")
 	check(CardDB.get_card("G114").align==["和平"] and CardDB.get_card("G115").gp==1 and CardDB.get_card("G116").gp==0,"Preserved edited space and magic stats")

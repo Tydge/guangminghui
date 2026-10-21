@@ -23,7 +23,7 @@ func action(g: GameState,p: int,kind: String,args: Dictionary={}) -> Dictionary:
 func put(g: GameState,id: String,p: int,parent: String) -> void:g.decks.group.erase(id);g._enter(id,p,parent,1)
 func fixture(media: String="G033") -> GameState:
 	main._start_game(181);main.modal_open=true
-	var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.factions=["I05","I01"];g.phase="main";g.current=0;g.turns=[2,2]
+	var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.factions=["I05","I01"];g.phase="main";g.current=0;g.turns=[2,2]
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	put(g,"G001",0,"R0");put(g,media,0,"R0");put(g,"G071",1,"R1")
 	g.decks.plot.erase("P36");g.world="P36"

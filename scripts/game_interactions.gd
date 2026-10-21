@@ -24,7 +24,7 @@ func catalog(reset_page: bool=false) -> void:
 	var p=m._panel(m.large_layer,Rect2(Vector2(45,40),m.size-Vector2(90,80)));p.name="Catalog"
 	m._label("卡牌图鉴",p,32,m.GOLD).position=Vector2(28,18)
 	var tabs=HBoxContainer.new();tabs.position=Vector2(270,15);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
-	for kind in ["faction","group","plot"]:m._button({"faction":"光明会","group":"团体","plot":"阴谋"}[kind]+" · %d"%CardDB.ids(kind).size(),func():m.collection_filter=kind;catalog(true),tabs,kind==m.collection_filter)
+	for kind in ["faction","group","plot","resource"]:m._button({"faction":"光明会","group":"团体","plot":"阴谋","resource":"资源"}[kind]+" · %d"%CardDB.ids(kind).size(),func():m.collection_filter=kind;catalog(true),tabs,kind==m.collection_filter)
 	m._button("关闭",func():m._clear(m.large_layer);m.modal_open=false;m._schedule_ai(),p).position=Vector2(p.size.x-135,15)
 	var scroll=ScrollContainer.new();scroll.name="CatalogScroll";scroll.position=Vector2(28,85);scroll.size=p.size-Vector2(56,180);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;p.add_child(scroll)
 	var grid=GridContainer.new();grid.name="CatalogGrid";grid.columns=maxi(1,int((p.size.x-70)/240));grid.add_theme_constant_override("h_separation",18);grid.add_theme_constant_override("v_separation",22);scroll.add_child(grid)
@@ -58,8 +58,10 @@ func back() -> void:
 func pick(key: String,value) -> void:
 	picker.select(key,value);picker_page=0;step()
 func label_for(key: String) -> String:
-	var labels={"target":"选择目标团体","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
+	if key=="supply":return "选择部署费用"
+	var labels={"replace":"资源已满 · 选择报废替换的资源","target":"选择目标","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
 	if key.begins_with("payers:"):return "选择第%d个支付行动的团体"%(int(key.get_slice(":",1))+1)
+	if key=="target" and (picker.actions[0].type=="resource" or picker.actions[0].get("id","") in ResourceRules.PLOTS):return "选择目标资源" if picker.actions[0].get("src","")=="G093" or picker.actions[0].get("id","") in ["P56","P58"] else "选择目标团体"
 	if key=="target" and picker.actions[0].get("id","") in ["P21","P23","P24","P25"]:return "选择支付行动的团体"
 	return labels.get(key,"选择操作")
 func support_value(options: Array) -> String:
@@ -74,6 +76,7 @@ func mode_title(key: String,value: bool) -> String:
 	var plain=options.filter(func(a):return (key=="amplify" or picker.chosen.has("amplify") or not a.get("amplify",false)) and (key=="star" or not a.get("star",false)))
 	var strength=support_value(plain if not plain.is_empty() else options)
 	match key:
+		"supply":return "矿产供给 · 弃1张团体" if value else "花主牌1行动"
 		"algorithm":return ("算法时代 · "+strength+"（本战限1次）") if value else "普通支援 · "+strength
 		"amplify":return ("弹性扩容 · "+strength+" · 另弃1张牌") if value else "普通支援 · "+strength
 		"star":return ("星象助阵 · "+strength+"，骰1–3再+2") if value else "普通支援 · "+strength
@@ -85,6 +88,7 @@ func mode_title(key: String,value: bool) -> String:
 	return "启用" if value else "不启用"
 func mode_context() -> String:
 	var a=picker.actions[0];var source=m.game.title(a.get("src",""))
+	if a.type=="deploy":return source+" · 部署到主牌旁"
 	if a.type=="support":return source+" · 支援"+("进攻" if m.game.owner(a.src)==m.game.battle.attacker else "防守")+" · 消耗1行动"
 	return source+" → "+m.game.title(a.get("target",""))
 func step() -> void:
@@ -131,15 +135,16 @@ func confirm() -> void:
 	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=heading.text
 	m.window_access.offer(p)
 	var lines: Array=[]
+	if a.type in ["deploy","resource","research"]:lines.append(a.label)
 	if a.type=="support":
 		lines.append(("支援进攻" if m.game.owner(a.src)==m.game.battle.attacker else "支援防守")+" · "+support_value([a]))
 		if a.get("algorithm",false):lines.append("算法时代 · 本战限1次")
 		if a.get("amplify",false):lines.append("弹性扩容 · 基础支援翻倍")
 		if a.get("star",false):lines.append("星象助阵 · 骰1–3再+2")
 		lines.append("消耗该团体1行动")
-	for key in ["target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
+	for key in ["replace","target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
 		if a.get(key,"")=="":continue
-		lines.append({"target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))
+		lines.append({"replace":"报废替换","target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))
 	if not a.get("payers",[]).is_empty():lines.append("行动 · "+" / ".join(a.payers.map(func(id):return m.game.title(id))))
 	if lines.is_empty():lines.append(a.label)
 	m._paragraph("\n".join(lines),p,Rect2(28,88,extent.x-56,182),23)
@@ -171,6 +176,12 @@ func visible_card(id: String) -> Control:
 	return null
 func anchor(place: String,p: int,kind: String,id: String="",target: String="") -> Rect2:
 	var area=Vector2(94,142);var center=m.size*0.5
+	if place in ["resource_left","resource_right"]:
+		var root_view=m.board.cards.get(m.game.root(p))
+		if root_view!=null:
+			area=m.board.card_size*m.board.zoom
+			center=root_view.get_global_rect().get_center()+Vector2((-1 if place=="resource_left" else 1)*(m.board.card_size.x+32)*m.board.zoom,0)
+		return Rect2(center-area*0.5,area)
 	if place in ["board","attached"]:
 		var view=visible_card(target if target!="" else id)
 		if view!=null:return view.get_global_rect()
@@ -178,17 +189,17 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 		var view=visible_card(id)
 		if view!=null:return view.get_global_rect()
 		center=Vector2(m.size.x*0.36,m.size.y-90) if p==0 else Vector2(m.size.x*0.72,110)
-	elif place in ["deck","discard"]:center=Vector2(m.size.x-(235 if kind=="group" else 95),122 if place=="deck" else 210)
+	elif place in ["deck","discard","scrap"]:center=Vector2(m.size.x-400+["group","resource","plot"].find(kind)*140,122 if place=="deck" else 210)
 	elif place=="choice":center=Vector2(m.size.x*0.5,m.size.y*0.45)
 	return Rect2(center-area*0.5,area)
 func known(id: String) -> bool:
-	return m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
+	return m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
 func flight(id: String,kind: String,show_face: bool) -> Control:
 	var view=Panel.new();view.name="MovingCard";view.size=Vector2(94,142);view.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_theme_stylebox_override("panel",m._style(Color("142c2e"),m.GOLD,2));m.presentation_layer.add_child(view)
 	if show_face:
 		var face=CardView.new();face.configure(id,m.game);face.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);face.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_child(face)
 	else:
-		var back=TextureRect.new();back.texture=load("res://assets/ui/%s_back.webp"%kind);back.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;back.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);back.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_child(back)
+		var back=TextureRect.new();back.texture=load("res://assets/ui/%s_back.webp"%("group" if kind=="resource" else kind));back.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;back.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);back.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_child(back)
 	return view
 func arc(view: Control,start: Rect2,finish: Rect2,t: float,lift: float) -> void:
 	view.position=start.position.lerp(finish.position,t)-Vector2(0,sin(t*PI)*lift)
@@ -217,6 +228,16 @@ func target_cue(id: String,target: String) -> bool:
 	return await m.presentation_finished
 func moves(events: Array) -> bool:
 	if events.is_empty():return true
+	for event in events:
+		if event.to not in ["resource_left","resource_right"]:continue
+		var landing=anchor(event.to,event.player,event.kind,event.id)
+		if m.board.get_global_rect().grow(-20).encloses(landing):continue
+		m.presenting=true;m.board.camera_animating=false;m._clear(m.presentation_layer)
+		var desired=m.board.pan+m.board.get_global_rect().get_center()-landing.get_center()
+		m.presentation_tween=m.create_tween();m.presentation_tween.tween_property(m.board,"pan",desired,(0.08 if m.reduced_motion else 0.30)*m.presentation_time_scale).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
+		if not await m.presentation_finished:return false
+		m.board._process(0)
 	m.presenting=true;m._clear(m.presentation_layer)
 	var caption=m._label("",m.presentation_layer,24,m.GOLD);caption.position=Vector2(35,m.size.y-255)
 	m.presentation_tween=m.create_tween().set_parallel(true)
@@ -226,11 +247,11 @@ func moves(events: Array) -> bool:
 		if group!=signature:delay=last_end+0.05 if signature!="" else 0.0;index=0;signature=group
 		var start=anchor(event.from,event.get("from_player",event.player),event.kind,event.id,event.get("from_target",""));var finish=anchor(event.to,event.player,event.kind,event.id)
 		var source=visible_card(event.id)
-		if event.from=="hand" and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.12
-		var show_face=known(event.id) and event.from not in ["deck","choice"]
+		if event.from in ["hand","board"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.0 if event.from=="board" else 0.12
+		var show_face=(known(event.id) and event.from not in ["deck","choice"]) or event.to in ["resource_left","resource_right"]
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
-		var verb="摸牌" if event.from=="deck" else ("弃牌" if event.to=="discard" else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
+		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
 		m.presentation_tween.tween_callback(func():caption.text=("你" if event.player==0 else ("AI" if event.player==1 else ""))+" · "+verb;view.modulate.a=1.0;m._sound("card")).set_delay(at)
 		m.presentation_tween.tween_method(func(t):arc(view,start,finish,t,22),0.0,1.0,duration).set_delay(at).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		m.presentation_tween.tween_property(view,"modulate:a",0.0,0.08*m.presentation_time_scale).set_delay(at+duration)

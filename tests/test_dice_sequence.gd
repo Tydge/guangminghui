@@ -15,7 +15,7 @@ func snapshot(g: GameState) -> String:
 	return JSON.stringify([g.nodes,g.hands,g.decks,g.graves,g.destroyed,g.battle,g.last_battle,g.phase,g.winner,g.rng.state])
 func fixture(mode: String,success: bool=true,victory: bool=false) -> GameState:
 	main._start_game(81);var g=main.game
-	g.nodes={};g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.factions=["I02","I03"];g.phase="main";g.current=0;g.turns=[3,3] if victory else [2,2]
+	g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.factions=["I02","I03"];g.phase="main";g.current=0;g.turns=[3,3] if victory else [2,2]
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	for entry in [["G005",0,"R0"],["G001",1,"R1"],["G024",1,"G001"],["G025",1,"G024"]]:g.decks.group.erase(entry[0]);g._enter(entry[0],entry[1],entry[2],1)
 	var attack=g.legal_actions(0).filter(func(a):return a.type=="attack" and a.src=="G005" and a.target=="G001" and a.mode==mode)[0]

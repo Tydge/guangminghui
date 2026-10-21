@@ -13,6 +13,25 @@ CARDS = json.loads((PROJECT / 'data/cards.json').read_text(encoding='utf-8'))
 DOCUMENT = (PROJECT / 'docs' / sync.FILENAME).read_text(encoding='utf-8')
 
 class CardSyncTests(unittest.TestCase):
+    def test_resource_mode_and_effect_roundtrip(self):
+        resource = copy.deepcopy(CARDS['E01'])
+        row = sync.card_row('E01', resource)
+        parsed = sync.parse_table(row, CARDS)['E01']
+        self.assertEqual(parsed, resource)
+        passive = row.replace('| 行动 |', '| 持续 |')
+        parsed = sync.parse_table(passive, CARDS)['E01']
+        self.assertFalse(parsed['action'])
+        self.assertEqual(parsed['mode'], '持续')
+
+    def test_new_resource_exports_and_preserves_notes(self):
+        cards = copy.deepcopy(CARDS)
+        cards['E11'] = copy.deepcopy(cards['E01'])
+        cards['E11'].update(id='E11', name='测试资源')
+        rendered = sync.render(DOCUMENT + '\n保留这条资源备注。\n', cards, json.dumps(cards).encode())
+        self.assertEqual(sync.parse_table(rendered, cards), cards)
+        self.assertIn('## 资源 · 11种', rendered)
+        self.assertIn('保留这条资源备注。', rendered)
+
     def test_statistics_count_each_card_once_per_attribute(self):
         cards = {
             'A': {'kind': 'group', 'align': ['政府', '和平', '政府'], 'tags': ['地点', '沿海', '沿海']},

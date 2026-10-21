@@ -4,7 +4,7 @@ extends RefCounted
 static func copy_state(source: GameState) -> GameState:
 	var copy=GameState.new(1)
 	for prop in source.get_property_list():
-		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant"]:continue
+		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources"]:continue
 		var value=source.get(prop.name)
 		copy.set(prop.name,value.duplicate(true) if value is Array or value is Dictionary else value)
 	copy.rng.seed=source.rng.seed;copy.rng.state=source.rng.state
@@ -13,18 +13,19 @@ static func copy_state(source: GameState) -> GameState:
 
 static func zones(g: GameState) -> Dictionary:
 	var result: Dictionary={}
-	for kind in ["group","plot"]:
+	for kind in ["group","plot","resource"]:
 		for place in ["deck","discard"]:
 			for id in (g.decks[kind] if place=="deck" else g.discards[kind]):result[id]={"place":place,"player":-1,"kind":kind}
 		for p in [0,1]:
 			for id in g.hands[p][kind]:result[id]={"place":"hand","player":p,"kind":kind}
+	for id in g.scrap:result[id]={"place":"scrap","player":-1,"kind":"resource"}
 	for id in g.nodes:
-		if not g.is_root(id):result[id]={"place":"board","player":g.owner(id),"kind":"group"}
+		if not g.is_root(id):result[id]={"place":"board","player":g.owner(id),"kind":g.card(id).kind}
 		for attachment in g.nodes[id].attached:result[attachment]={"place":"attached","player":g.owner(id),"kind":"plot","target":id}
 	if g.world!="":result[g.world]={"place":"world","player":-1,"kind":"plot"}
 	if not g.pending_plot.is_empty():result[g.pending_plot.id]={"place":"pending","player":g.pending_plot.player,"kind":"plot"}
 	for id in g.battle.get("spent",[]):result[id]={"place":"spent","player":g.battle.attacker,"kind":"plot"}
-	var peek=g.choice.get("peek",g.choice.get("options",[]) if g.choice.get("kind","") in ["draw_keep","reorder"] else [])
+	var peek=g.choice.get("peek",g.choice.get("options",[]) if g.choice.get("kind","") in ["draw_keep","reorder","e_probe"] else [])
 	for id in peek:result[id]={"place":"choice","player":g.choice.get("player",0),"kind":g.card(id).kind}
 	return result
 
@@ -39,7 +40,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 		if id in recorded or not before.has(id):continue
 		var start=before[id];var finish=after[id]
 		if start==finish:continue
-		if finish.place in ["hand","discard"] or (start.place=="deck" and finish.place=="choice") or (start.place=="hand" and finish.place=="deck"):
+		if finish.place in ["hand","discard","scrap"] or (start.place=="deck" and finish.place=="choice") or (start.place=="hand" and finish.place=="deck"):
 			moves.append({"id":id,"kind":finish.kind,"from":start.place,"to":finish.place,"player":finish.player if finish.place=="hand" else start.player,"from_player":start.player,"from_target":start.get("target","")})
 	var played=a if a.type=="plot" else g.pending_plot
 	var target="";var source=""
@@ -53,6 +54,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 	if a.type=="ability" and (a.src in ["G135","G138","G149"] or a.get("pacify",false)):
 		target=a.target;source=a.get("attachment",a.src)
 	if a.type=="choose" and g.choice.get("kind","")=="x_rebuild" and a.id!="":target=a.id;source="G150"
+	if a.type=="resource" and a.get("target","")!="":target=a.target;source=a.src
 	var minor={"roll":copy.battle.get("star_roll",0)} if a.get("star",false) else {}
 	var result=copy.last_battle.duplicate(true) if not g.battle.is_empty() and copy.battle.is_empty() else {}
 	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor}

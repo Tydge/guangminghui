@@ -6,7 +6,7 @@ func check(ok: bool,label: String) -> void:
 	checks+=1
 	if not ok:failures.append(label);push_error(label)
 func fresh() -> GameState:
-	main._start_game(181);var g=main.game;g.act(0,g.legal_actions(0)[0]);g.phase="main";g.current=0;g.turns=[2,2];g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.nodes.R0.token=1;g.nodes.R1.token=1;return g
+	main._start_game(181);var g=main.game;g.act(0,g.legal_actions(0)[0]);g.phase="main";g.current=0;g.turns=[2,2];g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.nodes.R0.token=1;g.nodes.R1.token=1;return g
 func put(g: GameState,id: String,p: int,parent: String) -> void:g.decks.group.erase(id);g._enter(id,p,parent,1)
 func text(node: Node) -> String:
 	var result=""

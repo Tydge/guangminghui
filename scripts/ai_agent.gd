@@ -22,7 +22,9 @@ func _card(id: String,o: Dictionary) -> Dictionary:
 
 func _value(id: String,o: Dictionary) -> float:
 	if id=="":return 0
-	var c=_card(id,o);var faction=o.factions[o.player]
+	var c=_card(id,o)
+	if c.kind=="resource":return 11+int(c.action)*2+int(id in ["E03","E04","E05"])*3
+	var faction=o.factions[o.player]
 	var traits=c.get("align",[])+c.get("tags",[])
 	var value=float(c.p)*1.2+c.slots*1.8+c.gp*0.5
 	if faction=="I02" and ("企业" in traits or "银行" in traits):value+=5
@@ -48,6 +50,7 @@ func _value(id: String,o: Dictionary) -> float:
 	return value
 
 func _score(a: Dictionary,o: Dictionary) -> float:
+	if a.type in ["resource","deploy","research"] or (a.type=="plot" and a.id in ResourceRules.PLOTS):return _resource_score(a,o)
 	if a.type=="plot" and CovenantRules.PLOTS.has(a.id):return 1000
 	if a.type=="ability" and a.get("pacify",false):
 		return 40+_card(a.target,o).p if o.goals[o.player].ratio<1 else -1
@@ -62,8 +65,8 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 			var kind=o.choice.get("kind","")
 			if kind=="c_goal_limit":return _plot_value(a.id,o)
 			if a.id=="":return -20
-			var value=_value(a.id,o) if a.id.begins_with("G") else _plot_value(a.id,o)
-			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry"] else value
+			var value=_value(a.id,o) if a.id.begins_with("G") or a.id.begins_with("E") else _plot_value(a.id,o)
+			return -value if kind in ["discard_any","discard_group","limit","emptyvee","w_export","w_reroll","w_tax","w_epidemic","w_tsunami","x_overflow","x_scry","e_limit","e_discard"] else value
 		"counter":return 30 if o.phase=="plot_response" else 0
 		"accept_plot":return 0
 		"auto":
@@ -264,3 +267,24 @@ func _renewal_score(a: Dictionary,o: Dictionary) -> float:
 				value=maxf(value,2.0*(new_align.filter(func(v):return v in target_align and v!="狂热").size()-_card(a.target,o).align.filter(func(v):return v in target_align and v!="狂热").size()))
 			return value
 	return -4
+
+func _resource_score(a: Dictionary,o: Dictionary) -> float:
+	var owned=o.nodes.keys().filter(func(k):return o.nodes[k].owner==o.player and _card(k,o).kind=="resource")
+	if a.type=="deploy":
+		var old=a.get("replace","")
+		if old!="" and _value(a.id,o)<=_value(old,o):return -5
+		return 57+_value(a.id,o)-(6 if a.has("fee") else 0)-(8 if old!="" else 0)
+	if a.type=="research":return 14 if owned.size()<2 else (-2 if o.hands.resource.size()>0 else 2)
+	if a.type=="plot":
+		if a.id=="P56":return 20+_value(a.target,o)
+		if a.id=="P57":return 17 if owned.size()<2 else 5
+		return 9
+	match a.src:
+		"E01":return 8 if o.battle_values.strength<10 else -3
+		"E07":return 13 if o.battle_values.strength>=2 else -3
+		"E02":return 18+_value(a.target,o)*0.1
+		"E06":return 15
+		"E08":return 12 if owned.size()<2 else 3
+		"E10":return _placement_value(a.target,a.parent,o)-5
+		"G093":return 17
+	return -2

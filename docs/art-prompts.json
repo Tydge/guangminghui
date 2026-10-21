@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-20",
-  "card_art_count": 213,
+  "date": "2026-10-21",
+  "card_art_count": 226,
   "ui_art_count": 4,
   "assets": [
     {
@@ -2061,6 +2061,136 @@
       "method": "Built-in image_gen",
       "prompt": "Use case: stylized-concept. Asset type: background texture for a premium occult conspiracy card videogame, landscape 1536x1024. Primary request: top-down antique dark petrol green velvet gaming table, subdued engraved golden alchemical circles and compass geometry near outer edges, four small antique brass corner ornaments, soft vignette and cinematic lamplight, restrained fine tactile material. The large middle 80% is mostly empty dark teal with subtle felt grain, to place readable cards over it. Style: sophisticated hand-painted boardgame material, mysterious 1990s conspiracy game atmosphere. No cards, no writing, no letters, no UI, no watermark. A clean usable flat game background, not a photograph of a whole room.",
       "encoding": "WebP lossless"
+    },
+    {
+      "id": "E01",
+      "name": "战术雷达",
+      "path": "assets/cards/E01.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a tactical radar console in a modern coastal command room, luminous green circular radar screen, rotating antenna visible through window, highly legible equipment focal point. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-eb1400b8-6e50-4aee-9020-9e351f825be2.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E02",
+      "name": "应急电池",
+      "path": "assets/cards/E02.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a rugged portable orange battery power station with thick insulated cables supplying a darkened field operations tent, bright charge indicator, realistic recognizable emergency energy equipment. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8c3b53f1-6c16-4572-9f4e-bd58577a03c9.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E03",
+      "name": "防灾卫星",
+      "path": "assets/cards/E03.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. an Earth observation satellite with large solar panels above a swirling white typhoon on brilliant blue Earth, recognizable satellite foreground, scientific visualization realism. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d7d3d6df-b85b-4d9b-853f-c4e0ad1011c9.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E04",
+      "name": "私人档案库",
+      "path": "assets/cards/E04.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a private archival room with organized rolling shelves, acid-free document boxes and an open drawer of classified-looking paper files, desk lamp illuminates an indexed file, no people. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-541b1970-a86d-4c59-b734-58447965f516.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E05",
+      "name": "秘密保险库",
+      "path": "assets/cards/E05.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a massive open steel bank vault in a modern basement, orderly document cases and gold bars inside, strong recognizable circular vault door, no occult imagery. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-8ea2407c-4327-4038-9e2e-045720bb99c3.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E06",
+      "name": "量子计算机",
+      "path": "assets/cards/E06.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a recognizable gold chandelier dilution refrigerator quantum computer in a contemporary laboratory, concentric copper stages, braided cables, pristine glass enclosure, one clear central machine. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5aa3d44a-b6d7-4933-9483-cb358be30d05.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E07",
+      "name": "凤凰护符",
+      "path": "assets/cards/E07.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a small enamel phoenix pendant in red and gold lying on dark velvet, realistic handmade museum jewelry with a subtle warm gleam, clearly recognizable bird spreading two wings, no occult pyramid. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9dbe689d-b0c6-44a7-bc8b-afce0bcabe48.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E08",
+      "name": "深空探测器",
+      "path": "assets/cards/E08.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a Voyager-inspired interplanetary spacecraft with large white dish antenna and a gold record panel, long scientific instrument booms against starfield and the blue limb of Neptune, realistic space mission illustration. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-6209b67e-e1f7-4cea-8dd3-d6fe5a8a74a9.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E09",
+      "name": "海底光缆",
+      "path": "assets/cards/E09.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a detailed cutaway of a thick submarine fiber optic cable in the foreground on an ocean floor, colorful fine fiber strands inside, cable stretches toward a distant coastline landing station through clear blue sea, realistic editorial illustration. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c140b830-b558-49d9-8b51-901b810fcd01.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "E10",
+      "name": "后勤无人机",
+      "path": "assets/cards/E10.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a large industrial quadcopter carrying a compact medical supply crate over a rural landscape, four propellers clearly visible, delivery route toward a field depot, bright daylight, recognizable cargo drone. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d4360593-d1e3-49c6-8472-33b28aee11a3.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "P56",
+      "name": "精密爆破",
+      "path": "assets/cards/P56.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a decommissioned radar antenna at an isolated industrial test site, a small controlled demolition at its base with contained orange flash and dust, remote technical operation, no people or injuries, no how-to details. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fe9d6377-68f2-437c-ad7f-417186fcf9c0.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "P57",
+      "name": "逆向研发",
+      "path": "assets/cards/P57.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. two technicians in a bright electronics workshop repairing a rugged field radar module, recognizable screwdriver, diagnostic screen and open casing, natural anatomy, clear technical repair scene. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-66b044bd-06aa-40e2-8837-2f55cf0328c1.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "P58",
+      "name": "技术封锁",
+      "path": "assets/cards/P58.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. Contemporary high-recognition cinematic editorial realism, rich natural color, crisp recognizable focal subject readable at thumbnail size. a data center server rack behind a closed metal security gate, a prominent red access-denied padlock icon on a nearby monitor, cold blue light with red warning reflection, clear visual of technology access being blocked. No text, captions, card borders, watermark, Illuminati eyes, pyramids or repeated secret-society symbols. Complete coherent objects, believable anatomy if any. Single polished illustration, not a collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-978c65cf-3caa-4f3f-9873-fda43902c329.png",
+      "encoding": "WebP quality 98",
+      "updated": "2026-10-21"
     }
   ],
   "generated_card_art_count": 184,

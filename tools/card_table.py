@@ -8,9 +8,9 @@ from collections import Counter
 from pathlib import Path
 
 FILENAME = '光明会_全部卡牌完整效果_当前版.md'
-ID_RE = re.compile(r'^[IGP]\d{2,}$')
-KINDS = {'I': 'faction', 'G': 'group', 'P': 'plot'}
-RULE_FIELDS = {'effect', 'goal', 'target', 'cost'}
+ID_RE = re.compile(r'^[IGPE]\d{2,}$')
+KINDS = {'I': 'faction', 'G': 'group', 'P': 'plot', 'E': 'resource'}
+RULE_FIELDS = {'effect', 'goal', 'target', 'cost', 'mode', 'action'}
 STATISTICS_RE = re.compile(r'^## 阵营与标签统计[ \t]*\r?\n.*?(?=^## |\Z)', re.MULTILINE | re.DOTALL)
 
 def statistics_section(cards):
@@ -51,7 +51,9 @@ def parse_table(text, defaults):
         c = copy.deepcopy(defaults.get(key, {'id': key, 'kind': kind, 'p': 0, 'gp': 0, 'r': 0, 'slots': 0, 'align': [], 'tags': [], 'category': '光明会' if kind == 'faction' else ''}))
         if ' / ' not in parts[1]: raise ValueError(f'{key}: keep the Chinese / English name separator')
         c['name'], c['en'] = parts[1].split(' / ', 1)
-        if kind == 'plot':
+        if kind == 'resource':
+            c.update(category=parts[2], mode=parts[3], tags=[] if parts[4]=='无' else parts[4].split('、'), effect=parts[5], action=parts[3]=='行动')
+        elif kind == 'plot':
             c.update(zip(('category', 'target', 'effect', 'cost'), parts[2:]))
         else:
             stats = [int(n.strip()) for n in parts[2].split('/')]
@@ -87,6 +89,7 @@ def merge_cards(base, versions):
 def card_row(key, c):
     name = c['name'] + ' / ' + c['en']
     if c['kind'] == 'group': values = [key, name, f"{c['p']} / {c['gp']} / {c['r']}", c['slots'], '、'.join(c['align']) or '无', '、'.join(c['tags']) or '无', c['category'], c['effect']]
+    elif c['kind'] == 'resource': values = [key, name, c['category'], c['mode'], '、'.join(c['tags']) or '无', c['effect']]
     elif c['kind'] == 'faction': values = [key, name, f"{c['p']} / {c['gp']}", c['slots'], c['effect'], c['goal']]
     else: values = [key, name, c['category'], c['target'], c['effect'], c['cost']]
     return '| ' + ' | '.join(cell(value) for value in values) + ' |'
@@ -103,13 +106,16 @@ def render(template, cards, data_bytes):
     for kind, index in sorted(last.items(), key=lambda item: item[1], reverse=True):
         additions = [card_row(key, c) for key, c in sorted(cards.items()) if c['kind'] == kind and key not in present]
         lines[index+1:index+1] = additions
+    if any(c['kind']=='resource' for c in cards.values()) and 'resource' not in last:
+        lines.extend(['', '## 资源 · '+str(sum(c['kind']=='resource' for c in cards.values()))+'种', '', '| ID | 卡名（中文 / 英文） | 类型 | 使用方式 | 标签 | 效果 |', '|---|---|---|---|---|---|'])
+        lines.extend(card_row(key,c) for key,c in sorted(cards.items()) if c['kind']=='resource')
     count = len(cards); digest = hashlib.sha256(data_bytes).hexdigest()
     counts = {kind: sum(c['kind'] == kind for c in cards.values()) for kind in KINDS.values()}
     for i, line in enumerate(lines):
         if line.startswith('# 光明会：'): lines[i] = re.sub(r'：\d+种', f'：{count}种', line)
         if '包含' in line:
-            lines[i] = re.sub(r'包含\d+种光明会、\d+种团体、\d+种阴谋', f"包含{counts['faction']}种光明会、{counts['group']}种团体、{counts['plot']}种阴谋", lines[i])
-        for label, kind in [('光明会', 'faction'), ('团体', 'group'), ('阴谋', 'plot')]:
+            lines[i] = re.sub(r'包含\d+种光明会、\d+种团体、\d+种阴谋(?:、\d+种资源)?', f"包含{counts['faction']}种光明会、{counts['group']}种团体、{counts['plot']}种阴谋、{counts['resource']}种资源", lines[i])
+        for label, kind in [('光明会', 'faction'), ('团体', 'group'), ('阴谋', 'plot'), ('资源', 'resource')]:
             if line.startswith(f'## {label} · '): lines[i] = f'## {label} · {counts[kind]}种'
         if line.startswith('数据校验：'): lines[i] = f'数据校验：{count}种卡牌；源数据 SHA-256：`{digest}`。'
     text = '\n'.join(lines).rstrip() + '\n'

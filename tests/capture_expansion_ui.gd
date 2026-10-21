@@ -6,7 +6,7 @@ var captures: Array=[]
 func _initialize() -> void:call_deferred("run")
 func put(g: GameState,id: String,p: int,parent: String) -> void:g.decks.group.erase(id);g._enter(id,p,parent,1)
 func fixture() -> GameState:
-	main._start_game(81);var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[]},{"group":[],"plot":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot")};g.factions=["I06","I03"];g.current=0;g.turns=[2,2];g.phase="main";g.world="P36";g.decks.plot.erase("P36")
+	main._start_game(81);var g=main.game;g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.factions=["I06","I03"];g.current=0;g.turns=[2,2];g.phase="main";g.world="P36";g.decks.plot.erase("P36")
 	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
 	for entry in [["G081",0,"R0"],["G073",0,"R0"],["G097",0,"R0"],["G023",0,"G081"],["G084",0,"G023"],["G109",0,"G097"],["G095",1,"R1"],["G099",1,"R1"],["G108",1,"R1"],["G101",1,"G099"],["G087",1,"G101"]]:put(g,entry[0],entry[1],entry[2])
 	g.nodes.G099.devastated=true;g.nodes.G099.token=0;g.nodes.G097.prepared=true

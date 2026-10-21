@@ -200,12 +200,12 @@ func _draw_hud() -> void:
 	_button("己方",func():board.focus(0),camera);_button("对手",func():board.focus(1),camera);_button("全局",func():board.fit_all(),camera)
 	var minus=_button("−",func():board.zoom_at(0.85,board.size/2),camera);minus.custom_minimum_size.x=48
 	var plus=_button("＋",func():board.zoom_at(1.18,board.size/2),camera);plus.custom_minimum_size.x=48
-	for kind in ["group","plot"]:
-		var piles=_button(("团体 " if kind=="group" else "阴谋 ")+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-355+(0 if kind=="group" else 163),105);piles.size=Vector2(155,46);piles.disabled=window_access.browsing
-		var back="res://assets/ui/%s_back.webp"%kind
+	for kind in ["group","resource","plot"]:
+		var piles=_button({"group":"团体 ","resource":"资源 ","plot":"阴谋 "}[kind]+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-465+["group","resource","plot"].find(kind)*140,105);piles.size=Vector2(132,46);piles.custom_minimum_size.x=125;piles.disabled=window_access.browsing
+		var back="res://assets/ui/%s_back.webp"%("group" if kind=="resource" else kind)
 		if ResourceLoader.exists(back):piles.icon=load(back);piles.expand_icon=true;piles.add_theme_constant_override("icon_max_width",22)
 	if game.world!="":
-		var order=_button("秩序 · "+CardDB.name_of(game.world).replace("新世界秩序：",""),func():_inspect(game.world),hud);order.position=Vector2(515,105)
+		var order=_button("秩序 · "+CardDB.name_of(game.world).replace("新世界秩序：",""),func():_inspect(game.world),hud);order.position=Vector2(515,160)
 	var eventtext="查看战场 · 对局暂停" if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
 	var log_width=w-(385 if not compact else 70)-(155 if not game.last_battle.is_empty() else 0)
 	var log_button=_button("◈  "+eventtext,_journal,hud);log_button.add_theme_font_size_override("font_size",16);log_button.custom_minimum_size.y=42;log_button.position=Vector2(35,h-249);log_button.size=Vector2(log_width,42);log_button.clip_text=true;log_button.disabled=window_access.browsing
@@ -229,12 +229,22 @@ func _draw_hud() -> void:
 	if game.phase=="main" and game.current==0 and not window_access.browsing:
 		var pending=game.failed_recruits.filter(func(id):return id in game.hands[0].group).size()
 		var end=_button("结束回合 · 招募弃%d"%pending if pending>0 else "结束回合  →",func():_perform_type("end"),hud,true);end.position=Vector2(w-330,h-80);end.size=Vector2(285,56)
-	_label("对手手牌 · 团体 %d  /  阴谋 %d"%[game.hands[1].group.size(),game.hands[1].plot.size()],hud,16,Color("abafa0")).position=Vector2(w-342,h-128)
+	_label("对手 · 团体%d / 阴谋%d / 资源%d"%[game.hands[1].group.size(),game.hands[1].plot.size(),game.hands[1].resource.size()],hud,16,Color("abafa0")).position=Vector2(w-342,h-128)
 
 func _context_actions(parent: Control) -> void:
 	var legal=game.legal_actions(0)
+	if hand_tab=="resource" or game.is_root(selected):
+		var draws=legal.filter(func(a):return a.type=="research")
+		var draw_button=_button("资源手牌已满" if not game.resources.can_draw(0) else "抽资源 · 1行动",func():_action_list(draws),parent,true)
+		draw_button.disabled=draws.is_empty();draw_button.tooltip_text="己方主要阶段，花主牌1行动抽1张资源；不包含部署。"
 	if selected=="":_label("选择手牌或场上团体",parent,20,Color("a5b6a6"));return
-	if selected in game.hands[0].group:
+	if selected in game.hands[0].resource:
+		var deploys=legal.filter(func(a):return a.type=="deploy" and a.id==selected)
+		if not deploys.is_empty():_button("部署资源",func():_action_list(deploys),parent,true)
+	elif game.nodes.has(selected) and game.card(selected).kind=="resource":
+		var uses=legal.filter(func(a):return a.type=="resource" and a.src==selected)
+		if not uses.is_empty():_button("使用资源",func():_action_list(uses),parent,true)
+	elif selected in game.hands[0].group:
 		var autos=legal.filter(func(a):return a.type=="auto" and a.id==selected)
 		if not autos.is_empty():
 			var takeover=_button("自动接管",func():_target(autos,"parent","选择接管位置"),parent,true)
@@ -253,7 +263,7 @@ func _context_actions(parent: Control) -> void:
 		for mode in ["control","destroy"]:
 			var attacks=legal.filter(func(a):return a.type=="attack" and a.src==selected and a.mode==mode)
 			if not attacks.is_empty():_button("控制" if mode=="control" else "摧毁",func():_target(attacks,"target","选择控制目标" if mode=="control" else "选择摧毁目标"),parent,mode=="control")
-		var abilities=legal.filter(func(a):return a.type=="ability" and a.src==selected)
+		var abilities=legal.filter(func(a):return a.type in ["ability","resource"] and a.src==selected)
 		var lifts=legal.filter(func(a):return a.type=="lift" and a.src==selected)
 		if not lifts.is_empty():_button("解除监管",func():_do_action(0,lifts[0]),parent,true)
 		if not abilities.is_empty():_button("能力",func():_action_list(abilities),parent)
@@ -269,7 +279,7 @@ func _context_actions(parent: Control) -> void:
 		elif not game.can_enemy(0):_label("对手仍受开局保护",parent,18,Color("c9988b"))
 
 func _hand_tab_labels() -> Array:
-	return ["团体  %d"%game.hands[0].group.size(),"阴谋  %d / %d"%[game.hands[0].plot.size(),game.hand_limit(0)]]
+	return ["团体  %d"%game.hands[0].group.size(),"阴谋  %d / %d"%[game.hands[0].plot.size(),game.hand_limit(0)],"资源 %d/%d"%[game.hands[0].resource.size(),game.resource_hand_limit(0)]]
 
 func _draw_hand() -> void:
 	var h=size.y
@@ -277,6 +287,7 @@ func _draw_hand() -> void:
 	var tabs=HBoxContainer.new();tabs.position=Vector2(35,h-205);tabs.add_theme_constant_override("separation",8);hand_layer.add_child(tabs)
 	_button(labels[0],func():hand_tab="group";_refresh(false),tabs,hand_tab=="group")
 	_button(labels[1],func():hand_tab="plot";_refresh(false),tabs,hand_tab=="plot")
+	_button(labels[2],func():hand_tab="resource";_refresh(false),tabs,hand_tab=="resource")
 	var scroll=ScrollContainer.new();scroll.position=Vector2(35,h-151);scroll.size=Vector2(size.x-(385 if not compact else 410),148);scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;hand_layer.add_child(scroll)
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",10);scroll.add_child(row)
 	for id in game.hands[0][hand_tab]:
@@ -306,6 +317,7 @@ func _select_card(id: String) -> void:
 	selected=id
 	if id in game.hands[0].group:hand_tab="group"
 	if id in game.hands[0].plot:hand_tab="plot"
+	if id in game.hands[0].resource:hand_tab="resource"
 	_refresh(false)
 
 func _target(actions: Array,key: String,hint: String) -> void:
@@ -355,6 +367,8 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 		b.add_theme_font_size_override("font_size",18);b.tooltip_text=entry.reason+"；消耗1个行动标记。点击查看卡牌。"
 	if options.supports.is_empty():_label("暂无可用支援",col,18,Color("9aaca0"))
 	if options.mobilized_supports>0:_label("联合动员可增强%d个支援"%options.mobilized_supports,col,17,TEAL)
+	var available_resources=game.resources.field(0).filter(func(k):return game.resources.ready(k) and ((k=="E01" and game.token(k)) or (k=="E07" and a.mode=="destroy" and game.owner(a.target)==0)))
+	for k in available_resources:_button(game.title(k)+(" · 强度+2" if k=="E01" else " · 防御+6"),func():_inspect(k),col)
 	var usable=options.plots.filter(func(entry):return entry.status!="不可用")
 	_label("阴谋  %d张可用 · %d张需先支援"%[usable.filter(func(entry):return entry.status=="可用").size(),usable.filter(func(entry):return entry.status=="先支援").size()],col,23,GOLD)
 	var plot_flow=HFlowContainer.new();plot_flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;plot_flow.add_theme_constant_override("h_separation",8);plot_flow.add_theme_constant_override("v_separation",8);col.add_child(plot_flow)
@@ -403,7 +417,7 @@ func _do_action(p: int,a: Dictionary) -> void:
 	interactions.restore_sources()
 	if not game.act(p,a):_set_busy(false);_refresh();_schedule_ai();return
 	if a.type=="attack":floating_positions.erase("battle")
-	if selected!="" and not game.nodes.has(selected) and selected not in game.hands[0].group and selected not in game.hands[0].plot:selected=""
+	if selected!="" and not game.nodes.has(selected) and selected not in game.hands[0].group and selected not in game.hands[0].plot and selected not in game.hands[0].resource:selected=""
 	# Every action waits for board entry, exit and layout motion, including abilities
 	# and turn-end effects. No new choice, automatic trigger or victory may overtake it.
 	board.settlement_result=plan.result
@@ -434,6 +448,9 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	var v=CardView.new();v.name="PresentedCard";v.configure(id,game,true);v.size=Vector2(card_width,extent.y);v.mouse_filter=Control.MOUSE_FILTER_IGNORE;body.add_child(v)
 	var x=card_width+40;var text_width=extent.x-x
 	var kind=a.get("presentation_role","打出阴谋" if is_plot else "发动能力")
+	if a.type=="deploy":kind="部署资源"
+	if a.type=="research":kind="主牌行动 · 抽资源"
+	if a.type=="resource":kind="使用资源" if c.kind=="resource" else "发动能力"
 	if is_plot and game.covenant.is_goal(c.id):kind="宣告胜利"
 	if a.type=="trigger":kind="效果触发"
 	if a.type=="rebuild":kind="重建地点"
@@ -467,7 +484,8 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="draw":effect_name=game.choice.task.get("message","抽牌收益")
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="battle_recharge":effect_name="战后恢复行动标记"
 	if a.type=="choose" and game.choice.get("kind","")=="w_draft":effect_name="推荐流"
-	if effect_name.length()>18:effect_name="主动能力"
+	if a.type in ["resource","research","deploy"]:effect_name=a.label
+	if effect_name.length()>30:effect_name=effect_name.left(28)+"…"
 	_paragraph(effect_name,body,Rect2(x,extent.y*0.58,text_width,80),25,CREAM)
 	var target=a.get("target","")
 	var target_text="目标 · "+game.title(target) if target!="" else ""
@@ -709,6 +727,7 @@ func _preview_note(id: String) -> String:
 
 func _card_context_text(id: String) -> String:
 	if game==null:return "图鉴数值 · 进场后可查看忠诚、位置与当前状态。"
+	if game.card(id).kind=="resource":return game.resources.reader(id)
 	var context=game.card_context(id)
 	if not context.on_board:return "未进场\n忠诚 +0   位置 +0\n进场后才可支援或自卫。"
 	var lines: Array=[]
@@ -751,6 +770,7 @@ func _card_context_text(id: String) -> String:
 	if game.has(id,"地点"):
 		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.destroy_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
 		if game.wave.enabled("G030",context.owner):lines.append("国际气象组织 · 灾难防御+5。")
+		if game.resources.ready("E03",context.owner):lines.append("防灾卫星 · 灾难防御+3。")
 	if n.get("debt",false):lines.append("借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。")
 	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+2，不超过有效P。")
 	if n.get("compute",false):lines.append("算力调度：本回合GP等于有效P。")
@@ -772,19 +792,19 @@ func _mobile_detail(id: String) -> void:
 	_label(c.en,p,21,Color("a7baac")).position=Vector2(34,80)
 	var picture=TextureRect.new();picture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;picture.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;picture.texture=CardDB.art(c.id);picture.position=Vector2(32,140);picture.size=Vector2.ONE*minf(415,p.size.y-250);p.add_child(picture)
 	var x=490.0;var a=game.alignments(id) if game!=null else c.align
-	if c.kind!="plot":
+	if c.kind not in ["plot","resource"]:
 		var values=[game.stat(id,"p"),game.stat(id,"gp"),game.stat(id,"r"),game.stat(id,"slots")] if game!=null and game.nodes.has(id) else [c.p,c.gp,c.r,c.slots]
 		_label("P %d   GP %d   R %d   下属槽 %d"%values,p,30,CREAM).position=Vector2(x,140)
 		_label(" · ".join(a),p,27,TEAL).position=Vector2(x,200)
 		_label(" / ".join(game.tags(id) if game!=null else c.tags),p,22,Color("b7c7b0")).position=Vector2(x,249)
 		if game!=null and game.nodes.has(id) and not game.is_root(id):_label("忠诚 +%d   位置 +%d"%[game.loyalty_defense(id),game.position_defense(id)],p,24,TEAL).position=Vector2(x+270,249)
-	else:_label(c.category,p,28,TEAL).position=Vector2(x,140)
+	else:_label(c.category+(" · "+c.mode if c.kind=="resource" else ""),p,28,TEAL).position=Vector2(x,140)
 	var text=c.effect
 	if c.kind=="plot":
 		text=CardDB.plot_text(c)
 		if game!=null and game.covenant.is_goal(c.id):text+="\n\n"+game.covenant.reader_text(c.id)
 	if c.kind=="faction":text+="\n\n胜利 · "+c.get("goal","")
-	var body_y=305 if c.kind!="plot" else 205
+	var body_y=205 if c.kind in ["plot","resource"] else 305
 	var col=_scroll_column(p,Rect2(Vector2(x,body_y),Vector2(p.size.x-x-45,p.size.y-body_y-100)));col.get_parent().name="ReaderScroll"
 	interactions.attachment_buttons(id,col)
 	_wrapped(text,col,27)
@@ -851,7 +871,7 @@ func _piles() -> void:
 	_label("公开牌区",p,30,GOLD).position=Vector2(26,20)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(26,85);scroll.size=Vector2(828,460);p.add_child(scroll)
 	var col=VBoxContainer.new();col.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(col)
-	var piles={"团体弃牌":game.discards.group,"阴谋弃牌":game.discards.plot,"你的摧毁记录":game.graves[0],"AI 的摧毁记录":game.graves[1],"已公开的对手手牌":game.exposed.filter(func(id):return id in game.hands[1].group or id in game.hands[1].plot)}
+	var piles={"团体弃牌":game.discards.group,"阴谋弃牌":game.discards.plot,"资源弃牌":game.discards.resource,"资源报废":game.scrap,"你的摧毁记录":game.graves[0],"AI 的摧毁记录":game.graves[1],"已公开的对手手牌":game.exposed.filter(func(id):return id in game.hands[1].group or id in game.hands[1].plot)}
 	for key in piles:
 		_label(key+" · %d"%piles[key].size(),col,22,GOLD)
 		for id in piles[key]:_button(game.title(id),func():_inspect(id),col)
@@ -874,9 +894,9 @@ func _help(page: String="basic") -> void:
 	var tabs=HBoxContainer.new();tabs.position=Vector2(28,77);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
 	for key in ["basic","disaster","cards","controls"]:_button({"basic":"基础","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
 	var pages={
-		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
+		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n开局每人抽1张资源。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
 		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
-		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。",
+		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n资源：主要阶段花主牌1行动抽1张，满手不可抽。手牌默认上限2。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
 	_button("返回设置",_settings,p).position=Vector2(640,585)
