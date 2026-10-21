@@ -1,0 +1,4541 @@
+{
+  "schema": 1,
+  "language": "en",
+  "ui": {
+    "\n\n胜利 · ": "\n\nVictory · ",
+    "\n尚未部署。主要阶段花主牌1行动，与自动接管共用每回合1次机会。": "\nNot deployed. Spend your Illuminati's action during your main phase to deploy. Shares the once-per-turn Automatic Takeover opportunity.",
+    "\n技术封锁 · 失效至本回合结束": "\nTechnology Blockade · disabled until turn end",
+    "\n效果 · ": "\nEffect · ",
+    "\n本回合抽牌次数已用": "\nThis turn's draw already used",
+    "\n目标会在灾难开始时失去标记；法治保障可保护。\n忽略阵营、忠诚和位置。双方仍可响应。": "\nThe target loses its action when the disaster starts, unless protected by Rule of Law.\nIgnore alignment, loyalty, and position. Both players may respond.",
+    "\n胜利 · ": "\nVictory · ",
+    "\n费用 · ": "\nCost · ",
+    "\n适用团体 · ": "\nEligible groups · ",
+    " · 下属槽失效，选择整支回手": " · Slot lost: return a branch to hand",
+    " · 不掷骰": " · No roll",
+    " · 令攻击失败": " · Make the attack fail",
+    " · 化干戈 → ": " · Swords into Plowshares → ",
+    " · 占星（1–3额外+2）": " · Astrology (1–3: +2)",
+    " · 另弃1张牌": " · Discard 1 extra card",
+    " · 可恢复1个团体": " · May restore 1 group's action",
+    " · 固定骰点3＋4": " · Set dice to 3 + 4",
+    " · 孤军破袭（忽略位置，无进攻支援）": " · Lone Raid (ignore position; no attacking support)",
+    " · 对手支援-4": " · Enemy support -4",
+    " · 并行计算+2": " · Parallel Computing +2",
+    " · 弃": " · Discard ",
+    " · 弹性扩容": " · Elastic Scaling",
+    " · 强度+2": " · Strength +2",
+    " · 战后恢复行动标记": " · Restore action after battle",
+    " · 抽1张": " · Draw 1 ",
+    " · 推荐流选择「": " · Recommendation Feed selects \"",
+    " · 支援": " · Support ",
+    " · 效果生效": " · Effect resolves",
+    " · 本回合进场，不能获得行动": " · Entered this turn; cannot gain actions",
+    " · 本回合额外恢复已用": " · Extra refresh already used this turn",
+    " · 查看": " · Inspect",
+    " · 法国防守自由目标 +4": " · France defending Liberal target +4",
+    " · 海底光缆+1": " · Submarine Cable +1",
+    " · 消耗1行动": " · Spend 1 action",
+    " · 监管调查已解除": " · Regulatory Probe removed",
+    " · 目标条件已不满足": " · Goal no longer met",
+    " · 目标阴谋宣告胜利": " · Goal Plot declares victory",
+    " · 训练+2": " · Training +2",
+    " · 连锁加盟免主牌标记": " · Franchising waives Illuminati action",
+    " · 选择方式或费用": " · Choose mode or cost",
+    " · 通行费弃": " · Toll: discard ",
+    " · 遥感网络+1": " · Remote Sensing +1",
+    " · 部署到主牌旁": " · Deploy beside your Illuminati",
+    " · 防御+6": " · Defense +6",
+    "1V1 · 共享牌堆 · 离线 AI": "1v1 · Shared decks · Offline AI",
+    "AI 正在响应…": "AI is responding…",
+    "AI 正在行动…": "AI is acting…",
+    "AI 的回合": "AI's Turn",
+    "AI 的摧毁记录": "AI destruction record",
+    "·灾难": " · Disaster",
+    "·目标": " · Goal",
+    "⠿ 拖动": "⠿ Drag",
+    "一次性": "One-use",
+    "上一步": "Back",
+    "上一页": "Previous",
+    "下一张放在堆顶顺序中": "Choose the next card in the top-deck order",
+    "下一页": "Next",
+    "不使用训练": "Save Training",
+    "不再追加": "No further response",
+    "不变": "Unchanged",
+    "不可用": "Unavailable",
+    "不启用": "Off",
+    "不抽团体": "Skip Group",
+    "不抽阴谋": "Skip Plot",
+    "不能支援": "Cannot support",
+    "不适用于本次攻击": "Not applicable to this attack",
+    "与目标互为直属上下级": "Direct parent and child",
+    "与目标有共同阵营": "Shares an alignment with target",
+    "与目标有相反阵营": "Has an opposing alignment to target",
+    "世界秩序": "World Order",
+    "两类都抽 · 启用筛选": "Draw both · use filters",
+    "主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。": "Action ability: Once during your main phase, spend this group's action unless stated otherwise.\nRestore: The card must have no action, no extra refresh used, and must not have entered play or been seized this turn.\n\nWhile in play: Persists through ownership changes; clears on leaving play.\nDirect aura: Applies only to the specified direct parent or subordinate. Ends if the source is disabled or the relationship ends.\nLost slots: The controller returns excess branches to hand. Voluntary moves must leave legal capacity.\n\nAttachments move with their group and are discarded when it leaves play.\nA branch includes the group and all descendants; moving it does not reset its state.\nPreparedness: At most 1; consumed for +4 disaster defense.\nTemporary alignments expire at turn end. Discard excess hand cards when required.\n\nGoal Plots count toward your Plot hand limit; keep at most 1. Play one during your main phase when its goal is met to declare victory. It may be countered and costs no action.\n\nExtra draw: Spend your Illuminati's action to draw 1 card from any deck. Resource hand limit: 2; cannot draw Resources at capacity.\nDeployment shares one use per turn with Automatic Takeover and normally costs your Illuminati's action.\nAt most 2 resources in play, beside the Illuminati. At capacity, scrap one to replace it.\nAction-based resources enter with 0 actions, refill next own turn, and follow normal extra-refresh limits.\nResources do not count as groups or group Power and cannot provide normal support. Passive, triggered, and one-use resources follow their own text. Scrapped resources cannot be recovered this game.\nRequisition to hand is not scrapping. Swapped resources retain state but lose their actions and cannot be readied that turn.",
+    "主牌": "Illuminati",
+    "主牌不可成为攻击目标。": "Illuminati cannot be attacked.",
+    "主牌行动 · 抽牌": "Illuminati action · Draw",
+    "主菜单": "Main Menu",
+    "事实核查": "Fact Check",
+    "事实核查 · 弃1张阴谋，否则取消出牌": "Fact Check · discard 1 Plot or cancel",
+    "事实核查 · 追加弃牌费用": "Fact Check · pay extra discard",
+    "事故添乱 · 灾难威力+3": "Accidental Chaos · Disaster +3",
+    "五角大楼 · 直属军队": "Pentagon · direct Military subordinate",
+    "产品发布 · 招募后抽1张阴谋": "Product Launch · Draw 1 Plot after recruitment",
+    "人道撤离 · 红十字会": "Humanitarian Evacuation · Red Cross",
+    "仅主要阶段可用，不能在战斗中打出": "Main phase only; cannot play during battle",
+    "从团体和阴谋堆各抽一张。": "Draw 1 Group and 1 Plot.",
+    "从这五张中选一张 · 其余四张保留在手中": "Choose 1 of these 5 · Keep the other 4",
+    "以上未计攻击者能力、支援与阴谋。": "Excludes the attacker's abilities, support, and Plots.",
+    "企业": "Corporate",
+    "伪造身份 · 本回合阵营：": "Forged Identity · alignments this turn: ",
+    "你": "You",
+    "你  ": "You  ",
+    "你 · ": "You · ",
+    "你的响应 · 追加一次后交给对方": "Your response · Add one, then yield",
+    "你的回合": "Your Turn",
+    "你的摧毁记录": "Your destruction record",
+    "使用资源": "Use Resource",
+    "保守": "Conservative",
+    "保护1次普通摧毁": "Prevent one normal destruction",
+    "保留了1张目标阴谋": " keeps 1 Goal Plot",
+    "保镖 · 挡下1次普通摧毁，随后弃掉并清空本团体标记。": "Bodyguard · Stops one normal destruction, then is discarded and removes the target's action.",
+    "保镖 · 挡下摧毁": "Bodyguard · Prevent destruction",
+    "保镖 → ": "Bodyguard → ",
+    "保镖保护": "Bodyguard protection",
+    "保镖挡下摧毁": "Bodyguard prevents destruction",
+    "借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。": "Debt: Skip the next action refresh by the controller. Does not remove an existing action.",
+    "兄弟会 · 同级互助": "Fraternal Orders · Sibling Solidarity",
+    "先支援": "Support first",
+    "光 明 会    /    暗 流 对 决": "ILLUMINATI / SHADOW RIVALRY",
+    "光明会": "Illuminati",
+    "光明会主牌": "Illuminati faction",
+    "光明会的计划已经完成": "Your Illuminati's plan is complete",
+    "免掷骰进场。新团体当回合无行动标记，且不能恢复。": "Enter without a roll. New recruits have no action and cannot be readied this turn.",
+    "全场 · 公共秩序": "Global · World Order",
+    "全局": "All",
+    "全球巡演 → ": "World Tour → ",
+    "全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。": "Return all Groups in hand, shuffle, and redraw the same number. Plots are unchanged.",
+    "全部放回": "Return all",
+    "公共秩序 · ": "World Order · ",
+    "公关危机 · 本回合卡面能力失效。": "PR Crisis · Printed ability disabled this turn.",
+    "公关危机 → ": "PR Crisis → ",
+    "公开牌区": "Public Piles",
+    "公开身份模板": "Revealed identity template",
+    "公开选择": "Public selection",
+    "公有化 · ": "Nationalization · ",
+    "共产": "Communist",
+    "共产支援可用P": "Communist supporters may use P",
+    "关键传球": "Key Pass",
+    "关键传球 → ": "Key Pass → ",
+    "关闭": "Close",
+    "其他抽牌方式": "Other draw options",
+    "内容出海 · 可选择一张": "Cultural Exports · You may choose 1",
+    "再来一局": "Play Again",
+    "军工整备 → ": "Military Refitting → ",
+    "军队": "Military",
+    "减少动态效果": "Reduce motion",
+    "凤凰护符 · 防御+6 · 报废资源": "Phoenix Amulet · Defense +6 · Scrap",
+    "列出目标": "List Targets",
+    "初始团体从五张手牌中选，可整手重随至多2次。\n初始团体选完后，从5张资源候选中选1张入手，可独立重随2次。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。": "Choose your starting Group from 5 cards; redraw the whole hand up to twice.\nThen choose 1 Resource from 5 candidates, with 2 separate redraws. Groups, Resources, and Plots use shared decks.\nRoll for initiative. The second player draws 1 extra Plot.\nDraw → Refresh → Main Phase → End Turn. Check Illuminati goals at turn end.\nPlay Goal Plots during your main phase when qualified; they may be countered.\n\nAutomatic Takeover: Once per turn; spend the Illuminati action. New groups have no action and cannot be readied this turn. Recruitment by Control works the same way.\nControl: The leader needs a free slot. Success seizes the entire branch.\nDestroy: Destroy only the target; return its descendants to their owner's hand.\n\nPlayers alternate support and Plot responses. Two consecutive passes end responses.\nRoll 2d6 at or below final strength to succeed; 11 and 12 always fail.\n\nAttacking support: Control uses P for a shared alignment; Destroy uses P for opposing alignments. Otherwise use GP.\nDefensive support uses P for a shared alignment or a direct parent/child relationship; otherwise GP. Fanatic is never a shared alignment unless a card says so.\nSupport normally costs 1 action. Never add P and GP together.",
+    "初始手下同时亮出 · 选择初始资源": "Starting groups revealed · Choose a Resource",
+    "力量": "Power",
+    "势均力敌": "Stalemate",
+    "化干戈": "Swords into Plowshares",
+    "化干戈 · 暴力转为和平，在场期间保留。": "Swords into Plowshares · Violent becomes Peaceful while in play.",
+    "化干戈 → ": "Swords into Plowshares → ",
+    "卡牌图鉴": "Card Library",
+    "卡面用语": "Card Terms",
+    "卫星通讯 · 本回合GP等于P": "Satellite Link · GP = P this turn",
+    "双方主牌同时揭晓 · 点击卡面查看完整能力": "Factions reveal together · Click a card to inspect",
+    "双方同时完成目标": "Both players completed their goals",
+    "双方完成响应，准备掷骰…": "Responses complete. Preparing dice…",
+    "双轨窃听": "Dual Interception",
+    "双轨窃听 · 可将1张置于原牌堆底": "Dual Interception · You may bottom-deck 1 card",
+    "反制": "Counter",
+    "反应": "Reaction",
+    "发动灾难": "Launch Disaster",
+    "发动能力": "Activate Ability",
+    "发起攻击": "Launch Attack",
+    "取得卡牌": "Card acquired",
+    "取消": "Cancel",
+    "取消 · ": "Cancel · ",
+    "受灾": "Devastated",
+    "受灾 · P/GP减半": "Devastated · P/GP halved",
+    "受灾 · P／GP减半；不能行动或补标记，不计胜利。需重建。": "Devastated · P/GP halved; no actions or refresh; does not count for victory. Rebuild to recover.",
+    "另一团体": "Other group",
+    "可用": "Available",
+    "右侧": "Right",
+    "各抽一张": "Draw both",
+    "名人": "Celebrity",
+    "后勤无人机 · 移动整支团体": "Logistics Drone · Move a branch",
+    "启用": "On",
+    "命运硬币 · 骰点固定3＋4 · 报废": "Coin of Fate · Set dice 3 + 4 · Scrap",
+    "和平": "Peaceful",
+    "回收1张战斗阴谋": "Recover 1 Battle Plot",
+    "团体": "Group",
+    "团体 ": "Groups ",
+    "团体弃牌": "Group discards",
+    "团体抽二留一": "Draw 2 Groups, keep 1",
+    "国际气象组织 · 灾难防御+5。": "International Weather Organization · Disaster defense +5.",
+    "图鉴数值 · 进场后可查看忠诚、位置与当前状态。": "Printed library values. Enter play to see loyalty, position, and current state.",
+    "地点": "Place",
+    "基础": "Basics",
+    "墨西哥支付行动，带头者保留标记。\n": "Mexico pays the action; the leader keeps its action.\n",
+    "备": "Prep",
+    "太空": "Space",
+    "失效": "Disabled",
+    "失败": "Failed",
+    "媒体": "Media",
+    "孤军破袭 · 忽略位置，无进攻支援": "Lone Raid · Ignore position; no attacking support",
+    "孤军破袭 · 忽略位置，无进攻支援。\n": "Lone Raid · Ignore position; no attacking support.\n",
+    "孤军破袭 · 忽略位置，禁用进攻支援": "Lone Raid · Ignore position; block attacking support",
+    "孤军破袭 · 无进攻支援": "Lone Raid · No attacking support",
+    "孤军破袭 · 进攻方式": "Lone Raid · Attack mode",
+    "安插特工 · 查看并弃掉一张": "Agent in Place · Inspect and discard 1",
+    "定向投放：本回合GP+2，不超过有效P。": "Targeted Advertising: +2 GP this turn, up to effective P.",
+    "宣告胜利": "Declare Victory",
+    "宣告胜利 · ": "Declare Victory · ",
+    "对局结束": "Game Over",
+    "对手": "Rival",
+    "对手主牌": "Enemy Illuminati",
+    "对手仍受开局保护": "Opponent still has opening protection",
+    "对手打出阴谋时可反制": "Counter when the opponent plays a Plot",
+    "对政府团体的控制攻击，额外防御 +2。": "+2 defense against Government-led Control attacks.",
+    "对方": "Opponent",
+    "对暴力团体的摧毁攻击，额外防御 +4。": "+4 defense against Violent-led Destroy attacks.",
+    "封存秘闻 → ": "Seal the Secrets → ",
+    "将5张候选资源放回并重抽；不影响团体和阴谋。": "Return all 5 Resource candidates and redraw. Groups and Plots are unchanged.",
+    "小团体": "Small groups",
+    "尚未计入支援与阴谋。\n确认后双方交替响应。": "Excludes support and Plots.\nPlayers alternate responses after confirmation.",
+    "尚未达成": "Not met",
+    "展开": "Expand",
+    "工业标准：来自德国的抗性 +2。": "Industrial Standards: +2 R from Germany.",
+    "左侧": "Left",
+    "巨大": "Huge",
+    "己方": "Mine",
+    "己方主要阶段": "Your Main Phase",
+    "己方主要阶段可宣告": "May declare in your main phase",
+    "己方主要阶段达标后主动打出，可被反制。": "Play during your main phase when the goal is met; may be countered.",
+    "已公开的对手手牌": "Revealed enemy hand cards",
+    "已报废 · 本局不回收。": "Scrapped · Cannot be recovered this game.",
+    "已消耗": "Consumed",
+    "已生效": "Resolved",
+    "已被事实核查取消": "Cancelled by Fact Check",
+    "已被反制": "Countered",
+    "广告GP+2": "Advertising GP +2",
+    "应急电池 · 报废，恢复1行动": "Emergency Battery · Scrap: restore 1 action",
+    "开始对局": "Start Game",
+    "弃1张阴谋 · 取消对手阴谋": "Discard 1 Plot · Cancel enemy Plot",
+    "弃牌": "Discard",
+    "弃牌 · ": "Discard · ",
+    "弹性扩容 · ": "Elastic Scaling · ",
+    "弹性扩容 · 基础支援翻倍": "Elastic Scaling · Double base support",
+    "弹性扩容 · 支援方式": "Elastic Scaling · Support mode",
+    "征用了「": " requisitions \"",
+    "待招募": "Recruit pending",
+    "待结算": "Pending",
+    "忍者禁止目标的直属上级支援": "Ninjas block the target's direct parent from supporting",
+    "忽略位置": "Ignore position",
+    "怪异": "Weird",
+    "恢复1标记 · 抽1团体": "Restore 1 action · Draw 1 Group",
+    "成功": "Success",
+    "或普通摧毁": " or normal Destroy attack",
+    "战利品 · 可回收1张原附着": "Spoils of War · May recover 1 former attachment",
+    "战后恢复行动标记": "Restore action after battle",
+    "战后护送 · 可选择新的上级": "Post-Battle Escort · May choose a new parent",
+    "战斗": "Battle",
+    "战斗响应": "Battle Response",
+    "战术雷达 · 强度+2 · 花资源1行动": "Tactical Radar · Strength +2 · Spend resource action",
+    "手牌已满": "Hand full",
+    "打出阴谋": "Play Plot",
+    "技术交换 · ": "Technology Exchange · ",
+    "技术封锁 → ": "Technology Blockade → ",
+    "投递 · 弃一张手牌": "Delivery · Discard 1 hand card",
+    "抗性": "Resistance",
+    "报废替换": "Scrap to replace",
+    "报废自身发动 · 无需行动": "Scrap to activate · No action needed",
+    "报废资源": "Scrap resource",
+    "抵御科学或太空团体的控制攻击，额外防御 +4。": "+4 defense against Science- or Space-led Control attacks.",
+    "抽1张": "Draw 1 ",
+    "抽3张阴谋": "Draw 3 Plots",
+    "抽二留一 · 选择加入手牌": "Draw 2, keep 1 · Choose a card",
+    "抽取 · 2张": "Draw · 2 ",
+    "抽团体": "Draw Group",
+    "抽牌": "Draw",
+    "抽牌收益": "Draw reward",
+    "抽牌收益 · 抽1张": "Draw reward · Draw 1 ",
+    "抽阴谋": "Draw Plot",
+    "持续": "Passive",
+    "持续生效 · 无需行动": "Passive effect · No action needed",
+    "授信 · 弃一张团体": "Credit Line · Discard 1 Group",
+    "控制": "Control",
+    "控制攻击": "Control attack",
+    "推荐流": "Recommendation Feed",
+    "推荐流 · 对方选择1张": "Recommendation Feed · Opponent chooses 1",
+    "推荐流 · 选择1张势力牌": "Recommendation Feed · Choose 1 Group",
+    "摧毁": "Destroy",
+    "摧毁成功": "Target Destroyed",
+    "摧毁攻击": "Destroy attack",
+    "摸牌": "Draw card",
+    "操作": "Controls",
+    "支援": "Support",
+    "支援进攻": "Support attack",
+    "支援防守": "Support defense",
+    "收起": "Collapse",
+    "收起不适用手牌": "Hide inapplicable cards",
+    "收起大卡": "Close Card",
+    "收起战况": "Hide battle",
+    "攻击": "Attack",
+    "攻击失败": "Attack Failed",
+    "攻击成功": "Attack Succeeded",
+    "攻击招募": "Recruit by attack",
+    "放回堆底": "Put on bottom",
+    "放回牌堆": "Return to deck",
+    "放行": "Pass",
+    "政府": "Government",
+    "效果结算": "Resolving",
+    "效果触发": "Triggered effect",
+    "救援撤离": "Evacuated",
+    "数字诱饵 · 对手支援-4 · 报废": "Digital Decoy · Enemy support -4 · Scrap",
+    "新世界秩序：": "NWO: ",
+    "新增": "Add",
+    "新增标签 · ": "Added tags · ",
+    "无完整力量资格，使用全球力量": "No full-P eligibility; use GP",
+    "无标记 · 当前不可支援或自卫": "No action · Cannot support or self-defend",
+    "星象助阵 · ": "Astrological Aid · ",
+    "星象助阵 · 支援方式": "Astrological Aid · Support mode",
+    "星象助阵 · 骰1–3再+2": "Astrological Aid · Roll 1–3 for +2",
+    "普通摧毁 · 可接受进攻支援": "Normal Destroy · Attacking support allowed",
+    "普通支援 · ": "Normal support · ",
+    "暂无可用支援": "No support available",
+    "暂无手牌": "No cards in hand",
+    "暂无适用阴谋": "No applicable Plots",
+    "暂时收起窗口，查看场上与手牌，再返回继续操作。": "Temporarily hide this window to inspect the board and your hand, then return to continue.",
+    "暗流反噬": "Your Rival Prevails",
+    "暗流记录": "Shadow Journal",
+    "暴力": "Violent",
+    "替身骗局": "Decoy Hoax",
+    "替身骗局 · 取消": "Decoy Hoax · Cancel",
+    "替身骗局 · 取消阴谋": "Decoy Hoax · Cancel Plot",
+    "替身骗局 · 弃": "Decoy Hoax · Discard ",
+    "最近战斗": "Last Battle",
+    "未获收益": "No reward",
+    "未进场\n忠诚 +0   位置 +0\n进场后才可支援或自卫。": "Not in play\nLoyalty +0   Position +0\nEnter play before supporting or self-defending.",
+    "末日储备 · 弃": "Doomsday Reserves · Discard ",
+    "本回合GP等于有效P。": "GP equals effective P this turn.",
+    "本回合不能补标记": "Cannot gain an action this turn",
+    "本回合主动能力已用。": "Action ability already used this turn.",
+    "本回合回收的牌，不能打出": "Recovered this turn; cannot be played",
+    "本回合进场或被夺取 · 不能获得行动标记。": "Entered or seized this turn · Cannot gain an action.",
+    "本回合限次效果已用。": "Once-per-turn effect already used.",
+    "本回合额外恢复次数已用。": "Extra refresh already used this turn.",
+    "本回合额外恢复次数未用。": "Extra refresh available this turn.",
+    "本次忽略位置防御": "Ignore position defense this attack",
+    "本次战斗": "This Battle",
+    "本次战斗可用": "Usable this battle",
+    "本次预览 · ": "Attack preview · ",
+    "条件达成": "Goal met",
+    "查看": "Inspect",
+    "查看大卡": "Inspect Card",
+    "查看战场": "View Board",
+    "查看战场 · 对局暂停": "View Board · Game paused",
+    "查看目标": "Inspect Target",
+    "标签": "Tags",
+    "横屏移动布局": "Landscape mobile layout",
+    "止战之声 · 后续军队仅GP": "Voice for Peace · Later Military support: GP only",
+    "止战之声 · 后续进攻军队仅GP": "Voice for Peace · Later attacking Military: GP only",
+    "正常掷骰 · 两颗骰子": "Roll normally · Two dice",
+    "正统": "Straight",
+    "沿海": "Coastal",
+    "海啸 · 选择整支撤回手牌的下属": "Tidal Wave · Choose a subordinate branch to return",
+    "海峡屏障 · 禁止此GP支援": "Strait Barrier · This GP support is blocked",
+    "消耗1训练 · 攻击强度+2": "Spend 1 Training · Strength +2",
+    "消耗该团体1行动": "Spend 1 action from this group",
+    "消费者协会 · 抵御企业的控制攻击时，防御+2。": "Consumer Watchdogs · +2 defense against Corporate-led Control attacks.",
+    "深空探测器 · 查看资源堆顶3张": "Deep Space Probe · Inspect top 3 Resources",
+    "满足条件自动触发 · 无需行动": "Triggers when qualified · No action needed",
+    "潮流更替 · 可弃一张阴谋重抽": "Changing Trends · May discard 1 Plot to redraw",
+    "灾": "Dev",
+    "灾难与状态": "Disasters & States",
+    "灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。": "Disasters attack Places and cost an action from a non-Illuminati group.\nAfter the counter window, remove the target's action, consume Preparedness, then alternate responses.\n\nDisaster strength attacks the target's P; Switzerland uses R.\nIgnore alignment, loyalty, and position. Only the defender can provide normal support.\nAbilities limited to normal attacks do not apply to disasters.\n\nDevastated: P/GP halved, cannot act, and does not count for victory. Descendants are unaffected.\nRebuild: Spend 1 group action in your main phase; Huge Places need 2 different groups. Heavy Repair Vehicle reduces this to 1.\nRebuilding does not grant an action immediately.\n\nPreparedness: +4 defense against the next disaster.\nTraining: Ronaldo may spend 1 when leading an attack for +2 strength.\nPlan: Decide whether to use it when launching a Control attack.",
+    "牌堆已空": "Deck empty",
+    "犯罪": "Criminal",
+    "狂热": "Fanatic",
+    "狙击 · 忽略位置防御": "Sniper · Ignore position defense",
+    "玩法与操作": "Rules & Controls",
+    "班轮网络": "Liner Network",
+    "电信公司 · 直属下属": "Telecommunications Company · direct subordinate",
+    "疫情暴发 · 弃1张阴谋": "Epidemic · Discard 1 Plot",
+    "监管GP 0": "Regulated: GP 0",
+    "监管调查 · GP 0；己方主要阶段可花本团体1标记解除。": "Regulatory Probe · GP 0; spend this group's action in your main phase to remove it.",
+    "目标": "Target",
+    "目标 · ": "Target · ",
+    "目标 · 对手阴谋手牌": "Target · Enemy Plot hand",
+    "目标GP变为0": "Target GP becomes 0",
+    "目标不能自卫": "Target cannot self-defend",
+    "目标受灾": "Target Devastated",
+    "目标本次不能自卫。\n": "Target cannot self-defend this battle.\n",
+    "目标达成 · 等待反制": "Goal met · Awaiting counters",
+    "目标阴谋最多1张 · 选择保留": "Keep at most 1 Goal Plot · Choose one",
+    "矿产供给 · 弃1张团体": "Mineral Supply · Discard 1 Group",
+    "矿产供给 · 弃团体代替主牌行动": "Mineral Supply · Discard Group instead of Illuminati action",
+    "矿产出口 · 弃1团体，抽1资源": "Mineral Exports · Discard 1 Group, draw 1 Resource",
+    "确认": "Confirm",
+    "社区住房合作社 · 本团体下属槽+1，上限3。": "Community Housing Cooperatives · +1 subordinate slot, up to 3.",
+    "私人博物馆 · 抽1张阴谋": "Private Museum · Draw 1 Plot",
+    "私人档案库 · 抽1张阴谋": "Private Archives · Draw 1 Plot",
+    "科学": "Science",
+    "秘宝": "Relic",
+    "秩序 · ": "Order · ",
+    "移至": "Move to ",
+    "空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。": "Drag empty space to pan. Use the wheel or two fingers to zoom.\nMine / Rival / All frame the board.\n\nClick to select. Hover, right-click, long-press, or choose Inspect Card to read it.\nIn setup, card art only opens inspection. Use Select to confirm.\nMulti-target actions use separate steps. Back and Cancel are free before confirmation.\nIn a group reader, inspect attachments with their buttons; closing returns to the group.\nCard flights finish before rules commit; input is paused during effects.\n\nYou can select an enemy target first, then Control or Destroy and a leader.\nDrag battle and attack-preview windows by their title bars.\n\nAll card images use square frames without stretching or cropping.\nSmall-card alignments use abbreviations; inspect the card for full names.\n\nAudio: Kenney Interface Sounds / CC0.\nFont: Noto Sans SC / OFL.",
+    "等待卡牌适用时机": "Wait for an eligible timing",
+    "策动": "Initiator",
+    "签证通道 · 撤入迪拜": "Visa Channel · Move into Dubai",
+    "算力GP=P": "Compute: GP = P",
+    "算法时代": "The Algorithmic Age",
+    "算法时代 · ": "Algorithmic Age · ",
+    "算法时代 · 支援方式": "Algorithmic Age · Support mode",
+    "算法时代 · 本战限1次": "Algorithmic Age · Once per battle",
+    "精密爆破 → ": "Precision Demolition → ",
+    "结束回合": "End Turn",
+    "结束回合  →": "End Turn →",
+    "维和护卫": "Peacekeeping Escort",
+    "绿色": "Green",
+    "联合倡议 · 抽1张阴谋": "Joint Initiative · Draw 1 Plot",
+    "联合动员": "Joint Mobilization",
+    "联合动员 · 后续共产支援可用P": "Joint Mobilization · Later Communist support may use P",
+    "胜利 · ": "Victory · ",
+    "能力": "Ability",
+    "能力失效": "Ability disabled",
+    "能力已用": "Ability used",
+    "自动接管": "Automatic Takeover",
+    "自动接管 → ": "Automatic Takeover → ",
+    "自发应援 · 弃": "Fan Support · Discard ",
+    "自律训练 · 强度+2": "Disciplined Training · Strength +2",
+    "自律训练 · 进攻方式": "Disciplined Training · Attack mode",
+    "自治工厂 · 直属共产下属 P+2。": "Worker-Managed Factories · Direct Communist subordinates P +2.",
+    "自由": "Liberal",
+    "花1行动 · 解除监管": "Spend 1 action · Remove Probe",
+    "花主牌1行动": "Spend Illuminati action",
+    "花主牌1行动 · 抽1张": "Spend Illuminati action · Draw 1",
+    "花主牌1行动抽取": " spends the Illuminati action to draw ",
+    "花主牌1行动，从团体、资源或阴谋堆抽1张。": "Spend your Illuminati's action to draw 1 card from the Group, Resource, or Plot deck.",
+    "获得": "Gain ",
+    "获得共产标签": "Gain Communist tag",
+    "行动": "Action",
+    "行动 · ": "Action · ",
+    "装置": "Gadget",
+    "解除监管": "Remove Probe",
+    "解除监管 · ": "Remove Probe · ",
+    "触发": "Triggered",
+    "计划得逞": "Your Plan Succeeds",
+    "计算机": "Computer",
+    "设置": "Settings",
+    "负债：下次不补标记": "Debt: skip next refresh",
+    "资本枢纽：来自纽约的GP +1，不超过P。": "Capital Hub: +1 GP from New York, up to P.",
+    "资源": "Resource",
+    "资源 ": "Resources ",
+    "资源 · ": "Resource · ",
+    "资源已满 · 选择报废替换的资源": "Resources full · Choose one to scrap",
+    "资源弃牌": "Resource discards",
+    "资源弃牌堆 · 资源堆用尽时洗回。": "Resource discard pile · Shuffled back when the deck empties.",
+    "资源报废": "Scrapped resources",
+    "赫尔墨斯门徒 · 秘术共鸣": "Adepts of Hermes · Arcane Resonance",
+    "趁乱收购 · 可免费重建": "Opportunistic Acquisition · May rebuild for free",
+    "跨界整合 · 当前标签：": "Cross-Sector Integration · Current tags: ",
+    "跳过": "Skip",
+    "轨道接驳 → ": "Orbital Connection → ",
+    "轨道观测 · 可选择一张": "Orbital Observation · You may choose 1",
+    "转化": "Converted",
+    "返回": "Back",
+    "返回主菜单": "Main Menu",
+    "返回团体": "Back to Group",
+    "返回操作窗口": "Return to Action",
+    "返回游戏": "Resume Game",
+    "返回设置": "Back to Settings",
+    "进攻": "Attack",
+    "远程中继": "Remote Relay",
+    "连锁加盟 · 免主牌标记 → ": "Franchising · No Illuminati action → ",
+    "逆向叙事 · ": "Reframing · ",
+    "逆向研发 · 查看2张资源，取1张": "Reverse Engineering · Inspect 2 Resources, keep 1",
+    "选1张加入手牌 · 其余返回资源堆": "Keep 1 in hand · Return the rest to the deck",
+    "选择": "Select",
+    "选择1张资源加入手牌": "Choose 1 Resource to keep",
+    "选择你的光明会": "Choose Your Illuminati",
+    "选择光明会": "Choose Illuminati",
+    "选择初始手下": "Choose Starting Group",
+    "选择初始资源": "Choose Starting Resource",
+    "选择另一团体": "Choose another group",
+    "选择团体费用": "Choose Group cost",
+    "选择己方交换资源": "Choose your resource to swap",
+    "选择带头团体": "Choose attack leader",
+    "选择带头团体 · ": "Choose attack leader · ",
+    "选择弃牌费用": "Choose discard cost",
+    "选择手牌或场上团体": "Select a card in hand or on the board",
+    "选择接管位置": "Choose takeover slot",
+    "选择控制目标": "Choose Control target",
+    "选择掷骰方式": "Choose dice mode",
+    "选择摧毁目标": "Choose Destroy target",
+    "选择操作": "Choose action",
+    "选择支付行动的团体": "Choose the group paying the action",
+    "选择新增标签": "Choose a new tag",
+    "选择新的上级": "Choose new parent",
+    "选择最先抽到的牌": "Choose the next card to draw",
+    "选择牌堆": "Choose Deck",
+    "选择目标": "Choose target",
+    "选择目标团体": "Choose target group",
+    "选择目标资源": "Choose target resource",
+    "选择能力或行动来源": "Choose ability or action source",
+    "选择要移除的附着": "Choose attachment to remove",
+    "选择部署费用": "Choose deployment cost",
+    "部署了「": " deploys \"",
+    "部署资源": "Deploy Resource",
+    "部署资源 · 花主牌1行动": "Deploy Resource · Spend Illuminati action",
+    "采用印刷阵营 · ": "Use printed alignments · ",
+    "重型抢修车 · 重建只需1行动。": "Heavy Repair Vehicle · Rebuild for 1 action.",
+    "重建": "Rebuild",
+    "重建地点": "Rebuild Place",
+    "重建完成 · ": "Rebuilt · ",
+    "重组": "Reorganization",
+    "重随了资源候选": " redraws Resource candidates",
+    "重随资源": "Redraw Resources",
+    "量子计算机 · 弃1张团体": "Quantum Computer · Discard 1 Group",
+    "量子计算机 · 抽2弃1团体": "Quantum Computer · Draw 2 Groups, discard 1",
+    "银行": "Bank",
+    "防备 · 防御+4（已消耗）": "Preparedness · Defense +4 (consumed)",
+    "防备+4": "Prepared +4",
+    "防备消耗 · 防御+4": "Preparedness consumed · Defense +4",
+    "防守": "Defense",
+    "防御": "Defense",
+    "防灾卫星 · 灾难防御+3。": "Disaster Satellite · Disaster defense +3.",
+    "阴谋": "Plot",
+    "阴谋 ": "Plots ",
+    "阴谋弃牌": "Plot discards",
+    "阴谋抽二留一": "Draw 2 Plots, keep 1",
+    "阵营": "Alignment",
+    "阵营归零": "Alignment modifier: 0",
+    "附着": "Attachment",
+    "附着 · ": "Attached · ",
+    "障眼法 · 阵营修正归零": "Misdirection · Alignment modifier becomes 0",
+    "集体谈判 · 本次不能自卫，仍可接受支援。": "Collective Bargaining · Cannot self-defend; may still receive support.",
+    "革命课堂 → ": "Revolutionary Classroom → ",
+    "音效": "Sound",
+    "须先让符合阵营的团体花标记支援": "An eligible aligned group must first spend an action to support",
+    "额外恢复已用": "Extra refresh used",
+    "飓风 · 可移除1个下属标记": "Hurricane · May remove 1 subordinate's action",
+    "首轮结束后可宣告": "May declare after the first full round",
+    "骗局反制": "Counter with Hoax",
+    "高额账单 · 失败后随机弃1阴谋。\n": "Hefty Bill · Failure: randomly discard 1 Plot.\n",
+    "高额账单 · 失败弃1阴谋": "Hefty Bill · Failure: discard 1 Plot",
+    "高额账单 · 对手随机弃1阴谋": "Hefty Bill · Opponent randomly discards 1 Plot",
+    "魔法": "Magic",
+    "（主动）": " (Action)",
+    "（本战限1次）": " (once per battle)",
+    "（离场清除）": " (clears on leaving play)",
+    "，骰1–3再+2": "; roll 1–3 for +2",
+    "；消耗1个行动标记。点击查看卡牌。": "; costs 1 action. Click to inspect.",
+    "语言 / Language": "Language",
+    "槽": "Slots ",
+    "语言": "Language",
+    "中文": "中文",
+    "英文": "English",
+    "组织": "Organization",
+    "设施": "Facility",
+    "己方主要阶段·灾难": "Your Main Phase · Disaster",
+    "己方主要阶段·附着": "Your Main Phase · Attachment",
+    "己方主要阶段·目标": "Your Main Phase · Goal",
+    "己方主要阶段·世界秩序": "Your Main Phase · World Order",
+    "灾难响应": "Disaster Response",
+    "普通控制战斗响应": "Normal Control Response",
+    "普通摧毁战斗响应": "Normal Destroy Response",
+    "普通战斗响应": "Normal Battle Response",
+    "声明胜利": "Declare Victory",
+    "忠诚": "Loyalty",
+    "位置": "Position",
+    "下属槽": "Slots",
+    "被动": "Passive",
+    "自卫": "Self-defense",
+    "准许": "Allow",
+    "张": " cards",
+    "次": " times",
+    "的": "'s ",
+    "回合": "Turn",
+    "并购红利": "Merger Dividend",
+    "创业孵化": "Startup Incubator",
+    "共同信条": "Shared Creed",
+    "边疆据点": "Frontier Outpost",
+    "网络渗透": "Network Infiltration",
+    "数字自由": "Digital Freedom",
+    "旧神的低语": "Whispers of the Old Gods",
+    "普通战斗响应时，花本资源1行动，使己方本次进攻强度+2。": "During a normal battle response, spend 1 action from this resource: your attack strength +2.",
+    "战术雷达": "Tactical Radar",
+    "己方主要阶段，报废本资源，使1个己方团体恢复1行动。": "During your main phase, scrap this resource to restore 1 action to a group you control.",
+    "应急电池": "Emergency Battery",
+    "己方团体抵御灾难时，防御+3。": "Your groups have +3 defense against disasters.",
+    "防灾卫星": "Disaster Monitoring Satellite",
+    "每个己方回合，首次从手牌控制团体后，抽1张阴谋。": "Once on each of your turns, after your first group enters play from your hand, draw 1 Plot.",
+    "私人档案库": "Private Archives",
+    "己方阴谋与资源手牌上限各+1。": "Your Plot and Resource hand limits each increase by 1.",
+    "秘密保险库": "Secret Vault",
+    "己方主要阶段，花本资源1行动，抽2张团体，再弃1张团体手牌。": "During your main phase, spend 1 action from this resource: draw 2 Groups, then discard 1 Group from your hand.",
+    "量子计算机": "Quantum Computer",
+    "抵御普通摧毁的响应中，报废本资源，使本次防御+6。": "While defending against a normal Destroy attack, scrap this resource: defense +6.",
+    "凤凰护符": "Phoenix Amulet",
+    "己方主要阶段，花本资源1行动，查看资源堆顶3张，可取1张，其余沉底。": "During your main phase, spend 1 action from this resource: look at the top 3 Resources. You may take 1; put the rest on the bottom.",
+    "深空探测器": "Deep Space Probe",
+    "己方沿海团体用GP支援时，支援力量+1。": "When your Coastal groups support using GP, their support strength +1.",
+    "海底光缆": "Submarine Cable",
+    "己方主要阶段，花本资源1行动，移动1个己方团体至合法上级。": "During your main phase, spend 1 action from this resource: move one of your groups and its descendants to a legal parent.",
+    "后勤无人机": "Logistics Drone",
+    "己方主要阶段，花本资源1行动，使1个己方团体本回合GP等于P。": "During your main phase, spend 1 action from this resource: one of your groups has GP equal to P this turn.",
+    "卫星通讯终端": "Satellite Terminal",
+    "普通战斗响应时，报废本资源，使对手本次支援力量-4，最低0。": "During a normal battle response, scrap this resource: reduce your opponent's total support by 4, to a minimum of 0.",
+    "数字诱饵": "Digital Decoy",
+    "每回合首次报废己方秘宝资源后，抽1张阴谋。": "Once each turn, after you first scrap a Relic resource you control, draw 1 Plot.",
+    "私人博物馆": "Private Museum",
+    "己方巨大地点重建只需1个团体行动。": "Rebuilding your Huge Places costs only 1 group action.",
+    "重型抢修车": "Heavy Repair Vehicle",
+    "普通战斗响应时，报废本资源，将本次骰点固定为3＋4。": "During a normal battle response, scrap this resource: set this battle's dice to 3 + 4.",
+    "命运硬币": "Coin of Fate",
+    "对犯罪目标发动控制攻击时，攻击强度+2。": "Control attacks against Criminal targets have +2 strength.",
+    "地方警察": "Local Police Departments",
+    "调查（主动）：随机查看对手1张团体手牌，并将该牌公开至本回合结束。": "Investigation (Action): Randomly inspect 1 enemy Group card in hand. Reveal it until this turn ends.",
+    "联邦调查局": "F.B.I.",
+    "调查（主动）": "Investigation (Action)",
+    "调查": "Investigation",
+    "渗透（主动）：移除敌方1个印刷P≤3的团体的行动标记。": "Infiltration (Action): Remove the action from an enemy group with printed P of 3 or less.",
+    "中央情报局": "C.I.A.",
+    "渗透（主动）": "Infiltration (Action)",
+    "渗透": "Infiltration",
+    "截听（主动）：秘密查看阴谋堆顶最多3张，按选择的顺序放回。": "Interception (Action): Secretly look at up to 3 cards from the Plot deck's top. Return them in any order.",
+    "国家安全局": "N.S.A.",
+    "截听（主动）": "Interception (Action)",
+    "截听": "Interception",
+    "军事指挥：带头摧毁时，直属军队可用P支援进攻。": "Military Command: When this group leads a Destroy attack, its direct Military subordinates may support the attack using P.",
+    "五角大楼": "Pentagon",
+    "军事指挥": "Military Command",
+    "直属上级抵御控制攻击时，防御+2。": "This group's direct parent has +2 defense against Control attacks.",
+    "特勤局": "Secret Service",
+    "本团体支援摧毁进攻时，支援力量+2。": "When supporting a Destroy attack, this group's support strength +2.",
+    "北约": "NATO",
+    "联合协作：每个直属政府下属使本团体GP+1。": "Joint Cooperation: This group has +1 GP per direct Government subordinate.",
+    "联合国": "United Nations",
+    "联合协作": "Joint Cooperation",
+    "法治保障：本团体及其直属下属不能被敌方卡牌或能力直接移除行动标记；正常行动消耗、被夺取及受灾时清空不受保护。": "Rule of Law: Enemy cards and abilities cannot directly remove actions from this group or its direct subordinates. This does not prevent spending actions or losing them through capture or devastation.",
+    "最高法院": "Supreme Court",
+    "法治保障": "Rule of Law",
+    "投递（主动）：抽1张阴谋，再弃1张任意手牌。": "Delivery (Action): Draw 1 Plot, then discard any 1 card from your hand.",
+    "邮政局": "Post Office",
+    "投递（主动）": "Delivery (Action)",
+    "投递": "Delivery",
+    "授信（主动）：抽2张团体，再弃1张团体手牌。": "Credit Line (Action): Draw 2 Groups, then discard 1 Group from your hand.",
+    "英格兰银行": "Bank of England",
+    "授信（主动）": "Credit Line (Action)",
+    "授信": "Credit Line",
+    "宏观调控：抽牌阶段抽阴谋时，可改为抽2留1，另一张放堆底。": "Monetary Policy: When drawing a Plot in your draw phase, you may draw 2, keep 1, and put the other on the bottom.",
+    "美联储": "Federal Reserve",
+    "宏观调控": "Monetary Policy",
+    "离岸回收（主动）：将阴谋弃牌堆顶牌加入手牌，本回合公开且禁用。": "Offshore Recovery (Action): Take the top Plot discard into your hand. It is revealed and unusable this turn.",
+    "离岸银行": "Offshore Banks",
+    "离岸回收（主动）": "Offshore Recovery (Action)",
+    "离岸回收": "Offshore Recovery",
+    "并购红利：本团体在己方回合首次通过控制攻击获得企业团体后，你抽1张阴谋；从手牌招募或夺取敌方团体均可，自动接管不触发。": "Merger Dividend: Once on your turn, after this group first gains a Corporate group through a Control attack, draw 1 Plot. Recruiting from hand or seizing an enemy qualifies; Automatic Takeover does not.",
+    "华尔街": "Wall Street",
+    "储贷转换：己方主要阶段每回合1次，弃1张阴谋、抽1张团体，不花标记。": "Loan Conversion: Once during your main phase, discard 1 Plot to draw 1 Group. No action cost.",
+    "储蓄贷款社": "Savings and Loans",
+    "储贷转换": "Loan Conversion",
+    "高利借贷：己方主要阶段每回合1次，免费恢复1个无负债的直属下属1标记；目标下次补标记时跳过一次。": "Predatory Lending: Once during your main phase, restore 1 action to a debt-free direct subordinate for free. It skips its next action refresh.",
+    "高利贷者": "Loan Sharks",
+    "高利借贷": "Predatory Lending",
+    "连锁加盟：自动接管印刷P≤2的团体到直属空槽时，免付主牌标记。": "Franchising: Automatic Takeover of a group with printed P of 2 or less into a direct slot costs no Illuminati action.",
+    "快餐连锁": "Fast Food Chains",
+    "连锁加盟": "Franchising",
+    "物流网络：己方主要阶段每回合1次，免费将1个直属下属整支移至己方另一合法空槽。": "Logistics Network: Once during your main phase, move a direct subordinate and its descendants to another legal slot you control for free.",
+    "弗诺德汽车公司": "Fnord Motor Company",
+    "物流网络": "Logistics Network",
+    "对绿色目标发动摧毁攻击时，攻击强度+2。": "Destroy attacks against Green targets have +2 strength.",
+    "跨国石油公司": "Multinational Oil Corporations",
+    "供能（主动）：恢复1个直属科学或计算机下属1标记。": "Power Supply (Action): Restore 1 action to a direct Science or Computer subordinate.",
+    "核电公司": "Nuclear Power Companies",
+    "供能（主动）": "Power Supply (Action)",
+    "供能": "Power Supply",
+    "网络渗透：对敌方计算机团体发动控制攻击时，忽略位置防御。": "Network Infiltration: Control attacks against enemy Computer groups ignore position defense.",
+    "黑客": "Hackers",
+    "线路跳转：己方主要阶段每回合1次，免费将本团体整支移至己方另一合法空槽。": "Line Hopping: Once during your main phase, move this group and its descendants to another legal slot you control for free.",
+    "电话飞客": "Phone Phreaks",
+    "线路跳转": "Line Hopping",
+    "创业孵化：本团体在己方回合首次通过控制攻击获得计算机团体后，你抽1张团体；从手牌招募或夺取敌方团体均可，自动接管不触发。": "Startup Incubator: Once on your turn, after this group first gains a Computer group through a Control attack, draw 1 Group. Recruiting from hand or seizing an enemy qualifies; Automatic Takeover does not.",
+    "硅谷": "Silicon Valley",
+    "再来一局：支援己方计算机团体的战斗结算后，若本团体仍归你控制，恢复自身1标记。": "One More Game: After a battle in which this group supported your Computer group, restore its action if you still control it.",
+    "电子游戏": "Video Games",
+    "通信调度：带头控制时，直属下属可用P支援进攻。": "Communications Dispatch: When leading a Control attack, this group's direct subordinates may support the attack using P.",
+    "电信公司": "Telecommunications Company",
+    "通信调度": "Communications Dispatch",
+    "数字自由：本团体在场时，你的阴谋手牌上限+1。": "Digital Freedom: Your Plot hand limit increases by 1 while this group is in play.",
+    "电子前哨基金会": "EFF",
+    "对科学目标发动摧毁攻击时，攻击强度+2。": "Destroy attacks against Science targets have +2 strength.",
+    "建设美好明天的邪恶天才": "Evil Geniuses for a Better Tomorrow",
+    "探索计划（主动）：秘密查看团体堆顶最多3张，可取1张科学或太空团体，其余原序放堆底。": "Exploration Program (Action): Secretly look at up to 3 Groups from the deck's top. You may take 1 Science or Space group; put the rest on the bottom in their original order.",
+    "美国航天局": "NASA",
+    "探索计划（主动）": "Exploration Program (Action)",
+    "探索计划": "Exploration Program",
+    "对太空目标发动控制攻击时，攻击强度+3。": "Control attacks against Space targets have +3 strength.",
+    "L-4协会": "L-4 Society",
+    "己方团体抵御灾难时，防御+5。": "Your groups have +5 defense against disasters.",
+    "国际气象组织": "International Weather Organization",
+    "媒体集团：己方抽牌阶段，若本团体至少有2个直属媒体下属，你额外抽1张阴谋。": "Media Conglomerate: In your draw phase, draw 1 extra Plot if this group has at least 2 direct Media subordinates.",
+    "大型媒体": "Big Media",
+    "媒体集团": "Media Conglomerate",
+    "对媒体目标发动控制攻击时，攻击强度+2。": "Control attacks against Media targets have +2 strength.",
+    "有线电视": "Cable TV",
+    "潮流更替：己方回合首次有怪异团体从手牌进入本团体直属空槽后，可弃1张阴谋手牌，再抽1张阴谋。": "Changing Trends: Once on your turn, after a Weird group first enters a direct slot from your hand, you may discard 1 Plot to draw 1 Plot.",
+    "空洞音乐台": "Empty Vee",
+    "潮流更替": "Changing Trends",
+    "英雄登场：己方回合首次有己方名人从手牌进场后，抽1张阴谋。": "Heroic Debut: Once on your turn, after your first Celebrity enters play from your hand, draw 1 Plot.",
+    "漫画书": "Comic Books",
+    "英雄登场": "Heroic Debut",
+    "流媒体分成：己方回合，非反制阴谋生效且本团体有直属媒体下属时，抽1张阴谋；每回合1次。": "Streaming Royalties: Once on your turn, after a non-counter Plot resolves, draw 1 Plot if this group has a direct Media subordinate.",
+    "唱片业": "Recording Industry",
+    "流媒体分成": "Streaming Royalties",
+    "跨界改编（主动）：令1个己方怪异团体在场期间获得媒体标签。": "Cross-Media Adaptation (Action): Give one of your Weird groups the Media tag while it remains in play.",
+    "好莱坞": "Hollywood",
+    "跨界改编（主动）": "Cross-Media Adaptation (Action)",
+    "跨界改编": "Cross-Media Adaptation",
+    "定向投放（主动）：令己方另1个媒体团体本回合GP+2，不超过P。": "Targeted Advertising (Action): Another Media group you control has +2 GP this turn, up to its P.",
+    "麦迪逊大道": "Madison Avenue",
+    "定向投放（主动）": "Targeted Advertising (Action)",
+    "定向投放": "Targeted Advertising",
+    "爆料（主动）：随机公开对手1张阴谋手牌至回合结束。": "Scoop (Action): Randomly reveal 1 enemy Plot card in hand until this turn ends.",
+    "小报": "Tabloids",
+    "爆料（主动）": "Scoop (Action)",
+    "爆料": "Scoop",
+    "抵御政府团体发起的控制攻击时，防御+2。": "+2 defense against Control attacks led by Government groups.",
+    "地下报刊": "Underground Newspapers",
+    "对保守目标发动控制攻击时，攻击强度+2。": "Control attacks against Conservative targets have +2 strength.",
+    "电视布道者": "TV Preachers",
+    "信息茧房：直属怪异下属的忠诚防御至少为8。": "Echo Chamber: Direct Weird subordinates have at least 8 loyalty defense.",
+    "阴谋论者": "Conspiracy Theorists",
+    "信息茧房": "Echo Chamber",
+    "抵御科学或太空团体发起的控制攻击时，防御+4。": "+4 defense against Control attacks led by Science or Space groups.",
+    "地平说信徒": "Flat Earthers",
+    "无额外效果。": "No special ability.",
+    "金鱼爱好者": "Goldfish Fanciers",
+    "未来想象：己方回合首次有印刷力量高于本团体印刷力量、且具有科学或太空标签的团体从你的手牌进场后，你抽1张团体。": "Imagining the Future: Once on your turn, after a Science or Space group with higher printed P than this group first enters play from your hand, draw 1 Group.",
+    "科幻迷": "Science Fiction Fans",
+    "未来想象": "Imagining the Future",
+    "对太空目标发动控制攻击时，攻击强度+2。": "Control attacks against Space targets have +2 strength.",
+    "星际迷航迷": "Trekkies",
+    "卡牌交易：己方主要阶段每回合1次，弃1张团体、抽1张阴谋，不花标记。": "Card Trading: Once during your main phase, discard 1 Group to draw 1 Plot. No action cost.",
+    "集换式卡牌": "Trading Card Games",
+    "卡牌交易": "Card Trading",
+    "同级互助：本团体支援同一直属上级下的团体进攻时，可用P。": "Sibling Solidarity: When supporting an attack led by a group with the same direct parent, this group may use P.",
+    "兄弟会": "Fraternal Orders",
+    "同级互助": "Sibling Solidarity",
+    "对魔法目标发动控制攻击时，攻击强度+3。": "Control attacks against Magic targets have +3 strength.",
+    "玫瑰十字会": "Rosicrucians",
+    "抵御摧毁攻击时，防御+3。": "+3 defense against Destroy attacks.",
+    "德鲁伊": "Druids",
+    "信众合唱：每个直属怪异下属使本团体支援力量+1，最多+2。": "Choir of Followers: This group's support strength +1 per direct Weird subordinate, up to +2.",
+    "猫王教会": "Church of Elvis",
+    "信众合唱": "Choir of Followers",
+    "保护费：本团体每有1个直属犯罪下属，你的阴谋手牌上限+1，最多+2。": "Protection Racket: Your Plot hand limit increases by 1 per direct Criminal subordinate, up to +2.",
+    "黑手党": "The Mafia",
+    "保护费": "Protection Racket",
+    "扩张地盘：己方回合首次带头摧毁敌方团体后，抽1张团体。": "Turf Expansion: Once on your turn, after this group first leads a successful Destroy attack against an enemy group, draw 1 Group.",
+    "街头帮派": "Urban Gangs",
+    "扩张地盘": "Turf Expansion",
+    "本团体发起摧毁攻击时，攻击强度+2。": "This group's Destroy attacks have +2 strength.",
+    "摩托帮": "Cycle Gangs",
+    "潜入：带头摧毁时，目标的直属上级不能支援防守。": "Infiltration: When this group leads a Destroy attack, the target's direct parent cannot support the defense.",
+    "忍者": "Ninjas",
+    "潜入": "Infiltration",
+    "血族转化：控制攻击夺取敌方团体后，令目标在场期间将正统换为怪异；无正统则获得怪异。": "Vampiric Conversion: After seizing an enemy group through a Control attack, replace its Straight alignment with Weird while it remains in play. If it has no Straight alignment, add Weird.",
+    "吸血鬼": "Vampires",
+    "血族转化": "Vampiric Conversion",
+    "克隆备份（主动）：从团体弃牌堆顶最多3张中取1张印刷P≤3的团体。": "Clone Backup (Action): Take a group with printed P of 3 or less from the top 3 Group discards, if available.",
+    "克隆安排者": "Clone Arrangers",
+    "克隆备份（主动）": "Clone Backup (Action)",
+    "克隆备份": "Clone Backup",
+    "对和平目标发动摧毁攻击时，攻击强度+2。": "Destroy attacks against Peaceful targets have +2 strength.",
+    "枪支游说团": "Gun Lobby",
+    "抵御摧毁攻击时，防御+2。": "+2 defense against Destroy attacks.",
+    "生存主义者": "Survivalists",
+    "生态破坏（主动）：移除敌方1个企业团体的行动标记。": "Ecological Sabotage (Action): Remove the action from an enemy Corporate group.",
+    "生态游击队": "Eco-Guerrillas",
+    "生态破坏（主动）": "Ecological Sabotage (Action)",
+    "生态破坏": "Ecological Sabotage",
+    "国际可卡因走私者": "International Cocaine Smugglers",
+    "抵御暴力团体发起的摧毁攻击时，防御+4。": "+4 defense against Destroy attacks led by Violent groups.",
+    "反战活动家": "Antiwar Activists",
+    "对绿色目标发动控制攻击时，攻击强度+3。": "Control attacks against Green targets have +3 strength.",
+    "反核活动家": "Anti-Nuclear Activists",
+    "人道撤离：直属下属受到摧毁攻击时，可花本团体1标记；攻击成功则改为目标整支回手；每回合1次。": "Humanitarian Evacuation: When a direct subordinate faces a Destroy attack, you may spend this group's action. If the attack succeeds, return the target and its descendants to hand instead. Once per turn.",
+    "红十字会": "Red Cross",
+    "人道撤离": "Humanitarian Evacuation",
+    "对自由目标发动控制攻击时，攻击强度+2。": "Control attacks against Liberal targets have +2 strength.",
+    "女权主义者": "Feminists",
+    "议题翻转（主动）：将场上1个自由或保守团体的这两个阵营互换至回合结束。": "Issue Reversal (Action): Swap a Liberal or Conservative group's two alignments until this turn ends.",
+    "同性恋权益活动家": "Gay Activists",
+    "议题翻转（主动）": "Issue Reversal (Action)",
+    "议题翻转": "Issue Reversal",
+    "同行评议：抽牌阶段抽团体时，可改为抽2留1，另一张放堆底。": "Peer Review: When drawing a Group in your draw phase, you may draw 2, keep 1, and put the other on the bottom.",
+    "知识分子": "Intellectuals",
+    "同行评议": "Peer Review",
+    "高额账单：对手对本团体的普通攻击失败后，须随机弃1张阴谋手牌。": "Hefty Bill: After an opponent's normal attack against this group fails, that opponent randomly discards 1 Plot from hand.",
+    "牙医": "Dentists",
+    "高额账单": "Hefty Bill",
+    "本团体支援防守科学目标时，支援力量+2。": "When supporting the defense of a Science target, this group's support strength +2.",
+    "美国医学会": "A.M.A.",
+    "基层动员：己方回合首次有自由团体从你的手牌进入本团体直属空槽后，你抽1张团体。": "Grassroots Mobilization: Once on your turn, after a Liberal group first enters a direct slot from your hand, draw 1 Group.",
+    "民主党": "Democrats",
+    "基层动员": "Grassroots Mobilization",
+    "共和党": "Republicans",
+    "本团体受到普通摧毁攻击或灾难时，防御+10。": "+10 defense against normal Destroy attacks and disasters.",
+    "中国": "China",
+    "内容出海（主动）：秘密查看团体堆顶最多4张，可取1张媒体或怪异团体，其余原序放堆底。": "Cultural Exports (Action): Secretly look at up to 4 Groups from the deck's top. You may take 1 Media or Weird group; put the rest on the bottom in their original order.",
+    "日本": "Japan",
+    "内容出海（主动）": "Cultural Exports (Action)",
+    "内容出海": "Cultural Exports",
+    "工业标准：直属企业或科学下属R+2。": "Industrial Standards: Direct Corporate or Science subordinates have +2 R.",
+    "德国": "Germany",
+    "工业标准": "Industrial Standards",
+    "金融中介（主动）：从阴谋弃牌堆顶最多3张中取1张战斗阴谋，本回合公开且禁用。": "Financial Brokerage (Action): Take a Battle Plot from the top 3 Plot discards, if available. It is revealed and unusable this turn.",
+    "英国": "England",
+    "金融中介（主动）": "Financial Brokerage (Action)",
+    "金融中介": "Financial Brokerage",
+    "本团体支援防守自由目标时，支援力量+4。": "When supporting the defense of a Liberal target, this group's support strength +4.",
+    "法国": "France",
+    "中立保障：抵御摧毁攻击或灾难时，基础防御改用R；自卫仍用P。": "Neutrality Guarantee: Use R as base defense against Destroy attacks and disasters. Self-defense still uses P.",
+    "瑞士": "Switzerland",
+    "中立保障": "Neutrality Guarantee",
+    "资本枢纽：直属企业或银行下属GP+1，不超过P。": "Capital Hub: Direct Corporate or Bank subordinates have +1 GP, up to their P.",
+    "纽约": "New York",
+    "资本枢纽": "Capital Hub",
+    "算力调度（主动）：令己方另1个计算机团体本回合GP等于P。": "Compute Allocation (Action): Another Computer group you control has GP equal to P this turn.",
+    "加利福尼亚": "California",
+    "算力调度（主动）": "Compute Allocation (Action)",
+    "算力调度": "Compute Allocation",
+    "对犯罪目标发动摧毁攻击时，攻击强度+2。": "Destroy attacks against Criminal targets have +2 strength.",
+    "得克萨斯": "Texas",
+    "观星占卜（主动）：秘密查看共享团体堆顶最多3张，按你选择的顺序放回。": "Stargazing (Action): Secretly look at up to 3 Groups from the deck's top. Return them in any order.",
+    "巨石阵": "Stonehenge",
+    "观星占卜（主动）": "Stargazing (Action)",
+    "观星占卜": "Stargazing",
+    "跨界整合：直属下属的印刷标签含计算机则额外获得太空，含太空则额外获得计算机。": "Cross-Sector Integration: Direct subordinates with a printed Computer tag also gain Space; those with a printed Space tag also gain Computer.",
+    "埃隆·马斯克": "Elon Musk",
+    "跨界整合": "Cross-Sector Integration",
+    "议程重启（主动）：从阴谋弃牌堆选1张世界秩序，替换当前秩序。": "Agenda Reset (Action): Choose a World Order in the Plot discard pile to replace the current order.",
+    "唐纳德·特朗普": "Donald Trump",
+    "议程重启（主动）": "Agenda Reset (Action)",
+    "议程重启": "Agenda Reset",
+    "模型推演（主动）：公开掷两颗骰作为预案；本回合下次普通控制攻击发动时，可采用预案代替掷骰，随后清除预案。": "Model Simulation (Action): Publicly roll two dice as a Plan. When launching your next normal Control attack this turn, you may use that Plan instead of rolling. Then remove the Plan.",
+    "山姆·奥尔特曼": "Sam Altman",
+    "模型推演（主动）": "Model Simulation (Action)",
+    "模型推演": "Model Simulation",
+    "全球巡演（主动）：把本团体整支移到己方另一地点的直属空槽，然后抽1张阴谋。": "World Tour (Action): Move this group and its descendants into a free direct slot of another Place you control, then draw 1 Plot.",
+    "泰勒·斯威夫特": "Taylor Swift",
+    "全球巡演（主动）": "World Tour (Action)",
+    "全球巡演": "World Tour",
+    "安可：支援的普通进攻掷骰失败后，可弃1张阴谋重掷1次；原始11或12除外。": "Encore: After a failed roll in a normal attack this group supported, you may discard 1 Plot to reroll once. An original 11 or 12 cannot be rerolled.",
+    "碧昂丝": "Beyoncé",
+    "安可": "Encore",
+    "全民挑战（主动）：双方各抽1张团体，你先抽；然后你再抽1张阴谋。": "Everyone's Challenge (Action): Each player draws 1 Group, you first. Then draw 1 Plot.",
+    "野兽先生": "MrBeast",
+    "全民挑战（主动）": "Everyone's Challenge (Action)",
+    "全民挑战": "Everyone's Challenge",
+    "联合倡议：同一场普通战斗中，己方第2种不同阵营的战斗阴谋生效后，抽1张阴谋；每回合1次。": "Joint Initiative: Once per turn, after your second different alignment Battle Plot resolves in the same normal battle, draw 1 Plot.",
+    "贝拉克·奥巴马": "Barack Obama",
+    "联合倡议": "Joint Initiative",
+    "自律训练：己方回合末若本团体仍有行动标记，获得1枚训练，最多2枚。带头发动普通攻击时，可花1枚训练使攻击强度+2。": "Disciplined Training: At the end of your turn, gain 1 Training if this group still has its action, up to 2. When leading a normal attack, you may spend 1 Training for +2 strength.",
+    "克里斯蒂亚诺·罗纳尔多": "Cristiano Ronaldo",
+    "自律训练": "Disciplined Training",
+    "关键传球：己方普通进攻响应时，可花本团体1标记，使1个未参战己方团体本次支援改用P。": "Key Pass: During a response to your normal attack, spend this group's action to let one of your uncommitted groups use P for its support this battle.",
+    "利昂内尔·梅西": "Lionel Messi",
+    "新品预告：己方主要阶段每回合1次，免费公开1张企业团体手牌；本回合通过控制攻击招募它后，抽1张阴谋。": "Product Teaser: Once during your main phase, reveal a Corporate Group from your hand for free. Draw 1 Plot after recruiting it through a Control attack this turn.",
+    "雷军": "Lei Jun",
+    "新品预告": "Product Teaser",
+    "矿产出口（主动）：弃1张团体手牌，抽1张资源。": "Mineral Exports (Action): Discard 1 Group from your hand to draw 1 Resource.",
+    "南非": "South Africa",
+    "矿产出口（主动）": "Mineral Exports (Action)",
+    "矿产出口": "Mineral Exports",
+    "技术外包：己方每有1张在场资源，本团体GP+1。": "Tech Outsourcing: This group has +1 GP per resource you control in play.",
+    "印度": "India",
+    "技术外包": "Tech Outsourcing",
+    "军工整备（主动）：使1张己方装置资源恢复1行动。": "Military Refitting (Action): Restore 1 action to a Gadget resource you control.",
+    "俄罗斯": "Russia",
+    "军工整备（主动）": "Military Refitting (Action)",
+    "军工整备": "Military Refitting",
+    "生态复苏：己方回合首次重建地点后，可恢复1个己方绿色团体1标记。": "Ecological Recovery: Once on your turn, after you first rebuild a Place, you may restore 1 action to a Green group you control.",
+    "巴西": "Brazil",
+    "生态复苏": "Ecological Recovery",
+    "海峡屏障：对手普通攻击己方沿海地点时，非沿海团体不能用GP支援进攻。": "Strait Barrier: When an opponent normally attacks your Coastal Place, non-Coastal groups cannot support that attack using GP.",
+    "印度尼西亚": "Indonesia",
+    "海峡屏障": "Strait Barrier",
+    "委托制造（主动）：代付标记，令1个直属企业下属带头发动控制攻击；不能选本回合进场或被夺取的团体。": "Contract Manufacturing (Action): Pay this group's action for a direct Corporate subordinate to lead a Control attack. The leader cannot have entered play or been seized this turn.",
+    "墨西哥": "Mexico",
+    "委托制造（主动）": "Contract Manufacturing (Action)",
+    "委托制造": "Contract Manufacturing",
+    "对绿色目标发动控制攻击时，攻击强度+4。": "Control attacks against Green targets have +4 strength.",
+    "加拿大": "Canada",
+    "矿产供给：部署资源时，可弃1张团体手牌代替主牌行动。": "Mineral Supply: When deploying a resource, you may discard 1 Group from hand instead of spending your Illuminati's action.",
+    "澳大利亚": "Australia",
+    "矿产供给": "Mineral Supply",
+    "中转港：己方主要阶段每回合1次，免费将1个直属下属整支移至己方另一沿海地点空槽，再抽1张团体。": "Transshipment Hub: Once during your main phase, move a direct subordinate and its descendants to a free slot of another Coastal Place you control for free, then draw 1 Group.",
+    "鹿特丹港": "Port of Rotterdam",
+    "中转港": "Transshipment Hub",
+    "通行费：对手普通攻击己方沿海地点时，其第2个进攻支援须额外弃1张团体。": "Transit Toll: When an opponent normally attacks your Coastal Place, their second attacking supporter must also discard 1 Group.",
+    "巴拿马运河": "Panama Canal",
+    "通行费": "Transit Toll",
+    "签证通道：己方名人刚受普通攻击、尚未有响应时，可花本团体1标记，把目标整支移到本团体空槽；攻击继续，按新位置计算。": "Visa Channel: Immediately after your Celebrity is normally attacked, before any response, spend this group's action to move the target and its descendants into a free slot here. The attack continues using the new position.",
+    "迪拜": "Dubai",
+    "签证通道": "Visa Channel",
+    "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，4–6抽3张阴谋；不花标记。": "Lucky Bet: Once during your main phase, discard 1 Plot and roll one die. On 4–6, draw 3 Plots. No action cost.",
+    "拉斯维加斯": "Las Vegas",
+    "幸运押注": "Lucky Bet",
+    "并行计算：每次普通战斗，己方第2个提供普通支援的计算机团体，本次支援额外+2。": "Parallel Computing: In each normal battle, your second Computer group to provide normal support adds +2 support strength.",
+    "英伟达": "NVIDIA",
+    "并行计算": "Parallel Computing",
+    "弹性扩容：本团体普通支援时，可另弃1张阴谋，将本次采用的P／GP翻倍；其他加值不翻倍。": "Elastic Scaling: When providing normal support, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled.",
+    "云服务商": "Cloud Providers",
+    "弹性扩容": "Elastic Scaling",
+    "推荐流（主动）：公开团体堆顶最多3张，双方各选1张加入手牌，你先选；未选的弃掉。": "Recommendation Feed (Action): Reveal up to 3 Groups from the deck's top. Each player chooses 1 to keep, you first. Discard any unchosen cards.",
+    "短视频平台": "Short-Video Platforms",
+    "推荐流（主动）": "Recommendation Feed (Action)",
+    "事实核查：对手打出此前已公开的非反制阴谋时，可花本团体1标记，令对手另弃1张阴谋，否则该牌无效；每回合1次。": "Fact Check: When an opponent plays a previously revealed non-counter Plot, spend this group's action to require another Plot discard or cancel that card. Once per turn.",
+    "事实核查网络": "Fact-Checking Network",
+    "危机切割（主动）：把自己1张阴谋手牌洗回共享阴谋堆，再抽1张阴谋；若洗回的牌原已公开，再抽1张团体。": "Crisis Separation (Action): Shuffle 1 Plot from your hand into the Plot deck, then draw 1 Plot. If the returned card was already public, also draw 1 Group.",
+    "公关公司": "PR Agency",
+    "危机切割（主动）": "Crisis Separation (Action)",
+    "危机切割": "Crisis Separation",
+    "灾害承保：灾难结算后，己方地点新受灾则抽1张阴谋，被摧毁则抽2张；每回合1次，本团体须仍归你控制。": "Disaster Insurance: After a disaster, draw 1 Plot if your Place was newly devastated, or 2 if destroyed. Once per turn; you must still control this group.",
+    "保险财团": "Insurance Syndicate",
+    "灾害承保": "Disaster Insurance",
+    "快速重建（主动）：重建1个己方受灾地点，巨大也可。": "Rapid Reconstruction (Action): Rebuild one of your devastated Places, including a Huge Place.",
+    "应急工程队": "Emergency Engineers",
+    "快速重建（主动）": "Rapid Reconstruction (Action)",
+    "快速重建": "Rapid Reconstruction",
+    "防灾储备（主动）：给1个己方未受灾地点放1枚防备。": "Disaster Reserves (Action): Give 1 Preparedness to one of your non-devastated Places.",
+    "疫苗研发联盟": "Vaccine Research Alliance",
+    "防灾储备（主动）": "Disaster Reserves (Action)",
+    "防灾储备": "Disaster Reserves",
+    "班轮网络：己方沿海地点为另一沿海地点提供普通支援时，可用P。": "Liner Network: Your Coastal Places may use P when normally supporting another Coastal Place.",
+    "集装箱航运联盟": "Container Shipping Alliance",
+    "自发应援：战斗响应时，可弃1张团体手牌，使被普通攻击的己方名人本次防御+3；不花标记，每回合1次。": "Fan Support: During a battle response, discard 1 Group from hand to give your Celebrity +3 defense against a normal attack. No action cost; once per turn.",
+    "粉丝社群": "Fan Communities",
+    "自发应援": "Fan Support",
+    "远程中继：直属太空下属提供普通防守支援时，可用P。": "Remote Relay: Direct Space subordinates may use P for normal defensive support.",
+    "月球基地": "Moonbase",
+    "联合实验：己方回合，首次有本团体的直属科学下属完成普通支援的战斗结算后，抽1张阴谋。": "Joint Experiment: Once on your turn, after the first battle in which a direct Science subordinate provided normal support, draw 1 Plot.",
+    "轨道空间站": "Orbit One",
+    "联合实验": "Joint Experiment",
+    "遥感网络：己方太空团体为攻击或防守地点提供普通支援时，支援力量+1。": "Remote Sensing: Your Space groups have +1 support strength when normally supporting an attack on, or defense of, a Place.",
+    "卫星运营商": "Satellite Operators",
+    "遥感网络": "Remote Sensing",
+    "封存秘闻（主动）：令对手弃掉1张已公开的阴谋手牌。": "Seal the Secrets (Action): Make your opponent discard 1 revealed Plot from hand.",
+    "圣殿骑士团": "Templars",
+    "封存秘闻（主动）": "Seal the Secrets (Action)",
+    "封存秘闻": "Seal the Secrets",
+    "秘仪回响：己方用魔法团体的行动标记支付非反制阴谋牌的费用，且该牌生效后，抽1张阴谋；每回合1次。": "Ritual Echo: Once per turn, after a non-counter Plot resolves whose action cost you paid with a Magic group, draw 1 Plot.",
+    "女巫集会": "W.I.T.C.H.",
+    "秘仪回响": "Ritual Echo",
+    "障眼法：己方团体受到普通攻击时，可花本团体1标记，将本次总阵营修正改为0；本团体不因此参战。": "Misdirection: When your group faces a normal attack, spend this group's action to set the total alignment modifier to 0. This does not count as participating.",
+    "幻术师协会": "Illusionists Guild",
+    "障眼法": "Misdirection",
+    "联合生产：每有1个直属共产下属，本团体P+1，最多+2；GP不变。": "Joint Production: This group has +1 P per direct Communist subordinate, up to +2. GP is unchanged.",
+    "国营工业集团": "State Industrial Conglomerate",
+    "联合生产": "Joint Production",
+    "互助储备：己方主要阶段每回合1次，弃1张团体、恢复己方另1个共产或绿色团体1标记，不花本团体标记。": "Mutual Reserves: Once during your main phase, discard 1 Group to restore 1 action to another Communist or Green group you control. No action cost.",
+    "农业合作社": "Agricultural Cooperatives",
+    "互助储备": "Mutual Reserves",
+    "公有化：己方回合，共产团体通过控制攻击取得无共产标签的团体后，令目标在场期间获得共产；每回合1次。": "Nationalization: Once on your turn, after a Communist group gains a non-Communist group through a Control attack, give the target Communist while it remains in play.",
+    "公有资产管理局": "Public Asset Administration",
+    "公有化": "Nationalization",
+    "补给合同：己方回合首次有己方军队带头摧毁敌方团体后，抽1张资源。": "Supply Contract: Once on your turn, after your first Military-led Destroy attack destroys an enemy group, draw 1 Resource.",
+    "军工承包商": "Defense Contractors",
+    "补给合同": "Supply Contract",
+    "维和护卫：本团体为己方名人或地点提供普通防守支援时，可用P。": "Peacekeeping Escort: This group may use P for normal defensive support of your Celebrities or Places.",
+    "维和部队": "Peacekeeping Forces",
+    "废物利用：己方回合首次弃掉团体手牌后，抽1张阴谋；失败招募的回合末清理除外。": "Waste Recovery: Once on your turn, after you first discard a Group from hand, draw 1 Plot. End-of-turn failed-recruit discards do not qualify.",
+    "回收中心": "Recycling Centers",
+    "废物利用": "Waste Recovery",
+    "事故添乱：己方灾难的响应阶段，可花本团体1标记，使本次灾难威力+3；不算普通支援。": "Accidental Chaos: During a response to your disaster, spend this group's action for +3 disaster strength. This is not normal support.",
+    "恐龙公园": "Dinosaur Park",
+    "事故添乱": "Accidental Chaos",
+    "集体谈判：对企业团体发动控制攻击时，目标不能自卫。": "Collective Bargaining: Corporate targets of this group's Control attacks cannot self-defend.",
+    "工会联合会": "CFL-AIO",
+    "集体谈判": "Collective Bargaining",
+    "撤销协议（主动）：弃掉场上1张附着；不能因此造成下属槽不足。": "Rescind Agreement (Action): Discard an attachment in play, unless doing so would leave insufficient subordinate slots.",
+    "律师事务所": "Lawyers",
+    "撤销协议（主动）": "Rescind Agreement (Action)",
+    "撤销协议": "Rescind Agreement",
+    "集体维权：己方非企业团体抵御企业团体发动的普通控制攻击时，防御+2。": "Consumer Rights: Your non-Corporate groups have +2 defense against normal Control attacks led by Corporate groups.",
+    "消费者协会": "Consumer Watchdogs",
+    "集体维权": "Consumer Rights",
+    "普惠信贷：己方回合首次有印刷P≤2的团体从手牌进场后，抽1张阴谋。": "Inclusive Credit: Once on your turn, after a group with printed P of 2 or less first enters play from your hand, draw 1 Plot.",
+    "信用合作社": "Credit Unions",
+    "普惠信贷": "Inclusive Credit",
+    "造星计划：己方回合首次有己方名人带头完成普通进攻后，抽1张团体；成败均可。": "Star Maker: Once on your turn, after your first Celebrity-led normal attack ends, draw 1 Group, whether it succeeds or fails.",
+    "名人事务所": "Celebrity Management Agencies",
+    "造星计划": "Star Maker",
+    "借力打力：普通防守支援时，每个已参战的进攻支援团体使本次支援+1，最多+3。": "Turning the Tables: When normally supporting the defense, add +1 support strength per attacking supporter already committed, up to +3.",
+    "成龙": "Jackie Chan",
+    "借力打力": "Turning the Tables",
+    "止战之声：普通防守支援后，后续进攻军队只能用GP支援。": "Voice for Peace: After this group provides normal defensive support, subsequent Military attackers may only support using GP.",
+    "宫崎骏": "Hayao Miyazaki",
+    "止战之声": "Voice for Peace",
+    "直属共产下属P+2。": "Direct Communist subordinates have +2 P.",
+    "自治工厂": "Worker-Managed Factories",
+    "直属共产上级的下属槽+1，上限3。": "Its direct Communist parent gains 1 subordinate slot, up to 3.",
+    "社区住房合作社": "Community Housing Cooperatives",
+    "革命课堂（主动）：令1个己方有效P≤2的自由或狂热团体P+1；在场期间保留。": "Revolutionary Classroom (Action): Give +1 P to one of your Liberal or Fanatic groups with current effective P of 2 or less. Lasts while it remains in play.",
+    "革命夜校": "Revolutionary Night Schools",
+    "革命课堂（主动）": "Revolutionary Classroom (Action)",
+    "革命课堂": "Revolutionary Classroom",
+    "共同供给：支付弃1张阴谋的费用时，可改弃1张团体；每回合1次。": "Shared Supply: Once per turn, you may discard 1 Group instead of paying a cost of discarding 1 Plot.",
+    "公共储备粮仓": "Public Granaries",
+    "共同供给": "Shared Supply",
+    "替身骗局：对手打出非反制阴谋时，可花本团体1标记、弃1张阴谋，取消该牌；每回合1次。": "Decoy Hoax: When an opponent plays a non-counter Plot, spend this group's action and discard 1 Plot to cancel it. Once per turn.",
+    "江湖骗术团": "Street Con Artists",
+    "秘宝转手（主动）：将己方团体的1张附着移给场上另一合法团体，忽略原牌的敌我限制。": "Relic Transfer (Action): Move an attachment from your group to another legal group in play, ignoring the original card's friendly/enemy restriction.",
+    "秘宝走私商": "Arcane Relic Smugglers",
+    "秘宝转手（主动）": "Relic Transfer (Action)",
+    "秘宝转手": "Relic Transfer",
+    "星象助阵：普通支援时可掷1颗骰，1–3使本次支援+2；每回合1次。": "Astrological Aid: When providing normal support, you may roll one die. On 1–3, support strength +2. Once per turn.",
+    "末日占星社": "Doomsday Astrologers",
+    "星象助阵": "Astrological Aid",
+    "共同信条：直属下属计算忠诚时，狂热也算共同阵营。": "Shared Creed: Fanatic also counts as a shared alignment when calculating direct subordinates' loyalty.",
+    "隐秘誓约会": "Order of the Hidden Oath",
+    "轨道接驳：己方主要阶段每回合1次，免费将1个己方太空团体整支移入直属空槽。": "Orbital Connection: Once during your main phase, move one of your Space groups and its descendants into a free direct slot here for free.",
+    "自由轨道港": "Free Orbit Port",
+    "轨道接驳": "Orbital Connection",
+    "边疆据点：本团体及直属太空下属的位置防御至少为5。": "Frontier Outpost: This group and its direct Space subordinates have at least 5 position defense.",
+    "深空殖民团": "Deep-Space Settlers",
+    "战利品：带头摧毁敌方团体后，可将目标原有的1张附着加入手牌。": "Spoils of War: After leading a Destroy attack that destroys an enemy group, you may take one of the target's former attachments into your hand.",
+    "轨道私掠舰队": "Orbital Privateers",
+    "战利品": "Spoils of War",
+    "双轨窃听（主动）：秘密查看两个牌堆的顶牌，可将其中1张置于原堆底。": "Dual Interception (Action): Secretly inspect the top card of the Group and Plot decks. You may put one on the bottom of its original deck.",
+    "卫星盗播网": "Pirate Satellite Network",
+    "双轨窃听（主动）": "Dual Interception (Action)",
+    "民兵动员：持有标记时可免费普通自卫，防御加值改为P；每回合1次。": "Militia Mobilization: With an action available, you may self-defend against a normal attack for free, adding P instead of 2×P. Once per turn.",
+    "地方民兵联队": "Local Militia",
+    "民兵动员": "Militia Mobilization",
+    "战后护送：支援普通防守且攻击失败后，可将目标整支免费移至己方另一合法空槽；每回合1次。": "Post-Battle Escort: After supporting a normal defense that defeats the attack, you may move the target and its descendants to another legal slot you control for free. Once per turn.",
+    "私营护送队": "Private Escort Companies",
+    "战后护送": "Post-Battle Escort",
+    "孤军破袭：发动摧毁攻击时，可忽略位置防御；本次禁止己方进攻支援。": "Lone Raid: When launching a Destroy attack, you may ignore position defense. Your attacking side cannot receive support in that battle.",
+    "革命游击队": "Revolutionary Guerrillas",
+    "孤军破袭": "Lone Raid",
+    "末日储备（主动）：弃1张团体，获得1枚防备，不花标记；本团体的防备也抵御普通摧毁攻击。": "Doomsday Reserves (Action): Discard 1 Group to gain 1 Preparedness. No action cost. This group's Preparedness also protects against normal Destroy attacks.",
+    "末日避难营": "Doomsday Enclave",
+    "末日储备（主动）": "Doomsday Reserves (Action)",
+    "末日储备": "Doomsday Reserves",
+    "伪造身份（主动）：公开1张团体手牌至回合结束，令1个己方团体本回合采用其印刷阵营。": "Forged Identity (Action): Reveal 1 Group from your hand until this turn ends. One of your groups adopts its printed alignments this turn.",
+    "身份伪造工坊": "Identity Forgers",
+    "伪造身份（主动）": "Forged Identity (Action)",
+    "伪造身份": "Forged Identity",
+    "趁乱收购：带头控制对手的受灾地点后，可免费重建它。": "Opportunistic Acquisition: After leading a Control attack that seizes an enemy devastated Place, you may rebuild it for free.",
+    "废墟开发商": "Ruins Redevelopers",
+    "趁乱收购": "Opportunistic Acquisition",
+    "你发起的普通控制攻击，攻击强度+1。": "Your normal Control attacks have +1 strength.",
+    "控制至少8个团体，且它们的有效P合计至少45。": "Control at least 8 groups with a combined effective P of at least 45.",
+    "力量扩张。": "Power and expansion",
+    "巴伐利亚光明会": "Bavarian Illuminati",
+    "你的企业或银行团体发动控制攻击时，攻击强度+2。": "Control attacks led by your Corporate or Bank groups have +2 strength.",
+    "控制至少6个企业或银行团体，且它们的有效P合计至少30。": "Control at least 6 Corporate or Bank groups with a combined effective P of at least 30.",
+    "企业金融。": "Corporate finance",
+    "苏黎世侏儒": "Gnomes of Zurich",
+    "你的计算机团体GP+1，不超过P。": "Your Computer groups have +1 GP, up to their P.",
+    "控制至少5个计算机团体，且它们的有效P合计至少26。": "Control at least 5 Computer groups with a combined effective P of at least 26.",
+    "计算机协同。": "Computer coordination",
+    "网络": "The Network",
+    "你的怪异团体抵御普通控制攻击时，防御值+2。": "Your Weird groups have +2 defense against normal Control attacks.",
+    "控制至少5个怪异团体，且它们的有效P合计至少25。": "Control at least 5 Weird groups with a combined effective P of at least 25.",
+    "怪异结社。": "Weird alliances",
+    "混沌社": "Discordian Society",
+    "你发起的普通摧毁攻击，攻击强度+2。": "Your normal Destroy attacks have +2 strength.",
+    "累计摧毁6个敌方团体。": "Destroy a total of 6 enemy groups.",
+    "摧毁。": "Destruction",
+    "克苏鲁仆从": "Servants of Cthulhu",
+    "空间折叠：己方主要阶段每回合1次，免费交换己方两个直属上级不同、互不包含的团体的整支位置。": "Space Folding: Once during your main phase, swap two of your groups and their entire branches for free. They must have different direct parents and neither may contain the other.",
+    "控制至少5个地点、其中至少2个巨大地点；这些地点团体的有效P合计至少30。": "Control at least 5 Places, including 2 Huge Places, with a combined effective P of at least 30.",
+    "地点换位 · 空间折叠": "Reposition and swap",
+    "百慕大三角": "Bermuda Triangle",
+    "空间折叠": "Space Folding",
+    "化干戈（主动）：令1个己方暴力团体失去暴力并获得和平；在场期间保留。": "Swords into Plowshares (Action): One of your Violent groups loses Violent and gains Peaceful while it remains in play.",
+    "控制至少6个和平团体，且它们的有效P合计至少25。": "Control at least 6 Peaceful groups with a combined effective P of at least 25.",
+    "和平转化": "Peaceful conversion",
+    "香格里拉": "Shangri-La",
+    "化干戈（主动）": "Swords into Plowshares (Action)",
+    "秘术共鸣：己方魔法团体带头普通攻击或抵御普通攻击时，其他己方魔法团体可用P支援。": "Arcane Resonance: When your Magic group leads or defends against a normal attack, your other Magic groups may support using P.",
+    "控制至少5个魔法团体；且它们的有效P合计至少25。": "Control at least 5 Magic groups with a combined effective P of at least 25.",
+    "秘术协作": "Arcane cooperation",
+    "赫尔墨斯门徒": "Adepts of Hermes",
+    "秘术共鸣": "Arcane Resonance",
+    "本次战斗中，己方1个已花行动标记参战的政府团体。": "One of your Government groups that spent an action to participate in this battle.",
+    "本次己方攻击强度或防御+4。": "Your attack strength or defense +4 this battle.",
+    "弃本牌。": "Discard this card.",
+    "戒严": "Martial Law",
+    "本次战斗中，己方1个已花行动标记参战的暴力团体。": "One of your Violent groups that spent an action to participate in this battle.",
+    "恐怖核袭": "Terrorist Nuke",
+    "本次战斗中，己方1个已花行动标记参战的自由团体。": "One of your Liberal groups that spent an action to participate in this battle.",
+    "慈善演唱会": "Benefit Concert",
+    "本次战斗中，己方1个已花行动标记参战的犯罪团体。": "One of your Criminal groups that spent an action to participate in this battle.",
+    "秘密基金": "Slush Fund",
+    "本次战斗中，己方1个已花行动标记参战的企业团体。": "One of your Corporate groups that spent an action to participate in this battle.",
+    "股票拆分": "Stock Split",
+    "本次战斗中，己方1个已花行动标记参战的怪异团体。": "One of your Weird groups that spent an action to participate in this battle.",
+    "口琴处女": "Harmonica Virgins",
+    "本次战斗中，己方1个已花行动标记参战的保守团体。": "One of your Conservative groups that spent an action to participate in this battle.",
+    "坚决说不": "Just Say No",
+    "本次战斗中，己方1个已花行动标记参战的和平团体。": "One of your Peaceful groups that spent an action to participate in this battle.",
+    "拯救鲸鱼": "Save the Whales",
+    "本次战斗中，己方1个已花行动标记参战的狂热团体。": "One of your Fanatic groups that spent an action to participate in this battle.",
+    "白化短吻鳄": "Albino Alligators",
+    "本次被攻击的己方团体。": "Your group currently under attack.",
+    "本次防御+4。": "Defense +4 this battle.",
+    "民调利好": "Good Polls",
+    "本次防御+2。": "Defense +2 this battle.",
+    "志愿援助": "Volunteer Aid",
+    "你发起的1次普通控制攻击。": "A normal Control attack you launched.",
+    "本次攻击强度+6。": "Attack strength +6 this battle.",
+    "贿赂": "Bribery",
+    "你发起的1次普通摧毁攻击。": "A normal Destroy attack you launched.",
+    "暴力痉挛": "Spasm of Violence",
+    "自己。": "You.",
+    "抽2张阴谋。": "Draw 2 Plots.",
+    "弃本牌，再弃1张团体手牌。": "Discard this card and 1 Group from your hand.",
+    "货币投机": "Currency Speculation",
+    "对手刚打出、尚未结算的1张非反制阴谋牌。": "An enemy non-counter Plot just played, before it resolves.",
+    "取消该牌；已支付费用不退还。": "Cancel that card. Paid costs are not refunded.",
+    "骗局": "Hoax!",
+    "对手发起、尚未掷骰的1次普通攻击。": "An enemy normal attack, before rolling.",
+    "本次攻击直接失败。": "The attack fails immediately.",
+    "受挫": "Foiled!",
+    "你的1个非光明会团体。": "One of your non-Illuminati groups.",
+    "恢复目标1标记。": "Restore 1 action to the target.",
+    "新鲜血液": "New Blood",
+    "你的1个非光明会团体及合法新上级。": "One of your non-Illuminati groups and a legal new parent.",
+    "将目标整支免费移至己方新上级的合法空槽。": "Move the target and its descendants into a free slot under the new parent for free.",
+    "你的1个下属槽尚不足3的团体。": "One of your groups with fewer than 3 subordinate slots.",
+    "下属槽+1，上限3。": "Add 1 subordinate slot, up to 3.",
+    "附着本牌。": "Attach this card.",
+    "组织起来": "Let's Get Organized",
+    "本次被攻击的己方计算机团体。": "Your Computer group currently under attack.",
+    "计算机安全": "Computer Security",
+    "对手的阴谋手牌。": "Your opponent's Plot hand.",
+    "查看对手全部阴谋手牌，选1张令其弃掉。": "Inspect all enemy Plots in hand. Choose 1 to discard.",
+    "弃本牌，花己方1个非光明会团体的行动标记。": "Discard this card and spend 1 action from a non-Illuminati group you control.",
+    "安插特工": "Agent in Place",
+    "对手。": "Your opponent.",
+    "公开对手当前阴谋手牌至回合结束。": "Reveal the opponent's current Plot hand until this turn ends.",
+    "曝光": "Exposed!",
+    "随机夺取对手1张阴谋手牌，只有取得的牌向你显示。": "Randomly steal 1 enemy Plot from hand. Only the stolen card is shown to you.",
+    "窃取计划": "Stealing the Plans",
+    "从共享阴谋堆抽2张。": "Draw 2 cards from the Plot deck.",
+    "挪用公款": "Embezzlement",
+    "从共享团体堆抽2张。": "Draw 2 cards from the Group deck.",
+    "机遇敲门": "Opportunity Knocks",
+    "R+2。": "R +2.",
+    "坚定承诺": "Commitment",
+    "你的1个印刷力量不高于3的非光明会团体。": "One of your non-Illuminati groups with printed P of 3 or less.",
+    "P+1。": "P +1.",
+    "草根支持": "Grassroots Support",
+    "全场。": "All players.",
+    "所有正统团体P+1、R+1。": "All Straight groups have +1 P and +1 R.",
+    "置入公共秩序槽。": "Place this card in the World Order slot.",
+    "新世界秩序：法律与秩序": "NWO: Law and Order",
+    "法律与秩序": "Law and Order",
+    "双方普通摧毁攻击强度-2。": "Both players' normal Destroy attacks have -2 strength.",
+    "新世界秩序：我们时代的和平": "NWO: Peace in Our Time",
+    "我们时代的和平": "Peace in Our Time",
+    "对手1个持有行动标记、且未受“法治保障”保护的非光明会团体。": "An enemy non-Illuminati group with an action, not protected by Rule of Law.",
+    "移除目标的行动标记。": "Remove the target's action.",
+    "破坏行动": "Sabotage",
+    "对手1个地点。": "An enemy Place.",
+    "威力14；对巨大地点威力-4。成功使目标受灾；成功差值≥4时改为摧毁。": "Strength 14; -4 against Huge Places. Success devastates the target. A success margin of 4 or more destroys it instead.",
+    "弃本牌；花己方1个非主牌团体标记。": "Discard this card and spend 1 action from a non-Illuminati group you control.",
+    "地震": "Earthquake",
+    "对手1个沿海地点。": "An enemy Coastal Place.",
+    "威力14。成功使目标受灾；你可再移除其1个直属下属的行动标记。不摧毁地点。": "Strength 14. Success devastates the target. You may also remove the action from one direct subordinate. Does not destroy the Place.",
+    "飓风": "Hurricane",
+    "威力16。成功使目标受灾；若目标非巨大，防守方还须将其1个直属下属整支收回手牌。不摧毁地点。": "Strength 16. Success devastates the target. If it is not Huge, the defender also returns one direct subordinate and its descendants to hand. Does not destroy the Place.",
+    "海啸": "Tidal Wave",
+    "对手1个具有科学标签，或有直属科学下属的地点。": "An enemy Place with Science or a direct Science subordinate.",
+    "威力18。成功使目标受灾；成功差值≥6时改为摧毁。": "Strength 18. Success devastates the target. A success margin of 6 or more destroys it instead.",
+    "核设施事故": "Nuclear Accident",
+    "威力12；对巨大地点威力+4。成功使目标受灾；巨大目标的控制者还须弃1张阴谋。不摧毁地点。": "Strength 12; +4 against Huge Places. Success devastates the target. A Huge target's controller also discards 1 Plot. Does not destroy the Place.",
+    "疫情暴发": "Epidemic",
+    "每次普通战斗，进攻方可让1个原本用GP的媒体团体改用P支援。": "Once per normal battle, the attacker may let one Media group that would use GP support using P instead.",
+    "本牌置入当前秩序槽，替换旧秩序。": "Place this card in the World Order slot, replacing the previous order.",
+    "新世界秩序：算法时代": "NWO: The Algorithmic Age",
+    "每个己方主要阶段可免费重建1个地点，巨大也可。": "Once during each of your main phases, rebuild 1 Place for free, including a Huge Place.",
+    "新世界秩序：韧性社会": "NWO: Resilient Societies",
+    "韧性社会": "Resilient Societies",
+    "对手1个名人。": "An enemy Celebrity.",
+    "卡面能力失效至回合结束。": "Disable its printed ability until this turn ends.",
+    "弃本牌；花己方1个媒体团体标记。": "Discard this card and spend 1 action from a Media group you control.",
+    "公关危机": "PR Crisis",
+    "己方1个名人。": "A Celebrity you control.",
+    "目标完成普通支援的战斗后，可恢复1个己方企业团体1标记；每回合1次。": "After a battle in which the target provided normal support, you may restore 1 action to a Corporate group you control. Once per turn.",
+    "品牌代言": "Brand Endorsement",
+    "被灾难攻击的己方地点的1个直属下属。": "A direct subordinate of your Place currently facing a disaster.",
+    "将其整支免费移到该地点子树之外的己方合法空槽；灾难继续。": "Move it and its descendants to a legal slot you control outside that Place's branch for free. The disaster continues.",
+    "紧急疏散": "Emergency Evacuation",
+    "己方1个受灾地点。": "One of your devastated Places.",
+    "免费重建目标。": "Rebuild the target for free.",
+    "弃本牌；巨大目标再弃1张团体手牌。": "Discard this card. For a Huge target, also discard 1 Group from hand.",
+    "灾后重建": "Disaster Relief",
+    "己方发动的本次普通控制攻击。": "Your current normal Control attack.",
+    "将本次总阵营修正的正负互换；忠诚、支援资格和其他数值不变。每次攻击限生效1次。": "Reverse the sign of the total alignment modifier. Loyalty, support eligibility, and other values are unchanged. Only once per attack.",
+    "弃本牌；花己方1个媒体团体标记，此团体不因此算参战。": "Discard this card and spend 1 action from a Media group you control. This does not count as participating.",
+    "逆向叙事": "Reframing",
+    "己方发起、目标为敌方名人的本次普通摧毁攻击。": "Your normal Destroy attack against an enemy Celebrity.",
+    "本次攻击忽略位置防御。": "Ignore position defense this attack.",
+    "狙击": "Sniper",
+    "目标将被普通攻击摧毁时，弃本牌，改为清空目标标记，保留目标整支。": "If a normal attack would destroy the target, discard this card instead. Remove the target's action and keep its entire branch.",
+    "保镖": "Bodyguard",
+    "敌方1个企业或银行团体，主牌除外。": "An enemy Corporate or Bank group, excluding Illuminati.",
+    "目标的GP视为0。其控制者可在己方主要阶段花目标1标记，弃掉本牌。": "The target's GP is 0. Its controller may spend its action during their main phase to discard this attachment.",
+    "附着本牌；花己方1个政府或媒体团体的行动标记。": "Attach this card and spend 1 action from a Government or Media group you control.",
+    "监管调查": "Regulatory Probe",
+    "己方1个具有计算机、科学或太空标签的团体。": "One of your Computer, Science, or Space groups.",
+    "令目标在场期间获得1个尚无的计算机、科学或太空标签。": "Give the target one missing tag from Computer, Science, or Space while it remains in play.",
+    "技术融合": "Technology Convergence",
+    "共享阴谋弃牌堆中1张战斗阴谋。": "A Battle Plot in the shared Plot discard pile.",
+    "将目标加入手牌，本回合可用。": "Add it to your hand. It may be used this turn.",
+    "弃本牌；花己方1个魔法团体的行动标记。": "Discard this card and spend 1 action from a Magic group you control.",
+    "奥术回响": "Arcane Echo",
+    "己方发起的本次普通进攻。": "Your current normal attack.",
+    "后续加入本次进攻支援的己方共产团体可用P。": "Your Communist groups joining as attacking supporters may use P this battle.",
+    "己方1个可合法恢复行动标记的军队团体。": "One of your Military groups eligible to regain an action.",
+    "恢复目标1标记，再抽1张团体。": "Restore its action, then draw 1 Group.",
+    "弃本牌；花己方1个银行团体的行动标记。": "Discard this card and spend 1 action from a Bank group you control.",
+    "装备融资": "Equipment Financing",
+    "己方发起的本次灾难。": "Your current disaster.",
+    "本次威力+3；额外弃灾难牌则改为+6。": "Disaster strength +3, or +6 if the extra discard is a Disaster Plot.",
+    "弃本牌，再弃1张阴谋手牌。": "Discard this card and 1 other Plot from your hand.",
+    "连锁事故": "Cascading Accident",
+    "满足本牌条件的己方势力。": "Your network, when the condition is met.",
+    "控制至少5个犯罪团体，且它们的有效P合计至少20。": "Control at least 5 Criminal groups with a combined effective P of at least 20.",
+    "犯罪霸权": "Criminal Overlords",
+    "控制至少9个团体，其中至少6个印刷P≤3。": "Control at least 9 groups, including 6 with printed P of 3 or less.",
+    "草根接管": "Grassroots Takeover",
+    "控制至少4个军队团体，并累计摧毁至少3个敌方团体。": "Control at least 4 Military groups and have destroyed at least 3 enemy groups.",
+    "铁腕统治": "Rule by Force",
+    "控制至少7个团体，其中至少3位名人、至少4个媒体团体。": "Control at least 7 groups, including 3 Celebrities and 4 Media groups.",
+    "聚光灯帝国": "Spotlight Empire",
+    "控制至少7个团体，并覆盖全部10种阵营。": "Control at least 7 groups covering all 10 alignments.",
+    "万象归一": "All Sides of the World",
+    "敌方1张在场资源。": "An enemy resource in play.",
+    "报废目标资源。": "Scrap the target resource.",
+    "弃本牌，花己方1个团体的行动。": "Discard this card and spend 1 action from a group you control.",
+    "精密爆破": "Precision Demolition",
+    "资源牌堆。": "The Resource deck.",
+    "查看堆顶2张，取1张加入手牌，其余沉底。": "Look at the top 2 cards. Keep 1 and put the rest on the bottom.",
+    "逆向研发": "Reverse Engineering",
+    "目标失效至本回合结束。": "Disable the target until this turn ends.",
+    "技术封锁": "Technology Blockade",
+    "敌方1张在场装置资源。": "An enemy Gadget resource in play.",
+    "将目标移入己方资源手牌。": "Move the target into your Resource hand.",
+    "弃本牌，花己方1个政府团体的行动。": "Discard this card and spend 1 action from a Government group you control.",
+    "资产征用": "Asset Requisition",
+    "双方各1张在场资源。": "One resource in play from each player.",
+    "交换目标资源。": "Swap the two resources.",
+    "弃本牌，花己方1个科学团体的行动。": "Discard this card and spend 1 action from a Science group you control.",
+    "技术交换": "Technology Exchange",
+    " · 弃牌": " · Discard",
+    "上级「": "Parent: \"",
+    "骰子": "Dice",
+    "夺取整支": "Seize branch of ",
+    "对": "vs.",
+    " 对 ": " vs. ",
+    "阵营与标签": "Alignments & Tags",
+    "P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。": "P (Power): Leads attacks, self-defends, and provides eligible support. GP (Global Power): Support when P is not eligible. Never add P and GP. R (Resistance): Base defense against Control.\n\nOpposites: Government–Corporate, Liberal–Conservative, Peaceful–Violent, Straight–Weird, Fanatic–Fanatic. Criminal has no opposite. Fanatic never counts as a shared alignment.\nControl: Compare leader with target. +4 per shared alignment; −4 per opposing pair. Destroy reverses these modifiers.\n\nLoyalty: +4 per alignment shared with the direct parent; Control defense only. Opposing alignments do not subtract loyalty.\nPosition: +10 for direct subordinates of the Illuminati, +5 for the next level, +0 deeper. Applies to Control and Destroy.\nSelf-defense: Spend the target’s action for an extra 2 × P defense.\n\nSupport: Compare supporter with the attacked target. Control attack: shared alignment uses P. Destroy attack: opposing alignments use P. Defense: shared alignment or direct parent/child uses P. Otherwise use GP. Normally costs the supporter’s action.\n\nTags are separate: Military, Communist, Magic, Space, Celebrity, Place, etc. matter only when named by a rule or card. They give no automatic alignment modifier. Huge and Coastal are also tags.\n\nSmall cards abbreviate alignments; inspect a card to see the full names.",
+    "\n在场资源 ": "\nResources in play ",
+    "\n行动 ": "\nAction ",
+    "\n资源手牌 ": "\nResource hand ",
+    " · 夺取整支": " · Seize branch of ",
+    " · 弃「": " · Discard \"",
+    " · 用预案 ": " · Use Plan ",
+    " · 由": " · Action from ",
+    " · 预案 ": " · Plan ",
+    " · 骗局取消了「": " · Hoax cancels \"",
+    " · 骰子 ": " · Dice ",
+    "\n己方主要阶段主动打出，可被反制。": "\nPlay during your main phase; may be countered.",
+    " 支援": " supports ",
+    " 登记人道撤离 → ": " registers Humanitarian Evacuation → ",
+    " 自卫 · 防御 +": " self-defends · Defense +",
+    "偿还借贷 · 本次不补行动标记": " repays debt · skip this refresh",
+    "公开了": " reveals ",
+    "打出": " plays ",
+    "的主要阶段": ": Main Phase",
+    "的势力已被消灭": "'s network has been eliminated",
+    "自动接管了": " automatically takes control of ",
+    " · 本回合无行动标记": " · no action this turn",
+    "重组了势力结构": " reorganizes their network",
+    "AI 打出「": "AI plays \"",
+    "   下属槽 ": "   Slots ",
+    "中转港 · ": "Transshipment Hub · ",
+    "主牌揭晓 · ": "Factions revealed · ",
+    "互助储备 → ": "Mutual Reserves → ",
+    "伪造身份 · ": "Forged Identity · ",
+    "先手骰点 · 你 ": "Initiative · You ",
+    "公开预案 · ": "Public Plan · ",
+    "其余 ": "Other ",
+    " 张手牌": " cards",
+    "初始手下同时亮出 · 你 ": "Starting groups revealed · You ",
+    "先手 · ": " goes first · ",
+    "后手额外抽1张阴谋": " draws 1 extra Plot",
+    "力量 ": "Power ",
+    "   阵营 ": "   Align ",
+    "   能力 ": "   Ability ",
+    "\n\n防御 ": "\n\nBase ",
+    "   忠诚 ": "   Loyalty ",
+    "   位置 ": "   Position ",
+    "\n被动防御 ": "\nPassive defense ",
+    "  阵营 ": "  Align ",
+    "  能力 ": "  Ability ",
+    "  支援 +": "  Support +",
+    "  阴谋 +": "  Plots +",
+    "\n防御 ": "\nBase ",
+    "  忠诚 ": "  Loyalty ",
+    "  位置 ": "  Position ",
+    "  自卫/支援 ": "  Self/Support ",
+    "  其他 ": "  Other ",
+    "印刷  P": "Printed  P",
+    " / 槽": " / Slots ",
+    "\n当前  P": "\nCurrent  P",
+    "可自卫 +": "Self-defense +",
+    "（消耗1标记）": " (spend 1 action)",
+    "团体  ": "Groups ",
+    "固定骰点 ": "Fixed dice ",
+    "基础强度  ": "Base strength ",
+    "奥术回响 → ": "Arcane Echo → ",
+    "委托制造 · ": "Contract Manufacturing · ",
+    "威力": "Disaster ",
+    "   修正": "   Modifier ",
+    "   基础防御": "   Base ",
+    "   被动": "   Passive ",
+    "   防备": "   Prepared ",
+    "  修正": "  Modifier ",
+    "  阴谋": "  Plots ",
+    "\n防御": "\nBase ",
+    "  被动": "  Passive ",
+    "  支援/自卫": "  Support/Self ",
+    "  其他": "  Other ",
+    "\n摧毁概率 ": "\nDestruction chance ",
+    "安可 · 原骰": "Encore · Original ",
+    " · 可弃1张阴谋重掷": " · Discard 1 Plot to reroll",
+    "安插特工弃掉了": "Agent in Place discards ",
+    "对手 · 团体": "Rival · Groups ",
+    " / 阴谋": " / Plots ",
+    " / 资源": " / Resources ",
+    "幸运押注 · 骰点 ": "Lucky Bet · Roll ",
+    "弹性扩容 · +": "Elastic Scaling · +",
+    "强度 ": "Strength ",
+    "    成功率 ": "    Success ",
+    "忠诚 +": "Loyalty +",
+    "    位置 +": "    Position +",
+    "（第": " (depth ",
+    "层）": ")",
+    "   位置 +": "   Position +",
+    "成功 ": "Success ",
+    "%   摧毁 ": "%   Destroy ",
+    "成功率  ": "Success ",
+    "打出「": "Play \"",
+    "技术融合 → ": "Technology Convergence → ",
+    "招募「": "Recruit \"",
+    "控制「": "Control \"",
+    "控制防御 ": "Control defense ",
+    " = 抗性": " = R ",
+    " + 忠诚": " + Loyalty ",
+    " + 位置": " + Position ",
+    " + 被动": " + Passive ",
+    "摧毁「": "Destroy \"",
+    "摧毁防御 ": "Destroy defense ",
+    "撤销协议 · ": "Rescind Agreement · ",
+    "支援  ": "Support ",
+    "个 · 合计 +": " · Total +",
+    "支援 · ": "Support · ",
+    "星象助阵 · 骰点": "Astrological Aid · Roll ",
+    " · 支援+": " · Support +",
+    "本次可支援 +": "May support +",
+    "；需要1个行动标记。": "; costs 1 action.",
+    "本次战斗 · 忠诚": "This battle · Loyalty ",
+    " / 位置": " / Position ",
+    " / 被动": " / Passive ",
+    "\n自卫与支援 +": "\nSelf-defense and support +",
+    " / 阴谋防御 +": " / Plot defense +",
+    "本次灾难威力+": "Disaster strength +",
+    "民兵动员 · 免标记 +": "Militia Mobilization · Free +",
+    "民兵动员 · 可免标记自卫 +": "Militia Mobilization · Free self-defense +",
+    "灾后重建 → ": "Disaster Relief → ",
+    "灾害承保 · 抽": "Disaster Insurance · Draw ",
+    "张阴谋": " Plots",
+    "灾难基础防御 ": "Disaster base ",
+    "；被动+": "; Passive +",
+    "；防备+": "; Preparedness +",
+    "。灾难不计忠诚和位置。": ". Disasters ignore loyalty and position.",
+    "物流 · ": "Logistics · ",
+    "监管调查 → ": "Regulatory Probe → ",
+    "破坏 · ": "Sabotage · ",
+    "秘宝转手 · ": "Relic Transfer · ",
+    "移动 → ": "Move → ",
+    "空间折叠 · ": "Space Folding · ",
+    "紧急疏散 · ": "Emergency Evacuation · ",
+    "线路跳转 → ": "Line Hopping → ",
+    "结束回合 · 招募弃": "End Turn · Discard ",
+    "联合动员可增强": "Joint Mobilization can boost ",
+    "个支援": " supporters",
+    "联合协作 · 直属政府下属": "Joint Cooperation · ",
+    "个。": " direct Government subordinates.",
+    "联合生产 · 直属共产下属提供P+": "Joint Production · P +",
+    "（上限2）。": " from direct Communist subordinates (max 2).",
+    "自卫 · ": "Self-defense · ",
+    "行动标记  ": "Action ",
+    " / 1    下属槽  ": " / 1    Slots ",
+    "装备融资 → ": "Equipment Financing → ",
+    "训练 ": "Training ",
+    "训练": "Training ",
+    "资源手牌上限 ": "Resource hand limit ",
+    " · 选择弃牌": " · Choose a discard",
+    "连锁事故 +": "Cascading Accident +",
+    "选择「": "Choose \"",
+    "选择第": "Choose action payer ",
+    "采用预案 · ": "Use Plan · ",
+    "重建「": "Rebuild \"",
+    "重组 · ": "Reorganization · ",
+    "重随 · 剩余": "Redraw · ",
+    "重随初始团体 · 剩余": "Redraw Starting Groups · ",
+    "防备 · 下次灾难": "Preparedness · Next disaster",
+    "防御+4，发动时消耗。": " defense +4, then consumed.",
+    "阴谋  ": "Plots ",
+    "张可用 · ": " ready · ",
+    "张需先支援": " need support first",
+    "阴谋手牌上限 ": "Plot hand limit ",
+    "革命课堂 · 在场强化 P+": "Revolutionary Classroom · In-play P +",
+    "韧性社会 · 免费重建「": "Resilient Societies · Rebuild \"",
+    "骗局 · 取消「": "Hoax · Cancel \"",
+    "骗局 → 取消「": "Hoax → Cancel \"",
+    "骰点 ": "Roll ",
+    "高额账单 · ": "Hefty Bill · ",
+    "弃「": " discards \""
+  },
+  "templates": [
+    {
+      "source": "力量 %d  阵营 %+d  能力 %+d  支援 +%d  阴谋 +%d\n防御 %d  忠诚 %d  位置 %d  自卫/支援 %d  其他 %d",
+      "pattern": "^力量\\ ([+-]?[0-9]+)\\ \\ 阵营\\ ([+-]?[0-9]+)\\ \\ 能力\\ ([+-]?[0-9]+)\\ \\ 支援\\ \\+([+-]?[0-9]+)\\ \\ 阴谋\\ \\+([+-]?[0-9]+)\\\n防御\\ ([+-]?[0-9]+)\\ \\ 忠诚\\ ([+-]?[0-9]+)\\ \\ 位置\\ ([+-]?[0-9]+)\\ \\ 自卫/支援\\ ([+-]?[0-9]+)\\ \\ 其他\\ ([+-]?[0-9]+)$",
+      "text": "Power {0}  Align {1}  Ability {2}  Support +{3}  Plots +{4}\nBase {5}  Loyalty {6}  Position {7}  Self/Support {8}  Other {9}",
+      "weight": 52
+    },
+    {
+      "source": "力量 %d   阵营 %+d   能力 %+d\n\n防御 %d   忠诚 %d   位置 %d\n被动防御 %d",
+      "pattern": "^力量\\ ([+-]?[0-9]+)\\ \\ \\ 阵营\\ ([+-]?[0-9]+)\\ \\ \\ 能力\\ ([+-]?[0-9]+)\\\n\\\n防御\\ ([+-]?[0-9]+)\\ \\ \\ 忠诚\\ ([+-]?[0-9]+)\\ \\ \\ 位置\\ ([+-]?[0-9]+)\\\n被动防御\\ ([+-]?[0-9]+)$",
+      "text": "Power {0}   Align {1}   Ability {2}\n\nBase {3}   Loyalty {4}   Position {5}\nPassive defense {6}",
+      "weight": 38
+    },
+    {
+      "source": "印刷  P%d / GP%d / R%d / 槽%d\n当前  P%d / GP%d / R%d / 槽%d",
+      "pattern": "^印刷\\ \\ P([+-]?[0-9]+)\\ /\\ GP([+-]?[0-9]+)\\ /\\ R([+-]?[0-9]+)\\ /\\ 槽([+-]?[0-9]+)\\\n当前\\ \\ P([+-]?[0-9]+)\\ /\\ GP([+-]?[0-9]+)\\ /\\ R([+-]?[0-9]+)\\ /\\ 槽([+-]?[0-9]+)$",
+      "text": "Printed  P{0} / GP{1} / R{2} / Slots {3}\nCurrent  P{4} / GP{5} / R{6} / Slots {7}",
+      "weight": 37
+    },
+    {
+      "source": "本次战斗 · 忠诚%d / 位置%d / 被动%d\n自卫与支援 +%d / 阴谋防御 +%d",
+      "pattern": "^本次战斗\\ ·\\ 忠诚([+-]?[0-9]+)\\ /\\ 位置([+-]?[0-9]+)\\ /\\ 被动([+-]?[0-9]+)\\\n自卫与支援\\ \\+([+-]?[0-9]+)\\ /\\ 阴谋防御\\ \\+([+-]?[0-9]+)$",
+      "text": "This battle · Loyalty {0} / Position {1} / Passive {2}\nSelf-defense and support +{3} / Plot defense +{4}",
+      "weight": 36
+    },
+    {
+      "source": "威力%d  修正%+d  阴谋%+d\n防御%d  被动%d  支援/自卫%d  其他%d\n摧毁概率 %.1f%%",
+      "pattern": "^威力([+-]?[0-9]+)\\ \\ 修正([+-]?[0-9]+)\\ \\ 阴谋([+-]?[0-9]+)\\\n防御([+-]?[0-9]+)\\ \\ 被动([+-]?[0-9]+)\\ \\ 支援/自卫([+-]?[0-9]+)\\ \\ 其他([+-]?[0-9]+)\\\n摧毁概率\\ ([+-]?[0-9]+(?:\\.[0-9]+)?)%$",
+      "text": "Disaster {0}  Modifier {1}  Plots {2}\nBase {3}  Passive {4}  Support/Self {5}  Other {6}\nDestruction chance {7}%",
+      "weight": 35
+    },
+    {
+      "source": "初始手下同时亮出 · 你 %d，AI %d · %s先手 · %s后手额外抽1张阴谋",
+      "pattern": "^初始手下同时亮出\\ ·\\ 你\\ ([+-]?[0-9]+)，AI\\ ([+-]?[0-9]+)\\ ·\\ (.*?)先手\\ ·\\ (.*?)后手额外抽1张阴谋$",
+      "text": "Starting groups revealed · You {0}, AI {1} · {2} goes first · {3} draws 1 extra Plot",
+      "weight": 34
+    },
+    {
+      "source": "灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。",
+      "pattern": "^灾难基础防御\\ ([+-]?[0-9]+)；被动\\+([+-]?[0-9]+)；防备\\+([+-]?[0-9]+)。灾难不计忠诚和位置。$",
+      "text": "Disaster base {0}; Passive +{1}; Preparedness +{2}. Disasters ignore loyalty and position.",
+      "weight": 26
+    },
+    {
+      "source": "控制防御 %d = 抗性%d + 忠诚%d + 位置%d + 被动%d",
+      "pattern": "^控制防御\\ ([+-]?[0-9]+)\\ =\\ 抗性([+-]?[0-9]+)\\ \\+\\ 忠诚([+-]?[0-9]+)\\ \\+\\ 位置([+-]?[0-9]+)\\ \\+\\ 被动([+-]?[0-9]+)$",
+      "text": "Control defense {0} = R {1} + Loyalty {2} + Position {3} + Passive {4}",
+      "weight": 25
+    },
+    {
+      "source": "威力%d   修正%+d   基础防御%d   被动%d   防备%d",
+      "pattern": "^威力([+-]?[0-9]+)\\ \\ \\ 修正([+-]?[0-9]+)\\ \\ \\ 基础防御([+-]?[0-9]+)\\ \\ \\ 被动([+-]?[0-9]+)\\ \\ \\ 防备([+-]?[0-9]+)$",
+      "text": "Disaster {0}   Modifier {1}   Base {2}   Passive {3}   Prepared {4}",
+      "weight": 24
+    },
+    {
+      "source": "联合生产 · 直属共产下属提供P+%d（上限2）。",
+      "pattern": "^联合生产\\ ·\\ 直属共产下属提供P\\+([+-]?[0-9]+)（上限2）。$",
+      "text": "Joint Production · P +{0} from direct Communist subordinates (max 2).",
+      "weight": 23
+    },
+    {
+      "source": "行动标记  %d / 1    下属槽  %d / %d",
+      "pattern": "^行动标记\\ \\ ([+-]?[0-9]+)\\ /\\ 1\\ \\ \\ \\ 下属槽\\ \\ ([+-]?[0-9]+)\\ /\\ ([+-]?[0-9]+)$",
+      "text": "Action {0} / 1    Slots {1} / {2}",
+      "weight": 22
+    },
+    {
+      "source": "先手骰点 · 你 %d + %d / AI %d + %d",
+      "pattern": "^先手骰点\\ ·\\ 你\\ ([+-]?[0-9]+)\\ \\+\\ ([+-]?[0-9]+)\\ /\\ AI\\ ([+-]?[0-9]+)\\ \\+\\ ([+-]?[0-9]+)$",
+      "text": "Initiative · You {0} + {1} / AI {2} + {3}",
+      "weight": 21
+    },
+    {
+      "source": "%s · %s\n己方主要阶段主动打出，可被反制。",
+      "pattern": "^(.*?)\\ ·\\ (.*?)\\\n己方主要阶段主动打出，可被反制。$",
+      "text": "{0} · {1}\nPlay during your main phase; may be countered.",
+      "weight": 20
+    },
+    {
+      "source": "P %d   GP %d   R %d   下属槽 %d",
+      "pattern": "^P\\ ([+-]?[0-9]+)\\ \\ \\ GP\\ ([+-]?[0-9]+)\\ \\ \\ R\\ ([+-]?[0-9]+)\\ \\ \\ 下属槽\\ ([+-]?[0-9]+)$",
+      "text": "P {0}   GP {1}   R {2}   Slots {3}",
+      "weight": 20
+    },
+    {
+      "source": "本次可支援 +%d（%s）\n%s；需要1个行动标记。",
+      "pattern": "^本次可支援\\ \\+([+-]?[0-9]+)（(.*?)）\\\n(.*?)；需要1个行动标记。$",
+      "text": "May support +{0} ({1})\n{2}; costs 1 action.",
+      "weight": 20
+    },
+    {
+      "source": "防备 · 下次灾难%s防御+4，发动时消耗。",
+      "pattern": "^防备\\ ·\\ 下次灾难(.*?)防御\\+4，发动时消耗。$",
+      "text": "Preparedness · Next disaster{0} defense +4, then consumed.",
+      "weight": 20
+    },
+    {
+      "source": "安可 · 原骰%d＋%d · 可弃1张阴谋重掷",
+      "pattern": "^安可\\ ·\\ 原骰([+-]?[0-9]+)＋([+-]?[0-9]+)\\ ·\\ 可弃1张阴谋重掷$",
+      "text": "Encore · Original {0} + {1} · Discard 1 Plot to reroll",
+      "weight": 19
+    },
+    {
+      "source": "摧毁防御 %d = %s%d + 位置%d + 被动%d",
+      "pattern": "^摧毁防御\\ ([+-]?[0-9]+)\\ =\\ (.*?)([+-]?[0-9]+)\\ \\+\\ 位置([+-]?[0-9]+)\\ \\+\\ 被动([+-]?[0-9]+)$",
+      "text": "Destroy defense {0} = {1} {2} + Position {3} + Passive {4}",
+      "weight": 18
+    },
+    {
+      "source": "对手 · 团体%d / 阴谋%d / 资源%d",
+      "pattern": "^对手\\ ·\\ 团体([+-]?[0-9]+)\\ /\\ 阴谋([+-]?[0-9]+)\\ /\\ 资源([+-]?[0-9]+)$",
+      "text": "Rival · Groups {0} / Plots {1} / Resources {2}",
+      "weight": 17
+    },
+    {
+      "source": "%s自动接管了%s · 本回合无行动标记",
+      "pattern": "^(.*?)自动接管了(.*?)\\ ·\\ 本回合无行动标记$",
+      "text": "{0} automatically takes control of {1} · no action this turn",
+      "weight": 16
+    },
+    {
+      "source": "忠诚 +%d    位置 +%d（第%d层）",
+      "pattern": "^忠诚\\ \\+([+-]?[0-9]+)\\ \\ \\ \\ 位置\\ \\+([+-]?[0-9]+)（第([+-]?[0-9]+)层）$",
+      "text": "Loyalty +{0}    Position +{1} (depth {2})",
+      "weight": 16
+    },
+    {
+      "source": "民兵动员 · 可免标记自卫 +%d。",
+      "pattern": "^民兵动员\\ ·\\ 可免标记自卫\\ \\+([+-]?[0-9]+)。$",
+      "text": "Militia Mobilization · Free self-defense +{0}.",
+      "weight": 16
+    },
+    {
+      "source": "%s偿还借贷 · 本次不补行动标记",
+      "pattern": "^(.*?)偿还借贷\\ ·\\ 本次不补行动标记$",
+      "text": "{0} repays debt · skip this refresh",
+      "weight": 15
+    },
+    {
+      "source": "星象助阵 · 骰点%d · 支援+%d",
+      "pattern": "^星象助阵\\ ·\\ 骰点([+-]?[0-9]+)\\ ·\\ 支援\\+([+-]?[0-9]+)$",
+      "text": "Astrological Aid · Roll {0} · Support +{1}",
+      "weight": 15
+    },
+    {
+      "source": "联合协作 · 直属政府下属%d个。",
+      "pattern": "^联合协作\\ ·\\ 直属政府下属([+-]?[0-9]+)个。$",
+      "text": "Joint Cooperation · {0} direct Government subordinates.",
+      "weight": 15
+    },
+    {
+      "source": "阴谋  %d张可用 · %d张需先支援",
+      "pattern": "^阴谋\\ \\ ([+-]?[0-9]+)张可用\\ ·\\ ([+-]?[0-9]+)张需先支援$",
+      "text": "Plots {0} ready · {1} need support first",
+      "weight": 15
+    },
+    {
+      "source": "革命课堂 · 在场强化 P+%d。",
+      "pattern": "^革命课堂\\ ·\\ 在场强化\\ P\\+([+-]?[0-9]+)。$",
+      "text": "Revolutionary Classroom · In-play P +{0}.",
+      "weight": 15
+    },
+    {
+      "source": "资源手牌上限 %d · 选择弃牌",
+      "pattern": "^资源手牌上限\\ ([+-]?[0-9]+)\\ ·\\ 选择弃牌$",
+      "text": "Resource hand limit {0} · Choose a discard",
+      "weight": 14
+    },
+    {
+      "source": "阴谋手牌上限 %d · 选择弃牌",
+      "pattern": "^阴谋手牌上限\\ ([+-]?[0-9]+)\\ ·\\ 选择弃牌$",
+      "text": "Plot hand limit {0} · Choose a discard",
+      "weight": 14
+    },
+    {
+      "source": "幸运押注 · 骰点 %d · %s",
+      "pattern": "^幸运押注\\ ·\\ 骰点\\ ([+-]?[0-9]+)\\ ·\\ (.*?)$",
+      "text": "Lucky Bet · Roll {0} · {1}",
+      "weight": 13
+    },
+    {
+      "source": "算法时代 · %s (P +%d)",
+      "pattern": "^算法时代\\ ·\\ (.*?)\\ \\(P\\ \\+([+-]?[0-9]+)\\)$",
+      "text": "Algorithmic Age · {0} (P +{1})",
+      "weight": 13
+    },
+    {
+      "source": "韧性社会 · 免费重建「%s」",
+      "pattern": "^韧性社会\\ ·\\ 免费重建「(.*?)」$",
+      "text": "Resilient Societies · Rebuild \"{0}\" for free",
+      "weight": 13
+    },
+    {
+      "source": "可自卫 +%d（消耗1标记）",
+      "pattern": "^可自卫\\ \\+([+-]?[0-9]+)（消耗1标记）$",
+      "text": "Self-defense +{0} (spend 1 action)",
+      "weight": 12
+    },
+    {
+      "source": "奥术回响 → %s · %s行动",
+      "pattern": "^奥术回响\\ →\\ (.*?)\\ ·\\ (.*?)行动$",
+      "text": "Arcane Echo → {0} · Action from {1}",
+      "weight": 12
+    },
+    {
+      "source": "弹性扩容 · +%d · 弃%s",
+      "pattern": "^弹性扩容\\ ·\\ \\+([+-]?[0-9]+)\\ ·\\ 弃(.*?)$",
+      "text": "Elastic Scaling · +{0} · Discard {1}",
+      "weight": 12
+    },
+    {
+      "source": "强度 %d    成功率 %.1f%%",
+      "pattern": "^强度\\ ([+-]?[0-9]+)\\ \\ \\ \\ 成功率\\ ([+-]?[0-9]+(?:\\.[0-9]+)?)%$",
+      "text": "Strength {0}    Success {1}%",
+      "weight": 12
+    },
+    {
+      "source": "支援  %d个 · 合计 +%d",
+      "pattern": "^支援\\ \\ ([+-]?[0-9]+)个\\ ·\\ 合计\\ \\+([+-]?[0-9]+)$",
+      "text": "Support {0} · Total +{1}",
+      "weight": 12
+    },
+    {
+      "source": "民兵动员 · 免标记 +%d",
+      "pattern": "^民兵动员\\ ·\\ 免标记\\ \\+([+-]?[0-9]+)$",
+      "text": "Militia Mobilization · Free +{0}",
+      "weight": 12
+    },
+    {
+      "source": "监管调查 → %s · %s行动",
+      "pattern": "^监管调查\\ →\\ (.*?)\\ ·\\ (.*?)行动$",
+      "text": "Regulatory Probe → {0} · Action from {1}",
+      "weight": 12
+    },
+    {
+      "source": "装备融资 → %s · %s行动",
+      "pattern": "^装备融资\\ →\\ (.*?)\\ ·\\ (.*?)行动$",
+      "text": "Equipment Financing → {0} · Action from {1}",
+      "weight": 12
+    },
+    {
+      "source": "重随初始团体 · 剩余%d次",
+      "pattern": "^重随初始团体\\ ·\\ 剩余([+-]?[0-9]+)次$",
+      "text": "Redraw Starting Groups · {0} left",
+      "weight": 12
+    },
+    {
+      "source": "互助储备 → %s · 弃%s",
+      "pattern": "^互助储备\\ →\\ (.*?)\\ ·\\ 弃(.*?)$",
+      "text": "Mutual Reserves → {0} · Discard {1}",
+      "weight": 11
+    },
+    {
+      "source": "忠诚 +%d   位置 +%d",
+      "pattern": "^忠诚\\ \\+([+-]?[0-9]+)\\ \\ \\ 位置\\ \\+([+-]?[0-9]+)$",
+      "text": "Loyalty +{0}   Position +{1}",
+      "weight": 11
+    },
+    {
+      "source": "成功 %.1f%%   摧毁 %.1f%%",
+      "pattern": "^成功\\ ([+-]?[0-9]+(?:\\.[0-9]+)?)%\\ \\ \\ 摧毁\\ ([+-]?[0-9]+(?:\\.[0-9]+)?)%$",
+      "text": "Success {0}%   Destroy {1}%",
+      "weight": 11
+    },
+    {
+      "source": "技术融合 → %s · +%s",
+      "pattern": "^技术融合\\ →\\ (.*?)\\ ·\\ \\+(.*?)$",
+      "text": "Technology Convergence → {0} · +{1}",
+      "weight": 11
+    },
+    {
+      "source": "灾后重建 → %s · 弃%s",
+      "pattern": "^灾后重建\\ →\\ (.*?)\\ ·\\ 弃(.*?)$",
+      "text": "Disaster Relief → {0} · Discard {1}",
+      "weight": 11
+    },
+    {
+      "source": "灾害承保 · 抽%d张阴谋",
+      "pattern": "^灾害承保\\ ·\\ 抽([+-]?[0-9]+)张阴谋$",
+      "text": "Disaster Insurance · Draw {0} Plots",
+      "weight": 11
+    },
+    {
+      "source": "破坏 · %s · 由%s行动",
+      "pattern": "^破坏\\ ·\\ (.*?)\\ ·\\ 由(.*?)行动$",
+      "text": "Sabotage · {0} · Action from {1}",
+      "weight": 11
+    },
+    {
+      "source": "移动 → %s · 由%s行动",
+      "pattern": "^移动\\ →\\ (.*?)\\ ·\\ 由(.*?)行动$",
+      "text": "Move → {0} · Action from {1}",
+      "weight": 11
+    },
+    {
+      "source": "选择第%d个支付行动的团体",
+      "pattern": "^选择第([+-]?[0-9]+)个支付行动的团体$",
+      "text": "Choose action payer {0}",
+      "weight": 11
+    },
+    {
+      "source": "\n在场资源 %d / 2",
+      "pattern": "^\\\n在场资源\\ ([+-]?[0-9]+)\\ /\\ 2$",
+      "text": "\nResources in play {0} / 2",
+      "weight": 10
+    },
+    {
+      "source": " · 骗局取消了「%s」",
+      "pattern": "^\\ ·\\ 骗局取消了「(.*?)」$",
+      "text": " · Hoax cancels \"{0}\"",
+      "weight": 10
+    },
+    {
+      "source": "%s 登记人道撤离 → %s",
+      "pattern": "^(.*?)\\ 登记人道撤离\\ →\\ (.*?)$",
+      "text": "{0} registers Humanitarian Evacuation → {1}",
+      "weight": 10
+    },
+    {
+      "source": "%s 自卫 · 防御 +%d",
+      "pattern": "^(.*?)\\ 自卫\\ ·\\ 防御\\ \\+([+-]?[0-9]+)$",
+      "text": "{0} self-defends · Defense +{1}",
+      "weight": 10
+    },
+    {
+      "source": "主牌揭晓 · %s 对 %s",
+      "pattern": "^主牌揭晓\\ ·\\ (.*?)\\ 对\\ (.*?)$",
+      "text": "Factions revealed · {0} vs. {1}",
+      "weight": 10
+    },
+    {
+      "source": "伪造身份 · %s → %s",
+      "pattern": "^伪造身份\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Forged Identity · {0} → {1}",
+      "weight": 10
+    },
+    {
+      "source": "委托制造 · %s → %s",
+      "pattern": "^委托制造\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Contract Manufacturing · {0} → {1}",
+      "weight": 10
+    },
+    {
+      "source": "支援 · %s (%s +%d)",
+      "pattern": "^支援\\ ·\\ (.*?)\\ \\((.*?)\\ \\+([+-]?[0-9]+)\\)$",
+      "text": "Support · {0} ({1} +{2})",
+      "weight": 10
+    },
+    {
+      "source": "秘宝转手 · %s → %s",
+      "pattern": "^秘宝转手\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Relic Transfer · {0} → {1}",
+      "weight": 10
+    },
+    {
+      "source": "空间折叠 · %s ↔ %s",
+      "pattern": "^空间折叠\\ ·\\ (.*?)\\ ↔\\ (.*?)$",
+      "text": "Space Folding · {0} ↔ {1}",
+      "weight": 10
+    },
+    {
+      "source": "紧急疏散 · %s → %s",
+      "pattern": "^紧急疏散\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Emergency Evacuation · {0} → {1}",
+      "weight": 10
+    },
+    {
+      "source": "结束回合 · 招募弃%d",
+      "pattern": "^结束回合\\ ·\\ 招募弃([+-]?[0-9]+)$",
+      "text": "End Turn · Discard {0} failed recruits",
+      "weight": 10
+    },
+    {
+      "source": "联合动员可增强%d个支援",
+      "pattern": "^联合动员可增强([+-]?[0-9]+)个支援$",
+      "text": "Joint Mobilization can boost {0} supporters",
+      "weight": 10
+    },
+    {
+      "source": "连锁事故 +%d · 弃%s",
+      "pattern": "^连锁事故\\ \\+([+-]?[0-9]+)\\ ·\\ 弃(.*?)$",
+      "text": "Cascading Accident +{0} · Discard {1}",
+      "weight": 10
+    },
+    {
+      "source": "高额账单 · %s弃「%s」",
+      "pattern": "^高额账单\\ ·\\ (.*?)弃「(.*?)」$",
+      "text": "Hefty Bill · {0} discards \"{1}\"",
+      "weight": 10
+    },
+    {
+      "source": "\n资源手牌 %d / %d",
+      "pattern": "^\\\n资源手牌\\ ([+-]?[0-9]+)\\ /\\ ([+-]?[0-9]+)$",
+      "text": "\nResource hand {0} / {1}",
+      "weight": 9
+    },
+    {
+      "source": "中转港 · %s → %s",
+      "pattern": "^中转港\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Transshipment Hub · {0} → {1}",
+      "weight": 9
+    },
+    {
+      "source": "自卫 · %s (+%d)",
+      "pattern": "^自卫\\ ·\\ (.*?)\\ \\(\\+([+-]?[0-9]+)\\)$",
+      "text": "Self-defense · {0} (+{1})",
+      "weight": 9
+    },
+    {
+      "source": "采用预案 · %d＋%d＝%d",
+      "pattern": "^采用预案\\ ·\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)＝([+-]?[0-9]+)$",
+      "text": "Use Plan · {0} + {1} = {2}",
+      "weight": 9
+    },
+    {
+      "source": "重建「%s」 · %s行动",
+      "pattern": "^重建「(.*?)」\\ ·\\ (.*?)行动$",
+      "text": "Rebuild \"{0}\" · Action from {1}",
+      "weight": 9
+    },
+    {
+      "source": "骗局 · 取消「%s」",
+      "pattern": "^骗局\\ ·\\ 取消「(.*?)」$",
+      "text": "Hoax · Cancel \"{0}\"",
+      "weight": 9
+    },
+    {
+      "source": "骗局 → 取消「%s」",
+      "pattern": "^骗局\\ →\\ 取消「(.*?)」$",
+      "text": "Hoax → Cancel \"{0}\"",
+      "weight": 9
+    },
+    {
+      "source": "\n行动 %d / 1",
+      "pattern": "^\\\n行动\\ ([+-]?[0-9]+)\\ /\\ 1$",
+      "text": "\nAction {0} / 1",
+      "weight": 8
+    },
+    {
+      "source": " · 夺取整支%d张",
+      "pattern": "^\\ ·\\ 夺取整支([+-]?[0-9]+)张$",
+      "text": " · Seize branch of {0} cards",
+      "weight": 8
+    },
+    {
+      "source": "公开预案 · %d＋%d",
+      "pattern": "^公开预案\\ ·\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)$",
+      "text": "Public Plan · {0} + {1}",
+      "weight": 8
+    },
+    {
+      "source": "撤销协议 · %s的%s",
+      "pattern": "^撤销协议\\ ·\\ (.*?)的(.*?)$",
+      "text": "Rescind Agreement · {0}: {1}",
+      "weight": 8
+    },
+    {
+      "source": "物流 · %s → %s",
+      "pattern": "^物流\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Logistics · {0} → {1}",
+      "weight": 8
+    },
+    {
+      "source": "采用预案 · %d＋%d",
+      "pattern": "^采用预案\\ ·\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)$",
+      "text": "Use Plan · {0} + {1}",
+      "weight": 8
+    },
+    {
+      "source": "重建「%s」 · %s＋%s",
+      "pattern": "^重建「(.*?)」\\ ·\\ (.*?)＋(.*?)$",
+      "text": "Rebuild \"{0}\" · {1} + {2}",
+      "weight": 8
+    },
+    {
+      "source": "重组 · %s → %s",
+      "pattern": "^重组\\ ·\\ (.*?)\\ →\\ (.*?)$",
+      "text": "Reorganization · {0} → {1}",
+      "weight": 8
+    },
+    {
+      "source": "重随 · 剩余%d次",
+      "pattern": "^重随\\ ·\\ 剩余([+-]?[0-9]+)次$",
+      "text": "Redraw · {0} left",
+      "weight": 8
+    },
+    {
+      "source": "骰点 %d · 支援%s",
+      "pattern": "^骰点\\ ([+-]?[0-9]+)\\ ·\\ 支援(.*?)$",
+      "text": "Roll {0} · Support {1}",
+      "weight": 8
+    },
+    {
+      "source": " · 用预案 %d",
+      "pattern": "^\\ ·\\ 用预案\\ ([+-]?[0-9]+)$",
+      "text": " · Use Plan {0}",
+      "weight": 7
+    },
+    {
+      "source": " · 预案 %d＋%d",
+      "pattern": "^\\ ·\\ 预案\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)$",
+      "text": " · Plan {0} + {1}",
+      "weight": 7
+    },
+    {
+      "source": " · 骰子 %d＋%d",
+      "pattern": "^\\ ·\\ 骰子\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)$",
+      "text": " · Dice {0} + {1}",
+      "weight": 7
+    },
+    {
+      "source": "%s 支援%s +%d（%s）",
+      "pattern": "^(.*?)\\ 支援(.*?)\\ \\+([+-]?[0-9]+)（(.*?)）$",
+      "text": "{0} supports {1} +{2} ({3})",
+      "weight": 7
+    },
+    {
+      "source": "%s的势力已被消灭",
+      "pattern": "^(.*?)的势力已被消灭$",
+      "text": "{0}'s network has been eliminated",
+      "weight": 7
+    },
+    {
+      "source": "%s重组了势力结构",
+      "pattern": "^(.*?)重组了势力结构$",
+      "text": "{0} reorganizes their network",
+      "weight": 7
+    },
+    {
+      "source": "AI 打出「%s」",
+      "pattern": "^AI\\ 打出「(.*?)」$",
+      "text": "AI plays \"{0}\"",
+      "weight": 7
+    },
+    {
+      "source": "其余 %d 张手牌",
+      "pattern": "^其余\\ ([+-]?[0-9]+)\\ 张手牌$",
+      "text": "Other {0} cards",
+      "weight": 7
+    },
+    {
+      "source": "安插特工弃掉了%s",
+      "pattern": "^安插特工弃掉了(.*?)$",
+      "text": "Agent in Place discards {0}",
+      "weight": 7
+    },
+    {
+      "source": "本次灾难威力+%d",
+      "pattern": "^本次灾难威力\\+([+-]?[0-9]+)$",
+      "text": "Disaster strength +{0}",
+      "weight": 7
+    },
+    {
+      "source": "线路跳转 → %s",
+      "pattern": "^线路跳转\\ →\\ (.*?)$",
+      "text": "Line Hopping → {0}",
+      "weight": 7
+    },
+    {
+      "source": "训练 %d / 2",
+      "pattern": "^训练\\ ([+-]?[0-9]+)\\ /\\ 2$",
+      "text": "Training {0} / 2",
+      "weight": 7
+    },
+    {
+      "source": "阴谋  %d / %d",
+      "pattern": "^阴谋\\ \\ ([+-]?[0-9]+)\\ /\\ ([+-]?[0-9]+)$",
+      "text": "Plots {0} / {1}",
+      "weight": 7
+    },
+    {
+      "source": " · 弃「%s」",
+      "pattern": "^\\ ·\\ 弃「(.*?)」$",
+      "text": " · Discard \"{0}\"",
+      "weight": 6
+    },
+    {
+      "source": " · 由%s行动",
+      "pattern": "^\\ ·\\ 由(.*?)行动$",
+      "text": " · Action from {0}",
+      "weight": 6
+    },
+    {
+      "source": "固定骰点 %d＋%d",
+      "pattern": "^固定骰点\\ ([+-]?[0-9]+)＋([+-]?[0-9]+)$",
+      "text": "Fixed dice {0} + {1}",
+      "weight": 6
+    },
+    {
+      "source": "基础强度  %d",
+      "pattern": "^基础强度\\ \\ ([+-]?[0-9]+)$",
+      "text": "Base strength {0}",
+      "weight": 6
+    },
+    {
+      "source": "成功率  %.1f%%",
+      "pattern": "^成功率\\ \\ ([+-]?[0-9]+(?:\\.[0-9]+)?)%$",
+      "text": "Success {0}%",
+      "weight": 6
+    },
+    {
+      "source": "%s的主要阶段",
+      "pattern": "^(.*?)的主要阶段$",
+      "text": "{0}: Main Phase",
+      "weight": 5
+    },
+    {
+      "source": "资源 · %d",
+      "pattern": "^资源\\ ·\\ ([+-]?[0-9]+)$",
+      "text": "Resources · {0}",
+      "weight": 5
+    },
+    {
+      "source": "上级「%s」",
+      "pattern": "^上级「(.*?)」$",
+      "text": "Parent: {0}",
+      "weight": 4
+    },
+    {
+      "source": "团体  %d",
+      "pattern": "^团体\\ \\ ([+-]?[0-9]+)$",
+      "text": "Groups {0}",
+      "weight": 4
+    },
+    {
+      "source": "打出「%s」",
+      "pattern": "^打出「(.*?)」$",
+      "text": "Play \"{0}\"",
+      "weight": 4
+    },
+    {
+      "source": "招募「%s」",
+      "pattern": "^招募「(.*?)」$",
+      "text": "Recruit \"{0}\"",
+      "weight": 4
+    },
+    {
+      "source": "控制「%s」",
+      "pattern": "^控制「(.*?)」$",
+      "text": "Control \"{0}\"",
+      "weight": 4
+    },
+    {
+      "source": "摧毁「%s」",
+      "pattern": "^摧毁「(.*?)」$",
+      "text": "Destroy \"{0}\"",
+      "weight": 4
+    },
+    {
+      "source": "资源 %d/%d",
+      "pattern": "^资源\\ ([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Res. {0}/{1}",
+      "weight": 4
+    },
+    {
+      "source": "选择「%s」",
+      "pattern": "^选择「(.*?)」$",
+      "text": "Choose \"{0}\"",
+      "weight": 4
+    },
+    {
+      "source": "小团体%d/%d",
+      "pattern": "^小团体([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Small groups {0}/{1}",
+      "weight": 4
+    },
+    {
+      "source": "  槽%d",
+      "pattern": "^\\ \\ 槽([+-]?[0-9]+)$",
+      "text": "  Slots {0}",
+      "weight": 3
+    },
+    {
+      "source": "%s公开了%s",
+      "pattern": "^(.*?)公开了(.*?)$",
+      "text": "{0} reveals {1}",
+      "weight": 3
+    },
+    {
+      "source": "强度 %d",
+      "pattern": "^强度\\ ([+-]?[0-9]+)$",
+      "text": "Strength {0}",
+      "weight": 3
+    },
+    {
+      "source": "团体%d/%d",
+      "pattern": "^团体([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Groups {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "力量%d/%d",
+      "pattern": "^力量([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Power {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "巨大%d/%d",
+      "pattern": "^巨大([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Huge {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "摧毁%d/%d",
+      "pattern": "^摧毁([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Destroyed {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "名人%d/%d",
+      "pattern": "^名人([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Celebrities {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "媒体%d/%d",
+      "pattern": "^媒体([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Media {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "阵营%d/%d",
+      "pattern": "^阵营([+-]?[0-9]+)/([+-]?[0-9]+)$",
+      "text": "Alignments {0}/{1}",
+      "weight": 3
+    },
+    {
+      "source": "%s打出%s",
+      "pattern": "^(.*?)打出(.*?)$",
+      "text": "{0} plays {1}",
+      "weight": 2
+    },
+    {
+      "source": "训练%d",
+      "pattern": "^训练([+-]?[0-9]+)$",
+      "text": "Training {0}",
+      "weight": 2
+    }
+  ],
+  "cards": {
+    "E01": {
+      "effect": "During a normal battle response, spend 1 action from this resource: your attack strength +2."
+    },
+    "E02": {
+      "effect": "During your main phase, scrap this resource to restore 1 action to a group you control."
+    },
+    "E03": {
+      "effect": "Your groups have +3 defense against disasters."
+    },
+    "E04": {
+      "effect": "Once on each of your turns, after your first group enters play from your hand, draw 1 Plot."
+    },
+    "E05": {
+      "effect": "Your Plot and Resource hand limits each increase by 1."
+    },
+    "E06": {
+      "effect": "During your main phase, spend 1 action from this resource: draw 2 Groups, then discard 1 Group from your hand."
+    },
+    "E07": {
+      "effect": "While defending against a normal Destroy attack, scrap this resource: defense +6."
+    },
+    "E08": {
+      "effect": "During your main phase, spend 1 action from this resource: look at the top 3 Resources. You may take 1; put the rest on the bottom."
+    },
+    "E09": {
+      "effect": "When your Coastal groups support using GP, their support strength +1."
+    },
+    "E10": {
+      "effect": "During your main phase, spend 1 action from this resource: move one of your groups and its descendants to a legal parent."
+    },
+    "E11": {
+      "effect": "During your main phase, spend 1 action from this resource: one of your groups has GP equal to P this turn."
+    },
+    "E12": {
+      "effect": "During a normal battle response, scrap this resource: reduce your opponent's total support by 4, to a minimum of 0."
+    },
+    "E13": {
+      "effect": "Once each turn, after you first scrap a Relic resource you control, draw 1 Plot."
+    },
+    "E14": {
+      "effect": "Rebuilding your Huge Places costs only 1 group action."
+    },
+    "E15": {
+      "effect": "During a normal battle response, scrap this resource: set this battle's dice to 3 + 4."
+    },
+    "G001": {
+      "effect": "Control attacks against Criminal targets have +2 strength."
+    },
+    "G002": {
+      "effect": "Investigation (Action): Randomly inspect 1 enemy Group card in hand. Reveal it until this turn ends."
+    },
+    "G003": {
+      "effect": "Infiltration (Action): Remove the action from an enemy group with printed P of 3 or less."
+    },
+    "G004": {
+      "effect": "Interception (Action): Secretly look at up to 3 cards from the Plot deck's top. Return them in any order."
+    },
+    "G005": {
+      "effect": "Military Command: When this group leads a Destroy attack, its direct Military subordinates may support the attack using P."
+    },
+    "G006": {
+      "effect": "This group's direct parent has +2 defense against Control attacks."
+    },
+    "G007": {
+      "effect": "When supporting a Destroy attack, this group's support strength +2."
+    },
+    "G008": {
+      "effect": "Joint Cooperation: This group has +1 GP per direct Government subordinate."
+    },
+    "G009": {
+      "effect": "Rule of Law: Enemy cards and abilities cannot directly remove actions from this group or its direct subordinates. This does not prevent spending actions or losing them through capture or devastation."
+    },
+    "G010": {
+      "effect": "Delivery (Action): Draw 1 Plot, then discard any 1 card from your hand."
+    },
+    "G011": {
+      "effect": "Credit Line (Action): Draw 2 Groups, then discard 1 Group from your hand."
+    },
+    "G012": {
+      "effect": "Monetary Policy: When drawing a Plot in your draw phase, you may draw 2, keep 1, and put the other on the bottom."
+    },
+    "G013": {
+      "effect": "Offshore Recovery (Action): Take the top Plot discard into your hand. It is revealed and unusable this turn."
+    },
+    "G014": {
+      "effect": "Merger Dividend: Once on your turn, after this group first gains a Corporate group through a Control attack, draw 1 Plot. Recruiting from hand or seizing an enemy qualifies; Automatic Takeover does not."
+    },
+    "G015": {
+      "effect": "Loan Conversion: Once during your main phase, discard 1 Plot to draw 1 Group. No action cost."
+    },
+    "G016": {
+      "effect": "Predatory Lending: Once during your main phase, restore 1 action to a debt-free direct subordinate for free. It skips its next action refresh."
+    },
+    "G017": {
+      "effect": "Franchising: Automatic Takeover of a group with printed P of 2 or less into a direct slot costs no Illuminati action."
+    },
+    "G018": {
+      "effect": "Logistics Network: Once during your main phase, move a direct subordinate and its descendants to another legal slot you control for free."
+    },
+    "G019": {
+      "effect": "Destroy attacks against Green targets have +2 strength."
+    },
+    "G020": {
+      "effect": "Power Supply (Action): Restore 1 action to a direct Science or Computer subordinate."
+    },
+    "G021": {
+      "effect": "Network Infiltration: Control attacks against enemy Computer groups ignore position defense."
+    },
+    "G022": {
+      "effect": "Line Hopping: Once during your main phase, move this group and its descendants to another legal slot you control for free."
+    },
+    "G023": {
+      "effect": "Startup Incubator: Once on your turn, after this group first gains a Computer group through a Control attack, draw 1 Group. Recruiting from hand or seizing an enemy qualifies; Automatic Takeover does not."
+    },
+    "G024": {
+      "effect": "One More Game: After a battle in which this group supported your Computer group, restore its action if you still control it."
+    },
+    "G025": {
+      "effect": "Communications Dispatch: When leading a Control attack, this group's direct subordinates may support the attack using P."
+    },
+    "G026": {
+      "effect": "Digital Freedom: Your Plot hand limit increases by 1 while this group is in play."
+    },
+    "G027": {
+      "effect": "Destroy attacks against Science targets have +2 strength."
+    },
+    "G028": {
+      "effect": "Exploration Program (Action): Secretly look at up to 3 Groups from the deck's top. You may take 1 Science or Space group; put the rest on the bottom in their original order."
+    },
+    "G029": {
+      "effect": "Control attacks against Space targets have +3 strength."
+    },
+    "G030": {
+      "effect": "Your groups have +5 defense against disasters."
+    },
+    "G031": {
+      "effect": "Media Conglomerate: In your draw phase, draw 1 extra Plot if this group has at least 2 direct Media subordinates."
+    },
+    "G032": {
+      "effect": "Control attacks against Media targets have +2 strength."
+    },
+    "G033": {
+      "effect": "Changing Trends: Once on your turn, after a Weird group first enters a direct slot from your hand, you may discard 1 Plot to draw 1 Plot."
+    },
+    "G034": {
+      "effect": "Heroic Debut: Once on your turn, after your first Celebrity enters play from your hand, draw 1 Plot."
+    },
+    "G035": {
+      "effect": "Streaming Royalties: Once on your turn, after a non-counter Plot resolves, draw 1 Plot if this group has a direct Media subordinate."
+    },
+    "G036": {
+      "effect": "Cross-Media Adaptation (Action): Give one of your Weird groups the Media tag while it remains in play."
+    },
+    "G037": {
+      "effect": "Targeted Advertising (Action): Another Media group you control has +2 GP this turn, up to its P."
+    },
+    "G038": {
+      "effect": "Scoop (Action): Randomly reveal 1 enemy Plot card in hand until this turn ends."
+    },
+    "G039": {
+      "effect": "+2 defense against Control attacks led by Government groups."
+    },
+    "G040": {
+      "effect": "Control attacks against Conservative targets have +2 strength."
+    },
+    "G041": {
+      "effect": "Echo Chamber: Direct Weird subordinates have at least 8 loyalty defense."
+    },
+    "G042": {
+      "effect": "+4 defense against Control attacks led by Science or Space groups."
+    },
+    "G043": {
+      "effect": "No special ability."
+    },
+    "G044": {
+      "effect": "Imagining the Future: Once on your turn, after a Science or Space group with higher printed P than this group first enters play from your hand, draw 1 Group."
+    },
+    "G045": {
+      "effect": "Control attacks against Space targets have +2 strength."
+    },
+    "G046": {
+      "effect": "Card Trading: Once during your main phase, discard 1 Group to draw 1 Plot. No action cost."
+    },
+    "G047": {
+      "effect": "Sibling Solidarity: When supporting an attack led by a group with the same direct parent, this group may use P."
+    },
+    "G048": {
+      "effect": "Control attacks against Magic targets have +3 strength."
+    },
+    "G049": {
+      "effect": "+3 defense against Destroy attacks."
+    },
+    "G050": {
+      "effect": "Choir of Followers: This group's support strength +1 per direct Weird subordinate, up to +2."
+    },
+    "G051": {
+      "effect": "Protection Racket: Your Plot hand limit increases by 1 per direct Criminal subordinate, up to +2."
+    },
+    "G052": {
+      "effect": "Turf Expansion: Once on your turn, after this group first leads a successful Destroy attack against an enemy group, draw 1 Group."
+    },
+    "G053": {
+      "effect": "This group's Destroy attacks have +2 strength."
+    },
+    "G054": {
+      "effect": "Infiltration: When this group leads a Destroy attack, the target's direct parent cannot support the defense."
+    },
+    "G055": {
+      "effect": "Vampiric Conversion: After seizing an enemy group through a Control attack, replace its Straight alignment with Weird while it remains in play. If it has no Straight alignment, add Weird."
+    },
+    "G056": {
+      "effect": "Clone Backup (Action): Take a group with printed P of 3 or less from the top 3 Group discards, if available."
+    },
+    "G057": {
+      "effect": "Destroy attacks against Peaceful targets have +2 strength."
+    },
+    "G058": {
+      "effect": "+2 defense against Destroy attacks."
+    },
+    "G059": {
+      "effect": "Ecological Sabotage (Action): Remove the action from an enemy Corporate group."
+    },
+    "G060": {
+      "effect": "Control attacks against Criminal targets have +2 strength."
+    },
+    "G061": {
+      "effect": "+4 defense against Destroy attacks led by Violent groups."
+    },
+    "G062": {
+      "effect": "Control attacks against Green targets have +3 strength."
+    },
+    "G063": {
+      "effect": "Humanitarian Evacuation: When a direct subordinate faces a Destroy attack, you may spend this group's action. If the attack succeeds, return the target and its descendants to hand instead. Once per turn."
+    },
+    "G064": {
+      "effect": "Control attacks against Liberal targets have +2 strength."
+    },
+    "G065": {
+      "effect": "Issue Reversal (Action): Swap a Liberal or Conservative group's two alignments until this turn ends."
+    },
+    "G066": {
+      "effect": "Peer Review: When drawing a Group in your draw phase, you may draw 2, keep 1, and put the other on the bottom."
+    },
+    "G067": {
+      "effect": "Hefty Bill: After an opponent's normal attack against this group fails, that opponent randomly discards 1 Plot from hand."
+    },
+    "G068": {
+      "effect": "When supporting the defense of a Science target, this group's support strength +2."
+    },
+    "G069": {
+      "effect": "Grassroots Mobilization: Once on your turn, after a Liberal group first enters a direct slot from your hand, draw 1 Group."
+    },
+    "G070": {
+      "effect": "Control attacks against Conservative targets have +2 strength."
+    },
+    "G071": {
+      "effect": "+10 defense against normal Destroy attacks and disasters."
+    },
+    "G072": {
+      "effect": "Cultural Exports (Action): Secretly look at up to 4 Groups from the deck's top. You may take 1 Media or Weird group; put the rest on the bottom in their original order."
+    },
+    "G073": {
+      "effect": "Industrial Standards: Direct Corporate or Science subordinates have +2 R."
+    },
+    "G074": {
+      "effect": "Financial Brokerage (Action): Take a Battle Plot from the top 3 Plot discards, if available. It is revealed and unusable this turn."
+    },
+    "G075": {
+      "effect": "When supporting the defense of a Liberal target, this group's support strength +4."
+    },
+    "G076": {
+      "effect": "Neutrality Guarantee: Use R as base defense against Destroy attacks and disasters. Self-defense still uses P."
+    },
+    "G077": {
+      "effect": "Capital Hub: Direct Corporate or Bank subordinates have +1 GP, up to their P."
+    },
+    "G078": {
+      "effect": "Compute Allocation (Action): Another Computer group you control has GP equal to P this turn."
+    },
+    "G079": {
+      "effect": "Destroy attacks against Criminal targets have +2 strength."
+    },
+    "G080": {
+      "effect": "Stargazing (Action): Secretly look at up to 3 Groups from the deck's top. Return them in any order."
+    },
+    "G081": {
+      "effect": "Cross-Sector Integration: Direct subordinates with a printed Computer tag also gain Space; those with a printed Space tag also gain Computer."
+    },
+    "G082": {
+      "effect": "Agenda Reset (Action): Choose a World Order in the Plot discard pile to replace the current order."
+    },
+    "G083": {
+      "effect": "Model Simulation (Action): Publicly roll two dice as a Plan. When launching your next normal Control attack this turn, you may use that Plan instead of rolling. Then remove the Plan."
+    },
+    "G084": {
+      "effect": "World Tour (Action): Move this group and its descendants into a free direct slot of another Place you control, then draw 1 Plot."
+    },
+    "G085": {
+      "effect": "Encore: After a failed roll in a normal attack this group supported, you may discard 1 Plot to reroll once. An original 11 or 12 cannot be rerolled."
+    },
+    "G086": {
+      "effect": "Everyone's Challenge (Action): Each player draws 1 Group, you first. Then draw 1 Plot."
+    },
+    "G087": {
+      "effect": "Joint Initiative: Once per turn, after your second different alignment Battle Plot resolves in the same normal battle, draw 1 Plot."
+    },
+    "G088": {
+      "effect": "Disciplined Training: At the end of your turn, gain 1 Training if this group still has its action, up to 2. When leading a normal attack, you may spend 1 Training for +2 strength."
+    },
+    "G089": {
+      "effect": "Key Pass: During a response to your normal attack, spend this group's action to let one of your uncommitted groups use P for its support this battle."
+    },
+    "G090": {
+      "effect": "Product Teaser: Once during your main phase, reveal a Corporate Group from your hand for free. Draw 1 Plot after recruiting it through a Control attack this turn."
+    },
+    "G091": {
+      "effect": "Mineral Exports (Action): Discard 1 Group from your hand to draw 1 Resource."
+    },
+    "G092": {
+      "effect": "Tech Outsourcing: This group has +1 GP per resource you control in play."
+    },
+    "G093": {
+      "effect": "Military Refitting (Action): Restore 1 action to a Gadget resource you control."
+    },
+    "G094": {
+      "effect": "Ecological Recovery: Once on your turn, after you first rebuild a Place, you may restore 1 action to a Green group you control."
+    },
+    "G095": {
+      "effect": "Strait Barrier: When an opponent normally attacks your Coastal Place, non-Coastal groups cannot support that attack using GP."
+    },
+    "G096": {
+      "effect": "Contract Manufacturing (Action): Pay this group's action for a direct Corporate subordinate to lead a Control attack. The leader cannot have entered play or been seized this turn."
+    },
+    "G097": {
+      "effect": "Control attacks against Green targets have +4 strength."
+    },
+    "G098": {
+      "effect": "Mineral Supply: When deploying a resource, you may discard 1 Group from hand instead of spending your Illuminati's action."
+    },
+    "G099": {
+      "effect": "Transshipment Hub: Once during your main phase, move a direct subordinate and its descendants to a free slot of another Coastal Place you control for free, then draw 1 Group."
+    },
+    "G100": {
+      "effect": "Transit Toll: When an opponent normally attacks your Coastal Place, their second attacking supporter must also discard 1 Group."
+    },
+    "G101": {
+      "effect": "Visa Channel: Immediately after your Celebrity is normally attacked, before any response, spend this group's action to move the target and its descendants into a free slot here. The attack continues using the new position."
+    },
+    "G102": {
+      "effect": "Lucky Bet: Once during your main phase, discard 1 Plot and roll one die. On 4–6, draw 3 Plots. No action cost."
+    },
+    "G103": {
+      "effect": "Parallel Computing: In each normal battle, your second Computer group to provide normal support adds +2 support strength."
+    },
+    "G104": {
+      "effect": "Elastic Scaling: When providing normal support, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled."
+    },
+    "G105": {
+      "effect": "Recommendation Feed (Action): Reveal up to 3 Groups from the deck's top. Each player chooses 1 to keep, you first. Discard any unchosen cards."
+    },
+    "G106": {
+      "effect": "Fact Check: When an opponent plays a previously revealed non-counter Plot, spend this group's action to require another Plot discard or cancel that card. Once per turn."
+    },
+    "G107": {
+      "effect": "Crisis Separation (Action): Shuffle 1 Plot from your hand into the Plot deck, then draw 1 Plot. If the returned card was already public, also draw 1 Group."
+    },
+    "G108": {
+      "effect": "Disaster Insurance: After a disaster, draw 1 Plot if your Place was newly devastated, or 2 if destroyed. Once per turn; you must still control this group."
+    },
+    "G109": {
+      "effect": "Rapid Reconstruction (Action): Rebuild one of your devastated Places, including a Huge Place."
+    },
+    "G110": {
+      "effect": "Disaster Reserves (Action): Give 1 Preparedness to one of your non-devastated Places."
+    },
+    "G111": {
+      "effect": "Liner Network: Your Coastal Places may use P when normally supporting another Coastal Place."
+    },
+    "G112": {
+      "effect": "Fan Support: During a battle response, discard 1 Group from hand to give your Celebrity +3 defense against a normal attack. No action cost; once per turn."
+    },
+    "G113": {
+      "effect": "Remote Relay: Direct Space subordinates may use P for normal defensive support."
+    },
+    "G114": {
+      "effect": "Joint Experiment: Once on your turn, after the first battle in which a direct Science subordinate provided normal support, draw 1 Plot."
+    },
+    "G115": {
+      "effect": "Remote Sensing: Your Space groups have +1 support strength when normally supporting an attack on, or defense of, a Place."
+    },
+    "G116": {
+      "effect": "Seal the Secrets (Action): Make your opponent discard 1 revealed Plot from hand."
+    },
+    "G117": {
+      "effect": "Ritual Echo: Once per turn, after a non-counter Plot resolves whose action cost you paid with a Magic group, draw 1 Plot."
+    },
+    "G118": {
+      "effect": "Misdirection: When your group faces a normal attack, spend this group's action to set the total alignment modifier to 0. This does not count as participating."
+    },
+    "G119": {
+      "effect": "Joint Production: This group has +1 P per direct Communist subordinate, up to +2. GP is unchanged."
+    },
+    "G120": {
+      "effect": "Mutual Reserves: Once during your main phase, discard 1 Group to restore 1 action to another Communist or Green group you control. No action cost."
+    },
+    "G121": {
+      "effect": "Nationalization: Once on your turn, after a Communist group gains a non-Communist group through a Control attack, give the target Communist while it remains in play."
+    },
+    "G122": {
+      "effect": "Supply Contract: Once on your turn, after your first Military-led Destroy attack destroys an enemy group, draw 1 Resource."
+    },
+    "G123": {
+      "effect": "Peacekeeping Escort: This group may use P for normal defensive support of your Celebrities or Places."
+    },
+    "G124": {
+      "effect": "Waste Recovery: Once on your turn, after you first discard a Group from hand, draw 1 Plot. End-of-turn failed-recruit discards do not qualify."
+    },
+    "G125": {
+      "effect": "Accidental Chaos: During a response to your disaster, spend this group's action for +3 disaster strength. This is not normal support."
+    },
+    "G126": {
+      "effect": "Collective Bargaining: Corporate targets of this group's Control attacks cannot self-defend."
+    },
+    "G127": {
+      "effect": "Rescind Agreement (Action): Discard an attachment in play, unless doing so would leave insufficient subordinate slots."
+    },
+    "G128": {
+      "effect": "Consumer Rights: Your non-Corporate groups have +2 defense against normal Control attacks led by Corporate groups."
+    },
+    "G129": {
+      "effect": "Inclusive Credit: Once on your turn, after a group with printed P of 2 or less first enters play from your hand, draw 1 Plot."
+    },
+    "G130": {
+      "effect": "Star Maker: Once on your turn, after your first Celebrity-led normal attack ends, draw 1 Group, whether it succeeds or fails."
+    },
+    "G131": {
+      "effect": "Turning the Tables: When normally supporting the defense, add +1 support strength per attacking supporter already committed, up to +3."
+    },
+    "G132": {
+      "effect": "Voice for Peace: After this group provides normal defensive support, subsequent Military attackers may only support using GP."
+    },
+    "G133": {
+      "effect": "Direct Communist subordinates have +2 P."
+    },
+    "G134": {
+      "effect": "Its direct Communist parent gains 1 subordinate slot, up to 3."
+    },
+    "G135": {
+      "effect": "Revolutionary Classroom (Action): Give +1 P to one of your Liberal or Fanatic groups with current effective P of 2 or less. Lasts while it remains in play."
+    },
+    "G136": {
+      "effect": "Shared Supply: Once per turn, you may discard 1 Group instead of paying a cost of discarding 1 Plot."
+    },
+    "G137": {
+      "effect": "Decoy Hoax: When an opponent plays a non-counter Plot, spend this group's action and discard 1 Plot to cancel it. Once per turn."
+    },
+    "G138": {
+      "effect": "Relic Transfer (Action): Move an attachment from your group to another legal group in play, ignoring the original card's friendly/enemy restriction."
+    },
+    "G139": {
+      "effect": "Astrological Aid: When providing normal support, you may roll one die. On 1–3, support strength +2. Once per turn."
+    },
+    "G140": {
+      "effect": "Shared Creed: Fanatic also counts as a shared alignment when calculating direct subordinates' loyalty."
+    },
+    "G141": {
+      "effect": "Orbital Connection: Once during your main phase, move one of your Space groups and its descendants into a free direct slot here for free."
+    },
+    "G142": {
+      "effect": "Frontier Outpost: This group and its direct Space subordinates have at least 5 position defense."
+    },
+    "G143": {
+      "effect": "Spoils of War: After leading a Destroy attack that destroys an enemy group, you may take one of the target's former attachments into your hand."
+    },
+    "G144": {
+      "effect": "Dual Interception (Action): Secretly inspect the top card of the Group and Plot decks. You may put one on the bottom of its original deck."
+    },
+    "G145": {
+      "effect": "Militia Mobilization: With an action available, you may self-defend against a normal attack for free, adding P instead of 2×P. Once per turn."
+    },
+    "G146": {
+      "effect": "Post-Battle Escort: After supporting a normal defense that defeats the attack, you may move the target and its descendants to another legal slot you control for free. Once per turn."
+    },
+    "G147": {
+      "effect": "Lone Raid: When launching a Destroy attack, you may ignore position defense. Your attacking side cannot receive support in that battle."
+    },
+    "G148": {
+      "effect": "Doomsday Reserves (Action): Discard 1 Group to gain 1 Preparedness. No action cost. This group's Preparedness also protects against normal Destroy attacks."
+    },
+    "G149": {
+      "effect": "Forged Identity (Action): Reveal 1 Group from your hand until this turn ends. One of your groups adopts its printed alignments this turn."
+    },
+    "G150": {
+      "effect": "Opportunistic Acquisition: After leading a Control attack that seizes an enemy devastated Place, you may rebuild it for free."
+    },
+    "I01": {
+      "effect": "Your normal Control attacks have +1 strength.",
+      "goal": "Control at least 8 groups with a combined effective P of at least 45.",
+      "style": "Power and expansion"
+    },
+    "I02": {
+      "effect": "Control attacks led by your Corporate or Bank groups have +2 strength.",
+      "goal": "Control at least 6 Corporate or Bank groups with a combined effective P of at least 30.",
+      "style": "Corporate finance"
+    },
+    "I03": {
+      "effect": "Your Computer groups have +1 GP, up to their P.",
+      "goal": "Control at least 5 Computer groups with a combined effective P of at least 26.",
+      "style": "Computer coordination"
+    },
+    "I04": {
+      "effect": "Your Weird groups have +2 defense against normal Control attacks.",
+      "goal": "Control at least 5 Weird groups with a combined effective P of at least 25.",
+      "style": "Weird alliances"
+    },
+    "I05": {
+      "effect": "Your normal Destroy attacks have +2 strength.",
+      "goal": "Destroy a total of 6 enemy groups.",
+      "style": "Destruction"
+    },
+    "I06": {
+      "effect": "Space Folding: Once during your main phase, swap two of your groups and their entire branches for free. They must have different direct parents and neither may contain the other.",
+      "goal": "Control at least 5 Places, including 2 Huge Places, with a combined effective P of at least 30.",
+      "style": "Reposition and swap"
+    },
+    "I07": {
+      "effect": "Swords into Plowshares (Action): One of your Violent groups loses Violent and gains Peaceful while it remains in play.",
+      "goal": "Control at least 6 Peaceful groups with a combined effective P of at least 25.",
+      "style": "Peaceful conversion"
+    },
+    "I08": {
+      "effect": "Arcane Resonance: When your Magic group leads or defends against a normal attack, your other Magic groups may support using P.",
+      "goal": "Control at least 5 Magic groups with a combined effective P of at least 25.",
+      "style": "Arcane cooperation"
+    },
+    "P01": {
+      "target": "One of your Government groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P02": {
+      "target": "One of your Violent groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P03": {
+      "target": "One of your Liberal groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P04": {
+      "target": "One of your Criminal groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P05": {
+      "target": "One of your Corporate groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P06": {
+      "target": "One of your Weird groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P07": {
+      "target": "One of your Conservative groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P08": {
+      "target": "One of your Peaceful groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P09": {
+      "target": "One of your Fanatic groups that spent an action to participate in this battle.",
+      "effect": "Your attack strength or defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P10": {
+      "target": "Your group currently under attack.",
+      "effect": "Defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P11": {
+      "target": "Your group currently under attack.",
+      "effect": "Defense +2 this battle.",
+      "cost": "Discard this card."
+    },
+    "P12": {
+      "target": "A normal Control attack you launched.",
+      "effect": "Attack strength +6 this battle.",
+      "cost": "Discard this card."
+    },
+    "P13": {
+      "target": "A normal Destroy attack you launched.",
+      "effect": "Attack strength +6 this battle.",
+      "cost": "Discard this card."
+    },
+    "P14": {
+      "target": "You.",
+      "effect": "Draw 2 Plots.",
+      "cost": "Discard this card and 1 Group from your hand."
+    },
+    "P15": {
+      "target": "An enemy non-counter Plot just played, before it resolves.",
+      "effect": "Cancel that card. Paid costs are not refunded.",
+      "cost": "Discard this card."
+    },
+    "P16": {
+      "target": "An enemy normal attack, before rolling.",
+      "effect": "The attack fails immediately.",
+      "cost": "Discard this card."
+    },
+    "P17": {
+      "target": "One of your non-Illuminati groups.",
+      "effect": "Restore 1 action to the target.",
+      "cost": "Discard this card."
+    },
+    "P18": {
+      "target": "One of your non-Illuminati groups and a legal new parent.",
+      "effect": "Move the target and its descendants into a free slot under the new parent for free.",
+      "cost": "Discard this card."
+    },
+    "P19": {
+      "target": "One of your groups with fewer than 3 subordinate slots.",
+      "effect": "Add 1 subordinate slot, up to 3.",
+      "cost": "Attach this card."
+    },
+    "P20": {
+      "target": "Your Computer group currently under attack.",
+      "effect": "Defense +4 this battle.",
+      "cost": "Discard this card."
+    },
+    "P21": {
+      "target": "Your opponent's Plot hand.",
+      "effect": "Inspect all enemy Plots in hand. Choose 1 to discard.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P22": {
+      "target": "Your opponent.",
+      "effect": "Reveal the opponent's current Plot hand until this turn ends.",
+      "cost": "Discard this card."
+    },
+    "P23": {
+      "target": "Your opponent's Plot hand.",
+      "effect": "Randomly steal 1 enemy Plot from hand. Only the stolen card is shown to you.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P24": {
+      "target": "You.",
+      "effect": "Draw 2 cards from the Plot deck.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P25": {
+      "target": "You.",
+      "effect": "Draw 2 cards from the Group deck.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P26": {
+      "target": "One of your non-Illuminati groups.",
+      "effect": "R +2.",
+      "cost": "Attach this card."
+    },
+    "P27": {
+      "target": "One of your non-Illuminati groups with printed P of 3 or less.",
+      "effect": "P +1.",
+      "cost": "Attach this card."
+    },
+    "P28": {
+      "target": "All players.",
+      "effect": "All Straight groups have +1 P and +1 R.",
+      "cost": "Place this card in the World Order slot."
+    },
+    "P29": {
+      "target": "All players.",
+      "effect": "Both players' normal Destroy attacks have -2 strength.",
+      "cost": "Place this card in the World Order slot."
+    },
+    "P30": {
+      "target": "An enemy non-Illuminati group with an action, not protected by Rule of Law.",
+      "effect": "Remove the target's action.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P31": {
+      "target": "An enemy Place.",
+      "effect": "Strength 14; -4 against Huge Places. Success devastates the target. A success margin of 4 or more destroys it instead.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P32": {
+      "target": "An enemy Coastal Place.",
+      "effect": "Strength 14. Success devastates the target. You may also remove the action from one direct subordinate. Does not destroy the Place.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P33": {
+      "target": "An enemy Coastal Place.",
+      "effect": "Strength 16. Success devastates the target. If it is not Huge, the defender also returns one direct subordinate and its descendants to hand. Does not destroy the Place.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P34": {
+      "target": "An enemy Place with Science or a direct Science subordinate.",
+      "effect": "Strength 18. Success devastates the target. A success margin of 6 or more destroys it instead.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P35": {
+      "target": "An enemy Place.",
+      "effect": "Strength 12; +4 against Huge Places. Success devastates the target. A Huge target's controller also discards 1 Plot. Does not destroy the Place.",
+      "cost": "Discard this card and spend 1 action from a non-Illuminati group you control."
+    },
+    "P36": {
+      "target": "All players.",
+      "effect": "Once per normal battle, the attacker may let one Media group that would use GP support using P instead.",
+      "cost": "Place this card in the World Order slot, replacing the previous order."
+    },
+    "P37": {
+      "target": "All players.",
+      "effect": "Once during each of your main phases, rebuild 1 Place for free, including a Huge Place.",
+      "cost": "Place this card in the World Order slot, replacing the previous order."
+    },
+    "P38": {
+      "target": "An enemy Celebrity.",
+      "effect": "Disable its printed ability until this turn ends.",
+      "cost": "Discard this card and spend 1 action from a Media group you control."
+    },
+    "P39": {
+      "target": "A Celebrity you control.",
+      "effect": "After a battle in which the target provided normal support, you may restore 1 action to a Corporate group you control. Once per turn.",
+      "cost": "Attach this card."
+    },
+    "P40": {
+      "target": "A direct subordinate of your Place currently facing a disaster.",
+      "effect": "Move it and its descendants to a legal slot you control outside that Place's branch for free. The disaster continues.",
+      "cost": "Discard this card."
+    },
+    "P41": {
+      "target": "One of your devastated Places.",
+      "effect": "Rebuild the target for free.",
+      "cost": "Discard this card. For a Huge target, also discard 1 Group from hand."
+    },
+    "P42": {
+      "target": "Your current normal Control attack.",
+      "effect": "Reverse the sign of the total alignment modifier. Loyalty, support eligibility, and other values are unchanged. Only once per attack.",
+      "cost": "Discard this card and spend 1 action from a Media group you control. This does not count as participating."
+    },
+    "P43": {
+      "target": "Your normal Destroy attack against an enemy Celebrity.",
+      "effect": "Ignore position defense this attack.",
+      "cost": "Discard this card."
+    },
+    "P44": {
+      "target": "A Celebrity you control.",
+      "effect": "If a normal attack would destroy the target, discard this card instead. Remove the target's action and keep its entire branch.",
+      "cost": "Attach this card."
+    },
+    "P45": {
+      "target": "An enemy Corporate or Bank group, excluding Illuminati.",
+      "effect": "The target's GP is 0. Its controller may spend its action during their main phase to discard this attachment.",
+      "cost": "Attach this card and spend 1 action from a Government or Media group you control."
+    },
+    "P46": {
+      "target": "One of your Computer, Science, or Space groups.",
+      "effect": "Give the target one missing tag from Computer, Science, or Space while it remains in play.",
+      "cost": "Discard this card."
+    },
+    "P47": {
+      "target": "A Battle Plot in the shared Plot discard pile.",
+      "effect": "Add it to your hand. It may be used this turn.",
+      "cost": "Discard this card and spend 1 action from a Magic group you control."
+    },
+    "P48": {
+      "target": "Your current normal attack.",
+      "effect": "Your Communist groups joining as attacking supporters may use P this battle.",
+      "cost": "Discard this card."
+    },
+    "P49": {
+      "target": "One of your Military groups eligible to regain an action.",
+      "effect": "Restore its action, then draw 1 Group.",
+      "cost": "Discard this card and spend 1 action from a Bank group you control."
+    },
+    "P50": {
+      "target": "Your current disaster.",
+      "effect": "Disaster strength +3, or +6 if the extra discard is a Disaster Plot.",
+      "cost": "Discard this card and 1 other Plot from your hand."
+    },
+    "P51": {
+      "target": "Your network, when the condition is met.",
+      "effect": "Control at least 5 Criminal groups with a combined effective P of at least 20.",
+      "cost": "Discard this card."
+    },
+    "P52": {
+      "target": "Your network, when the condition is met.",
+      "effect": "Control at least 9 groups, including 6 with printed P of 3 or less.",
+      "cost": "Discard this card."
+    },
+    "P53": {
+      "target": "Your network, when the condition is met.",
+      "effect": "Control at least 4 Military groups and have destroyed at least 3 enemy groups.",
+      "cost": "Discard this card."
+    },
+    "P54": {
+      "target": "Your network, when the condition is met.",
+      "effect": "Control at least 7 groups, including 3 Celebrities and 4 Media groups.",
+      "cost": "Discard this card."
+    },
+    "P55": {
+      "target": "Your network, when the condition is met.",
+      "effect": "Control at least 7 groups covering all 10 alignments.",
+      "cost": "Discard this card."
+    },
+    "P56": {
+      "target": "An enemy resource in play.",
+      "effect": "Scrap the target resource.",
+      "cost": "Discard this card and spend 1 action from a group you control."
+    },
+    "P57": {
+      "target": "The Resource deck.",
+      "effect": "Look at the top 2 cards. Keep 1 and put the rest on the bottom.",
+      "cost": "Discard this card."
+    },
+    "P58": {
+      "target": "An enemy resource in play.",
+      "effect": "Disable the target until this turn ends.",
+      "cost": "Discard this card."
+    },
+    "P59": {
+      "target": "An enemy Gadget resource in play.",
+      "effect": "Move the target into your Resource hand.",
+      "cost": "Discard this card and spend 1 action from a Government group you control."
+    },
+    "P60": {
+      "target": "One resource in play from each player.",
+      "effect": "Swap the two resources.",
+      "cost": "Discard this card and spend 1 action from a Science group you control."
+    }
+  },
+  "sources": {
+    "E01": {
+      "name": "战术雷达",
+      "en": "Tactical Radar",
+      "effect": "普通战斗响应时，花本资源1行动，使己方本次进攻强度+2。",
+      "category": "装置"
+    },
+    "E02": {
+      "name": "应急电池",
+      "en": "Emergency Battery",
+      "effect": "己方主要阶段，报废本资源，使1个己方团体恢复1行动。",
+      "category": "装置"
+    },
+    "E03": {
+      "name": "防灾卫星",
+      "en": "Disaster Monitoring Satellite",
+      "effect": "己方团体抵御灾难时，防御+3。",
+      "category": "装置"
+    },
+    "E04": {
+      "name": "私人档案库",
+      "en": "Private Archives",
+      "effect": "每个己方回合，首次从手牌控制团体后，抽1张阴谋。",
+      "category": "设施"
+    },
+    "E05": {
+      "name": "秘密保险库",
+      "en": "Secret Vault",
+      "effect": "己方阴谋与资源手牌上限各+1。",
+      "category": "设施"
+    },
+    "E06": {
+      "name": "量子计算机",
+      "en": "Quantum Computer",
+      "effect": "己方主要阶段，花本资源1行动，抽2张团体，再弃1张团体手牌。",
+      "category": "装置"
+    },
+    "E07": {
+      "name": "凤凰护符",
+      "en": "Phoenix Amulet",
+      "effect": "抵御普通摧毁的响应中，报废本资源，使本次防御+6。",
+      "category": "秘宝"
+    },
+    "E08": {
+      "name": "深空探测器",
+      "en": "Deep Space Probe",
+      "effect": "己方主要阶段，花本资源1行动，查看资源堆顶3张，可取1张，其余沉底。",
+      "category": "装置"
+    },
+    "E09": {
+      "name": "海底光缆",
+      "en": "Submarine Cable",
+      "effect": "己方沿海团体用GP支援时，支援力量+1。",
+      "category": "设施"
+    },
+    "E10": {
+      "name": "后勤无人机",
+      "en": "Logistics Drone",
+      "effect": "己方主要阶段，花本资源1行动，移动1个己方团体至合法上级。",
+      "category": "装置"
+    },
+    "E11": {
+      "name": "卫星通讯终端",
+      "en": "Satellite Terminal",
+      "effect": "己方主要阶段，花本资源1行动，使1个己方团体本回合GP等于P。",
+      "category": "装置"
+    },
+    "E12": {
+      "name": "数字诱饵",
+      "en": "Digital Decoy",
+      "effect": "普通战斗响应时，报废本资源，使对手本次支援力量-4，最低0。",
+      "category": "装置"
+    },
+    "E13": {
+      "name": "私人博物馆",
+      "en": "Private Museum",
+      "effect": "每回合首次报废己方秘宝资源后，抽1张阴谋。",
+      "category": "设施"
+    },
+    "E14": {
+      "name": "重型抢修车",
+      "en": "Heavy Repair Vehicle",
+      "effect": "己方巨大地点重建只需1个团体行动。",
+      "category": "装置"
+    },
+    "E15": {
+      "name": "命运硬币",
+      "en": "Coin of Fate",
+      "effect": "普通战斗响应时，报废本资源，将本次骰点固定为3＋4。",
+      "category": "秘宝"
+    },
+    "G001": {
+      "name": "地方警察",
+      "en": "Local Police Departments",
+      "effect": "对犯罪目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G002": {
+      "name": "联邦调查局",
+      "en": "F.B.I.",
+      "effect": "调查（主动）：随机查看对手1张团体手牌，并将该牌公开至本回合结束。",
+      "category": "组织"
+    },
+    "G003": {
+      "name": "中央情报局",
+      "en": "C.I.A.",
+      "effect": "渗透（主动）：移除敌方1个印刷P≤3的团体的行动标记。",
+      "category": "组织"
+    },
+    "G004": {
+      "name": "国家安全局",
+      "en": "N.S.A.",
+      "effect": "截听（主动）：秘密查看阴谋堆顶最多3张，按选择的顺序放回。",
+      "category": "组织"
+    },
+    "G005": {
+      "name": "五角大楼",
+      "en": "Pentagon",
+      "effect": "军事指挥：带头摧毁时，直属军队可用P支援进攻。",
+      "category": "地点"
+    },
+    "G006": {
+      "name": "特勤局",
+      "en": "Secret Service",
+      "effect": "直属上级抵御控制攻击时，防御+2。",
+      "category": "组织"
+    },
+    "G007": {
+      "name": "北约",
+      "en": "NATO",
+      "effect": "本团体支援摧毁进攻时，支援力量+2。",
+      "category": "组织"
+    },
+    "G008": {
+      "name": "联合国",
+      "en": "United Nations",
+      "effect": "联合协作：每个直属政府下属使本团体GP+1。",
+      "category": "组织"
+    },
+    "G009": {
+      "name": "最高法院",
+      "en": "Supreme Court",
+      "effect": "法治保障：本团体及其直属下属不能被敌方卡牌或能力直接移除行动标记；正常行动消耗、被夺取及受灾时清空不受保护。",
+      "category": "组织"
+    },
+    "G010": {
+      "name": "邮政局",
+      "en": "Post Office",
+      "effect": "投递（主动）：抽1张阴谋，再弃1张任意手牌。",
+      "category": "组织"
+    },
+    "G011": {
+      "name": "英格兰银行",
+      "en": "Bank of England",
+      "effect": "授信（主动）：抽2张团体，再弃1张团体手牌。",
+      "category": "组织"
+    },
+    "G012": {
+      "name": "美联储",
+      "en": "Federal Reserve",
+      "effect": "宏观调控：抽牌阶段抽阴谋时，可改为抽2留1，另一张放堆底。",
+      "category": "组织"
+    },
+    "G013": {
+      "name": "离岸银行",
+      "en": "Offshore Banks",
+      "effect": "离岸回收（主动）：将阴谋弃牌堆顶牌加入手牌，本回合公开且禁用。",
+      "category": "组织"
+    },
+    "G014": {
+      "name": "华尔街",
+      "en": "Wall Street",
+      "effect": "并购红利：本团体在己方回合首次通过控制攻击获得企业团体后，你抽1张阴谋；从手牌招募或夺取敌方团体均可，自动接管不触发。",
+      "category": "组织"
+    },
+    "G015": {
+      "name": "储蓄贷款社",
+      "en": "Savings and Loans",
+      "effect": "储贷转换：己方主要阶段每回合1次，弃1张阴谋、抽1张团体，不花标记。",
+      "category": "组织"
+    },
+    "G016": {
+      "name": "高利贷者",
+      "en": "Loan Sharks",
+      "effect": "高利借贷：己方主要阶段每回合1次，免费恢复1个无负债的直属下属1标记；目标下次补标记时跳过一次。",
+      "category": "组织"
+    },
+    "G017": {
+      "name": "快餐连锁",
+      "en": "Fast Food Chains",
+      "effect": "连锁加盟：自动接管印刷P≤2的团体到直属空槽时，免付主牌标记。",
+      "category": "组织"
+    },
+    "G018": {
+      "name": "弗诺德汽车公司",
+      "en": "Fnord Motor Company",
+      "effect": "物流网络：己方主要阶段每回合1次，免费将1个直属下属整支移至己方另一合法空槽。",
+      "category": "组织"
+    },
+    "G019": {
+      "name": "跨国石油公司",
+      "en": "Multinational Oil Corporations",
+      "effect": "对绿色目标发动摧毁攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G020": {
+      "name": "核电公司",
+      "en": "Nuclear Power Companies",
+      "effect": "供能（主动）：恢复1个直属科学或计算机下属1标记。",
+      "category": "组织"
+    },
+    "G021": {
+      "name": "黑客",
+      "en": "Hackers",
+      "effect": "网络渗透：对敌方计算机团体发动控制攻击时，忽略位置防御。",
+      "category": "组织"
+    },
+    "G022": {
+      "name": "电话飞客",
+      "en": "Phone Phreaks",
+      "effect": "线路跳转：己方主要阶段每回合1次，免费将本团体整支移至己方另一合法空槽。",
+      "category": "组织"
+    },
+    "G023": {
+      "name": "硅谷",
+      "en": "Silicon Valley",
+      "effect": "创业孵化：本团体在己方回合首次通过控制攻击获得计算机团体后，你抽1张团体；从手牌招募或夺取敌方团体均可，自动接管不触发。",
+      "category": "地点"
+    },
+    "G024": {
+      "name": "电子游戏",
+      "en": "Video Games",
+      "effect": "再来一局：支援己方计算机团体的战斗结算后，若本团体仍归你控制，恢复自身1标记。",
+      "category": "组织"
+    },
+    "G025": {
+      "name": "电信公司",
+      "en": "Telecommunications Company",
+      "effect": "通信调度：带头控制时，直属下属可用P支援进攻。",
+      "category": "组织"
+    },
+    "G026": {
+      "name": "电子前哨基金会",
+      "en": "EFF",
+      "effect": "数字自由：本团体在场时，你的阴谋手牌上限+1。",
+      "category": "组织"
+    },
+    "G027": {
+      "name": "建设美好明天的邪恶天才",
+      "en": "Evil Geniuses for a Better Tomorrow",
+      "effect": "对科学目标发动摧毁攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G028": {
+      "name": "美国航天局",
+      "en": "NASA",
+      "effect": "探索计划（主动）：秘密查看团体堆顶最多3张，可取1张科学或太空团体，其余原序放堆底。",
+      "category": "组织"
+    },
+    "G029": {
+      "name": "L-4协会",
+      "en": "L-4 Society",
+      "effect": "对太空目标发动控制攻击时，攻击强度+3。",
+      "category": "组织"
+    },
+    "G030": {
+      "name": "国际气象组织",
+      "en": "International Weather Organization",
+      "effect": "己方团体抵御灾难时，防御+5。",
+      "category": "组织"
+    },
+    "G031": {
+      "name": "大型媒体",
+      "en": "Big Media",
+      "effect": "媒体集团：己方抽牌阶段，若本团体至少有2个直属媒体下属，你额外抽1张阴谋。",
+      "category": "组织"
+    },
+    "G032": {
+      "name": "有线电视",
+      "en": "Cable TV",
+      "effect": "对媒体目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G033": {
+      "name": "空洞音乐台",
+      "en": "Empty Vee",
+      "effect": "潮流更替：己方回合首次有怪异团体从手牌进入本团体直属空槽后，可弃1张阴谋手牌，再抽1张阴谋。",
+      "category": "组织"
+    },
+    "G034": {
+      "name": "漫画书",
+      "en": "Comic Books",
+      "effect": "英雄登场：己方回合首次有己方名人从手牌进场后，抽1张阴谋。",
+      "category": "组织"
+    },
+    "G035": {
+      "name": "唱片业",
+      "en": "Recording Industry",
+      "effect": "流媒体分成：己方回合，非反制阴谋生效且本团体有直属媒体下属时，抽1张阴谋；每回合1次。",
+      "category": "组织"
+    },
+    "G036": {
+      "name": "好莱坞",
+      "en": "Hollywood",
+      "effect": "跨界改编（主动）：令1个己方怪异团体在场期间获得媒体标签。",
+      "category": "地点"
+    },
+    "G037": {
+      "name": "麦迪逊大道",
+      "en": "Madison Avenue",
+      "effect": "定向投放（主动）：令己方另1个媒体团体本回合GP+2，不超过P。",
+      "category": "组织"
+    },
+    "G038": {
+      "name": "小报",
+      "en": "Tabloids",
+      "effect": "爆料（主动）：随机公开对手1张阴谋手牌至回合结束。",
+      "category": "组织"
+    },
+    "G039": {
+      "name": "地下报刊",
+      "en": "Underground Newspapers",
+      "effect": "抵御政府团体发起的控制攻击时，防御+2。",
+      "category": "组织"
+    },
+    "G040": {
+      "name": "电视布道者",
+      "en": "TV Preachers",
+      "effect": "对保守目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G041": {
+      "name": "阴谋论者",
+      "en": "Conspiracy Theorists",
+      "effect": "信息茧房：直属怪异下属的忠诚防御至少为8。",
+      "category": "组织"
+    },
+    "G042": {
+      "name": "地平说信徒",
+      "en": "Flat Earthers",
+      "effect": "抵御科学或太空团体发起的控制攻击时，防御+4。",
+      "category": "组织"
+    },
+    "G043": {
+      "name": "金鱼爱好者",
+      "en": "Goldfish Fanciers",
+      "effect": "无额外效果。",
+      "category": "组织"
+    },
+    "G044": {
+      "name": "科幻迷",
+      "en": "Science Fiction Fans",
+      "effect": "未来想象：己方回合首次有印刷力量高于本团体印刷力量、且具有科学或太空标签的团体从你的手牌进场后，你抽1张团体。",
+      "category": "组织"
+    },
+    "G045": {
+      "name": "星际迷航迷",
+      "en": "Trekkies",
+      "effect": "对太空目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G046": {
+      "name": "集换式卡牌",
+      "en": "Trading Card Games",
+      "effect": "卡牌交易：己方主要阶段每回合1次，弃1张团体、抽1张阴谋，不花标记。",
+      "category": "组织"
+    },
+    "G047": {
+      "name": "兄弟会",
+      "en": "Fraternal Orders",
+      "effect": "同级互助：本团体支援同一直属上级下的团体进攻时，可用P。",
+      "category": "组织"
+    },
+    "G048": {
+      "name": "玫瑰十字会",
+      "en": "Rosicrucians",
+      "effect": "对魔法目标发动控制攻击时，攻击强度+3。",
+      "category": "组织"
+    },
+    "G049": {
+      "name": "德鲁伊",
+      "en": "Druids",
+      "effect": "抵御摧毁攻击时，防御+3。",
+      "category": "组织"
+    },
+    "G050": {
+      "name": "猫王教会",
+      "en": "Church of Elvis",
+      "effect": "信众合唱：每个直属怪异下属使本团体支援力量+1，最多+2。",
+      "category": "组织"
+    },
+    "G051": {
+      "name": "黑手党",
+      "en": "The Mafia",
+      "effect": "保护费：本团体每有1个直属犯罪下属，你的阴谋手牌上限+1，最多+2。",
+      "category": "组织"
+    },
+    "G052": {
+      "name": "街头帮派",
+      "en": "Urban Gangs",
+      "effect": "扩张地盘：己方回合首次带头摧毁敌方团体后，抽1张团体。",
+      "category": "组织"
+    },
+    "G053": {
+      "name": "摩托帮",
+      "en": "Cycle Gangs",
+      "effect": "本团体发起摧毁攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G054": {
+      "name": "忍者",
+      "en": "Ninjas",
+      "effect": "潜入：带头摧毁时，目标的直属上级不能支援防守。",
+      "category": "组织"
+    },
+    "G055": {
+      "name": "吸血鬼",
+      "en": "Vampires",
+      "effect": "血族转化：控制攻击夺取敌方团体后，令目标在场期间将正统换为怪异；无正统则获得怪异。",
+      "category": "组织"
+    },
+    "G056": {
+      "name": "克隆安排者",
+      "en": "Clone Arrangers",
+      "effect": "克隆备份（主动）：从团体弃牌堆顶最多3张中取1张印刷P≤3的团体。",
+      "category": "组织"
+    },
+    "G057": {
+      "name": "枪支游说团",
+      "en": "Gun Lobby",
+      "effect": "对和平目标发动摧毁攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G058": {
+      "name": "生存主义者",
+      "en": "Survivalists",
+      "effect": "抵御摧毁攻击时，防御+2。",
+      "category": "组织"
+    },
+    "G059": {
+      "name": "生态游击队",
+      "en": "Eco-Guerrillas",
+      "effect": "生态破坏（主动）：移除敌方1个企业团体的行动标记。",
+      "category": "组织"
+    },
+    "G060": {
+      "name": "国际可卡因走私者",
+      "en": "International Cocaine Smugglers",
+      "effect": "对犯罪目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G061": {
+      "name": "反战活动家",
+      "en": "Antiwar Activists",
+      "effect": "抵御暴力团体发起的摧毁攻击时，防御+4。",
+      "category": "组织"
+    },
+    "G062": {
+      "name": "反核活动家",
+      "en": "Anti-Nuclear Activists",
+      "effect": "对绿色目标发动控制攻击时，攻击强度+3。",
+      "category": "组织"
+    },
+    "G063": {
+      "name": "红十字会",
+      "en": "Red Cross",
+      "effect": "人道撤离：直属下属受到摧毁攻击时，可花本团体1标记；攻击成功则改为目标整支回手；每回合1次。",
+      "category": "组织"
+    },
+    "G064": {
+      "name": "女权主义者",
+      "en": "Feminists",
+      "effect": "对自由目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G065": {
+      "name": "同性恋权益活动家",
+      "en": "Gay Activists",
+      "effect": "议题翻转（主动）：将场上1个自由或保守团体的这两个阵营互换至回合结束。",
+      "category": "组织"
+    },
+    "G066": {
+      "name": "知识分子",
+      "en": "Intellectuals",
+      "effect": "同行评议：抽牌阶段抽团体时，可改为抽2留1，另一张放堆底。",
+      "category": "组织"
+    },
+    "G067": {
+      "name": "牙医",
+      "en": "Dentists",
+      "effect": "高额账单：对手对本团体的普通攻击失败后，须随机弃1张阴谋手牌。",
+      "category": "组织"
+    },
+    "G068": {
+      "name": "美国医学会",
+      "en": "A.M.A.",
+      "effect": "本团体支援防守科学目标时，支援力量+2。",
+      "category": "组织"
+    },
+    "G069": {
+      "name": "民主党",
+      "en": "Democrats",
+      "effect": "基层动员：己方回合首次有自由团体从你的手牌进入本团体直属空槽后，你抽1张团体。",
+      "category": "组织"
+    },
+    "G070": {
+      "name": "共和党",
+      "en": "Republicans",
+      "effect": "对保守目标发动控制攻击时，攻击强度+2。",
+      "category": "组织"
+    },
+    "G071": {
+      "name": "中国",
+      "en": "China",
+      "effect": "本团体受到普通摧毁攻击或灾难时，防御+10。",
+      "category": "地点"
+    },
+    "G072": {
+      "name": "日本",
+      "en": "Japan",
+      "effect": "内容出海（主动）：秘密查看团体堆顶最多4张，可取1张媒体或怪异团体，其余原序放堆底。",
+      "category": "地点"
+    },
+    "G073": {
+      "name": "德国",
+      "en": "Germany",
+      "effect": "工业标准：直属企业或科学下属R+2。",
+      "category": "地点"
+    },
+    "G074": {
+      "name": "英国",
+      "en": "England",
+      "effect": "金融中介（主动）：从阴谋弃牌堆顶最多3张中取1张战斗阴谋，本回合公开且禁用。",
+      "category": "地点"
+    },
+    "G075": {
+      "name": "法国",
+      "en": "France",
+      "effect": "本团体支援防守自由目标时，支援力量+4。",
+      "category": "地点"
+    },
+    "G076": {
+      "name": "瑞士",
+      "en": "Switzerland",
+      "effect": "中立保障：抵御摧毁攻击或灾难时，基础防御改用R；自卫仍用P。",
+      "category": "地点"
+    },
+    "G077": {
+      "name": "纽约",
+      "en": "New York",
+      "effect": "资本枢纽：直属企业或银行下属GP+1，不超过P。",
+      "category": "地点"
+    },
+    "G078": {
+      "name": "加利福尼亚",
+      "en": "California",
+      "effect": "算力调度（主动）：令己方另1个计算机团体本回合GP等于P。",
+      "category": "地点"
+    },
+    "G079": {
+      "name": "得克萨斯",
+      "en": "Texas",
+      "effect": "对犯罪目标发动摧毁攻击时，攻击强度+2。",
+      "category": "地点"
+    },
+    "G080": {
+      "name": "巨石阵",
+      "en": "Stonehenge",
+      "effect": "观星占卜（主动）：秘密查看共享团体堆顶最多3张，按你选择的顺序放回。",
+      "category": "地点"
+    },
+    "G081": {
+      "name": "埃隆·马斯克",
+      "en": "Elon Musk",
+      "effect": "跨界整合：直属下属的印刷标签含计算机则额外获得太空，含太空则额外获得计算机。",
+      "category": "名人"
+    },
+    "G082": {
+      "name": "唐纳德·特朗普",
+      "en": "Donald Trump",
+      "effect": "议程重启（主动）：从阴谋弃牌堆选1张世界秩序，替换当前秩序。",
+      "category": "名人"
+    },
+    "G083": {
+      "name": "山姆·奥尔特曼",
+      "en": "Sam Altman",
+      "effect": "模型推演（主动）：公开掷两颗骰作为预案；本回合下次普通控制攻击发动时，可采用预案代替掷骰，随后清除预案。",
+      "category": "名人"
+    },
+    "G084": {
+      "name": "泰勒·斯威夫特",
+      "en": "Taylor Swift",
+      "effect": "全球巡演（主动）：把本团体整支移到己方另一地点的直属空槽，然后抽1张阴谋。",
+      "category": "名人"
+    },
+    "G085": {
+      "name": "碧昂丝",
+      "en": "Beyoncé",
+      "effect": "安可：支援的普通进攻掷骰失败后，可弃1张阴谋重掷1次；原始11或12除外。",
+      "category": "名人"
+    },
+    "G086": {
+      "name": "野兽先生",
+      "en": "MrBeast",
+      "effect": "全民挑战（主动）：双方各抽1张团体，你先抽；然后你再抽1张阴谋。",
+      "category": "名人"
+    },
+    "G087": {
+      "name": "贝拉克·奥巴马",
+      "en": "Barack Obama",
+      "effect": "联合倡议：同一场普通战斗中，己方第2种不同阵营的战斗阴谋生效后，抽1张阴谋；每回合1次。",
+      "category": "名人"
+    },
+    "G088": {
+      "name": "克里斯蒂亚诺·罗纳尔多",
+      "en": "Cristiano Ronaldo",
+      "effect": "自律训练：己方回合末若本团体仍有行动标记，获得1枚训练，最多2枚。带头发动普通攻击时，可花1枚训练使攻击强度+2。",
+      "category": "名人"
+    },
+    "G089": {
+      "name": "利昂内尔·梅西",
+      "en": "Lionel Messi",
+      "effect": "关键传球：己方普通进攻响应时，可花本团体1标记，使1个未参战己方团体本次支援改用P。",
+      "category": "名人"
+    },
+    "G090": {
+      "name": "雷军",
+      "en": "Lei Jun",
+      "effect": "新品预告：己方主要阶段每回合1次，免费公开1张企业团体手牌；本回合通过控制攻击招募它后，抽1张阴谋。",
+      "category": "名人"
+    },
+    "G091": {
+      "name": "南非",
+      "en": "South Africa",
+      "effect": "矿产出口（主动）：弃1张团体手牌，抽1张资源。",
+      "category": "地点"
+    },
+    "G092": {
+      "name": "印度",
+      "en": "India",
+      "effect": "技术外包：己方每有1张在场资源，本团体GP+1。",
+      "category": "地点"
+    },
+    "G093": {
+      "name": "俄罗斯",
+      "en": "Russia",
+      "effect": "军工整备（主动）：使1张己方装置资源恢复1行动。",
+      "category": "地点"
+    },
+    "G094": {
+      "name": "巴西",
+      "en": "Brazil",
+      "effect": "生态复苏：己方回合首次重建地点后，可恢复1个己方绿色团体1标记。",
+      "category": "地点"
+    },
+    "G095": {
+      "name": "印度尼西亚",
+      "en": "Indonesia",
+      "effect": "海峡屏障：对手普通攻击己方沿海地点时，非沿海团体不能用GP支援进攻。",
+      "category": "地点"
+    },
+    "G096": {
+      "name": "墨西哥",
+      "en": "Mexico",
+      "effect": "委托制造（主动）：代付标记，令1个直属企业下属带头发动控制攻击；不能选本回合进场或被夺取的团体。",
+      "category": "地点"
+    },
+    "G097": {
+      "name": "加拿大",
+      "en": "Canada",
+      "effect": "对绿色目标发动控制攻击时，攻击强度+4。",
+      "category": "地点"
+    },
+    "G098": {
+      "name": "澳大利亚",
+      "en": "Australia",
+      "effect": "矿产供给：部署资源时，可弃1张团体手牌代替主牌行动。",
+      "category": "地点"
+    },
+    "G099": {
+      "name": "鹿特丹港",
+      "en": "Port of Rotterdam",
+      "effect": "中转港：己方主要阶段每回合1次，免费将1个直属下属整支移至己方另一沿海地点空槽，再抽1张团体。",
+      "category": "地点"
+    },
+    "G100": {
+      "name": "巴拿马运河",
+      "en": "Panama Canal",
+      "effect": "通行费：对手普通攻击己方沿海地点时，其第2个进攻支援须额外弃1张团体。",
+      "category": "地点"
+    },
+    "G101": {
+      "name": "迪拜",
+      "en": "Dubai",
+      "effect": "签证通道：己方名人刚受普通攻击、尚未有响应时，可花本团体1标记，把目标整支移到本团体空槽；攻击继续，按新位置计算。",
+      "category": "地点"
+    },
+    "G102": {
+      "name": "拉斯维加斯",
+      "en": "Las Vegas",
+      "effect": "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，4–6抽3张阴谋；不花标记。",
+      "category": "地点"
+    },
+    "G103": {
+      "name": "英伟达",
+      "en": "NVIDIA",
+      "effect": "并行计算：每次普通战斗，己方第2个提供普通支援的计算机团体，本次支援额外+2。",
+      "category": "组织"
+    },
+    "G104": {
+      "name": "云服务商",
+      "en": "Cloud Providers",
+      "effect": "弹性扩容：本团体普通支援时，可另弃1张阴谋，将本次采用的P／GP翻倍；其他加值不翻倍。",
+      "category": "组织"
+    },
+    "G105": {
+      "name": "短视频平台",
+      "en": "Short-Video Platforms",
+      "effect": "推荐流（主动）：公开团体堆顶最多3张，双方各选1张加入手牌，你先选；未选的弃掉。",
+      "category": "组织"
+    },
+    "G106": {
+      "name": "事实核查网络",
+      "en": "Fact-Checking Network",
+      "effect": "事实核查：对手打出此前已公开的非反制阴谋时，可花本团体1标记，令对手另弃1张阴谋，否则该牌无效；每回合1次。",
+      "category": "组织"
+    },
+    "G107": {
+      "name": "公关公司",
+      "en": "PR Agency",
+      "effect": "危机切割（主动）：把自己1张阴谋手牌洗回共享阴谋堆，再抽1张阴谋；若洗回的牌原已公开，再抽1张团体。",
+      "category": "组织"
+    },
+    "G108": {
+      "name": "保险财团",
+      "en": "Insurance Syndicate",
+      "effect": "灾害承保：灾难结算后，己方地点新受灾则抽1张阴谋，被摧毁则抽2张；每回合1次，本团体须仍归你控制。",
+      "category": "组织"
+    },
+    "G109": {
+      "name": "应急工程队",
+      "en": "Emergency Engineers",
+      "effect": "快速重建（主动）：重建1个己方受灾地点，巨大也可。",
+      "category": "组织"
+    },
+    "G110": {
+      "name": "疫苗研发联盟",
+      "en": "Vaccine Research Alliance",
+      "effect": "防灾储备（主动）：给1个己方未受灾地点放1枚防备。",
+      "category": "组织"
+    },
+    "G111": {
+      "name": "集装箱航运联盟",
+      "en": "Container Shipping Alliance",
+      "effect": "班轮网络：己方沿海地点为另一沿海地点提供普通支援时，可用P。",
+      "category": "组织"
+    },
+    "G112": {
+      "name": "粉丝社群",
+      "en": "Fan Communities",
+      "effect": "自发应援：战斗响应时，可弃1张团体手牌，使被普通攻击的己方名人本次防御+3；不花标记，每回合1次。",
+      "category": "组织"
+    },
+    "G113": {
+      "name": "月球基地",
+      "en": "Moonbase",
+      "effect": "远程中继：直属太空下属提供普通防守支援时，可用P。",
+      "category": "地点"
+    },
+    "G114": {
+      "name": "轨道空间站",
+      "en": "Orbit One",
+      "effect": "联合实验：己方回合，首次有本团体的直属科学下属完成普通支援的战斗结算后，抽1张阴谋。",
+      "category": "地点"
+    },
+    "G115": {
+      "name": "卫星运营商",
+      "en": "Satellite Operators",
+      "effect": "遥感网络：己方太空团体为攻击或防守地点提供普通支援时，支援力量+1。",
+      "category": "组织"
+    },
+    "G116": {
+      "name": "圣殿骑士团",
+      "en": "Templars",
+      "effect": "封存秘闻（主动）：令对手弃掉1张已公开的阴谋手牌。",
+      "category": "组织"
+    },
+    "G117": {
+      "name": "女巫集会",
+      "en": "W.I.T.C.H.",
+      "effect": "秘仪回响：己方用魔法团体的行动标记支付非反制阴谋牌的费用，且该牌生效后，抽1张阴谋；每回合1次。",
+      "category": "组织"
+    },
+    "G118": {
+      "name": "幻术师协会",
+      "en": "Illusionists Guild",
+      "effect": "障眼法：己方团体受到普通攻击时，可花本团体1标记，将本次总阵营修正改为0；本团体不因此参战。",
+      "category": "组织"
+    },
+    "G119": {
+      "name": "国营工业集团",
+      "en": "State Industrial Conglomerate",
+      "effect": "联合生产：每有1个直属共产下属，本团体P+1，最多+2；GP不变。",
+      "category": "组织"
+    },
+    "G120": {
+      "name": "农业合作社",
+      "en": "Agricultural Cooperatives",
+      "effect": "互助储备：己方主要阶段每回合1次，弃1张团体、恢复己方另1个共产或绿色团体1标记，不花本团体标记。",
+      "category": "组织"
+    },
+    "G121": {
+      "name": "公有资产管理局",
+      "en": "Public Asset Administration",
+      "effect": "公有化：己方回合，共产团体通过控制攻击取得无共产标签的团体后，令目标在场期间获得共产；每回合1次。",
+      "category": "组织"
+    },
+    "G122": {
+      "name": "军工承包商",
+      "en": "Defense Contractors",
+      "effect": "补给合同：己方回合首次有己方军队带头摧毁敌方团体后，抽1张资源。",
+      "category": "组织"
+    },
+    "G123": {
+      "name": "维和部队",
+      "en": "Peacekeeping Forces",
+      "effect": "维和护卫：本团体为己方名人或地点提供普通防守支援时，可用P。",
+      "category": "组织"
+    },
+    "G124": {
+      "name": "回收中心",
+      "en": "Recycling Centers",
+      "effect": "废物利用：己方回合首次弃掉团体手牌后，抽1张阴谋；失败招募的回合末清理除外。",
+      "category": "组织"
+    },
+    "G125": {
+      "name": "恐龙公园",
+      "en": "Dinosaur Park",
+      "effect": "事故添乱：己方灾难的响应阶段，可花本团体1标记，使本次灾难威力+3；不算普通支援。",
+      "category": "地点"
+    },
+    "G126": {
+      "name": "工会联合会",
+      "en": "CFL-AIO",
+      "effect": "集体谈判：对企业团体发动控制攻击时，目标不能自卫。",
+      "category": "组织"
+    },
+    "G127": {
+      "name": "律师事务所",
+      "en": "Lawyers",
+      "effect": "撤销协议（主动）：弃掉场上1张附着；不能因此造成下属槽不足。",
+      "category": "组织"
+    },
+    "G128": {
+      "name": "消费者协会",
+      "en": "Consumer Watchdogs",
+      "effect": "集体维权：己方非企业团体抵御企业团体发动的普通控制攻击时，防御+2。",
+      "category": "组织"
+    },
+    "G129": {
+      "name": "信用合作社",
+      "en": "Credit Unions",
+      "effect": "普惠信贷：己方回合首次有印刷P≤2的团体从手牌进场后，抽1张阴谋。",
+      "category": "组织"
+    },
+    "G130": {
+      "name": "名人事务所",
+      "en": "Celebrity Management Agencies",
+      "effect": "造星计划：己方回合首次有己方名人带头完成普通进攻后，抽1张团体；成败均可。",
+      "category": "组织"
+    },
+    "G131": {
+      "name": "成龙",
+      "en": "Jackie Chan",
+      "effect": "借力打力：普通防守支援时，每个已参战的进攻支援团体使本次支援+1，最多+3。",
+      "category": "名人"
+    },
+    "G132": {
+      "name": "宫崎骏",
+      "en": "Hayao Miyazaki",
+      "effect": "止战之声：普通防守支援后，后续进攻军队只能用GP支援。",
+      "category": "名人"
+    },
+    "G133": {
+      "name": "自治工厂",
+      "en": "Worker-Managed Factories",
+      "effect": "直属共产下属P+2。",
+      "category": "组织"
+    },
+    "G134": {
+      "name": "社区住房合作社",
+      "en": "Community Housing Cooperatives",
+      "effect": "直属共产上级的下属槽+1，上限3。",
+      "category": "组织"
+    },
+    "G135": {
+      "name": "革命夜校",
+      "en": "Revolutionary Night Schools",
+      "effect": "革命课堂（主动）：令1个己方有效P≤2的自由或狂热团体P+1；在场期间保留。",
+      "category": "组织"
+    },
+    "G136": {
+      "name": "公共储备粮仓",
+      "en": "Public Granaries",
+      "effect": "共同供给：支付弃1张阴谋的费用时，可改弃1张团体；每回合1次。",
+      "category": "组织"
+    },
+    "G137": {
+      "name": "江湖骗术团",
+      "en": "Street Con Artists",
+      "effect": "替身骗局：对手打出非反制阴谋时，可花本团体1标记、弃1张阴谋，取消该牌；每回合1次。",
+      "category": "组织"
+    },
+    "G138": {
+      "name": "秘宝走私商",
+      "en": "Arcane Relic Smugglers",
+      "effect": "秘宝转手（主动）：将己方团体的1张附着移给场上另一合法团体，忽略原牌的敌我限制。",
+      "category": "组织"
+    },
+    "G139": {
+      "name": "末日占星社",
+      "en": "Doomsday Astrologers",
+      "effect": "星象助阵：普通支援时可掷1颗骰，1–3使本次支援+2；每回合1次。",
+      "category": "组织"
+    },
+    "G140": {
+      "name": "隐秘誓约会",
+      "en": "Order of the Hidden Oath",
+      "effect": "共同信条：直属下属计算忠诚时，狂热也算共同阵营。",
+      "category": "组织"
+    },
+    "G141": {
+      "name": "自由轨道港",
+      "en": "Free Orbit Port",
+      "effect": "轨道接驳：己方主要阶段每回合1次，免费将1个己方太空团体整支移入直属空槽。",
+      "category": "地点"
+    },
+    "G142": {
+      "name": "深空殖民团",
+      "en": "Deep-Space Settlers",
+      "effect": "边疆据点：本团体及直属太空下属的位置防御至少为5。",
+      "category": "组织"
+    },
+    "G143": {
+      "name": "轨道私掠舰队",
+      "en": "Orbital Privateers",
+      "effect": "战利品：带头摧毁敌方团体后，可将目标原有的1张附着加入手牌。",
+      "category": "组织"
+    },
+    "G144": {
+      "name": "卫星盗播网",
+      "en": "Pirate Satellite Network",
+      "effect": "双轨窃听（主动）：秘密查看两个牌堆的顶牌，可将其中1张置于原堆底。",
+      "category": "组织"
+    },
+    "G145": {
+      "name": "地方民兵联队",
+      "en": "Local Militia",
+      "effect": "民兵动员：持有标记时可免费普通自卫，防御加值改为P；每回合1次。",
+      "category": "组织"
+    },
+    "G146": {
+      "name": "私营护送队",
+      "en": "Private Escort Companies",
+      "effect": "战后护送：支援普通防守且攻击失败后，可将目标整支免费移至己方另一合法空槽；每回合1次。",
+      "category": "组织"
+    },
+    "G147": {
+      "name": "革命游击队",
+      "en": "Revolutionary Guerrillas",
+      "effect": "孤军破袭：发动摧毁攻击时，可忽略位置防御；本次禁止己方进攻支援。",
+      "category": "组织"
+    },
+    "G148": {
+      "name": "末日避难营",
+      "en": "Doomsday Enclave",
+      "effect": "末日储备（主动）：弃1张团体，获得1枚防备，不花标记；本团体的防备也抵御普通摧毁攻击。",
+      "category": "地点"
+    },
+    "G149": {
+      "name": "身份伪造工坊",
+      "en": "Identity Forgers",
+      "effect": "伪造身份（主动）：公开1张团体手牌至回合结束，令1个己方团体本回合采用其印刷阵营。",
+      "category": "组织"
+    },
+    "G150": {
+      "name": "废墟开发商",
+      "en": "Ruins Redevelopers",
+      "effect": "趁乱收购：带头控制对手的受灾地点后，可免费重建它。",
+      "category": "组织"
+    },
+    "I01": {
+      "name": "巴伐利亚光明会",
+      "en": "Bavarian Illuminati",
+      "effect": "你发起的普通控制攻击，攻击强度+1。",
+      "goal": "控制至少8个团体，且它们的有效P合计至少45。",
+      "style": "力量扩张。",
+      "category": "光明会"
+    },
+    "I02": {
+      "name": "苏黎世侏儒",
+      "en": "Gnomes of Zurich",
+      "effect": "你的企业或银行团体发动控制攻击时，攻击强度+2。",
+      "goal": "控制至少6个企业或银行团体，且它们的有效P合计至少30。",
+      "style": "企业金融。",
+      "category": "光明会"
+    },
+    "I03": {
+      "name": "网络",
+      "en": "The Network",
+      "effect": "你的计算机团体GP+1，不超过P。",
+      "goal": "控制至少5个计算机团体，且它们的有效P合计至少26。",
+      "style": "计算机协同。",
+      "category": "光明会"
+    },
+    "I04": {
+      "name": "混沌社",
+      "en": "Discordian Society",
+      "effect": "你的怪异团体抵御普通控制攻击时，防御值+2。",
+      "goal": "控制至少5个怪异团体，且它们的有效P合计至少25。",
+      "style": "怪异结社。",
+      "category": "光明会"
+    },
+    "I05": {
+      "name": "克苏鲁仆从",
+      "en": "Servants of Cthulhu",
+      "effect": "你发起的普通摧毁攻击，攻击强度+2。",
+      "goal": "累计摧毁6个敌方团体。",
+      "style": "摧毁。",
+      "category": "光明会"
+    },
+    "I06": {
+      "name": "百慕大三角",
+      "en": "Bermuda Triangle",
+      "effect": "空间折叠：己方主要阶段每回合1次，免费交换己方两个直属上级不同、互不包含的团体的整支位置。",
+      "goal": "控制至少5个地点、其中至少2个巨大地点；这些地点团体的有效P合计至少30。",
+      "style": "地点换位 · 空间折叠",
+      "category": "光明会"
+    },
+    "I07": {
+      "name": "香格里拉",
+      "en": "Shangri-La",
+      "effect": "化干戈（主动）：令1个己方暴力团体失去暴力并获得和平；在场期间保留。",
+      "goal": "控制至少6个和平团体，且它们的有效P合计至少25。",
+      "style": "和平转化",
+      "category": "光明会"
+    },
+    "I08": {
+      "name": "赫尔墨斯门徒",
+      "en": "Adepts of Hermes",
+      "effect": "秘术共鸣：己方魔法团体带头普通攻击或抵御普通攻击时，其他己方魔法团体可用P支援。",
+      "goal": "控制至少5个魔法团体；且它们的有效P合计至少25。",
+      "style": "秘术协作",
+      "category": "光明会"
+    },
+    "P01": {
+      "name": "戒严",
+      "en": "Martial Law",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的政府团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P02": {
+      "name": "恐怖核袭",
+      "en": "Terrorist Nuke",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的暴力团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P03": {
+      "name": "慈善演唱会",
+      "en": "Benefit Concert",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的自由团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P04": {
+      "name": "秘密基金",
+      "en": "Slush Fund",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的犯罪团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P05": {
+      "name": "股票拆分",
+      "en": "Stock Split",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的企业团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P06": {
+      "name": "口琴处女",
+      "en": "Harmonica Virgins",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的怪异团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P07": {
+      "name": "坚决说不",
+      "en": "Just Say No",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的保守团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P08": {
+      "name": "拯救鲸鱼",
+      "en": "Save the Whales",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的和平团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P09": {
+      "name": "白化短吻鳄",
+      "en": "Albino Alligators",
+      "effect": "本次己方攻击强度或防御+4。",
+      "target": "本次战斗中，己方1个已花行动标记参战的狂热团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P10": {
+      "name": "民调利好",
+      "en": "Good Polls",
+      "effect": "本次防御+4。",
+      "target": "本次被攻击的己方团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P11": {
+      "name": "志愿援助",
+      "en": "Volunteer Aid",
+      "effect": "本次防御+2。",
+      "target": "本次被攻击的己方团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P12": {
+      "name": "贿赂",
+      "en": "Bribery",
+      "effect": "本次攻击强度+6。",
+      "target": "你发起的1次普通控制攻击。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P13": {
+      "name": "暴力痉挛",
+      "en": "Spasm of Violence",
+      "effect": "本次攻击强度+6。",
+      "target": "你发起的1次普通摧毁攻击。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P14": {
+      "name": "货币投机",
+      "en": "Currency Speculation",
+      "effect": "抽2张阴谋。",
+      "target": "自己。",
+      "cost": "弃本牌，再弃1张团体手牌。",
+      "category": "己方主要阶段"
+    },
+    "P15": {
+      "name": "骗局",
+      "en": "Hoax!",
+      "effect": "取消该牌；已支付费用不退还。",
+      "target": "对手刚打出、尚未结算的1张非反制阴谋牌。",
+      "cost": "弃本牌。",
+      "category": "反应"
+    },
+    "P16": {
+      "name": "受挫",
+      "en": "Foiled!",
+      "effect": "本次攻击直接失败。",
+      "target": "对手发起、尚未掷骰的1次普通攻击。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P17": {
+      "name": "新鲜血液",
+      "en": "New Blood",
+      "effect": "恢复目标1标记。",
+      "target": "你的1个非光明会团体。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P18": {
+      "name": "重组",
+      "en": "Reorganization",
+      "effect": "将目标整支免费移至己方新上级的合法空槽。",
+      "target": "你的1个非光明会团体及合法新上级。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P19": {
+      "name": "组织起来",
+      "en": "Let's Get Organized",
+      "effect": "下属槽+1，上限3。",
+      "target": "你的1个下属槽尚不足3的团体。",
+      "cost": "附着本牌。",
+      "category": "己方主要阶段"
+    },
+    "P20": {
+      "name": "计算机安全",
+      "en": "Computer Security",
+      "effect": "本次防御+4。",
+      "target": "本次被攻击的己方计算机团体。",
+      "cost": "弃本牌。",
+      "category": "战斗"
+    },
+    "P21": {
+      "name": "安插特工",
+      "en": "Agent in Place",
+      "effect": "查看对手全部阴谋手牌，选1张令其弃掉。",
+      "target": "对手的阴谋手牌。",
+      "cost": "弃本牌，花己方1个非光明会团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P22": {
+      "name": "曝光",
+      "en": "Exposed!",
+      "effect": "公开对手当前阴谋手牌至回合结束。",
+      "target": "对手。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P23": {
+      "name": "窃取计划",
+      "en": "Stealing the Plans",
+      "effect": "随机夺取对手1张阴谋手牌，只有取得的牌向你显示。",
+      "target": "对手的阴谋手牌。",
+      "cost": "弃本牌，花己方1个非光明会团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P24": {
+      "name": "挪用公款",
+      "en": "Embezzlement",
+      "effect": "从共享阴谋堆抽2张。",
+      "target": "自己。",
+      "cost": "弃本牌，花己方1个非光明会团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P25": {
+      "name": "机遇敲门",
+      "en": "Opportunity Knocks",
+      "effect": "从共享团体堆抽2张。",
+      "target": "自己。",
+      "cost": "弃本牌，花己方1个非光明会团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P26": {
+      "name": "坚定承诺",
+      "en": "Commitment",
+      "effect": "R+2。",
+      "target": "你的1个非光明会团体。",
+      "cost": "附着本牌。",
+      "category": "己方主要阶段"
+    },
+    "P27": {
+      "name": "草根支持",
+      "en": "Grassroots Support",
+      "effect": "P+1。",
+      "target": "你的1个印刷力量不高于3的非光明会团体。",
+      "cost": "附着本牌。",
+      "category": "己方主要阶段"
+    },
+    "P28": {
+      "name": "新世界秩序：法律与秩序",
+      "en": "NWO: Law and Order",
+      "effect": "所有正统团体P+1、R+1。",
+      "target": "全场。",
+      "cost": "置入公共秩序槽。",
+      "category": "己方主要阶段"
+    },
+    "P29": {
+      "name": "新世界秩序：我们时代的和平",
+      "en": "NWO: Peace in Our Time",
+      "effect": "双方普通摧毁攻击强度-2。",
+      "target": "全场。",
+      "cost": "置入公共秩序槽。",
+      "category": "己方主要阶段"
+    },
+    "P30": {
+      "name": "破坏行动",
+      "en": "Sabotage",
+      "effect": "移除目标的行动标记。",
+      "target": "对手1个持有行动标记、且未受“法治保障”保护的非光明会团体。",
+      "cost": "弃本牌，花己方1个非光明会团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P31": {
+      "name": "地震",
+      "en": "Earthquake",
+      "effect": "威力14；对巨大地点威力-4。成功使目标受灾；成功差值≥4时改为摧毁。",
+      "target": "对手1个地点。",
+      "cost": "弃本牌；花己方1个非主牌团体标记。",
+      "category": "己方主要阶段·灾难"
+    },
+    "P32": {
+      "name": "飓风",
+      "en": "Hurricane",
+      "effect": "威力14。成功使目标受灾；你可再移除其1个直属下属的行动标记。不摧毁地点。",
+      "target": "对手1个沿海地点。",
+      "cost": "弃本牌；花己方1个非主牌团体标记。",
+      "category": "己方主要阶段·灾难"
+    },
+    "P33": {
+      "name": "海啸",
+      "en": "Tidal Wave",
+      "effect": "威力16。成功使目标受灾；若目标非巨大，防守方还须将其1个直属下属整支收回手牌。不摧毁地点。",
+      "target": "对手1个沿海地点。",
+      "cost": "弃本牌；花己方1个非主牌团体标记。",
+      "category": "己方主要阶段·灾难"
+    },
+    "P34": {
+      "name": "核设施事故",
+      "en": "Nuclear Accident",
+      "effect": "威力18。成功使目标受灾；成功差值≥6时改为摧毁。",
+      "target": "对手1个具有科学标签，或有直属科学下属的地点。",
+      "cost": "弃本牌；花己方1个非主牌团体标记。",
+      "category": "己方主要阶段·灾难"
+    },
+    "P35": {
+      "name": "疫情暴发",
+      "en": "Epidemic",
+      "effect": "威力12；对巨大地点威力+4。成功使目标受灾；巨大目标的控制者还须弃1张阴谋。不摧毁地点。",
+      "target": "对手1个地点。",
+      "cost": "弃本牌；花己方1个非主牌团体标记。",
+      "category": "己方主要阶段·灾难"
+    },
+    "P36": {
+      "name": "新世界秩序：算法时代",
+      "en": "NWO: The Algorithmic Age",
+      "effect": "每次普通战斗，进攻方可让1个原本用GP的媒体团体改用P支援。",
+      "target": "全场。",
+      "cost": "本牌置入当前秩序槽，替换旧秩序。",
+      "category": "己方主要阶段·世界秩序"
+    },
+    "P37": {
+      "name": "新世界秩序：韧性社会",
+      "en": "NWO: Resilient Societies",
+      "effect": "每个己方主要阶段可免费重建1个地点，巨大也可。",
+      "target": "全场。",
+      "cost": "本牌置入当前秩序槽，替换旧秩序。",
+      "category": "己方主要阶段·世界秩序"
+    },
+    "P38": {
+      "name": "公关危机",
+      "en": "PR Crisis",
+      "effect": "卡面能力失效至回合结束。",
+      "target": "对手1个名人。",
+      "cost": "弃本牌；花己方1个媒体团体标记。",
+      "category": "己方主要阶段"
+    },
+    "P39": {
+      "name": "品牌代言",
+      "en": "Brand Endorsement",
+      "effect": "目标完成普通支援的战斗后，可恢复1个己方企业团体1标记；每回合1次。",
+      "target": "己方1个名人。",
+      "cost": "附着本牌。",
+      "category": "己方主要阶段·附着"
+    },
+    "P40": {
+      "name": "紧急疏散",
+      "en": "Emergency Evacuation",
+      "effect": "将其整支免费移到该地点子树之外的己方合法空槽；灾难继续。",
+      "target": "被灾难攻击的己方地点的1个直属下属。",
+      "cost": "弃本牌。",
+      "category": "灾难响应"
+    },
+    "P41": {
+      "name": "灾后重建",
+      "en": "Disaster Relief",
+      "effect": "免费重建目标。",
+      "target": "己方1个受灾地点。",
+      "cost": "弃本牌；巨大目标再弃1张团体手牌。",
+      "category": "己方主要阶段"
+    },
+    "P42": {
+      "name": "逆向叙事",
+      "en": "Reframing",
+      "effect": "将本次总阵营修正的正负互换；忠诚、支援资格和其他数值不变。每次攻击限生效1次。",
+      "target": "己方发动的本次普通控制攻击。",
+      "cost": "弃本牌；花己方1个媒体团体标记，此团体不因此算参战。",
+      "category": "普通控制战斗响应"
+    },
+    "P43": {
+      "name": "狙击",
+      "en": "Sniper",
+      "effect": "本次攻击忽略位置防御。",
+      "target": "己方发起、目标为敌方名人的本次普通摧毁攻击。",
+      "cost": "弃本牌。",
+      "category": "普通摧毁战斗响应"
+    },
+    "P44": {
+      "name": "保镖",
+      "en": "Bodyguard",
+      "effect": "目标将被普通攻击摧毁时，弃本牌，改为清空目标标记，保留目标整支。",
+      "target": "己方1个名人。",
+      "cost": "附着本牌。",
+      "category": "己方主要阶段·附着"
+    },
+    "P45": {
+      "name": "监管调查",
+      "en": "Regulatory Probe",
+      "effect": "目标的GP视为0。其控制者可在己方主要阶段花目标1标记，弃掉本牌。",
+      "target": "敌方1个企业或银行团体，主牌除外。",
+      "cost": "附着本牌；花己方1个政府或媒体团体的行动标记。",
+      "category": "己方主要阶段·附着"
+    },
+    "P46": {
+      "name": "技术融合",
+      "en": "Technology Convergence",
+      "effect": "令目标在场期间获得1个尚无的计算机、科学或太空标签。",
+      "target": "己方1个具有计算机、科学或太空标签的团体。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P47": {
+      "name": "奥术回响",
+      "en": "Arcane Echo",
+      "effect": "将目标加入手牌，本回合可用。",
+      "target": "共享阴谋弃牌堆中1张战斗阴谋。",
+      "cost": "弃本牌；花己方1个魔法团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P48": {
+      "name": "联合动员",
+      "en": "Joint Mobilization",
+      "effect": "后续加入本次进攻支援的己方共产团体可用P。",
+      "target": "己方发起的本次普通进攻。",
+      "cost": "弃本牌。",
+      "category": "普通战斗响应"
+    },
+    "P49": {
+      "name": "装备融资",
+      "en": "Equipment Financing",
+      "effect": "恢复目标1标记，再抽1张团体。",
+      "target": "己方1个可合法恢复行动标记的军队团体。",
+      "cost": "弃本牌；花己方1个银行团体的行动标记。",
+      "category": "己方主要阶段"
+    },
+    "P50": {
+      "name": "连锁事故",
+      "en": "Cascading Accident",
+      "effect": "本次威力+3；额外弃灾难牌则改为+6。",
+      "target": "己方发起的本次灾难。",
+      "cost": "弃本牌，再弃1张阴谋手牌。",
+      "category": "灾难响应"
+    },
+    "P51": {
+      "name": "犯罪霸权",
+      "en": "Criminal Overlords",
+      "effect": "控制至少5个犯罪团体，且它们的有效P合计至少20。",
+      "target": "满足本牌条件的己方势力。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段·目标"
+    },
+    "P52": {
+      "name": "草根接管",
+      "en": "Grassroots Takeover",
+      "effect": "控制至少9个团体，其中至少6个印刷P≤3。",
+      "target": "满足本牌条件的己方势力。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段·目标"
+    },
+    "P53": {
+      "name": "铁腕统治",
+      "en": "Rule by Force",
+      "effect": "控制至少4个军队团体，并累计摧毁至少3个敌方团体。",
+      "target": "满足本牌条件的己方势力。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段·目标"
+    },
+    "P54": {
+      "name": "聚光灯帝国",
+      "en": "Spotlight Empire",
+      "effect": "控制至少7个团体，其中至少3位名人、至少4个媒体团体。",
+      "target": "满足本牌条件的己方势力。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段·目标"
+    },
+    "P55": {
+      "name": "万象归一",
+      "en": "All Sides of the World",
+      "effect": "控制至少7个团体，并覆盖全部10种阵营。",
+      "target": "满足本牌条件的己方势力。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段·目标"
+    },
+    "P56": {
+      "name": "精密爆破",
+      "en": "Precision Demolition",
+      "effect": "报废目标资源。",
+      "target": "敌方1张在场资源。",
+      "cost": "弃本牌，花己方1个团体的行动。",
+      "category": "己方主要阶段"
+    },
+    "P57": {
+      "name": "逆向研发",
+      "en": "Reverse Engineering",
+      "effect": "查看堆顶2张，取1张加入手牌，其余沉底。",
+      "target": "资源牌堆。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P58": {
+      "name": "技术封锁",
+      "en": "Technology Blockade",
+      "effect": "目标失效至本回合结束。",
+      "target": "敌方1张在场资源。",
+      "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "P59": {
+      "name": "资产征用",
+      "en": "Asset Requisition",
+      "effect": "将目标移入己方资源手牌。",
+      "target": "敌方1张在场装置资源。",
+      "cost": "弃本牌，花己方1个政府团体的行动。",
+      "category": "己方主要阶段"
+    },
+    "P60": {
+      "name": "技术交换",
+      "en": "Technology Exchange",
+      "effect": "交换目标资源。",
+      "target": "双方各1张在场资源。",
+      "cost": "弃本牌，花己方1个科学团体的行动。",
+      "category": "己方主要阶段"
+    }
+  }
+}

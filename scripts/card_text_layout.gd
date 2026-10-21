@@ -27,9 +27,10 @@ static func build(font: Font,area: Rect2,rows: Array,body: String,body_fs: int,s
 			if needed<=area.size.y:break
 			for row in rows:row.fs=maxi(6,row.fs-1)
 	for row in rows:
-		var h=ceilf(font.get_height(row.fs))
+		var wrap=row.get("wrap",false)
+		var h=ceilf(font.get_multiline_string_size(row.text,HORIZONTAL_ALIGNMENT_LEFT,area.size.x,row.fs).y if wrap else font.get_height(row.fs))
 		if cursor+h>area.end.y:break
-		var value=fit(font,row.text,area.size.x,h,row.fs)
+		var value=fit(font,row.text,area.size.x,h,row.fs,wrap)
 		if value!="":out.append({"text":value,"fs":row.fs,"color":row.color,"rect":Rect2(area.position.x,cursor,area.size.x,h)})
 		cursor+=h+(1 if small else 3)
 	if body!="" and not small:

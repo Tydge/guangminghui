@@ -46,6 +46,7 @@ var panel_dragging=false
 var floating_positions: Dictionary={}
 # Regression harnesses can accelerate time; the user setting keeps the reading pause.
 var presentation_time_scale=1.0
+var settings_path="user://settings.cfg"
 
 func _set_busy(value: bool) -> void:
 	busy=value
@@ -91,17 +92,22 @@ func _style(color: Color=Color("142e32"),border: Color=Color("846e47"),width: in
 	var s=StyleBoxFlat.new();s.bg_color=color;s.border_color=border;s.set_border_width_all(width);s.set_corner_radius_all(8);s.content_margin_left=16;s.content_margin_right=16;s.content_margin_top=9;s.content_margin_bottom=9;return s
 
 func _button(text: String,callback: Callable,parent: Node,accent: bool=false) -> Button:
-	var b=Button.new();b.text=text;b.custom_minimum_size=Vector2(104,46);b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;b.add_theme_color_override("font_color",CREAM);b.add_theme_color_override("font_hover_color",Color.WHITE);b.add_theme_stylebox_override("normal",_style(Color("254b47") if accent else Color("142c2e"),GOLD if accent else Color("6e7056")));b.add_theme_stylebox_override("hover",_style(Color("315953"),GOLD));b.add_theme_stylebox_override("pressed",_style(Color("416c60"),TEAL,2));b.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),TEAL,2));b.pressed.connect(func():
+	var b=Button.new();b.text=GameLocale.text(text);b.custom_minimum_size=Vector2(104,46);b.add_theme_font_size_override("font_size",18 if GameLocale.english() else 20);b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND;b.add_theme_color_override("font_color",CREAM);b.add_theme_color_override("font_hover_color",Color.WHITE);b.add_theme_stylebox_override("normal",_style(Color("254b47") if accent else Color("142c2e"),GOLD if accent else Color("6e7056")));b.add_theme_stylebox_override("hover",_style(Color("315953"),GOLD));b.add_theme_stylebox_override("pressed",_style(Color("416c60"),TEAL,2));b.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),TEAL,2));b.pressed.connect(func():
 		if not busy and not window_access.transitioning:_sound("click");callback.call());parent.add_child(b);return b
 
 func _label(text: String,parent: Node,fs: int=20,color: Color=CREAM) -> Label:
-	var l=Label.new();l.text=text;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;parent.add_child(l);return l
+	var l=Label.new();l.text=GameLocale.text(text);l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;parent.add_child(l);return l
 
 func _paragraph(text: String,parent: Node,rect: Rect2,fs: int=22,color: Color=CREAM) -> Label:
-	var l=Label.new();l.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;l.text=text;parent.add_child(l);l.position=rect.position;l.size=rect.size;return l
+	var l=Label.new();l.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;l.text=GameLocale.text(text);parent.add_child(l);l.position=rect.position;l.size=rect.size
+	if GameLocale.english():
+		while fs>14 and font.get_multiline_string_size(l.text,HORIZONTAL_ALIGNMENT_LEFT,rect.size.x,fs).y>rect.size.y:fs-=1
+		l.add_theme_font_size_override("font_size",fs)
+		l.clip_text=true;l.max_lines_visible=maxi(1,int(rect.size.y/font.get_height(fs)));l.size=rect.size
+	return l
 
 func _wrapped(text: String,parent: Node,fs: int=21,color: Color=CREAM) -> Label:
-	var l=Label.new();l.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;l.size_flags_horizontal=Control.SIZE_EXPAND_FILL;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;l.text=text;parent.add_child(l);return l
+	var l=Label.new();l.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;l.size_flags_horizontal=Control.SIZE_EXPAND_FILL;l.add_theme_font_size_override("font_size",fs);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;l.text=GameLocale.text(text);parent.add_child(l);return l
 
 func _scroll_column(parent: Node,rect: Rect2) -> VBoxContainer:
 	var scroll=ScrollContainer.new();scroll.position=rect.position;scroll.size=rect.size;scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;parent.add_child(scroll)
@@ -193,15 +199,16 @@ func _draw_hud() -> void:
 	elif game.phase=="over":status="对局结束"
 	_label(status,hud,25,TEAL if game.current==0 else Color("df9c8d")).position=Vector2(w/2-80,20)
 	if not game.nodes.is_empty():
-		_label("你 · "+CardDB.name_of(game.factions[0])+"   "+game.goal(0).text,hud,18).position=Vector2(35,70)
-		_label("AI · "+CardDB.name_of(game.factions[1])+"   "+game.goal(1).text,hud,18,Color("d69b8e")).position=Vector2(w/2+20,70)
+		_label("你 · "+CardDB.name_of(game.factions[0])+"   "+GameLocale.progress(game.goal(0).text),hud,18).position=Vector2(35,70)
+		_label("AI · "+CardDB.name_of(game.factions[1])+"   "+GameLocale.progress(game.goal(1).text),hud,18,Color("d69b8e")).position=Vector2(w/2+20,70)
 	var menu=_button("☰",_settings,hud);menu.position=Vector2(w-92,16);menu.custom_minimum_size.x=54;menu.size=Vector2(54,46);menu.disabled=window_access.browsing
 	var camera=HBoxContainer.new();camera.position=Vector2(35,105);camera.add_theme_constant_override("separation",7);hud.add_child(camera)
 	_button("己方",func():board.focus(0),camera);_button("对手",func():board.focus(1),camera);_button("全局",func():board.fit_all(),camera)
 	var minus=_button("−",func():board.zoom_at(0.85,board.size/2),camera);minus.custom_minimum_size.x=48
 	var plus=_button("＋",func():board.zoom_at(1.18,board.size/2),camera);plus.custom_minimum_size.x=48
 	for kind in ["group","resource","plot"]:
-		var piles=_button({"group":"团体 ","resource":"资源 ","plot":"阴谋 "}[kind]+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-465+["group","resource","plot"].find(kind)*140,105);piles.size=Vector2(132,46);piles.custom_minimum_size.x=125;piles.disabled=window_access.browsing
+		var piles=_button({"group":"团体 ","resource":"资源 ","plot":"阴谋 "}[kind]+str(game.decks[kind].size()),_piles,hud);piles.position=Vector2(w-465+["group","resource","plot"].find(kind)*140,105);piles.size=Vector2(154 if GameLocale.english() else 132,46);piles.custom_minimum_size.x=125;piles.disabled=window_access.browsing
+		if GameLocale.english():piles.position.x=w-515+["group","resource","plot"].find(kind)*162;piles.add_theme_font_size_override("font_size",16)
 		var back="res://assets/ui/%s_back.webp"%("group" if kind=="resource" else kind)
 		if ResourceLoader.exists(back):piles.icon=load(back);piles.expand_icon=true;piles.add_theme_constant_override("icon_max_width",22)
 	if game.world!="":
@@ -212,14 +219,14 @@ func _draw_hud() -> void:
 	if not game.last_battle.is_empty():
 		var history_button=_button("最近战斗",_battle_history,hud);history_button.add_theme_font_size_override("font_size",16);history_button.custom_minimum_size.y=42;history_button.position=Vector2(45+log_width,h-249);history_button.size=Vector2(145,42);history_button.disabled=window_access.browsing
 	var tabs_width=8.0
-	for caption in _hand_tab_labels():tabs_width+=maxf(104,font.get_string_size(caption,HORIZONTAL_ALIGNMENT_LEFT,-1,20).x+32)
+	for caption in _hand_tab_labels():tabs_width+=maxf(104,font.get_string_size(GameLocale.text(caption),HORIZONTAL_ALIGNMENT_LEFT,-1,18 if GameLocale.english() else 20).x+32)
 	var actions_x=35+tabs_width+18
 	var action_scroll=ScrollContainer.new();action_scroll.name="ActionToolbar";action_scroll.position=Vector2(actions_x,h-205);action_scroll.size=Vector2(w-(350 if not compact else 35)-actions_x,54);action_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;hud.add_child(action_scroll)
 	var actions=HBoxContainer.new();actions.size_flags_vertical=Control.SIZE_SHRINK_BEGIN;actions.add_theme_constant_override("separation",8);action_scroll.add_child(actions)
 	if window_access.browsing:
 		_button("返回操作窗口",window_access.resume,actions,true)
 	elif not action_candidates.is_empty():
-		var hint=_label(action_hint,actions,19,TEAL);hint.clip_text=true;hint.custom_minimum_size.x=clampf(action_scroll.size.x-360,180,380);hint.tooltip_text=action_hint
+		var hint=_label(action_hint,actions,19,TEAL);hint.clip_text=true;hint.custom_minimum_size.x=clampf(action_scroll.size.x-360,180,380);hint.tooltip_text=GameLocale.text(action_hint)
 		_button("上一步",interactions.back,actions) if interactions.picker.active else null
 		_button("取消",func():interactions.cancel(),actions);_button("列出目标",func():interactions.show_targets(action_candidates),actions)
 	elif game.phase=="main" and game.current==0 and not busy:_context_actions(actions)
@@ -235,7 +242,7 @@ func _context_actions(parent: Control) -> void:
 	var legal=game.legal_actions(0)
 	var draws=legal.filter(func(a):return a.type=="research")
 	var draw_button=_button("抽牌",_draw_deck_picker,parent,true)
-	draw_button.disabled=draws.is_empty();draw_button.tooltip_text="花主牌1行动，从团体、资源或阴谋堆抽1张。"
+	draw_button.disabled=draws.is_empty();draw_button.tooltip_text=GameLocale.text("花主牌1行动，从团体、资源或阴谋堆抽1张。")
 	if selected=="":_label("选择手牌或场上团体",parent,20,Color("a5b6a6"));return
 	if selected in game.hands[0].resource:
 		var deploys=legal.filter(func(a):return a.type=="deploy" and a.id==selected)
@@ -247,7 +254,7 @@ func _context_actions(parent: Control) -> void:
 		var autos=legal.filter(func(a):return a.type=="auto" and a.id==selected)
 		if not autos.is_empty():
 			var takeover=_button("自动接管",func():_target(autos,"parent","选择接管位置"),parent,true)
-			takeover.tooltip_text="免掷骰进场。新团体当回合无行动标记，且不能恢复。"
+			takeover.tooltip_text=GameLocale.text("免掷骰进场。新团体当回合无行动标记，且不能恢复。")
 		var recruits=legal.filter(func(a):return a.type=="attack" and a.target==selected)
 		if not recruits.is_empty():_button("攻击招募",func():_target(recruits,"src","选择带头团体"),parent)
 	elif selected in game.hands[0].plot:
@@ -344,7 +351,7 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	var p=_panel(large_layer,Rect2((size-extent)/2,extent))
 	_drag_title(p,"控制攻击" if a.mode=="control" else "摧毁攻击","preview")
 	window_access.offer(p,Vector2(-1,62))
-	var heading=_label(game.title(a.src)+"  →  "+game.title(a.target),p,24);heading.position=Vector2(28,68);heading.size.x=extent.x-230;heading.clip_text=true;heading.tooltip_text=heading.text
+	var heading=_label(game.title(a.src)+"  →  "+game.title(a.target),p,24);heading.position=Vector2(28,68);heading.size.x=extent.x-230;heading.clip_text=true;heading.tooltip_text=GameLocale.text(heading.text)
 	var v=game.attack_preview(a.src,a.target,a.mode,a)
 	if a.get("use_plan",false):_paragraph("采用预案 · %d＋%d"%game.wave.plans[0],p,Rect2(28,222,380,35),20,TEAL)
 	var left_w=extent.x*0.39;var right_x=left_w+40
@@ -363,7 +370,7 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	var support_flow=HFlowContainer.new();support_flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;support_flow.add_theme_constant_override("h_separation",8);support_flow.add_theme_constant_override("v_separation",8);col.add_child(support_flow)
 	for entry in options.supports:
 		var b=_button("%s  %s +%d"%[game.title(entry.id),entry.basis,entry.power],func():_inspect(entry.id),support_flow)
-		b.add_theme_font_size_override("font_size",18);b.tooltip_text=entry.reason+"；消耗1个行动标记。点击查看卡牌。"
+		b.add_theme_font_size_override("font_size",18);b.tooltip_text=GameLocale.text(entry.reason+"；消耗1个行动标记。点击查看卡牌。")
 	if options.supports.is_empty():_label("暂无可用支援",col,18,Color("9aaca0"))
 	if options.mobilized_supports>0:_label("联合动员可增强%d个支援"%options.mobilized_supports,col,17,TEAL)
 	var available_resources=game.resources.field(0).filter(func(k):return game.resources.ready(k) and (k in ["E12","E15"] or (k=="E01" and game.token(k)) or (k=="E07" and a.mode=="destroy" and game.owner(a.target)==0)))
@@ -374,7 +381,7 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	for entry in (options.plots if all_plots else usable):
 		var suffix=" +%d"%entry.bonus if entry.status=="可用" and entry.bonus>0 else " · "+entry.status
 		var b=_button(game.title(entry.id)+suffix,func():_inspect(entry.id),plot_flow,entry.status=="可用")
-		b.add_theme_font_size_override("font_size",18);b.tooltip_text=entry.reason
+		b.add_theme_font_size_override("font_size",18);b.tooltip_text=GameLocale.text(entry.reason)
 		if entry.status=="不可用":b.modulate=Color("95a39b")
 	if usable.is_empty() and not all_plots:_label("暂无适用阴谋",col,18,Color("9aaca0"))
 	var hidden=options.plots.size()-usable.size()
@@ -487,7 +494,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	if a.type=="trigger" and game.choice.get("task",{}).get("kind","")=="battle_recharge":effect_name="战后恢复行动标记"
 	if a.type=="choose" and game.choice.get("kind","")=="w_draft":effect_name="推荐流"
 	if a.type in ["resource","research","deploy"]:effect_name=a.label
-	if effect_name.length()>30:effect_name=effect_name.left(28)+"…"
+	if not GameLocale.english() and effect_name.length()>30:effect_name=effect_name.left(28)+"…"
 	_paragraph(effect_name,body,Rect2(x,extent.y*0.58,text_width,80),25,CREAM)
 	var target=a.get("target","")
 	var target_text="目标 · "+game.title(target) if target!="" else ""
@@ -540,7 +547,7 @@ func _present_result(e: Dictionary) -> bool:
 			presentation_tween.tween_interval(0.07*presentation_time_scale)
 	presentation_tween.tween_callback(func():
 		if dice.size()==2:dice_label.text="%d    +    %d"%dice
-		outcome_label.text=outcome;_sound("success" if e.get("success",false) else "fail"))
+		outcome_label.text=GameLocale.text(outcome);_sound("success" if e.get("success",false) else "fail"))
 	presentation_tween.tween_interval((0.5 if reduced_motion else 0.98)*presentation_time_scale)
 	presentation_tween.tween_property(p,"modulate:a",0.0,(0.06 if reduced_motion else 0.16)*presentation_time_scale).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	presentation_tween.finished.connect(func():_finish_presentation(true),CONNECT_ONE_SHOT)
@@ -598,11 +605,11 @@ func _setup_overlay() -> void:
 		var next=_button("下一页",func():faction_page+=1;_phase_overlay(),overlay);next.name="FactionNext";next.position=Vector2(size.x/2+90,size.y-80);next.size=Vector2(150,55);next.disabled=faction_page==pages-1
 	if not factions:
 		var remaining=2-(game.resource_rerolls[0] if resources else game.mulligans[0])
-		var reroll=_button("重随 · 剩余%d次"%remaining,func():_perform_type("reroll_resource" if resources else "mulligan"),overlay,true);reroll.name="ResourceMulligan" if resources else "OpeningMulligan";reroll.position=Vector2(235,size.y-80);reroll.size.x=230;reroll.disabled=remaining==0;reroll.tooltip_text="将5张候选资源放回并重抽；不影响团体和阴谋。" if resources else "全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。"
+		var reroll=_button("重随 · 剩余%d次"%remaining,func():_perform_type("reroll_resource" if resources else "mulligan"),overlay,true);reroll.name="ResourceMulligan" if resources else "OpeningMulligan";reroll.position=Vector2(235,size.y-80);reroll.size.x=230;reroll.disabled=remaining==0;reroll.tooltip_text=GameLocale.text("将5张候选资源放回并重抽；不影响团体和阴谋。" if resources else "全部团体手牌放回并洗牌，重抽等量团体；阴谋不变。")
 
 func _choice_overlay() -> void:
 	_dim(overlay);var c=game.choice;var p=_panel(overlay,Rect2(Vector2(75,105),size-Vector2(150,200)))
-	var heading=_label(c.label,p,29,GOLD);heading.position=Vector2(28,24);heading.size.x=p.size.x-235;heading.clip_text=true;heading.tooltip_text=c.label;window_access.offer(p)
+	var heading=_label(c.label,p,29,GOLD);heading.position=Vector2(28,24);heading.size.x=p.size.x-235;heading.clip_text=true;heading.tooltip_text=GameLocale.text(c.label);window_access.offer(p)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(28,86);scroll.size=p.size-Vector2(56,125);p.add_child(scroll)
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",20);scroll.add_child(row)
@@ -650,7 +657,7 @@ func _battle_overlay() -> void:
 		var a=entry.action
 		var row=HBoxContainer.new();row.add_theme_constant_override("separation",8);col.add_child(row)
 		var title=a.label if entry.options.size()==1 else game.title(a.get("id",a.get("src","")))+" · 选择方式或费用"
-		var btn=_button(title,func():_dispatch_options(entry.options),row,a.type=="pass");btn.size_flags_horizontal=Control.SIZE_EXPAND_FILL;btn.alignment=HORIZONTAL_ALIGNMENT_LEFT;btn.add_theme_font_size_override("font_size",18);btn.custom_minimum_size.y=48;btn.clip_text=true;btn.tooltip_text=title
+		var btn=_button(title,func():_dispatch_options(entry.options),row,a.type=="pass");btn.size_flags_horizontal=Control.SIZE_EXPAND_FILL;btn.alignment=HORIZONTAL_ALIGNMENT_LEFT;btn.add_theme_font_size_override("font_size",18);btn.custom_minimum_size.y=48;btn.clip_text=true;btn.tooltip_text=GameLocale.text(title)
 		var detail_id=a.get("id",a.get("src",""))
 		if detail_id!="":_button("查看",func():_inspect(detail_id),row)
 
@@ -684,9 +691,15 @@ func _battle_history() -> void:
 func _victory_overlay() -> void:
 	if busy:return
 	_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(350,245),Vector2(700,490)))
-	_label("势均力敌" if game.winner==-1 else ("计划得逞" if game.winner==0 else "暗流反噬"),p,60,GOLD).position=Vector2(210,48)
-	_label(game.logs.back(),p,23).position=Vector2(90,155)
-	for who in [0,1]:_label(("你  " if who==0 else "AI  ")+game.goal(who).text,p,22,TEAL if who==0 else Color("d29b8d")).position=Vector2(80,220+who*45)
+	var heading="势均力敌" if game.winner==-1 else ("计划得逞" if game.winner==0 else "暗流反噬")
+	if GameLocale.english():
+		var title=_paragraph(heading,p,Rect2(28,42,644,90),50,GOLD);title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		_paragraph(game.logs.back(),p,Rect2(50,155,600,58),23)
+		for who in [0,1]:_paragraph(("你  " if who==0 else "AI  ")+GameLocale.progress(game.goal(who).text),p,Rect2(80,220+who*55,540,48),22,TEAL if who==0 else Color("d29b8d"))
+	else:
+		_label(heading,p,60,GOLD).position=Vector2(210,48)
+		_label(game.logs.back(),p,23).position=Vector2(90,155)
+		for who in [0,1]:_label(("你  " if who==0 else "AI  ")+game.goal(who).text,p,22,TEAL if who==0 else Color("d29b8d")).position=Vector2(80,220+who*45)
 	var again=_button("再来一局",func():_start_game(),p,true);again.position=Vector2(80,370);again.size=Vector2(240,58)
 	var menu=_button("主菜单",_menu,p);menu.position=Vector2(375,370);menu.size=Vector2(240,58)
 
@@ -701,7 +714,7 @@ func _inspect(id: String,nested: bool=false) -> void:
 	var card_w=350.0
 	var v=CardView.new();v.configure(id,game,true);v.position=Vector2(24,24);v.size=Vector2(card_w,extent.y-48);p.add_child(v)
 	var x=card_w+55;var c=game.card(id) if game!=null else CardDB.get_card(id)
-	_label(c.name,p,32,GOLD).position=Vector2(x,22)
+	_paragraph(c.name,p,Rect2(x,22,extent.x-x-30,64),32,GOLD) if GameLocale.english() else _label(c.name,p,32,GOLD).set_position(Vector2(x,22))
 	var col=_scroll_column(p,Rect2(x,92,extent.x-x-30,extent.y-190));col.get_parent().name="ReaderScroll"
 	interactions.attachment_buttons(id,col)
 	if c.kind=="plot":
@@ -792,18 +805,18 @@ func _card_context_text(id: String) -> String:
 
 func _mobile_detail(id: String) -> void:
 	var c=game.card(id) if game!=null else CardDB.get_card(id)
-	var p=_panel(detail_layer,Rect2(Vector2(65,50),size-Vector2(130,100)))
+	var p=_panel(detail_layer,Rect2(Vector2(35,35) if GameLocale.english() else Vector2(65,50),size-(Vector2(70,70) if GameLocale.english() else Vector2(130,100))))
 	_label(c.name,p,36,GOLD).position=Vector2(32,22)
-	_label(c.en,p,21,Color("a7baac")).position=Vector2(34,80)
-	var picture=TextureRect.new();picture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;picture.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;picture.texture=CardDB.art(c.id);picture.position=Vector2(32,140);picture.size=Vector2.ONE*minf(415,p.size.y-250);p.add_child(picture)
-	var x=490.0;var a=game.alignments(id) if game!=null else c.align
+	if not GameLocale.english():_label(c.en,p,21,Color("a7baac")).position=Vector2(34,80)
+	var picture=TextureRect.new();picture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;picture.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;picture.texture=CardDB.art(c.id);picture.position=Vector2(32,140);picture.size=Vector2.ONE*minf(minf(415,p.size.y-250),p.size.x*0.35 if GameLocale.english() else 415);p.add_child(picture)
+	var x=minf(490,p.size.x*0.39) if GameLocale.english() else 490.0;var a=game.alignments(id) if game!=null else c.align
 	if c.kind not in ["plot","resource"]:
 		var values=[game.stat(id,"p"),game.stat(id,"gp"),game.stat(id,"r"),game.stat(id,"slots")] if game!=null and game.nodes.has(id) else [c.p,c.gp,c.r,c.slots]
-		_label("P %d   GP %d   R %d   下属槽 %d"%values,p,30,CREAM).position=Vector2(x,140)
-		_label(" · ".join(a),p,27,TEAL).position=Vector2(x,200)
-		_label(" / ".join(game.tags(id) if game!=null else c.tags),p,22,Color("b7c7b0")).position=Vector2(x,249)
-		if game!=null and game.nodes.has(id) and not game.is_root(id):_label("忠诚 +%d   位置 +%d"%[game.loyalty_defense(id),game.position_defense(id)],p,24,TEAL).position=Vector2(x+270,249)
-	else:_label(c.category+(" · "+c.mode if c.kind=="resource" else ""),p,28,TEAL).position=Vector2(x,140)
+		_label("P %d   GP %d   R %d   下属槽 %d"%values,p,23 if GameLocale.english() else 30,CREAM).position=Vector2(x,140)
+		_label(" · ".join(a),p,19 if GameLocale.english() else 27,TEAL).position=Vector2(x,200)
+		_label(" / ".join(game.tags(id) if game!=null else c.tags),p,17 if GameLocale.english() else 22,Color("b7c7b0")).position=Vector2(x,249)
+		if game!=null and game.nodes.has(id) and not game.is_root(id):_label("忠诚 +%d   位置 +%d"%[game.loyalty_defense(id),game.position_defense(id)],p,17 if GameLocale.english() else 24,TEAL).position=Vector2(x if GameLocale.english() else x+270,278 if GameLocale.english() else 249)
+	else:_label(c.category+(" · "+c.mode if c.kind=="resource" else ""),p,22 if GameLocale.english() else 28,TEAL).position=Vector2(x,140)
 	var text=c.effect
 	if c.kind=="plot":
 		text=CardDB.plot_text(c)
@@ -812,8 +825,8 @@ func _mobile_detail(id: String) -> void:
 	var body_y=205 if c.kind in ["plot","resource"] else 305
 	var col=_scroll_column(p,Rect2(Vector2(x,body_y),Vector2(p.size.x-x-45,p.size.y-body_y-100)));col.get_parent().name="ReaderScroll"
 	interactions.attachment_buttons(id,col)
-	_wrapped(text,col,27)
-	if c.kind!="plot":_wrapped(_card_context_text(id),col,25)
+	_wrapped(text,col,22 if GameLocale.english() else 27)
+	if c.kind!="plot":_wrapped(_card_context_text(id),col,20 if GameLocale.english() else 25)
 	var preview=_preview_note(id)
 	if preview!="":_wrapped(preview,col,24,TEAL)
 	var close=_button("返回团体" if not interactions.reader_stack.is_empty() else "收起大卡",_close_inspection,p,true);close.position=Vector2(p.size.x-305,p.size.y-82);close.size=Vector2(270,58)
@@ -854,7 +867,7 @@ func _forced_pass() -> void:
 	if legal.size()==1 and legal[0].type in ["pass","trigger"]:_do_action(0,legal[0])
 
 func _toast(text: String) -> void:
-	notification.text=text;notification.modulate.a=1
+	notification.text=GameLocale.text(text);notification.modulate.a=1
 	var tween=create_tween();tween.tween_interval(3);tween.tween_property(notification,"modulate:a",0.0,0.4)
 
 func _journal() -> void:
@@ -887,18 +900,22 @@ func _settings() -> void:
 	modal_open=true;_clear(large_layer);_clear(hover_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(340,310),Vector2(680,620)))
 	_label("设置",p,34,GOLD).position=Vector2(28,20);_label("音效",p,22).position=Vector2(30,100)
 	var slider=HSlider.new();slider.min_value=0;slider.max_value=1;slider.step=0.05;slider.value=sound_volume;slider.position=Vector2(165,100);slider.size=Vector2(455,40);p.add_child(slider);slider.value_changed.connect(func(v):sound_volume=v;_save_settings())
-	var motion=CheckButton.new();motion.text="减少动态效果";motion.button_pressed=reduced_motion;motion.position=Vector2(30,175);p.add_child(motion);motion.toggled.connect(func(v):reduced_motion=v;_save_settings())
-	var mobile=CheckButton.new();mobile.text="横屏移动布局";mobile.button_pressed=compact;mobile.position=Vector2(30,238);p.add_child(mobile);mobile.toggled.connect(func(v):compact=v;_save_settings();_resize())
-	_button("玩法与操作",_help,p).position=Vector2(30,330);_button("卡牌图鉴",_catalog,p).position=Vector2(250,330)
-	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,420)
-	var close=_button("返回游戏" if game!=null else "返回",func():_clear(large_layer);modal_open=false;_schedule_ai(),p,true);close.position=Vector2(440,530);close.size=Vector2(205,55)
+	var motion=CheckButton.new();motion.text=GameLocale.text("减少动态效果");motion.button_pressed=reduced_motion;motion.position=Vector2(30,175);p.add_child(motion);motion.toggled.connect(func(v):reduced_motion=v;_save_settings())
+	var mobile=CheckButton.new();mobile.text=GameLocale.text("横屏移动布局");mobile.button_pressed=compact;mobile.position=Vector2(30,238);p.add_child(mobile);mobile.toggled.connect(func(v):compact=v;_save_settings();_resize())
+	_button("玩法与操作",_help,p).position=Vector2(30,370);_button("卡牌图鉴",_catalog,p).position=Vector2(310,370)
+	_label("语言 / Language",p,22).position=Vector2(30,300)
+	var language_choice=OptionButton.new();language_choice.name="LanguageChoice";language_choice.position=Vector2(325,292);language_choice.size=Vector2(290,48);language_choice.add_item("中文");language_choice.add_item("English");language_choice.select(1 if GameLocale.english() else 0);p.add_child(language_choice)
+	language_choice.item_selected.connect(func(index):_change_language("en" if index==1 else "zh"))
+	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,455)
+	var close=_button("返回游戏" if game!=null else "返回",_close_settings,p,true);close.position=Vector2(440,530);close.size=Vector2(205,55)
 
 func _help(page: String="basic") -> void:
 	_clear(large_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(430,330),Vector2(860,660)))
 	_label("玩法与操作",p,30,GOLD).position=Vector2(28,20)
 	var tabs=HBoxContainer.new();tabs.position=Vector2(28,77);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
-	for key in ["basic","disaster","cards","controls"]:_button({"basic":"基础","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
+	for key in ["basic","alignments","disaster","cards","controls"]:_button({"basic":"基础","alignments":"阵营与标签","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
 	var pages={
+		"alignments":"P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。",
 		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n初始团体选完后，从5张资源候选中选1张入手，可独立重随2次。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
 		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
 		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
@@ -910,11 +927,13 @@ func _catalog() -> void:
 	interactions.catalog()
 
 func _save_settings() -> void:
-	var c=ConfigFile.new();c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.save("user://settings.cfg")
+	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():return
+	var c=ConfigFile.new();c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.save(settings_path)
 
 func _load_settings() -> void:
+	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():GameLocale.set_language("zh");return
 	var c=ConfigFile.new()
-	if c.load("user://settings.cfg")==OK:sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
+	if c.load(settings_path)==OK:GameLocale.set_language(c.get_value("settings","language","zh"));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if busy or window_access.transitioning:return
@@ -990,3 +1009,23 @@ func _draw_deck_picker() -> void:
 		if choices.is_empty():caption+=" · "+("手牌已满" if deck=="resource" and not game.resources.can_draw(0) else "牌堆已空")
 		var b=_button(caption,func():_do_action(0,choices[0]),p,true);b.position=Vector2(28+i*(extent.x-56)/3,142);b.size=Vector2((extent.x-76)/3,90);b.disabled=choices.is_empty()
 	_button("返回",func():_clear(large_layer),p).position=Vector2(28,extent.y-78)
+
+func _change_language(value: String) -> void:
+	if busy or window_access.browsing or window_access.transitioning:return
+	GameLocale.set_language(value);_save_settings()
+	if game==null:_menu()
+	else:
+		var was_selected=selected
+		_refresh(false);selected=was_selected
+		if not interactions.reader_id.is_empty():
+			var reader_history=interactions.reader_stack.duplicate()
+			_clear(detail_layer);_inspect(interactions.reader_id,true);interactions.reader_stack=reader_history
+	_settings()
+
+func _close_settings() -> void:
+	_clear(large_layer)
+	if game!=null:
+		if interactions.picker.active:interactions.step();return
+		if not preview_action.is_empty():_review_action(preview_action);return
+		_refresh()
+	modal_open=false;_schedule_ai()

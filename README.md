@@ -6,6 +6,8 @@
 
 在 Godot 中打开本目录的 `project.godot`，等待首次资源导入，按 **F5** 运行整个项目。主场景为 `scenes/main.tscn`。无需导出试玩包或 APK。离线运行，无需 API 密钥。
 
+设置中可通过「语言 / Language」切换中文和 English，并自动记住选择。卡牌、菜单、帮助、选择窗口、战斗记录和提示同步切换。英文入门说明见 [Basic Rules](docs/Quick_Start_EN.md)，包含数值、阵营对立、标签、忠诚、位置及P／GP支援规则；游戏内「玩法与操作 → 阵营与标签」也可查阅。
+
 在其他电脑继续开发：
 
 ```powershell
@@ -72,7 +74,7 @@ python tools/card_table.py check
 python tools/card_table.py sync
 ```
 
-修改技能、胜利条件或费用时，必须同时实现、验证对应规则，再用 `sync --accept-rule-text` 完成同步。工具会阻止未确认的规则文字变更，以及同一字段的冲突；不会把技能文字自动当作已实现的程序。新增卡牌也需同步表格、规则及素材。
+修改技能、胜利条件或费用时，必须同时实现、验证对应规则，再用 `sync --accept-rule-text` 完成同步。工具会阻止未确认的规则文字变更，以及同一字段的冲突；不会把技能文字自动当作已实现的程序。新增卡牌也需同步表格、规则及素材。英文译文和来源快照维护在 `data/localization/en.json`；同步中文卡文后需核对并更新对应英文，再运行 `python tools/check_localization.py` 检查遗漏、过期文本及占位符。
 
 总表开头的阵营、标签数量由 `sync` 自动重算并更新所有阅读副本，`check` 也会发现统计过期。同卡可计入多个阵营／标签，但每个项目内只计一次；只统计牌面印刷属性，不计能力赋予的临时属性，统计数字无需人工修改。
 
@@ -89,6 +91,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/card_view.gd`、`scripts/card_text_layout.gd`：卡面完整行排版、悬停、长按与选择。
 - `scripts/action_flow.gd`：规则副本预演、抽弃牌和目标移动计划，保持真实对局及 RNG 在动效结束前不变。
 - `scripts/action_picker.gd`、`scripts/game_interactions.gd`：分步选目标、分页图鉴、附着牌阅读与移动动效。
+- `scripts/game_locale.gd`、`data/localization/en.json`：中英文显示与卡牌译文，不改变规则和命令。
 - `scripts/main.gd`：菜单、对局、响应、选择、图鉴和设置。
 - `scripts/window_access.gd`：动效时暂藏窗口、暂停查看战场及原操作恢复。
 - `scripts/panel_drag_handle.gd`：浮动窗口标题的鼠标/触摸拖动、边界约束及手势释放。

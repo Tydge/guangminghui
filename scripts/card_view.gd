@@ -107,20 +107,20 @@ func _draw() -> void:
 	if state!=null and state.nodes.has(id) and (definition.kind!="resource" or definition.action):
 		var n=state.nodes[id]
 		var action_color=Color("70e2c7") if state.token(id) else Color("41514a")
-		if n.get("devastated",false):draw_rect(Rect2(6,32,36,23),Color("7d3931"));_text("灾",Vector2(12,49),15,Color("ffe1bf"))
-		elif n.get("prepared",false):draw_rect(Rect2(6,32,36,23),Color("205b56"));_text("备",Vector2(12,49),15,Color("9affe1"))
+		if n.get("devastated",false):draw_rect(Rect2(6,32,36,23),Color("7d3931"));_text("Dev" if GameLocale.english() else "灾",Vector2(12,49),15,Color("ffe1bf"))
+		elif n.get("prepared",false):draw_rect(Rect2(6,32,36,23),Color("205b56"));_text("Prep" if GameLocale.english() else "备",Vector2(10,49),12 if GameLocale.english() else 15,Color("9affe1"))
 		draw_circle(Vector2(size.x-14,14),7,action_color)
 		draw_arc(Vector2(size.x-14,14),9,0,TAU,24,gold,1,true)
 		var slots=state.stat(id,"slots");var occupied=state.children(id).size()
 		for i in slots:draw_circle(Vector2(size.x/2.0+(i-(slots-1)/2.0)*12,size.y-5),3,Color("ddbd78") if i<occupied else Color("455b54"))
 		if not n.attached.is_empty():_text("◆".repeat(n.attached.size()),Vector2(9,23),12,gold)
-		if n.get("vampire",false) or n.get("flip",false):_text("转化",Vector2(9,art_h+2),11,Color("f6c68e"))
+		if n.get("vampire",false) or n.get("flip",false):_text(GameLocale.text("转化"),Vector2(9,art_h+2),11,Color("f6c68e"))
 		if collapsed_count>0:
 			draw_rect(Rect2(6,6,45,23),Color("173436"));_text("＋%d"%collapsed_count,Vector2(9,23),13,gold)
 	if state!=null and definition.kind=="resource" and state.nodes.has(id) and not state.resources.ready(id):
-		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text("失效",Vector2(9,23),12,Color("f6d6a0"))
+		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text(GameLocale.text("失效"),Vector2(9,23),12,Color("f6d6a0"))
 	if state!=null and id in state.failed_recruits:
-		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text("待招募",Vector2(9,23),11,Color("f6d6a0"))
+		draw_rect(Rect2(6,6,58,23),Color("693b37"));_text("Recruit" if GameLocale.english() else "待招募",Vector2(9,23),11,Color("f6d6a0"))
 
 func text_layout() -> Array:
 	if definition.is_empty():return []
@@ -132,17 +132,19 @@ func text_layout() -> Array:
 	var board_small=readable_small and size.x>=120
 	var rows: Array=[];var ink=Color("182d30");var muted=Color("655d42");var teal=Color("548082")
 	rows.append({"text":definition.name,"fs":22 if full else (16 if summary else (14 if board_small else 12)),"color":ink})
-	if full:rows.append({"text":definition.en,"fs":13,"color":muted})
+	if full and not GameLocale.english():rows.append({"text":definition.en,"fs":13,"color":muted})
 	if definition.kind not in ["plot","resource"]:
 		var stats: Array=[]
 		for key in ["p","gp","r","slots"]:stats.append(state.stat(id,key) if state!=null and state.nodes.has(id) else definition[key])
 		var line="P%d / GP%d  "%[stats[0],stats[1]]+("主牌" if definition.kind=="faction" else "R%d"%stats[2])
 		if readable_small:line="P%d GP%d "%[stats[0],stats[1]]+("主牌" if definition.kind=="faction" else "R%d"%stats[2])
+		if GameLocale.english() and small and definition.kind=="faction":line="P%d GP%d"%[stats[0],stats[1]]
 		if not small:line+="  槽%d"%stats[3]
 		rows.append({"text":line,"fs":17 if full else (12 if summary or board_small else (11 if readable_small else 9)),"color":ink})
 	var align=state.alignments(id) if state!=null else definition.align
 	var trait_text=(definition.category+" · "+definition.mode if definition.kind=="resource" else definition.category) if definition.kind in ["plot","resource"] else " · ".join(align)
 	if readable_small and not board_small and definition.kind not in ["plot","resource"]:trait_text=" ".join(align)
+	if GameLocale.english() and small and definition.kind not in ["plot","resource"]:trait_text=GameLocale.alignments(align,not board_small)
 	if trait_text!="":rows.append({"text":trait_text,"fs":14 if full else (12 if board_small else (11 if summary or readable_small else 8)),"color":ink if not full else muted})
 	if not small:
 		var current_tags=state.tags(id) if state!=null else definition.tags
@@ -170,4 +172,7 @@ func text_layout() -> Array:
 	var top=art_frame(size,margin).end.y+3
 	var inset=3.0 if readable_small else 5.0
 	var area=Rect2(margin+inset,top,size.x-2*margin-inset*2,maxf(0,size.y-margin-5-top))
-	return CardTextLayout.build(font,area,rows,effect if not small else "",17 if full else 13,small)
+	for row in rows:
+		row.text=GameLocale.text(row.text)
+		if GameLocale.english() and not small:row.wrap=true
+	return CardTextLayout.build(font,area,rows,GameLocale.text(effect) if not small else "",17 if full else 13,small)

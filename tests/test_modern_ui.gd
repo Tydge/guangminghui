@@ -63,7 +63,7 @@ func run() -> void:
 	g.nodes.G024.token=0;await main._do_action(0,action(g,"ability",{"src":"G016","target":"G024"}))
 	main._inspect("G024");await process_frame
 	var reader=text_labels(main.detail_layer)
-	check(reader.contains("借贷负债") and reader.contains("算力调度") and reader.contains("定向投放") and reader.contains("新增标签 · 媒体"),"Desktop reader displays every new status and converted tag")
+	check(reader.contains("借贷负债") and reader.contains("GP等于有效P") and reader.contains("定向投放") and reader.contains("新增标签 · 媒体"),"Desktop reader displays every new status and converted tag")
 	await capture("光明会_新机制_状态大卡")
 	main._close_inspection();main.compact=true;main._resize();main._inspect("G024");await process_frame
 	check(text_labels(main.detail_layer).contains("借贷负债") and text_labels(main.detail_layer).contains("新增标签 · 媒体"),"Mobile reader also exposes new states")

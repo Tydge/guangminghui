@@ -133,7 +133,7 @@ func confirm() -> void:
 		picker.clear();m._review_action(a);return
 	m._clear(m.large_layer);m._dim(m.large_layer,0.2)
 	var extent=Vector2(minf(720,m.size.x-100),370);var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="ActionConfirmation"
-	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=heading.text
+	var source=a.get("id",a.get("src",""));var heading=m._label(m.game.title(source),p,30,m.GOLD);heading.position=Vector2(28,24);heading.size.x=extent.x-235;heading.clip_text=true;heading.tooltip_text=GameLocale.text(heading.text)
 	m.window_access.offer(p)
 	var lines: Array=[]
 	if a.type in ["deploy","resource","research"]:lines.append(a.label)
@@ -157,7 +157,7 @@ func attachment_buttons(id: String,col: Control) -> void:
 	if m.game==null or not m.game.nodes.has(id) or m.game.nodes[id].attached.is_empty():return
 	var flow=HFlowContainer.new();flow.name="AttachedCards";flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;flow.add_theme_constant_override("h_separation",8);flow.add_theme_constant_override("v_separation",8);col.add_child(flow)
 	for attachment in m.game.nodes[id].attached:
-		var b=m._button(CardDB.name_of(attachment)+" · 查看",func():open_attached(attachment),flow);b.tooltip_text=CardDB.plot_text(CardDB.get_card(attachment))
+		var b=m._button(CardDB.name_of(attachment)+" · 查看",func():open_attached(attachment),flow);b.tooltip_text=GameLocale.text(CardDB.plot_text(CardDB.get_card(attachment)))
 func open_attached(id: String) -> void:
 	var scroll=m.detail_layer.find_child("ReaderScroll",true,false)
 	reader_stack.append({"id":reader_id,"scroll":scroll.scroll_vertical if scroll!=null else 0})
@@ -243,7 +243,7 @@ func moves(events: Array) -> bool:
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
 		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
-		m.presentation_tween.tween_callback(func():caption.text=("你" if event.player==0 else ("AI" if event.player==1 else ""))+" · "+verb;view.modulate.a=1.0;m._sound("card")).set_delay(at)
+		m.presentation_tween.tween_callback(func():caption.text=GameLocale.text(("你" if event.player==0 else ("AI" if event.player==1 else ""))+" · "+GameLocale.text(verb));view.modulate.a=1.0;m._sound("card")).set_delay(at)
 		m.presentation_tween.tween_method(func(t):arc(view,start,finish,t,22),0.0,1.0,duration).set_delay(at).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		m.presentation_tween.tween_property(view,"modulate:a",0.0,0.08*m.presentation_time_scale).set_delay(at+duration)
 		last_end=delay+index*0.07+(0.22 if m.reduced_motion else 0.42)+0.08;index+=1

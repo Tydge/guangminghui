@@ -91,7 +91,8 @@ func _initialize() -> void:
 	# A committed recruit cannot be recycled, discarded for tolls or put on deck bottom.
 	g=fresh();put(g,"G091",0);put(g,"G028",0);give(g,"G102",0);apply(g,0,"attack",{"src":"R0","target":"G102","mode":"control"});apply(g,1,"pass");apply(g,0,"support",{"src":"G028"});check("G102" not in g.hands[0].group and g.phase=="battle","Committed recruit can't pay a support cost");finish(g);check(g.validate().is_empty(),"Successful recruit cannot also be in deck")
 	# Pure AI view uses effective public stats, never opponent hidden cards.
-	g=fresh();put(g,"G127",0);put(g,"G025",0);attach(g,"P45","G025");give(g,"P44",1);var o=g.observation(0);var bot=AiAgent.new();check(o.effective.G025.gp==0 and not o.hands.plot.has("P44") and not o.effective.has("P44"),"AI sees current public stats without hidden hands")
+	# Disable the root action to isolate regulatory removal from an equal-score resource draw.
+	g=fresh();put(g,"G127",0);put(g,"G025",0);attach(g,"P45","G025");give(g,"P44",1);g.nodes.R0.token=0;var o=g.observation(0);var bot=AiAgent.new();check(o.effective.G025.gp==0 and not o.hands.plot.has("P44") and not o.effective.has("P44"),"AI sees current public stats without hidden hands")
 	check(bot.pick(o).type in ["ability","lift"],"AI recognizes useful regulatory removal")
 	var commands=0;var completed=0
 	for seed_value in range(21,27):
