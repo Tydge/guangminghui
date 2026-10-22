@@ -973,10 +973,12 @@ func _save_settings() -> void:
 
 func _load_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():GameLocale.set_language("zh");return
+	var default_language="en" if OS.has_feature("english_default") else "zh"
+	GameLocale.set_language(default_language)
 	var c=ConfigFile.new()
 	if c.load(settings_path)==OK:
 		ai_difficulty=c.get_value("settings","difficulty","normal");ai_difficulty=ai_difficulty if ai_difficulty in ["easy","normal","hard"] else "normal";ai.difficulty=ai_difficulty
-		GameLocale.set_language(c.get_value("settings","language","zh"));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
+		GameLocale.set_language(c.get_value("settings","language",default_language));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if busy or window_access.transitioning:return
@@ -1011,7 +1013,10 @@ func _snapshot_setup() -> void:
 func _capture_snapshot() -> void:
 	await get_tree().process_frame
 	await get_tree().create_timer(1.3).timeout
-	if DisplayServer.get_name()!="headless":get_viewport().get_texture().get_image().save_png("res://tests/snapshot_%s.png"%snapshot_mode)
+	var output="res://tests/snapshot_%s.png"%snapshot_mode
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--snapshot-output="):output=arg.trim_prefix("--snapshot-output=")
+	if DisplayServer.get_name()!="headless":get_viewport().get_texture().get_image().save_png(output)
 	get_tree().quit()
 
 func _exit_tree() -> void:

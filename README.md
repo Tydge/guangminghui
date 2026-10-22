@@ -103,7 +103,7 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/resource_rules.gd`：独立资源堆、手牌容量、部署、资源能力及资源相关阴谋。
 - `data/cards.json`：全部275种卡牌，可修改数值和文案。
 - `docs/光明会_全部卡牌完整效果_当前版.md`：与用户共同维护的唯一完整卡牌文档。
-- `docs/卡牌重做待确认.md`：尚未确认的农民抗议联盟与替代资源提案，不代表游戏中的当前能力。
+- `docs/卡牌重做待确认.md`：尚未确认的农民抗议联盟能力提案，不代表游戏中的当前能力。
 - `tools/card_table.py`：卡牌表格与数据的双向合并、冲突检测及完整性检查。
 - `assets/cards/`：逐卡插画，稳定 ID 命名。
 - `assets/ui/`：生成的桌布、界面框和两种牌背。
@@ -142,6 +142,14 @@ python tests/test_card_sync.py
 也可运行 `tests/run_checks.ps1`，默认使用 PATH 中的 `godot` 和 `python`；未配置 PATH 时传入 `-GodotPath` 与 `-PythonPath` 的完整路径。Python 仅用于同步工具和测试，不是运行游戏所需。测试覆盖真实规则状态与输入处理，并不替代实际安卓设备的触摸、性能和安全区验证。本轮完成桌面实际渲染与横屏布局模拟，未做 APK/真机测试。首版阈值和 AI 强度仍需人工试玩平衡。
 
 AI镜像对局使用 `tests/benchmark_ai.gd`：`--pair=0/1/2`分别比较困难／普通、普通／简单、困难／简单；每个种子交换双方难度再打一次。默认包含完整合法动作和规则守恒检查，记录行动分布、树形、保留防守与重复操作。例：`godot --headless --path . --script res://tests/benchmark_ai.gd -- --test-defaults --pair=0 --seeds=8 --max-commands=1000`。`--offset`、`--stride`可抽取不同派系，`--label`区分报告；未结束的对局单独记为达到指令上限，不当作平局或胜利。当前结果和局限见 `docs/验证报告.md`。
+
+## Windows试玩包
+
+分享文件为 `outputs/windows/Illuminati-Windows-x64-EN.zip`，完整解压后运行 `Illuminati/Illuminati.exe`，EXE与同名PCK须放在一起。无需安装Godot。首次运行默认英文，可在设置中切回中文；本机F5开发版本保留原来的中文默认与玩家设置。
+
+使用 `Windows Share` 导出预设。可重复执行 `python tools/export_windows.py --godot "本机Godot控制台程序的完整路径"`：工具仅补齐官方4.6.2 Windows x64 Release模板，导出后校验源纹理、优化PCK、逐图验证并运行正式EXE截图，最后生成ZIP、英文说明、许可与SHA-256。未通过验证不会生成新的分享包。产物、模板下载与截图不进Git。
+
+优化只复用已证明解码像素一致的现有WebP数据，不重新编码或降低分辨率；有缩放或mipmap处理的纹理原样保留。格式实现参照 [Godot 4.6.2 PCK打包器](https://github.com/godotengine/godot/blob/4.6.2-stable/core/io/pck_packer.cpp) 与 [纹理导入器](https://github.com/godotengine/godot/blob/4.6.2-stable/editor/import/resource_importer_texture.cpp)。包内排除开发文档、测试、同步副本、缓存及照片原件，只保留运行资源与许可。
 
 ## 素材
 
