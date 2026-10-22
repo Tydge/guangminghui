@@ -352,6 +352,12 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		if a.id=="P57":return 17 if owned.size()<2 else 5
 		return 9
 	match a.src:
+		"E16":
+			var risk=float(o.battle_values.chance)
+			var value=0.0
+			for id in Tactics.branch(a.target,o):value+=_value(id,o)
+			# Compare losing a whole branch to withdrawing it and spending the facility.
+			return risk*value*2.0-(1.0-risk)*value*0.7-_value(a.src,o)*0.6
 		"E17":return 30+_value(a.target,o)*0.2
 		"E19":return 12 if o.battle_values.strength<10 else -4
 		"E22":return (14 if o.hands.plot.size()<3 else 5)-_value(a.target,o)*0.3

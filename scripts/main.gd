@@ -424,7 +424,7 @@ func _do_action(p: int,a: Dictionary) -> void:
 		var actor=game.owner(reveal) if game.nodes.has(reveal) else p
 		var completed=await _present_action(actor,shown)
 		if not completed or game==null or this_match!=match_id:return
-	if not plan.result.is_empty():
+	if not plan.result.is_empty() and not plan.result.get("cancelled",false):
 		if not await _present_result(plan.result):return
 		if game==null or this_match!=match_id:return
 	if not await interactions.prepare_board(plan):return
@@ -702,7 +702,7 @@ func _battle_history() -> void:
 	_label("最近战斗",p,30,GOLD).position=Vector2(26,16)
 	var b=game.last_battle
 	if not b.is_empty():
-		_label("%s → %s · %s"%[game.title(b.src),game.title(b.target),"成功" if b.success else "失败"],p,23,TEAL).position=Vector2(26,70)
+		_label("%s → %s · %s"%[game.title(b.src),game.title(b.target),"攻击取消" if b.get("cancelled",false) else ("成功" if b.success else "失败")],p,23,TEAL).position=Vector2(26,70)
 		_battle_feed(p,Rect2(26,125,extent.x-52,extent.y-220),b.entries)
 	_button("收起战况",func():_clear(large_layer);modal_open=false;_schedule_ai(),p,true).position=Vector2(extent.x-180,extent.y-75)
 

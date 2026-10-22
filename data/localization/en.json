@@ -1423,7 +1423,6 @@
     "中立保障：抵御普通摧毁攻击时，基础防御改用R；自卫仍用P。": "Neutrality: Use R as base defense against normal Destroy attacks. Self-defense still uses P.",
     "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，5–6抽3张阴谋；不花标记。": "Lucky Wager: Once during your main phase, discard 1 Plot and roll 1 die. On 5–6, draw 3 Plots. No action cost.",
     "弹性扩容：本团体支援时，可另弃1张阴谋，使采用的P／GP翻倍；其他加值不翻倍。": "Elastic Scaling: When this group supports, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled.",
-    "便携仓库": "Portable Warehouse",
     "资源手牌上限+1。": "Your Resource hand limit is increased by 1.",
     "移动医疗站": "Mobile Medical Station",
     "花本资源1行动，重建1个己方非巨大地点。": "Spend this Resource’s action to rebuild one of your non-Huge Places.",
@@ -1717,7 +1716,16 @@
     "收起结果，查看场上与手牌，再返回结果。": "Hide the result to inspect the board and your hand, then return.",
     "你的势力已被消灭": "Your power structure has been eliminated",
     "AI的势力已被消灭": "The AI power structure has been eliminated",
-    "尚未计入支援、资源与阴谋。\n确认后双方交替响应。": "Excludes support, Resources and Plots.\nPlayers alternate responses after confirmation."
+    "尚未计入支援、资源与阴谋。\n确认后双方交替响应。": "Excludes support, Resources and Plots.\nPlayers alternate responses after confirmation.",
+    "安全屋": "Safe House",
+    "紧急转移：己方团体遭普通控制攻击时，可报废本资源，将目标及其下属回手，取消本次攻击。": "Emergency Evacuation: When one of your Groups faces a normal control attack, you may scrap this Resource to return the target and all its descendants to your hand and cancel the attack.",
+    " · 紧急转移 · ": " · Emergency Evacuation · ",
+    " · 攻击取消": " · Attack cancelled",
+    "攻击取消": "Attack cancelled",
+    "\n紧急转移 · 可在本次防守响应时使用": "\nEmergency Evacuation · Available during your response in this battle",
+    "安全屋 · 整支回手，取消攻击 · 报废": "Safe House · Return branch; cancel attack · Scrap",
+    "己方资源": "Your Resource",
+    "对方资源": "Opponent's Resource"
   },
   "templates": [
     {
@@ -3402,7 +3410,7 @@
       "effect": "Talisman Ward: This group's direct Magic subordinates have +1 R."
     },
     "E16": {
-      "effect": "Your Resource hand limit is increased by 1."
+      "effect": "Emergency Evacuation: When one of your Groups faces a normal control attack, you may scrap this Resource to return the target and all its descendants to your hand and cancel the attack."
     },
     "E17": {
       "effect": "Spend this Resource’s action to rebuild one of your non-Huge Places."
@@ -5032,9 +5040,9 @@
       "category": "己方主要阶段"
     },
     "E16": {
-      "name": "便携仓库",
-      "en": "Portable Warehouse",
-      "effect": "资源手牌上限+1。",
+      "name": "安全屋",
+      "en": "Safe House",
+      "effect": "紧急转移：己方团体遭普通控制攻击时，可报废本资源，将目标及其下属回手，取消本次攻击。",
       "category": "设施"
     },
     "E17": {

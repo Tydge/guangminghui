@@ -7,7 +7,7 @@ func _init(game):state=weakref(game)
 func ready(id: String,p: int=-1) -> bool:return g.wave.enabled(id,p)
 func normal(b: Dictionary) -> bool:return not b.has("disaster")
 func limit_bonus(p: int) -> int:
-	return int(ready("E16",p))+int(g.world=="P63")+int(g.factions[p]=="I12")
+	return int(g.world=="P63")+int(g.factions[p]=="I12")
 func tenant_alignments(id: String) -> Array:
 	var result=[]
 	for child in g.children(id):

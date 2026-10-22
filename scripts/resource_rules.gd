@@ -10,6 +10,9 @@ func field(p: int) -> Array:return g.nodes.keys().filter(func(id):return g.owner
 func ready(id: String,p: int=-1) -> bool:return g.wave.enabled(id,p) and g.card(id).kind=="resource"
 func recoverable(id: String) -> bool:return ready(id) and g.card(id).action and g.can_recharge(id)
 func can_draw(p: int) -> bool:return g.hands[p].resource.size()<g.resource_hand_limit(p)
+func can_evacuate(p: int) -> bool:
+	var b=g.battle
+	return not b.is_empty() and not b.has("disaster") and b.mode=="control" and b.defender==p and ready("E16",p) and b.target in g.groups(p)
 func opening() -> void:
 	g.phase="setup_resource"
 	for p in [0,1]:g.resource_candidates[p]=g._take(p,"resource",5)
@@ -122,6 +125,7 @@ func augment_actions(p: int,out: Array) -> Array:
 	elif g.phase=="battle" and g.battle.responder==p:
 		var b=g.battle
 		if not b.has("disaster"):
+			if can_evacuate(p):out.append(g._a("resource","安全屋 · 整支回手，取消攻击 · 报废",{"src":"E16","target":b.target}))
 			var opposing="support_d" if p==b.attacker else "support_a"
 			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-4 · 报废",{"src":"E12","target":b.target}))
 			if ready("E15",p) and b.get("fixed_dice",[])!=[3,4]:out.append(g._a("resource","命运硬币 · 骰点固定3＋4 · 报废",{"src":"E15","target":b.target}))
@@ -161,6 +165,7 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="deploy":deploy(p,a);g._after_effect();return true
 	if a.type=="resource":
 		var src=a.src;var target=a.get("target","")
+		if src=="E16":evacuate(p,a);return true
 		if src=="G091":g.nodes[src].token=0;g.used[src]=true;g._discard(p,a.fee);g._draw(p,"resource")
 		elif src=="G093":g.nodes[src].token=0;g.used[src]=true;g.nodes[target].token=1;g.recharged[target]=true
 		else:
@@ -191,6 +196,18 @@ func handle(p: int,a: Dictionary) -> bool:
 				if id!=a.id:g.decks.resource.append(id)
 		g._after_effect();return true
 	return false
+func evacuate(p: int,a: Dictionary) -> void:
+	var b=g.battle.duplicate(true);var values=g.battle_values();var target=a.target
+	g._battle_record("resource",p,a.src,target,a.label,"已生效")
+	b.entries=g.battle.entries.duplicate(true)
+	remove(a.src);g._return_subtree(target)
+	for id in b.spent:g.discards.plot.push_front(id)
+	# Evacuation cancels combat; it is neither a failed roll nor a capture.
+	# Paid actions stay spent, and no completed-battle abilities are triggered.
+	b.merge({"values":values,"dice":[],"success":false,"cancelled":true,"rescued":false,"destroyed":false,"devastated":false,"guarded":false},true)
+	g.last_battle=b;g.battle={};g.phase="main"
+	g._log(g._who(p)+" · 紧急转移 · "+g.title(target)+" · 攻击取消","resource",{"id":a.src,"target":target,"player":p})
+	g._after_effect()
 func resolve_plot(a: Dictionary) -> bool:
 	if a.id not in PLOTS:return false
 	match a.id:
@@ -233,6 +250,7 @@ func reader(id: String) -> String:
 	if id=="E04" and g.used.has("e_archive"):text+="\n本回合抽牌次数已用"
 	if id=="E13" and g.used.has("e_museum:%d"%g.owner(id)):text+="\n本回合抽牌次数已用"
 	if id=="E20" and g.used.has("community_solar"):text+="\n本回合抽牌次数已用"
+	if id=="E16" and can_evacuate(g.owner(id)):text+="\n紧急转移 · 可在本次防守响应时使用"
 	return text
 
 func deploy(p: int,a: Dictionary) -> void:

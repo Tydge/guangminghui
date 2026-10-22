@@ -94,4 +94,6 @@ Meet your Illuminati's victory condition at turn end, once both players have com
 
 You also win by eliminating all enemy groups once the opponent has completed at least 3 turns.
 
+**Safe House** can be scrapped during a normal control attack against one of your Groups. Return that Group and its entire branch to your hand and cancel the attack. Attachments are discarded. Paid costs stay spent; no dice are rolled and no attack success, failure, or post-battle recovery abilities trigger.
+
 A Group exposed for recruitment must be discarded at turn end if recruitment still failed. Read cards for special rules. Hover, right-click, or long-press to inspect them.

@@ -2507,11 +2507,11 @@
     },
     {
       "id": "E16",
-      "name": "便携仓库",
+      "name": "安全屋",
       "path": "assets/cards/E16.webp",
       "method": "Built-in image_gen",
-      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Portable modular storage container with neatly organised equipment shelves, opened doors, daylight industrial yard.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3056296d-d31e-4717-bd35-a9533b596aac.png",
+      "prompt": "Use case: stylized-concept. Asset type: square 1:1 illustration for a contemporary strategy card game, resource card Safe House. A highly recognizable covert safe house for emergency evacuation. Modern urban townhouse interior seen through a half-open reinforced door: discreet security cameras and keypad, warm lit safe interior, packed evacuation bags and folders ready beside a back exit, cool rainy alley outside. Clearly a protected hidden dwelling, not a warehouse or military bunker. Rich realistic cinematic digital illustration, clear storytelling legible at thumbnail size, restrained amber interior and blue exterior. No text, borders, logos, occult or Illuminati symbols, weapons or celebrities. Important elements inside frame.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-70147e46-a933-4695-a4ed-ba2c97d5744f.png",
       "encoding": "WebP quality 94",
       "updated": "2026-10-22"
     },

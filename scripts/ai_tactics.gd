@@ -68,7 +68,7 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 	if a.type=="deploy":
 		var existing=o.nodes.keys().filter(func(k):return o.nodes[k].owner==p and card(k,o).kind=="resource")
 		var value=20.0+(5 if existing.size()<2 else -9)
-		if a.id in ["E04","E05","E16"]:value+=5
+		if a.id in ["E04","E05"]:value+=5
 		if a.id=="E13" and not existing.any(func(k):return "秘宝" in card(k,o).tags):value-=9
 		if a.id=="E20" and not o.hands.group.any(func(k):return "绿色" in traits(k,o)):value-=4
 		if a.get("replace","")!="":value-=10
