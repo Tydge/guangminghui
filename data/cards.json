@@ -3666,7 +3666,7 @@
     "category": "光明会",
     "effect": "你发起的普通控制攻击，攻击强度+1。",
     "en": "Bavarian Illuminati",
-    "goal": "控制至少8个团体，且它们的有效P合计至少45。",
+    "goal": "控制至少8个团体，且它们的有效P合计至少48。",
     "gp": 3,
     "id": "I01",
     "kind": "faction",

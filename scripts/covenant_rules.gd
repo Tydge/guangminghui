@@ -2,7 +2,7 @@ class_name CovenantRules
 extends RefCounted
 ## One evaluator for public faction plans and private, actively played goal plots.
 const FACTIONS={
-	"I01":{"groups":8,"power":45},
+	"I01":{"groups":8,"power":48},
 	"I02":{"traits":["企业","银行"],"groups":6,"power":30},
 	"I03":{"traits":["计算机"],"groups":5,"power":26},
 	"I04":{"traits":["怪异"],"groups":5,"power":25},
