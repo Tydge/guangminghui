@@ -86,7 +86,7 @@ func mode_title(key: String,value: bool) -> String:
 		"supply":return "矿产供给 · 弃1张团体" if value else "花主牌1行动"
 		"algorithm":return ("算法时代 · "+strength+"（本战限1次）") if value else "普通支援 · "+strength
 		"amplify":return ("弹性扩容 · "+strength+" · 另弃1张牌") if value else "普通支援 · "+strength
-		"stake":return ("庄家筹码 · "+strength+" · 报废1张资源") if value else "普通支援 · "+strength
+		"stake":return ("庄家筹码 · "+strength+" · 另弃1张阴谋") if value else "普通支援 · "+strength
 		"star":return ("星象助阵 · "+strength+"，骰1–3再+2") if value else "普通支援 · "+strength
 		"training":return "消耗1训练 · 攻击强度+2" if value else "不使用训练"
 		"solo":return "孤军破袭 · 忽略位置，禁用进攻支援" if value else "普通摧毁 · 可接受进攻支援"
@@ -144,6 +144,7 @@ func confirm() -> void:
 	m.window_access.offer(p)
 	var lines: Array=[]
 	if a.type in ["deploy","resource","research"]:lines.append(a.label)
+	if a.type=="ability" and a.get("free",false):lines.append("不消耗行动标记")
 	if a.type=="deploy":lines.append("每回合可部署1次，与自动接管分别限次。")
 	if a.type=="support":
 		lines.append(("支援进攻" if m.game.owner(a.src)==m.game.battle.attacker else "支援防守")+" · "+support_value([a]))
@@ -153,7 +154,9 @@ func confirm() -> void:
 		lines.append("消耗该团体1行动")
 	for key in ["replace","target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
 		if a.get(key,"")=="":continue
-		lines.append({"replace":"报废替换","target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]+" · "+m.game.title(a[key]))
+		var field_name={"replace":"报废替换","target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]
+		if key=="other" and a.get("src","")=="G159":field_name="报废资源"
+		lines.append(field_name+" · "+m.game.title(a[key]))
 	if not a.get("payers",[]).is_empty():lines.append("行动 · "+" / ".join(a.payers.map(func(id):return m.game.title(id))))
 	if lines.is_empty():lines.append(a.label)
 	m._paragraph("\n".join(lines),p,Rect2(28,88,extent.x-56,182),23)

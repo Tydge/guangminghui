@@ -24,13 +24,13 @@ func support_override(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 func support_bonus(id: String,b: Dictionary) -> int:
 	var value=int(g.has(id,"犯罪") and ready("E18",g.owner(id)))
 	if id=="G169" and ready(id) and g.owner(id)==b.defender and g.nodes[id].parent==b.target:value+=3
-	if id=="G161" and ready(id) and b.get("stake",false):value+=4
+	if id=="G161" and ready(id) and b.get("stake",false):value+=2
 	return value
 func self_bonus(id: String) -> int:
-	return 2 if g.nodes[id].parent=="G158" and ready("G158") and g.has(id,"共产") else 0
+	return 3 if g.nodes[id].parent=="G158" and ready("G158") and g.has(id,"共产") else 0
 func values(b: Dictionary,v: Dictionary) -> Dictionary:
 	if normal(b) and b.src=="G166" and ready("G166") and b.mode=="destroy":
-		var amount=mini(5,v.position);v.position-=amount;v.strength+=amount
+		var amount=mini(3,v.position);v.position-=amount;v.strength+=amount
 	if normal(b) and b.get("silent_reaction",false) and v.alignment>4:v.strength-=v.alignment-4;v.alignment=4
 	if b.get("ignore_loyalty",false):v.strength+=v.loyalty;v.loyalty=0
 	return v
@@ -43,7 +43,7 @@ func augment_actions(p: int,out: Array) -> Array:
 			for target in g.hands[p].resource:out.append(g._a("resource","炼金置换 · 洗回1资源，抽2阴谋",{"src":"E22","target":target}))
 	elif g.phase=="battle" and g.battle.responder==p:
 		var b=g.battle
-		if normal(b) and p==b.attacker and b.mode=="control" and g.has(b.src,"魔法") and ready("E19",p):out.append(g._a("resource","雷击桃木剑 · 控制强度+5 · 报废",{"src":"E19","target":b.target}))
+		if normal(b) and p==b.attacker and g.has(b.src,"魔法") and ready("E19",p):out.append(g._a("resource","雷击桃木剑 · 攻击强度+5 · 报废",{"src":"E19","target":b.target}))
 		if normal(b) and p==b.attacker and b.mode=="control" and ready("E23",p) and g.nodes.has(b.target) and g.loyalty_defense(b.target)>0 and not b.get("ignore_loyalty",false):out.append(g._a("resource","王权之杖 · 忽略忠诚 · 报废",{"src":"E23","target":b.target}))
 		var revised: Array=[]
 		for original in out:
@@ -59,17 +59,18 @@ func augment_actions(p: int,out: Array) -> Array:
 			var context=b.duplicate(true);context.stake=true
 			var d=g.support_detail("G161",context)
 			if d.power>0:
-				for fee in g.resources.field(p):
+				for fee in g.renewal.plot_costs(p):
 					var tolls=g.hands[p].group if normal(b) and p==b.attacker and ready("G100",b.defender) and g.has(b.target,"沿海") and b.get("support_counts",[0,0])[p]==1 else [""]
 					for toll in tolls:
-						var v=g._a("support","庄家筹码 · +%d · 报废%s"%[d.power,g.title(fee)],{"src":"G161","stake":true,"resource_fee":fee,"power":d.power,"basis":d.basis})
+						if fee==toll:continue
+						var v=g._a("support","庄家筹码 · +%d · 弃%s"%[d.power,g.title(fee)],{"src":"G161","stake":true,"plot_fee":fee,"power":d.power,"basis":d.basis})
 						if toll!="":v.group_fee=toll;v.label+=" · 通行费弃"+g.title(toll)
 						revised.append(v)
 		out=revised
 	return out
 func ability_actions(src: String,p: int) -> Array:
 	var out: Array=[]
-	if not g.wave.available(src,p) or not g.token(src) or g.used.has(src):return out
+	if not g.wave.available(src,p) or (src!="G159" and not g.token(src)) or g.used.has(src):return out
 	var targets: Array=[]
 	match src:
 		"G138":
@@ -77,10 +78,10 @@ func ability_actions(src: String,p: int) -> Array:
 		"G151","G168":targets=g.hands[p].resource.duplicate()
 		"G155":targets=g.groups(p).filter(func(k):return g.has(k,"保守") and not g.has(k,"狂热"))
 		"G157":
-			if g.resources.can_draw(p) and g.resources.deck_available("resource"):targets=[""]
+			if not g.decks.plot.is_empty():targets=[""]
 		"G159":
 			for target in g.groups(p).filter(func(k):return g.has(k,"军队") and g.can_recharge(k)):
-				for other in g.resources.field(p).filter(func(k):return g.has(k,"装置")):out.append(g._a("ability","武装交易 → "+g.title(target),{"src":src,"target":target,"other":other}))
+					for other in g.resources.field(p).filter(func(k):return g.has(k,"装置")):out.append(g._a("ability","武装交易 → "+g.title(target),{"src":src,"target":target,"other":other,"free":true}))
 		"G162":
 			if g.resources.can_draw(p):
 				for target in g.discards.resource.filter(func(k):return g.has(k,"装置")):
@@ -98,7 +99,8 @@ func plot_actions(id: String,p: int) -> Array:
 		"P66":
 			if not g.deploy_used:
 				for target in g.hands[p].resource:
-					for old in (g.resources.field(p) if g.resources.field(p).size()>=2 else [""]):out.append(g._a("plot","紧急空运 → "+g.title(target),{"id":id,"src":id,"target":target,"replace":old}))
+					for old in (g.resources.field(p) if g.resources.field(p).size()>=2 else [""]):
+						for payer in g.groups(p).filter(func(k):return g.token(k)):out.append(g._a("plot","紧急空运 → "+g.title(target),{"id":id,"src":id,"target":target,"replace":old,"payer":payer}))
 		"P67":
 			if g.can_enemy(p):
 				for target in g.groups(1-p).filter(func(k):return not g.nodes[k].get("no_support",false)):
@@ -117,7 +119,8 @@ func peek(p: int,n: int,kind: String,public: bool=false):
 	if not cards.is_empty():g._set_choice(p,"选择1张资源加入手牌",cards,"n_probe",{"peek":cards,"return_kind":kind,"public":public})
 func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="ability" and a.src in ["G138","G151","G155","G157","G159","G162","G164","G168"]:
-		g.spend(a.src);g.used[a.src]=true
+		if a.src!="G159":g.spend(a.src)
+		g.used[a.src]=true
 		match a.src:
 			"G138":
 				if a.target.begins_with("G"):g.used[g.renewal.quota("G136")]=true
@@ -127,7 +130,10 @@ func handle(p: int,a: Dictionary) -> bool:
 			"G151":
 				g.hands[p].resource.erase(a.target);g.decks.resource.append(a.target);g._flow(a.target,"hand","deck",p);g._shuffle(g.decks.resource);g._draw(p,"resource");g._draw(p,"plot")
 			"G155":g.nodes[a.target].rally=true
-			"G157":peek(p,2,"bottom")
+			"G157":
+				var cards=[]
+				for i in mini(3,g.decks.plot.size()):cards.append(g.decks.plot.pop_front())
+				g._set_choice(p,"占卜 · 查看阴谋堆顶",[],"n_divine",{"peek":cards},true)
 			"G159":g.resources.remove(a.other);g.nodes[a.target].token=1;g.recharged[a.target]=true
 			"G162":g._discard(p,a.fee);g.discards.resource.erase(a.target);g.hands[p].resource.append(a.target);g._flow(a.target,"discard","hand",p)
 			"G164":g.nodes[a.target].silenced=false
@@ -148,6 +154,8 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="choose" and g.choice.get("kind","").begins_with("n_"):
 		var c=g.choice.duplicate(true);g.choice={};g.phase="main"
 		match c.kind:
+			"n_divine":
+				for i in range(c.peek.size()-1,-1,-1):g.decks.plot.push_front(c.peek[i])
 			"n_probe":
 				if a.id!="" and g.resources.can_draw(p):g.hands[p].resource.append(a.id);g._flow(a.id,"choice","hand",p)
 				for id in c.peek:
@@ -176,7 +184,7 @@ func resolve_plot(a: Dictionary) -> bool:
 		"P68":g.wave.rebuild(a.target);g.nodes[a.target].prepared=true
 		"P69":g.battle["bonus_d" if p==g.battle.attacker else "bonus_a"]-=a.backlash
 		"P70":
-			g.hands[1-p].plot.erase(a.target);g.exposed.erase(a.target);g.locked.erase(a.target);g.decks.plot.append(a.target);g._flow(a.target,"hand","deck",1-p);g._shuffle(g.decks.plot);g._draw(1-p,"plot")
+			g.hands[1-p].plot.erase(a.target);g.exposed.erase(a.target);g.locked.erase(a.target);g.decks.plot.push_front(a.target);g._flow(a.target,"hand","deck",1-p)
 	if a.id not in ["P62","P63"]:g._spent_plot(a.id)
 	g.wave.plot_rewards(p,a.id,a)
 	if not g.battle.is_empty():g._response_changed(p)
@@ -192,10 +200,9 @@ func deployed(p: int,id: String):
 	if g.factions[p]=="I12" and not g.used.has("collective_stores"):
 		g.used.collective_stores=true;g.wave.defer({"kind":"n_recharge","source":g.root(p),"player":p})
 func entry_reward(id: String,p: int):
-	if g.current==p and g.has(id,"绿色") and g.resources.ready("E20",p):draw_reward("E20",p,"resource","community_solar")
+	if g.current==p and g.has(id,"绿色") and g.resources.ready("E20",p):draw_reward("E20",p,"group","community_solar")
 func battle_finished(b: Dictionary,success: bool,destroyed: bool):
 	var p=b.attacker
-	if destroyed and g.factions[p]=="I10":draw_reward(g.root(p),p,"plot","assassin_reward:%d"%p)
 	if not normal(b) or not success or b.mode!="control":return
 	if b.src=="G167" and b.get("hand_target",false) and ready("G167",p) and not g.used.has("recruitment_spiral"):
 		g.used.recruitment_spiral=true;g.wave.defer({"kind":"battle_recharge","source":"G167","player":p})
@@ -215,6 +222,6 @@ func reader(id: String) -> Array:
 	if id in ["G165","G167","E20","R0","R1"]:
 		var quota={"G165":"open_blueprints","G167":"recruitment_spiral","E20":"community_solar"}.get(id,"")
 		if id.begins_with("R"):
-			quota="collective_stores" if g.card(id).id=="I12" else ("assassin_reward:%d"%g.owner(id) if g.card(id).id=="I10" else "")
+			quota="collective_stores" if g.card(id).id=="I12" else ""
 		if quota!="" and g.used.has(quota):out.append("本回合触发次数已用。")
 	return out

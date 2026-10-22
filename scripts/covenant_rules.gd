@@ -9,11 +9,11 @@ const FACTIONS={
 	"I05":{"destroyed":6},
 	"I06":{"traits":["地点"],"groups":5,"huge":2,"power":30},
 	"I07":{"traits":["和平"],"groups":6,"power":25},
-	"I08":{"traits":["魔法"],"groups":5,"power":25},
-	"I09":{"traits":["科学","太空"],"groups":5,"power":26},
-	"I10":{"traits":["暴力"],"groups":5,"power":26},
-	"I11":{"traits":["绿色"],"groups":6,"power":24},
-	"I12":{"traits":["共产"],"groups":6,"power":24}
+	"I08":{"traits":["魔法"],"groups":5,"power":24},
+	"I09":{"traits":["太空"],"groups":5,"power":25},
+	"I10":{"traits":["暴力"],"groups":5,"power":27},
+	"I11":{"traits":["绿色"],"groups":5,"power":24},
+	"I12":{"traits":["共产"],"groups":5,"power":25}
 }
 const PLOTS={
 	"P51":{"traits":["犯罪"],"groups":5,"power":20},

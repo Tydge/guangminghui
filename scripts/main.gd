@@ -625,18 +625,19 @@ func _choice_overlay() -> void:
 	row.size_flags_vertical=Control.SIZE_SHRINK_BEGIN
 	var card_height=minf(540,scroll.size.y-65);var card_width=minf(290,card_height*0.54)
 	var actions=game.legal_actions(0)
-	var items=c.peek+[""] if c.kind in ["nasa","japan","n_relic"] else actions.map(func(a):return a.id)
+	var items=c.peek+[""] if c.kind in ["nasa","japan","n_relic","n_divine"] else actions.map(func(a):return a.id)
 	for id in items:
 		var matching=actions.filter(func(a):return a.id==id)
 		var a=matching[0] if not matching.is_empty() else {}
 		if id=="":
-			var skip=_button("全部放回" if c.options.is_empty() else "跳过",func():_do_action(0,a),row);skip.custom_minimum_size=Vector2(140,55);skip.size_flags_vertical=Control.SIZE_SHRINK_END;continue
+			var skip=_button("看完返回" if c.kind=="n_divine" else ("全部放回" if c.options.is_empty() else "跳过"),func():_do_action(0,a),row);skip.custom_minimum_size=Vector2(140,55);skip.size_flags_vertical=Control.SIZE_SHRINK_END;continue
 		var column=VBoxContainer.new();column.add_theme_constant_override("separation",8);column.size_flags_vertical=Control.SIZE_SHRINK_BEGIN;row.add_child(column)
 		var v=CardView.new();v.configure(id,game,true);v.custom_minimum_size=Vector2(card_width,card_height);column.add_child(v);v.inspected.connect(_inspect);v.selected.connect(_inspect)
 		if not a.is_empty():
 			var choose=_button("选择",func():_do_action(0,a),column,true);choose.custom_minimum_size.y=55
 		else:
-			v.modulate=Color("a3ada6");var unavailable=_button("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底",func():pass,column);unavailable.disabled=true
+			if c.kind!="n_divine":v.modulate=Color("a3ada6")
+			var unavailable=_button("仅查看 · 原序放回" if c.kind=="n_divine" else ("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底"),func():pass,column);unavailable.disabled=true
 
 func _battle_overlay() -> void:
 	var b=game.battle;var v=game.battle_values();var width=minf(1320,size.x-100);var height=minf(680,size.y-170)

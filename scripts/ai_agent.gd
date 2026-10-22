@@ -97,7 +97,7 @@ func _value(id: String,o: Dictionary) -> float:
 	if faction=="I06" and "地点" in traits:value+=7+int("巨大" in traits)*3
 	if faction=="I07" and ("和平" in traits or "暴力" in traits):value+=6
 	if faction=="I08" and "魔法" in traits:value+=10
-	if faction=="I09" and ("科学" in traits or "太空" in traits):value+=8
+	if faction=="I09" and "太空" in traits:value+=8
 	if faction=="I10" and "暴力" in traits:value+=8
 	if faction=="I11" and "绿色" in traits:value+=9
 	if faction=="I12" and "共产" in traits:value+=9

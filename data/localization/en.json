@@ -254,7 +254,7 @@
     "抗性": "Resistance",
     "报废替换": "Scrap to replace",
     "报废自身发动 · 无需行动": "Scrap to activate · No action needed",
-    "报废资源": "Scrap resource",
+    "报废资源": "Scrap Resource",
     "抵御科学或太空团体的控制攻击，额外防御 +4。": "+4 defense against Science- or Space-led Control attacks.",
     "抽1张": "Draw 1 ",
     "抽3张阴谋": "Draw 3 Plots",
@@ -1680,7 +1680,32 @@
     "联合协作 · 直属国家下属%d个。": "Collective Cooperation · %d direct Country subordinates.",
     "P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。国家用于国家级地点，州、城市与港口不计入。": "P (Power): Leads attacks, self-defends, and provides eligible support. GP (Global Power): Support when P is not eligible. Never add P and GP. R (Resistance): Base defense against Control.\n\nOpposites: Government–Corporate, Liberal–Conservative, Peaceful–Violent, Straight–Weird, Fanatic–Fanatic. Criminal has no opposite. Fanatic never counts as a shared alignment.\nControl: Compare leader with target. +4 per shared alignment; −4 per opposing pair. Destroy reverses these modifiers.\n\nLoyalty: +4 per alignment shared with the direct parent; Control defense only. Opposing alignments do not subtract loyalty.\nPosition: +10 for direct subordinates of the Illuminati, +5 for the next level, +0 deeper. Applies to Control and Destroy.\nSelf-defense: Spend the target’s action for an extra 2 × P defense.\n\nSupport: Compare supporter with the attacked target. Control attack: shared alignment uses P. Destroy attack: opposing alignments use P. Defense: shared alignment or direct parent/child uses P. Otherwise use GP. Normally costs the supporter’s action.\n\nTags are separate: Military, Communist, Magic, Space, Celebrity, Place, etc. matter only when named by a rule or card. They give no automatic alignment modifier. Huge and Coastal are also tags.\n\nSmall cards abbreviate alignments; inspect a card to see the full names. Country marks national Places; states, cities, and ports do not count.",
     "回归传统": "New World Order: Return to Tradition",
-    "资源循环": "New World Order: Circular Economy"
+    "资源循环": "New World Order: Circular Economy",
+    "控制至少5个魔法团体；且它们的有效P合计至少24。": "Control at least 5 Magic Groups with a combined effective P of at least 24.",
+    "控制至少5个太空团体，且它们的有效P合计至少25。": "Control at least 5 Space Groups with a combined effective P of at least 25.",
+    "致命协作：己方暴力团体可用P支援普通摧毁进攻。": "Deadly Cooperation: Your Violent Groups may use P to aid ordinary Destroy attacks.",
+    "控制至少5个暴力团体，且它们的有效P合计至少27。": "Control at least 5 Violent Groups with a combined effective P of at least 27.",
+    "控制至少5个绿色团体，且它们的有效P合计至少24。": "Control at least 5 Green Groups with a combined effective P of at least 24.",
+    "控制至少5个共产团体，且它们的有效P合计至少25。": "Control at least 5 Communist Groups with a combined effective P of at least 25.",
+    "预警拦截：己方有在场装置资源时，该团体抵御普通摧毁攻击的防御+4。": "Early Interception: While you have a Device in play, this Group has +4 defense against ordinary Destroy attacks.",
+    "占卜（主动）：秘密查看阴谋堆顶最多3张，原序放回。": "Divination (Action): Secretly look at up to 3 Plots from the top of the deck. Return them in their original order.",
+    "共享餐桌：该团体的直属共产下属自卫时，额外防御+3。": "Shared Table: This Group's direct Communist subordinates gain +3 extra defense when defending themselves.",
+    "武装交易（主动）：报废己方1张装置资源，恢复1个己方军队团体的行动；不花行动。": "Arms Deal (Free Action): Scrap one of your Devices to restore 1 action to one of your Military Groups.",
+    "庄家筹码：该团体支援时，可弃1张阴谋，使本次支援力量+2。": "House Stake: When this Group aids, you may discard 1 Plot to add +2 to its aid.",
+    "低空穿行：该团体发动普通摧毁攻击时，目标位置防御-3，最低0。": "Low Flight: When this Group leads an ordinary Destroy attack, reduce the target's position defense by 3, to a minimum of 0.",
+    "部署目标，仍占本回合部署次数。": "Deploy the target. This uses your deployment for the turn.",
+    "弃本牌，花己方1个非主牌团体行动；满额时须报废替换。": "Discard this Plot and spend 1 action from one of your non-Illuminati Groups. If both Resource slots are occupied, choose one Resource to scrap and replace.",
+    "将目标放到阴谋堆顶。": "Put the target on top of the Plot deck.",
+    "普通攻击响应时，报废本资源，使己方魔法团体带头的本次攻击强度+5。": "During an ordinary attack led by one of your Magic Groups, scrap this Resource to add +5 attack strength.",
+    "己方回合首次有己方绿色团体进场后，抽1张团体。": "Once on your turn, after your first Green Group enters play, draw 1 Group.",
+    "连锁理发店": "Barbershop Chain",
+    "雷击桃木剑 · 攻击强度+5 · 报废": "Peachwood Sword · Attack +5 · Scrap",
+    "庄家筹码 · +%d · 弃%s": "House Stake · +%d · Discard %s",
+    "占卜 · 查看阴谋堆顶": "Divination · Look at the top Plots",
+    "看完返回": "Done viewing",
+    "仅查看 · 原序放回": "View only · Return in order",
+    " · 另弃1张阴谋": " · Discard 1 extra Plot",
+    "不消耗行动标记": "Costs no action"
   },
   "templates": [
     {
@@ -2458,9 +2483,9 @@
       "weight": 2
     },
     {
-      "source": "庄家筹码 · +%d · 报废%s",
-      "pattern": "^庄家筹码 · \\+(-?\\d+) · 报废(.+)$",
-      "text": "House Stake · +{0} · Scrap {1}"
+      "source": "庄家筹码 · +%d · 弃%s",
+      "pattern": "^庄家筹码 · \\+(-?\\d+) · 弃(.+)$",
+      "text": "House Stake · +{0} · Discard {1}"
     }
   ],
   "cards": {
@@ -2996,7 +3021,7 @@
     },
     "I08": {
       "effect": "Arcane Resonance: When your Magic group leads or defends against a normal attack, your other Magic groups may support using P.",
-      "goal": "Control at least 5 Magic groups with a combined effective P of at least 25.",
+      "goal": "Control at least 5 Magic Groups with a combined effective P of at least 24.",
       "style": "Arcane cooperation"
     },
     "P01": {
@@ -3303,7 +3328,7 @@
       "effect": "Entrepôt Trade (Action): Shuffle 1 Resource from your hand into its deck, then draw 1 Resource and 1 Plot."
     },
     "G152": {
-      "effect": "Early Warning: While you have a Device in play, this group has +4 disaster defense."
+      "effect": "Early Interception: While you have a Device in play, this Group has +4 defense against ordinary Destroy attacks."
     },
     "G153": {
       "effect": "Central Coordination: This group's direct Communist subordinates may use P when supporting."
@@ -3318,19 +3343,19 @@
       "effect": "Neighborhood Gossip: While this group has a direct subordinate, your Plot hand limit is increased by 1."
     },
     "G157": {
-      "effect": "Divination (Action): Look at the top 2 Resources. Keep 1 and put the rest on the bottom."
+      "effect": "Divination (Action): Secretly look at up to 3 Plots from the top of the deck. Return them in their original order."
     },
     "G158": {
-      "effect": "Shared Table: This group's direct Communist subordinates gain +2 additional defense when self-defending."
+      "effect": "Shared Table: This Group's direct Communist subordinates gain +3 extra defense when defending themselves."
     },
     "G159": {
-      "effect": "Arms Deal (Action): Scrap one of your Devices to restore 1 action to one of your Military groups."
+      "effect": "Arms Deal (Free Action): Scrap one of your Devices to restore 1 action to one of your Military Groups."
     },
     "G160": {
       "effect": "Digital Extortion: After this group seizes an enemy Computer group, that opponent discards 1 Resource from hand."
     },
     "G161": {
-      "effect": "House Chips: When this group supports, you may scrap one of your Resources for +4 support strength."
+      "effect": "House Stake: When this Group aids, you may discard 1 Plot to add +2 to its aid."
     },
     "G162": {
       "effect": "Second Life (Action): Discard 1 Group to recover a Device from the Resource discard pile to your hand."
@@ -3345,7 +3370,7 @@
       "effect": "Open Blueprints: After your first Device deployment on your turn, draw 1 Group."
     },
     "G166": {
-      "effect": "Low Flight: When this group leads a normal Destroy attack, reduce the target's position defense by 5, to a minimum of 0."
+      "effect": "Low Flight: When this Group leads an ordinary Destroy attack, reduce the target's position defense by 3, to a minimum of 0."
     },
     "G167": {
       "effect": "Recruitment Spiral: After this group recruits from your hand with a Control attack, restore its action. Once per turn."
@@ -3369,10 +3394,10 @@
       "effect": "Your Criminal groups provide +1 support strength."
     },
     "E19": {
-      "effect": "During a normal Control attack led by your Magic group, scrap this Resource for +5 attack strength."
+      "effect": "During an ordinary attack led by one of your Magic Groups, scrap this Resource to add +5 attack strength."
     },
     "E20": {
-      "effect": "After the first Green group enters under your control on your turn, draw 1 Resource."
+      "effect": "Once on your turn, after your first Green Group enters play, draw 1 Group."
     },
     "P61": {
       "effect": "Control at least 5 Green groups and have at least 2 Facilities in play.",
@@ -3400,9 +3425,9 @@
       "cost": "Discard this card."
     },
     "P66": {
-      "effect": "Deploy the target without spending your Illuminati’s action. Still uses your deployment for the turn.",
+      "effect": "Deploy the target. This uses your deployment for the turn.",
       "target": "One Resource in your hand.",
-      "cost": "Discard this card. At capacity, choose a Resource to scrap and replace."
+      "cost": "Discard this Plot and spend 1 action from one of your non-Illuminati Groups. If both Resource slots are occupied, choose one Resource to scrap and replace."
     },
     "P67": {
       "effect": "The target cannot provide support this turn. It may still self-defend.",
@@ -3420,28 +3445,28 @@
       "cost": "Discard this card."
     },
     "P70": {
-      "effect": "Shuffle the target into the Plot deck. That opponent draws 1 Plot.",
+      "effect": "Put the target on top of the Plot deck.",
       "target": "One revealed Plot in your opponent’s hand.",
       "cost": "Discard this card."
     },
     "I09": {
       "effect": "Dual Command: Your Illuminati has an action limit of 2 and refills to 2 on your turn.",
-      "goal": "Control at least 5 Science or Space groups with a combined effective P of at least 26.",
+      "goal": "Control at least 5 Space Groups with a combined effective P of at least 25.",
       "style": "Double Actions"
     },
     "I10": {
-      "effect": "Deadly Cooperation: Your Violent groups may use P to support normal Destroy attacks. After your first destruction of an enemy group each turn, draw 1 Plot.",
-      "goal": "Control at least 5 Violent groups with a combined effective P of at least 26.",
+      "effect": "Deadly Cooperation: Your Violent Groups may use P to aid ordinary Destroy attacks.",
+      "goal": "Control at least 5 Violent Groups with a combined effective P of at least 27.",
       "style": "Violent Cooperation"
     },
     "I11": {
       "effect": "Life’s Protection: Your Green groups self-defend without spending an action, but must still have an action token.",
-      "goal": "Control at least 6 Green groups with a combined effective P of at least 24.",
+      "goal": "Control at least 5 Green Groups with a combined effective P of at least 24.",
       "style": "Green Self-Defense"
     },
     "I12": {
       "effect": "Collective Stores: Your Resource hand limit is increased by 1. After your first Resource deployment on your turn, you may restore one of your Communist groups’ actions.",
-      "goal": "Control at least 6 Communist groups with a combined effective P of at least 24.",
+      "goal": "Control at least 5 Communist Groups with a combined effective P of at least 25.",
       "style": "Communist Supply"
     },
     "E21": {
@@ -4505,7 +4530,7 @@
       "name": "赫尔墨斯门徒",
       "en": "Adepts of Hermes",
       "effect": "秘术共鸣：己方魔法团体带头普通攻击或抵御普通攻击时，其他己方魔法团体可用P支援。",
-      "goal": "控制至少5个魔法团体；且它们的有效P合计至少25。",
+      "goal": "控制至少5个魔法团体；且它们的有效P合计至少24。",
       "style": "秘术协作",
       "category": "光明会"
     },
@@ -5010,13 +5035,13 @@
     "E19": {
       "name": "雷击桃木剑",
       "en": "Lightning-Struck Peachwood Sword",
-      "effect": "普通控制攻击响应时，报废本资源，使己方魔法团体带头的本次攻击强度+5。",
+      "effect": "普通攻击响应时，报废本资源，使己方魔法团体带头的本次攻击强度+5。",
       "category": "秘宝"
     },
     "E20": {
       "name": "社区太阳能板",
       "en": "Community Solar Panels",
-      "effect": "己方回合首次有己方绿色团体进场后，抽1张资源。",
+      "effect": "己方回合首次有己方绿色团体进场后，抽1张团体。",
       "category": "设施"
     },
     "E21": {
@@ -5046,7 +5071,7 @@
     "G152": {
       "name": "以色列",
       "en": "Israel",
-      "effect": "预警拦截：己方有在场装置资源时，该团体抵御灾难的防御+4。",
+      "effect": "预警拦截：己方有在场装置资源时，该团体抵御普通摧毁攻击的防御+4。",
       "category": "地点"
     },
     "G153": {
@@ -5068,27 +5093,27 @@
       "category": "组织"
     },
     "G156": {
-      "name": "理发店",
-      "en": "Barbershop",
+      "name": "连锁理发店",
+      "en": "Barbershop Chain",
       "effect": "街坊闲谈：该团体有直属下属时，己方阴谋手牌上限+1。",
       "category": "组织"
     },
     "G157": {
       "name": "塔罗占卜店",
       "en": "Tarot Shop",
-      "effect": "占卜（主动）：查看资源堆顶2张，取1张入手，其余放堆底。",
+      "effect": "占卜（主动）：秘密查看阴谋堆顶最多3张，原序放回。",
       "category": "组织"
     },
     "G158": {
       "name": "社区食堂",
       "en": "Community Kitchen",
-      "effect": "共享餐桌：该团体的直属共产下属自卫时，额外防御+2。",
+      "effect": "共享餐桌：该团体的直属共产下属自卫时，额外防御+3。",
       "category": "组织"
     },
     "G159": {
       "name": "军火掮客",
       "en": "Arms Brokers",
-      "effect": "武装交易（主动）：报废己方1张装置资源，恢复1个己方军队团体的行动。",
+      "effect": "武装交易（主动）：报废己方1张装置资源，恢复1个己方军队团体的行动；不花行动。",
       "category": "组织"
     },
     "G160": {
@@ -5100,7 +5125,7 @@
     "G161": {
       "name": "地下赌场",
       "en": "Underground Casino",
-      "effect": "庄家筹码：该团体支援时，可报废己方1张资源，使本次支援+4。",
+      "effect": "庄家筹码：该团体支援时，可弃1张阴谋，使本次支援力量+2。",
       "category": "组织"
     },
     "G162": {
@@ -5130,7 +5155,7 @@
     "G166": {
       "name": "无人机竞速社",
       "en": "Drone Racing Club",
-      "effect": "低空穿行：该团体发动普通摧毁攻击时，目标位置防御-5，最低0。",
+      "effect": "低空穿行：该团体发动普通摧毁攻击时，目标位置防御-3，最低0。",
       "category": "组织"
     },
     "G167": {
@@ -5161,33 +5186,33 @@
       "name": "UFO",
       "en": "UFOs",
       "effect": "双重指令：主牌行动上限为2，己方回合开始补至2。",
-      "goal": "控制至少5个科学或太空团体，且它们的有效P合计至少26。",
-      "category": "光明会",
-      "style": "双重行动"
+      "goal": "控制至少5个太空团体，且它们的有效P合计至少25。",
+      "style": "双重行动",
+      "category": "光明会"
     },
     "I10": {
       "name": "刺客协会",
       "en": "Society of Assassins",
-      "effect": "致命协作：己方暴力团体可用P支援普通摧毁进攻；每回合首次摧毁敌方团体后，抽1张阴谋。",
-      "goal": "控制至少5个暴力团体，且它们的有效P合计至少26。",
-      "category": "光明会",
-      "style": "暴力协作"
+      "effect": "致命协作：己方暴力团体可用P支援普通摧毁进攻。",
+      "goal": "控制至少5个暴力团体，且它们的有效P合计至少27。",
+      "style": "暴力协作",
+      "category": "光明会"
     },
     "I11": {
       "name": "盖娅密会",
       "en": "Gaia’s Circle",
       "effect": "生命护持：己方绿色团体自卫不花行动，但仍须有行动标记。",
-      "goal": "控制至少6个绿色团体，且它们的有效P合计至少24。",
-      "category": "光明会",
-      "style": "绿色自卫"
+      "goal": "控制至少5个绿色团体，且它们的有效P合计至少24。",
+      "style": "绿色自卫",
+      "category": "光明会"
     },
     "I12": {
       "name": "红色议会",
       "en": "The Red Council",
       "effect": "共同仓储：资源手牌上限+1；己方回合首次部署资源后，可恢复1个己方共产团体的行动。",
-      "goal": "控制至少6个共产团体，且它们的有效P合计至少24。",
-      "category": "光明会",
-      "style": "共产供给"
+      "goal": "控制至少5个共产团体，且它们的有效P合计至少25。",
+      "style": "共产供给",
+      "category": "光明会"
     },
     "P61": {
       "name": "绿色未来",
@@ -5232,9 +5257,9 @@
     "P66": {
       "name": "紧急空运",
       "en": "Emergency Airlift",
-      "effect": "部署目标，不花主牌行动；仍占本回合部署次数。",
+      "effect": "部署目标，仍占本回合部署次数。",
       "target": "己方1张资源手牌。",
-      "cost": "弃本牌；满额时须选择报废替换。",
+      "cost": "弃本牌，花己方1个非主牌团体行动；满额时须报废替换。",
       "category": "己方主要阶段"
     },
     "P67": {
@@ -5264,7 +5289,7 @@
     "P70": {
       "name": "组织渗透",
       "en": "Inside Job",
-      "effect": "将目标洗回阴谋堆，对手抽1张阴谋。",
+      "effect": "将目标放到阴谋堆顶。",
       "target": "对手1张已公开的阴谋手牌。",
       "cost": "弃本牌。",
       "category": "己方主要阶段"

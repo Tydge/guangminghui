@@ -18,8 +18,7 @@ static func traits(id: String,o: Dictionary) -> Array:
 	var c=card(id,o);return c.align+c.tags
 static func pressure(id: String,o: Dictionary,p: int) -> float:
 	var faction=o.factions[p];var c=card(id,o);var t=c.align+c.tags
-	var requirements={"I02":["企业","银行"],"I03":["计算机"],"I04":["怪异"],"I06":["地点"],"I07":["和平"],"I08":["魔法"],"I09":["科学","太空"],"I10":["暴力"],"I11":["绿色"],"I12":["共产"]}
-	var relevant=faction=="I01" or requirements.get(faction,[]).any(func(k):return k in t)
+	var relevant=faction=="I01" or CovenantRules.FACTIONS[faction].get("traits",[]).any(func(k):return k in t)
 	var value=c.p*1.1+c.gp*0.6+c.slots
 	if relevant:value+=7+10*o.goals[p].ratio
 	if "绿色" in t and o.get("secret_goals",{}).has("P61") and p==o.player:value+=7

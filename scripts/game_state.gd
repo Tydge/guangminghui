@@ -234,7 +234,7 @@ func _affinity(id: String, p: int) -> float:
 		"I06": return 4.0 if has(id,"地点") else 0.0
 		"I07": return 4.0 if has(id,"和平") or has(id,"暴力") else 0.0
 		"I08": return 6.0 if has(id,"魔法") else 0.0
-		"I09": return 5.0 if has(id,"科学") or has(id,"太空") else 0.0
+		"I09": return 5.0 if has(id,"太空") else 0.0
 		"I10": return 5.0 if has(id,"暴力") else 0.0
 		"I11": return 5.0 if has(id,"绿色") else 0.0
 		"I12": return 5.0 if has(id,"共产") else 0.0
@@ -550,7 +550,7 @@ func loyalty_defense(id: String) -> int:
 	if nodes[id].parent=="G041" and has(id,"怪异"):value=maxi(value,8)
 	return value
 
-func passive_defense(id: String,mode: String,src: String="") -> int:
+func passive_defense(id: String,mode: String,src: String="",is_disaster: bool=false) -> int:
 	if not nodes.has(id) or is_root(id):return 0
 	var value=0
 	if mode=="control":
@@ -560,6 +560,7 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 		if id=="G042" and src!="" and (has(src,"科学") or has(src,"太空")):value+=4
 		if id=="G039" and src!="" and has(src,"政府"):value+=4
 	else:
+		if not is_disaster and id=="G152" and contemporary.ready(id) and resources.field(owner(id)).any(func(k):return has(k,"装置")):value+=4
 		if id=="G058":value+=2
 		if contemporary.ready("G049",owner(id)) and has(id,"绿色"):value+=3
 		if id=="G071":value+=10
@@ -567,7 +568,7 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 	return value
 
 func disaster_defense(id: String,src: String="") -> int:
-	return (4 if id=="G152" and contemporary.ready(id) and resources.field(owner(id)).any(func(k):return has(k,"装置")) else 0)+passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)+(3 if resources.ready("E03",owner(id)) else 0)
+	return passive_defense(id,"destroy",src,true)+(5 if wave.enabled("G030",owner(id)) else 0)+(3 if resources.ready("E03",owner(id)) else 0)
 
 func card_context(id: String) -> Dictionary:
 	if not nodes.has(id):return {"on_board":false,"loyalty":0,"position":0}
@@ -987,11 +988,11 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
-	if choice.get("kind","") in ["e_probe","n_probe","n_relic"]:locations.append_array(choice.peek)
+	if choice.get("kind","") in ["e_probe","n_probe","n_relic","n_divine"]:locations.append_array(choice.peek)
 	if choice.get("kind","")=="x_overflow":
 		var held=choice.saved_choice
 		if held.get("kind","") in ["draw_keep","reorder"]:locations.append_array(held.options);locations.append_array(held.get("order",[]))
-		if held.get("kind","") in ["nasa","japan","w_draft","e_probe","n_probe","n_relic"]:locations.append_array(held.peek)
+		if held.get("kind","") in ["nasa","japan","w_draft","e_probe","n_probe","n_relic","n_divine"]:locations.append_array(held.peek)
 	var seen: Dictionary={}
 	for id in locations:
 		if seen.has(id):errors.append("Duplicate "+id)
