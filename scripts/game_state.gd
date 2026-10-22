@@ -254,7 +254,6 @@ func hand_limit(p: int) -> int:
 	if owner("G026") == p: n += 1
 	if owner("G051") == p: n += mini(2, children("G051").filter(func(id): return has(id,"犯罪")).size())
 	if resources.ready("E05",p):n+=1
-	if contemporary.ready("G156",p) and not children("G156").is_empty():n+=1
 	return n
 
 func resource_hand_limit(p: int) -> int:

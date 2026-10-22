@@ -1,5 +1,6 @@
 extends RefCounted
 ## Short plans on information-set samples. No live GameState, RNG, enemy hand or deck order.
+const Structure=preload("res://scripts/ai_structure.gd")
 var player=0
 var level="normal"
 var policy: Callable
@@ -16,7 +17,7 @@ var max_nodes=32
 
 static func applicable(o: Dictionary) -> bool:return o.get("phase","")=="main" and o.get("current",-1)==o.player and o.has("public_state") and o.actions.size()>1
 
-static func shortlist(o: Dictionary,limit: int=64) -> Array:
+static func shortlist(o: Dictionary,limit: int=64,placements: Dictionary={}) -> Array:
 	if o.phase!="main" or o.actions.size()<=limit:return o.actions
 	var ranked=[];var cache={}
 	for id in o.nodes:
@@ -26,7 +27,7 @@ static func shortlist(o: Dictionary,limit: int=64) -> Array:
 		match a.type:
 			"end":value=10000
 			"plot":value=9000 if CovenantRules.PLOTS.has(a.id) else 10
-			"auto":value=20+c.p+c.slots
+			"auto":value=20+c.p+c.slots+placements.get(JSON.stringify([a.id,a.parent]),0.0)
 			"attack":
 				var defender=c.get("defense_control",c.get("r",0)) if a.mode=="control" else c.get("defense_destroy",c.get("p",0))
 				value=10+cache[src].p-defender+c.get("p",0)*0.2
@@ -103,11 +104,15 @@ func _init(o: Dictionary,difficulty: String,seed_value: int,pick_policy: Callabl
 	done=jobs.is_empty()
 
 func rank(o: Dictionary,limit: int,g: GameState=null) -> Array:
-	var ranked=[];var global_power=[0,0]
+	var ranked=[];var global_power=[0,0];var placements={}
 	if g!=null:
 		for id in g.nodes:
 			if g.card(id).kind!="resource" and g.token(id):global_power[g.owner(id)]+=g.stat(id,"gp")
-	for a in shortlist(o,24):
+		for a in o.actions:
+			if a.type=="auto":
+				var key=JSON.stringify([a.id,a.parent])
+				if not placements.has(key):placements[key]=Structure.placement_hint(g,a)
+	for a in shortlist(o,24,placements):
 		var context=o
 		if g!=null and a.type=="attack":
 			context=o.duplicate();context.previews={}
@@ -120,7 +125,9 @@ func rank(o: Dictionary,limit: int,g: GameState=null) -> Array:
 			context.previews[JSON.stringify(a)]=v
 		elif g!=null and a.type=="plot" and a.id in GameState.WaveRules.DISASTERS:
 			context=o.duplicate();context.previews={JSON.stringify(a):g.wave.disaster_preview(a)}
-		ranked.append({"action":a,"value":evaluator.call(a,context)})
+		var value=evaluator.call(a,context)
+		if a.type=="auto":value+=placements.get(JSON.stringify([a.id,a.parent]),0.0)
+		ranked.append({"action":a,"value":value})
 	ranked.sort_custom(func(a,b):return a.value>b.value)
 	var result=[];var counts={}
 	for entry in ranked:
@@ -146,9 +153,9 @@ func utility(g: GameState) -> float:
 		for id in g.groups(p):
 			var group_value=g.stat(id,"p")*1.6+g.stat(id,"gp")*1.4+g.stat(id,"slots")*0.5
 			if g.wave.devastated(id):group_value*=0.5
-			if p==player and g.token(id):group_value+=1+g.stat(id,"p")*0.35+mini(3,g.children(id).size())*0.8
-			group_value+=g.position_defense(id)*0.04
+			if p==player and g.token(id):group_value+=1+g.stat(id,"p")*0.35
 			value+=side*group_value
+		value+=side*Structure.quality(g,p)
 		var ratio=g.goal(p).ratio
 		value+=side*(20*ratio+50*pow(ratio,2)+g.resources.field(p).size()*5)
 		if p==player:

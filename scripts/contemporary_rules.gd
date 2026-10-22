@@ -8,8 +8,17 @@ func ready(id: String,p: int=-1) -> bool:return g.wave.enabled(id,p)
 func normal(b: Dictionary) -> bool:return not b.has("disaster")
 func limit_bonus(p: int) -> int:
 	return int(ready("E16",p))+int(g.world=="P63")+int(g.factions[p]=="I12")
+func tenant_alignments(id: String) -> Array:
+	var result=[]
+	for child in g.children(id):
+		for alignment in g.alignments(child):
+			if alignment not in result:result.append(alignment)
+	return result
 func adjust_stat(id: String,key: String,value: int) -> int:
 	if not g.nodes.has(id):return value
+	if key=="p":
+		if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):value+=1
+		if id=="G169" and ready(id) and tenant_alignments(id).size()>=5:value+=3
 	if key in ["gp","r"] and g.world=="P62" and g.has(id,"保守"):value+=1
 	if key=="r" and g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):value+=1
 	if key=="gp":value=mini(value,g.stat(id,"p",true))
@@ -23,7 +32,6 @@ func support_override(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	return d
 func support_bonus(id: String,b: Dictionary) -> int:
 	var value=int(g.has(id,"犯罪") and ready("E18",g.owner(id)))
-	if id=="G169" and ready(id) and g.owner(id)==b.defender and g.nodes[id].parent==b.target:value+=3
 	if id=="G161" and ready(id) and b.get("stake",false):value+=2
 	return value
 func self_bonus(id: String) -> int:
@@ -215,6 +223,10 @@ func trigger(task: Dictionary):
 		if not options.is_empty():g._set_choice(p,"共同仓储 · 可恢复1个共产团体",options,"n_recharge",{},true)
 func reader(id: String) -> Array:
 	var out: Array=[]
+	if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):out.append("形象塑造 · 来自高档沙龙的P+1。")
+	if id=="G169":
+		out.append("多元合租 · 直属下属阵营 %d / 5"%tenant_alignments(id).size())
+		if ready(id) and tenant_alignments(id).size()>=5:out.append("多元合租 · P+3已生效。")
 	if g.nodes[id].get("no_support",false):out.append("符箓封印 · 本回合不能支援，仍可自卫。")
 	if g.nodes[id].get("rally",false):out.append("红帽集会 · 本回合增加狂热。")
 	if g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):out.append("符箓庇护 · R+1。")

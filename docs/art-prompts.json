@@ -2317,12 +2317,12 @@
     },
     {
       "id": "G156",
-      "name": "理发店",
+      "name": "高档沙龙",
       "path": "assets/cards/G156.webp",
       "method": "Built-in image_gen",
-      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Neighbourhood barbershop, unmistakable striped barber pole, one barber carefully trimming one seated customer's hair with anatomically correct hands, mirror and lively conversation, warm daylight. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4918168d-efc5-4db9-bab4-235cfa46d0bc.png",
-      "encoding": "WebP quality 92",
+      "prompt": "Use case: stylized-concept. Asset type: square standalone card illustration for a contemporary strategy card game, card G156 Luxury Salon. Create a highly recognizable luxurious contemporary hair salon, immediately readable as hair styling rather than a restaurant or mystical meeting. Medium-wide view of one elegantly dressed female client seated in an ivory salon chair wearing a black cutting cape, and one professional stylist in a black apron standing beside her. Show naturally plausible head-and-shoulder styling interaction, exactly two people; their hands remain below the counter or behind the chair, not a focus. Foreground marble vanity clearly displays a hairdryer, scissors, combs and styling bottles. Tall softly backlit oval salon mirrors, brass details, warm cream walls, neat shelving, generous daylight from a city window, discreet stylish reception behind. Polished detailed contemporary narrative game illustration, believable materials and lighting, rich but clean colors, crisp silhouettes, restrained luxury and human warmth. Strong distinctive salon focal point that remains readable as a small card. Square 1:1 composition, artwork fills the square, no borders, no card text, no lettering, no logos, no Illuminati symbols, no occult decorations, no additional limbs, no duplicated reflection people.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-40ccb098-1493-4aa1-b1bf-6d1cd00627f5.png",
+      "encoding": "WebP quality 94",
       "updated": "2026-10-22"
     },
     {

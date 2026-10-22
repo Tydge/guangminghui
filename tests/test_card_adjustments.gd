@@ -12,7 +12,7 @@ func run():
 		var expected={"I08":24,"I09":25,"I10":27,"I11":24,"I12":25}
 		check(CovenantRules.FACTIONS[id].groups==5 and CovenantRules.FACTIONS[id].power==expected[id],"Edited shared faction evaluator "+id)
 	check(g.card("G071").align==["政府","正统"] and g.card("G153").align==["政府","正统"],"China and Xi alignments match the table")
-	check(g.card("G156").name=="连锁理发店" and g.card("G156").p==3 and g.card("G156").align==["正统"],"Explicit Barbershop data is applied while its redesign remains pending")
+	check(g.card("G156").name=="高档沙龙" and g.card("G156").p==3 and g.card("G156").align==["正统"],"Luxury Salon preserves its edited printed data")
 	# A private read-only view neither takes a card nor changes deck order/RNG.
 	g=fresh();put(g,"G157");give(g,"E01");give(g,"E02")
 	var deck=g.decks.plot.duplicate();var rng_before=g.rng.state;var snapshot=JSON.stringify([g.nodes,g.decks,g.hands,g.rng.state])

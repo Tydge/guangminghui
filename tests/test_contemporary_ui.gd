@@ -13,6 +13,16 @@ func take(name: String):
 	if folder=="" or DisplayServer.get_name()=="headless":return
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(folder+"/"+name+".png");captures.append(name)
+func aura_state() -> GameState:
+	var g=GameState.new(910);g.nodes={};g.factions=["I01","I01"];g.phase="main";g.current=0;g.turns=[2,2]
+	for kind in g.decks:
+		g.decks[kind]=CardDB.ids(kind);g.discards[kind]=[]
+		for p in [0,1]:g.hands[p][kind]=[]
+	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
+	for id in ["G169","G156","G001","G002","G003","G153"]:
+		g.decks.group.erase(id);g._enter(id,0,"R0" if id in ["G169","G156"] else ("G156" if id=="G153" else "G169"),1)
+	g.nodes.G001.mask=["政府","暴力"];g.nodes.G002.mask=["企业","正统"];g.nodes.G003.mask=["自由","正统"]
+	return g
 func run():
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="):folder=arg.trim_prefix("--output=");DirAccess.make_dir_recursive_absolute(folder)
@@ -35,8 +45,14 @@ func run():
 				var event=InputEventMouseButton.new();event.position=point;event.global_position=point;event.button_index=MOUSE_BUTTON_WHEEL_DOWN;event.pressed=true;root.push_input(event,true);await process_frame
 			check(scroll.scroll_vertical>0,"Wheel over catalog artwork scrolls the catalog")
 			await take(language+"-"+profile.name+"-catalog-scroll")
-			for id in ["I09","I12","G138","G152","G153","G157","G159","G161","P64","P66","P67","P70","E21","E22","E23"]:
+			for id in ["I09","I12","G138","G152","G153","G156","G157","G159","G161","G169","P64","P66","P67","P70","E21","E22","E23"]:
 				main._inspect(id);await process_frame;check(main.interactions.reader_id==id,"Reader opens new card "+id);await take(language+"-"+profile.name+"-reader-"+id);main._close_inspection();main.modal_open=true
+			main.game=aura_state();main.board.initialized=false;main._refresh();main.modal_open=true
+			check(main.game.stat("G169","p")==5 and main.game.stat("G153","p")==6,"Aura UI fixture shows both live Power bonuses")
+			check(GameLocale.text(main._card_context_text("G169")).contains(GameLocale.text("多元合租 · P+3已生效。")),"Apartment reader localizes its active threshold")
+			check(GameLocale.text(main._card_context_text("G153")).contains(GameLocale.text("形象塑造 · 来自高档沙龙的P+1。")),"Celebrity reader localizes the Salon source")
+			for id in ["G169","G153"]:
+				main._inspect(id);await take(language+"-"+profile.name+"-live-aura-"+id);main._close_inspection();main.modal_open=true
 			main._clear(main.large_layer);main.game.phase="choice";main.game.choice={"kind":"n_relic","label":"秘宝走私 · 可取1张秘宝","peek":["E01","E19","E21"],"options":["E19","E21"],"player":0,"optional":true};main._refresh();main.modal_open=true;await process_frame
 			check(main.overlay.find_children("*","CardView",true,false).size()==3,"Smuggling shows all three inspected cards, including non-Relics")
 			var disabled=main.overlay.find_children("*","Button",true,false).filter(func(btn):return btn.text==GameLocale.text("非秘宝 · 洗回"));check(disabled.size()==1 and disabled[0].disabled,"Non-Relic remains readable but cannot be taken")

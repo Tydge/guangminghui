@@ -1,9 +1,9 @@
 {
   "images": 279,
-  "original_bytes": 776002268,
-  "bytes": 249147488,
+  "original_bytes": 775851050,
+  "bytes": 249160614,
   "lowest_display_block_ssim": 0.9952084038675737,
-  "mean_display_rgb_mae": 0.9958803319731635,
+  "mean_display_rgb_mae": 0.9951265714929095,
   "assets": [
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-edfdb440-bdaa-4c8e-8839-d74aa981f4c6.png",
@@ -3170,17 +3170,17 @@
       "display_psnr_db": 40.55329583633114
     },
     {
-      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4918168d-efc5-4db9-bab4-235cfa46d0bc.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-40ccb098-1493-4aa1-b1bf-6d1cd00627f5.png",
       "path": "assets/cards/G156.webp",
-      "original_bytes": 2505869,
-      "bytes": 364910,
+      "original_bytes": 2354651,
+      "bytes": 378036,
       "width": 1254,
       "height": 1254,
-      "encoding": "WebP quality 92",
-      "sha256": "94d876a4cc18ad69791f6bd3cd8b26a0bca756cc91903974faa81ee79e090366",
-      "display_block_ssim": 0.9986065293850626,
-      "display_rgb_mae": 1.355786641438802,
-      "display_psnr_db": 41.92571997602747
+      "encoding": "WebP quality 94",
+      "sha256": "17d6d2dc233645cb2b2dbad63271e1dcaa567a5dad4bf25fd1dae0626e2dc6a1",
+      "display_block_ssim": 0.9987380428656389,
+      "display_rgb_mae": 1.1454874674479167,
+      "display_psnr_db": 43.20718530230294
     },
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9ad3128d-f598-4df9-9ed7-41f1359793e6.png",
@@ -3659,6 +3659,6 @@
     "mean_display_rgb_mae": 0.937273960678201,
     "elapsed_seconds": 236.19
   },
-  "updated": "2026-10-20",
+  "updated": "2026-10-22",
   "date": "2026-10-21"
 }
