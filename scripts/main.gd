@@ -29,6 +29,7 @@ var thinking=false
 var compact=false
 var reduced_motion=false
 var sound_volume=0.6
+var ai_difficulty="normal"
 var faction_page=0
 var font: Font
 var sounds: Dictionary={}
@@ -164,22 +165,27 @@ func _dim(layer: Control,opacity: float=0.85) -> void:
 	var d=ColorRect.new();d.color=Color(0.015,0.04,0.045,opacity);d.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);layer.add_child(d)
 
 func _menu() -> void:
+	ai.cancel_all()
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
 	_clear(overlay);_clear(hud);_clear(hand_layer);_clear(inspector);_clear(large_layer);game=null;board.visible=false;modal_open=true;_dim(overlay)
 	var c=size/2
 	var heading=_label("ILLUMINATI",overlay,82,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,c.y-300);heading.size.x=size.x
 	var sub=_label("光 明 会    /    暗 流 对 决",overlay,29,CREAM);sub.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;sub.position=Vector2(0,c.y-190);sub.size.x=size.x
-	var art=TextureRect.new();art.texture=CardDB.art("I01");art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.position=c+Vector2(-150,-130);art.size=Vector2(300,240);overlay.add_child(art)
+	var art=TextureRect.new();art.texture=CardDB.art("I01");art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.position=c+Vector2(-150,-150);art.size=Vector2(300,220);overlay.add_child(art)
+	var levels=HBoxContainer.new();levels.name="DifficultyOptions";levels.position=c+Vector2(-213,88);levels.add_theme_constant_override("separation",10);overlay.add_child(levels)
+	for level in ["easy","normal","hard"]:
+		var b=_button({"easy":"简单","normal":"普通","hard":"困难"}[level],func():ai_difficulty=level;ai.difficulty=level;_save_settings();_menu(),levels,ai_difficulty==level);b.custom_minimum_size=Vector2(135,44)
 	var start=_button("开始对局",func():_start_game(),overlay,true);start.position=c+Vector2(-150,145);start.size=Vector2(300,62)
 	var catalog=_button("卡牌图鉴",_catalog,overlay);catalog.position=c+Vector2(-150,221);catalog.size=Vector2(145,48)
 	var settings=_button("设置",_settings,overlay);settings.position=c+Vector2(5,221);settings.size=Vector2(145,48)
 	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.position=Vector2(0,size.y-65);foot.size.x=size.x
 
 func _start_game(seed_value: int=0) -> void:
+	ai.cancel_all()
 	faction_page=0
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
 	_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear()
-	game=GameState.new(seed_value);selected="";action_candidates.clear();modal_open=false;board.visible=true;board.initialized=false;_refresh();_sound("open")
+	ai.difficulty=ai_difficulty;game=GameState.new(seed_value);selected="";action_candidates.clear();modal_open=false;board.visible=true;board.initialized=false;_refresh();_sound("open")
 
 func _refresh(with_modal: bool=true) -> void:
 	if game==null:return
@@ -341,7 +347,7 @@ func _dispatch_options(options: Array) -> void:
 
 func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	if window_access.browsing:return
-	if a.type=="plot" and a.id in ["P31","P32","P33","P34","P35"]:_review_disaster(a);return
+	if a.type=="plot" and a.id in GameState.WaveRules.DISASTERS:_review_disaster(a);return
 	if a.type=="ability" and a.src=="G096":
 		_review_action({"type":"attack","src":a.leader,"target":a.target,"mode":"control","use_plan":a.get("use_plan",false),"delegate":"G096","delegate_command":a},all_plots);return
 	if a.type!="attack":_do_action(0,a);return
@@ -498,6 +504,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	_paragraph(effect_name,body,Rect2(x,extent.y*0.58,text_width,80),25,CREAM)
 	var target=a.get("target","")
 	var target_text="目标 · "+game.title(target) if target!="" else ""
+	if a.type=="ability" and a.src in ["G138","G168"]:target_text="弃牌 · "+game.title(target)
 	var payer=a.get("payer","")
 	if is_plot:
 		if a.id in ["P28","P29","P36","P37"]:target_text="全场 · 公共秩序"
@@ -618,18 +625,18 @@ func _choice_overlay() -> void:
 	row.size_flags_vertical=Control.SIZE_SHRINK_BEGIN
 	var card_height=minf(540,scroll.size.y-65);var card_width=minf(290,card_height*0.54)
 	var actions=game.legal_actions(0)
-	var items=c.peek+[""] if c.kind in ["nasa","japan"] else actions.map(func(a):return a.id)
+	var items=c.peek+[""] if c.kind in ["nasa","japan","n_relic"] else actions.map(func(a):return a.id)
 	for id in items:
 		var matching=actions.filter(func(a):return a.id==id)
 		var a=matching[0] if not matching.is_empty() else {}
 		if id=="":
 			var skip=_button("全部放回" if c.options.is_empty() else "跳过",func():_do_action(0,a),row);skip.custom_minimum_size=Vector2(140,55);skip.size_flags_vertical=Control.SIZE_SHRINK_END;continue
 		var column=VBoxContainer.new();column.add_theme_constant_override("separation",8);column.size_flags_vertical=Control.SIZE_SHRINK_BEGIN;row.add_child(column)
-		var v=CardView.new();v.configure(id,game,true);v.custom_minimum_size=Vector2(card_width,card_height);column.add_child(v);v.inspected.connect(_inspect)
+		var v=CardView.new();v.configure(id,game,true);v.custom_minimum_size=Vector2(card_width,card_height);column.add_child(v);v.inspected.connect(_inspect);v.selected.connect(_inspect)
 		if not a.is_empty():
-			v.selected.connect(_inspect);var choose=_button("选择",func():_do_action(0,a),column,true);choose.custom_minimum_size.y=55
+			var choose=_button("选择",func():_do_action(0,a),column,true);choose.custom_minimum_size.y=55
 		else:
-			v.modulate=Color("a3ada6");var unavailable=_button("放回堆底",func():pass,column);unavailable.disabled=true
+			v.modulate=Color("a3ada6");var unavailable=_button("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底",func():pass,column);unavailable.disabled=true
 
 func _battle_overlay() -> void:
 	var b=game.battle;var v=game.battle_values();var width=minf(1320,size.x-100);var height=minf(680,size.y-170)
@@ -750,12 +757,13 @@ func _card_context_text(id: String) -> String:
 	if not context.on_board:return "未进场\n忠诚 +0   位置 +0\n进场后才可支援或自卫。"
 	var lines: Array=[]
 	lines.append(("己方" if context.owner==0 else "对方")+" · "+("光明会主牌" if context.root else "上级「%s」"%game.title(context.parent)))
-	lines.append("行动标记  %d / 1    下属槽  %d / %d"%[context.token,context.occupied,context.slots])
+	lines.append("行动标记  %d / %d    下属槽  %d / %d"%[context.token,game.action_limit(id),context.occupied,context.slots])
 	if not context.root:
 		lines.append("忠诚 +%d    位置 +%d（第%d层）"%[context.loyalty,context.position,context.depth])
 		lines.append("控制防御 %d = 抗性%d + 忠诚%d + 位置%d + 被动%d"%[context.control_total,game.stat(id,"r"),context.loyalty,context.position,context.control_passive])
 		lines.append("摧毁防御 %d = %s%d + 位置%d + 被动%d"%[context.destroy_total,"抗性" if id=="G076" else "力量",context.destroy_base,context.position,context.destroy_passive])
-		lines.append("可自卫 +%d（消耗1标记）"%(2*game.stat(id,"p")) if context.token>0 else "无标记 · 当前不可支援或自卫")
+		var self_text="可自卫 +%d（不消耗标记）" if game.factions[context.owner]=="I11" and game.has(id,"绿色") else "可自卫 +%d（消耗1标记）"
+		lines.append(self_text%game.self_power(id) if context.token>0 else "无标记 · 当前不可支援或自卫")
 		if id=="G039":lines.append("对政府团体的控制攻击，额外防御 +4。")
 		if id=="G061":lines.append("对暴力团体的摧毁攻击，额外防御 +4。")
 		if id=="G042":lines.append("抵御科学或太空团体的控制攻击，额外防御 +4。")
@@ -768,6 +776,7 @@ func _card_context_text(id: String) -> String:
 	else:lines.append("本回合额外恢复次数未用。")
 	if context.used:lines.append("本回合主动能力已用。")
 	var n=game.nodes[id]
+	lines.append_array(game.contemporary.reader(id))
 	if n.get("devastated",false):lines.append("受灾 · P／GP减半；不能行动或补标记，不计胜利。需重建。")
 	if n.get("prepared",false):lines.append("防备 · 下次灾难%s防御+4，发动时消耗。"%("或普通摧毁" if id=="G148" and game.renewal.ready(id) else ""))
 	if id in ["G136","G137","G139","G145","G146"] and not game.renewal.unused(id):lines.append("本回合限次效果已用。")
@@ -780,7 +789,7 @@ func _card_context_text(id: String) -> String:
 	if n.get("silenced",false):lines.append("公关危机 · 本回合卡面能力失效。")
 	if id=="G088":lines.append("训练 %d / 2"%n.get("training",0))
 	if id=="G119" and game.synergy.ready(id):lines.append("联合生产 · 直属共产下属提供P+%d（上限2）。"%mini(2,game.children(id).filter(func(k):return game.has(k,"共产")).size()))
-	if id=="G008" and game.wave.enabled(id):lines.append("联合协作 · 直属政府下属%d个。"%game.children(id).filter(func(k):return game.has(k,"政府")).size())
+	if id=="G008" and game.wave.enabled(id):lines.append("联合协作 · 直属国家下属%d个。"%game.children(id).filter(func(k):return game.has(k,"国家")).size())
 	if "P44" in n.attached:lines.append("保镖 · 挡下1次普通摧毁，随后弃掉并清空本团体标记。")
 	if "P45" in n.attached:lines.append("监管调查 · GP 0；己方主要阶段可花本团体1标记解除。")
 	if game.synergy.ready("G128",context.owner) and not game.has(id,"企业"):lines.append("消费者协会 · 抵御企业的控制攻击时，防御+2。")
@@ -853,10 +862,14 @@ func _schedule_ai() -> void:
 	var this_match=match_id
 	thinking=true;await get_tree().create_timer(0.12 if reduced_motion or legal.size()==1 else 0.55).timeout
 	if this_match!=match_id:return
+	if game==null or window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open:thinking=false;return
+	var o=game.observation(1,ai.difficulty=="easy")
+	var this_level=ai.difficulty
+	var command=await ai.pick_async(o,get_tree(),func():return this_match==match_id and ai.difficulty==this_level and game!=null and not (window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open))
+	if this_match!=match_id:return
 	thinking=false
-	if game==null or window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open:return
-	var o=game.observation(1)
-	if not o.actions.is_empty():_do_action(1,ai.pick(o))
+	if not command.is_empty():_do_action(1,command)
+	else:_schedule_ai()
 
 func _forced_pass() -> void:
 	if forced_pending:return
@@ -908,7 +921,12 @@ func _settings() -> void:
 	_label("语言 / Language",p,22).position=Vector2(30,300)
 	var language_choice=OptionButton.new();language_choice.name="LanguageChoice";language_choice.position=Vector2(325,292);language_choice.size=Vector2(290,48);language_choice.add_item("中文");language_choice.add_item("English");language_choice.select(1 if GameLocale.english() else 0);p.add_child(language_choice)
 	language_choice.item_selected.connect(func(index):_change_language("en" if index==1 else "zh"))
-	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,455)
+	_label("AI难度",p,22).position=Vector2(30,435)
+	var difficulty_choice=OptionButton.new();difficulty_choice.name="DifficultyChoice";difficulty_choice.position=Vector2(325,427);difficulty_choice.size=Vector2(290,48)
+	for level in ["简单","普通","困难"]:difficulty_choice.add_item(GameLocale.text(level))
+	difficulty_choice.select(["easy","normal","hard"].find(ai_difficulty));p.add_child(difficulty_choice)
+	difficulty_choice.item_selected.connect(func(index):ai_difficulty=["easy","normal","hard"][index];ai.difficulty=ai_difficulty;_save_settings())
+	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,530)
 	var close=_button("返回游戏" if game!=null else "返回",_close_settings,p,true);close.position=Vector2(440,530);close.size=Vector2(205,55)
 
 func _help(page: String="basic") -> void:
@@ -917,10 +935,10 @@ func _help(page: String="basic") -> void:
 	var tabs=HBoxContainer.new();tabs.position=Vector2(28,77);tabs.add_theme_constant_override("separation",12);p.add_child(tabs)
 	for key in ["basic","alignments","disaster","cards","controls"]:_button({"basic":"基础","alignments":"阵营与标签","disaster":"灾难与状态","controls":"操作","cards":"卡面用语"}[key],func():_help(key),tabs,key==page)
 	var pages={
-		"alignments":"P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。",
+		"alignments":"P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。国家用于国家级地点，州、城市与港口不计入。",
 		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n初始团体选完后，从5张资源候选中选1张入手，可独立重随2次。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
 		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
-		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
+		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管各每回合1次，通常各花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
 	_button("返回设置",_settings,p).position=Vector2(640,585)
@@ -930,12 +948,14 @@ func _catalog() -> void:
 
 func _save_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():return
-	var c=ConfigFile.new();c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.save(settings_path)
+	var c=ConfigFile.new();c.set_value("settings","difficulty",ai_difficulty);c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.save(settings_path)
 
 func _load_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():GameLocale.set_language("zh");return
 	var c=ConfigFile.new()
-	if c.load(settings_path)==OK:GameLocale.set_language(c.get_value("settings","language","zh"));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
+	if c.load(settings_path)==OK:
+		ai_difficulty=c.get_value("settings","difficulty","normal");ai_difficulty=ai_difficulty if ai_difficulty in ["easy","normal","hard"] else "normal";ai.difficulty=ai_difficulty
+		GameLocale.set_language(c.get_value("settings","language","zh"));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if busy or window_access.transitioning:return
@@ -974,6 +994,7 @@ func _capture_snapshot() -> void:
 	get_tree().quit()
 
 func _exit_tree() -> void:
+	ai.shutdown()
 	match_id+=1;_finish_presentation(false)
 	board.reset_motion();window_access.reset()
 	CardDB.finish_art_requests()

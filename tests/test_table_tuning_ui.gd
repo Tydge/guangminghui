@@ -42,8 +42,8 @@ func run() -> void:
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main);await process_frame;main.sound_volume=0;main.reduced_motion=true;main.presentation_time_scale=0.12
 	for profile in [{"name":"desktop","size":Vector2i(1600,900),"compact":false},{"name":"mobile","size":Vector2i(1280,720),"compact":true}]:
 		root.size=profile.size;await process_frame;main.compact=profile.compact;main._resize()
-		var g=fresh();put(g,"G008",0,"R0");put(g,"G010",0,"G008");put(g,"G030",1,"R1");put(g,"G075",1,"R1");main._refresh();main._inspect("G008")
-		check(text(main.detail_layer).contains("GP2") and text(main.detail_layer).contains("直属政府下属1个"),"UN reader shows derived GP and child count")
+		var g=fresh();put(g,"G008",0,"R0");put(g,"G072",0,"G008");put(g,"G030",1,"R1");put(g,"G075",1,"R1");main._refresh();main._inspect("G008")
+		check(text(main.detail_layer).contains("GP2") and text(main.detail_layer).contains("直属国家下属1个"),"UN reader shows derived GP and child count")
 		main._close_inspection();main.modal_open=true;main._inspect("G075")
 		check(text(main.detail_layer).contains("国际气象组织 · 灾难防御+5") and g.card_context("G075").destroy_passive==0,"Reader explains disaster aura without applying it to ordinary destruction")
 		await take(profile.name+"-weather-reader");main._close_inspection();main.modal_open=true

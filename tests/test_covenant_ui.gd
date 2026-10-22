@@ -53,7 +53,7 @@ func run() -> void:
 	for profile in [{"name":"desktop","size":Vector2i(1600,900),"compact":false},{"name":"mobile","size":Vector2i(1280,720),"compact":true}]:
 		root.size=profile.size;await process_frame;main.compact=profile.compact;main._start_game(181);main.modal_open=true;main._resize()
 		var first=main.overlay.find_children("*","CardView",true,false)
-		check(first.size()==4 and main.game.legal_actions(0).size()==8,"Eight factions split into readable pages")
+		check(first.size()==4 and main.game.legal_actions(0).size()==12,"Twelve factions split into readable pages")
 		inside(main.overlay);await take(profile.name+"-factions-1")
 		var phase=main.game.phase;first[0].selected.emit(first[0].id);check(main.game.phase==phase and main.detail_layer.get_child_count()>0,"Opening art click only inspects")
 		main._close_inspection();main.modal_open=true;main.faction_page=1;main._phase_overlay()

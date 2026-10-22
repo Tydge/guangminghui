@@ -39,13 +39,13 @@ static func english() -> bool:return language=="en"
 static func has_chinese(value: String) -> bool:
 	load_catalog();return cjk.search(value)!=null
 static func clean(value: String) -> String:
-	return value.replace("「","\"").replace("」","\"").replace("（"," (").replace("）",")").replace("，",", ").replace("。",".").replace("：",": ").replace("；","; ").replace("＋","+").replace("／","/")
+	return value.replace("「","\"").replace("」","\"").replace("（"," (").replace("）",")").replace("，",", ").replace("。",".").replace("：",": ").replace("；","; ").replace("＋","+").replace("／","/").replace("’","'").replace("‘","'")
 
 static func text(value: String,depth: int=0) -> String:
 	if not english() or value=="":return value
 	load_catalog()
 	if cache.has(value):return cache[value]
-	if phrases.has(value):return phrases[value]
+	if phrases.has(value):return clean(phrases[value])
 	if not has_chinese(value):return clean(value)
 	var result=""
 	if depth<8:

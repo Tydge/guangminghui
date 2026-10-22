@@ -35,11 +35,15 @@ func goal_fixture(id: String) -> GameState:
 		"P53":ids=["G001","G002","G003","G007"];g.destroyed[0]=3
 		"P54":ids=["G084","G085","G131","G032","G001","G002","G003"]
 		"P55":ids=["G055","G082","G084","G031","G045","G001","G010"]
+		"P61":ids=["G049","G062","G094","G158","G163"]
 	for key in ids:put(g,key)
+	if id=="P61":
+		for resource in ["E16","E20"]:
+			g.decks.resource.erase(resource);g.nodes[resource]={"card":resource,"owner":0,"parent":"","token":0,"attached":[],"resource_slot":g.resources.field(0).size()}
 	g.decks.plot.erase(id);g.hands[0].plot.append(id)
 	return g
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.ids("faction").size()==8 and CardDB.ids("plot").size()==60,"Expanded card pool")
+	CardDB.load_all();check(CardDB.ids("faction").size()==12 and CardDB.ids("plot").size()==70,"Expanded card pool")
 	var expected={"I01":[8,45],"I02":[6,30],"I03":[5,26],"I04":[5,25],"I07":[6,25],"I08":[5,25]}
 	for id in expected:
 		check(CovenantRules.FACTIONS[id].groups==expected[id][0] and CovenantRules.FACTIONS[id].power==expected[id][1],"User thresholds "+id)

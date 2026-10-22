@@ -164,9 +164,9 @@ func _initialize() -> void:
 	apply(g,0,"ability",{"src":"G074","target":"P10"})
 	check(g.hands[0].plot==["P10"] and "P10" in g.locked and "P10" in g.exposed and g.discards.plot==["P14","P15"],"England recovers and locks the chosen combat plot, preserving other positions")
 	check(g.validate().is_empty(),"England conservation")
-	# UN gains effective GP from direct government children; old mediation is removed.
-	g=fresh();place(g,"G005",0,"R0");place(g,"G051",1,"R1");place(g,"G008",1,"R1");place(g,"G010",1,"G008")
-	check(g.stat("G008","gp")==2,"Direct government child adds one UN global power")
+	# UN gains effective GP from direct Country children; old mediation is removed.
+	g=fresh();place(g,"G005",0,"R0");place(g,"G051",1,"R1");place(g,"G008",1,"R1");place(g,"G072",1,"G008")
+	check(g.stat("G008","gp")==2,"Direct Country child adds one UN global power")
 	apply(g,0,"attack",{"src":"G005","target":"G051","mode":"destroy"})
 	check(find(g,1,"mediate").is_empty(),"Obsolete UN mediation is no longer available")
 	var strength=g.battle_values().strength;apply(g,1,"support",{"src":"G008"})

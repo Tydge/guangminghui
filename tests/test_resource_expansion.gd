@@ -11,7 +11,7 @@ func _initialize() -> void:
 	check(action(g,0,"reroll_resource").is_empty() and g.resource_rerolls[0]==2,"Independent resource reroll cap two")
 	check(g.hands[0].group==groups and g.hands[0].plot==plots and g.resource_candidates[1]==enemy,"Resource reroll preserves other hands and opponent candidates")
 	var pick=g.resource_candidates[0][0];apply(g,0,"initial_resource",{"id":pick})
-	check(g.phase=="draw" and pick in g.hands[0].resource and g.hands[1].resource.size()==1 and g.decks.resource.size()==13,"Selection returns unused resources and starts initiative once")
+	check(g.phase=="draw" and pick in g.hands[0].resource and g.hands[1].resource.size()==1 and g.decks.resource.size()==CardDB.ids("resource").size()-2,"Selection returns unused resources and starts initiative once")
 	check(g.resource_candidates==[[],[]] and g.resource_rerolls[1]<=2,"All candidates accounted for, AI obeys limit")
 	g=fresh();give(g,"E01");give(g,"E02")
 	check(action(g,0,"research",{"deck":"resource"}).is_empty() and not action(g,0,"research",{"deck":"group"}).is_empty() and not action(g,0,"research",{"deck":"plot"}).is_empty(),"Full resource hand only blocks resource draw")

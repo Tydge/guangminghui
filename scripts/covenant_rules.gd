@@ -9,17 +9,22 @@ const FACTIONS={
 	"I05":{"destroyed":6},
 	"I06":{"traits":["地点"],"groups":5,"huge":2,"power":30},
 	"I07":{"traits":["和平"],"groups":6,"power":25},
-	"I08":{"traits":["魔法"],"groups":5,"power":25}
+	"I08":{"traits":["魔法"],"groups":5,"power":25},
+	"I09":{"traits":["科学","太空"],"groups":5,"power":26},
+	"I10":{"traits":["暴力"],"groups":5,"power":26},
+	"I11":{"traits":["绿色"],"groups":6,"power":24},
+	"I12":{"traits":["共产"],"groups":6,"power":24}
 }
 const PLOTS={
 	"P51":{"traits":["犯罪"],"groups":5,"power":20},
 	"P52":{"groups":9,"small":6},
 	"P53":{"traits":["军队"],"groups":4,"destroyed":3},
 	"P54":{"groups":7,"celebrity":3,"media":4},
-	"P55":{"groups":7,"alignments":10}
+	"P55":{"groups":7,"alignments":10},
+	"P61":{"traits":["绿色"],"groups":5,"facilities":2}
 }
 const ALIGNMENTS=["政府","企业","自由","保守","和平","暴力","正统","怪异","犯罪","狂热"]
-const LABELS={"groups":"团体","power":"力量","huge":"巨大","small":"小团体","destroyed":"摧毁","celebrity":"名人","media":"媒体","alignments":"阵营"}
+const LABELS={"groups":"团体","power":"力量","huge":"巨大","small":"小团体","destroyed":"摧毁","celebrity":"名人","media":"媒体","alignments":"阵营","facilities":"设施"}
 var state: WeakRef
 var g:
 	get:return state.get_ref()
@@ -39,6 +44,7 @@ func progress(p: int,id: String) -> Dictionary:
 		for a in g.alignments(k):
 			if a in ALIGNMENTS and a not in coverage:coverage.append(a)
 	values.alignments=coverage.size()
+	values.facilities=g.resources.field(p).filter(func(k):return g.has(k,"设施")).size()
 	var parts: Array=[];var ratio=1.0;var met=not rule.is_empty()
 	for key in LABELS:
 		if not rule.has(key):continue

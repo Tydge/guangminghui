@@ -58,6 +58,12 @@ func back() -> void:
 func pick(key: String,value) -> void:
 	picker.select(key,value);picker_page=0;step()
 func label_for(key: String) -> String:
+	var first=picker.actions[0]
+	if key=="target" and first.get("src","") in ["G138","G168"]:return "选择弃牌费用"
+	if key=="target" and first.get("src","") in ["G151","E22"]:return "选择洗回的资源"
+	if key=="resource_fee" or (key=="other" and first.get("src","")=="G159") or (key=="target" and first.get("id","")=="P65"):return "选择报废的资源"
+	if key=="target" and first.get("id","")=="P66":return "选择部署的资源"
+	if key=="stake":return "庄家筹码 · 支援方式"
 	if key=="other" and picker.actions[0].get("id","")=="P60":return "选择己方交换资源"
 	if key=="supply":return "选择部署费用"
 	var labels={"replace":"资源已满 · 选择报废替换的资源","target":"选择目标","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
@@ -80,6 +86,7 @@ func mode_title(key: String,value: bool) -> String:
 		"supply":return "矿产供给 · 弃1张团体" if value else "花主牌1行动"
 		"algorithm":return ("算法时代 · "+strength+"（本战限1次）") if value else "普通支援 · "+strength
 		"amplify":return ("弹性扩容 · "+strength+" · 另弃1张牌") if value else "普通支援 · "+strength
+		"stake":return ("庄家筹码 · "+strength+" · 报废1张资源") if value else "普通支援 · "+strength
 		"star":return ("星象助阵 · "+strength+"，骰1–3再+2") if value else "普通支援 · "+strength
 		"training":return "消耗1训练 · 攻击强度+2" if value else "不使用训练"
 		"solo":return "孤军破袭 · 忽略位置，禁用进攻支援" if value else "普通摧毁 · 可接受进攻支援"
@@ -129,7 +136,7 @@ func options() -> void:
 		var next=m._button("下一页",func():picker_page+=1;options(),p);next.position=Vector2(extent.x-156,extent.y-76);next.disabled=picker_page==pages-1
 func confirm() -> void:
 	var a=picker.actions[0]
-	if a.type=="attack" or (a.type=="ability" and a.src=="G096") or (a.type=="plot" and a.id in ["P31","P32","P33","P34","P35"]):
+	if a.type=="attack" or (a.type=="ability" and a.src=="G096") or (a.type=="plot" and a.id in GameState.WaveRules.DISASTERS):
 		picker.clear();m._review_action(a);return
 	m._clear(m.large_layer);m._dim(m.large_layer,0.2)
 	var extent=Vector2(minf(720,m.size.x-100),370);var p=m._panel(m.large_layer,Rect2((m.size-extent)/2,extent));p.name="ActionConfirmation"
@@ -137,7 +144,7 @@ func confirm() -> void:
 	m.window_access.offer(p)
 	var lines: Array=[]
 	if a.type in ["deploy","resource","research"]:lines.append(a.label)
-	if a.type=="deploy":lines.append("与自动接管共用每回合1次机会。")
+	if a.type=="deploy":lines.append("每回合可部署1次，与自动接管分别限次。")
 	if a.type=="support":
 		lines.append(("支援进攻" if m.game.owner(a.src)==m.game.battle.attacker else "支援防守")+" · "+support_value([a]))
 		if a.get("algorithm",false):lines.append("算法时代 · 本战限1次")

@@ -74,9 +74,9 @@ func rules():
  g=fresh();g.current=1;put(g,"G104",1);put(g,"G005",1);put(g,"G071");give(g,"P31",1);give(g,"P10",1);apply(g,1,"plot",{"id":"P31","payer":"G005","target":"G071"});apply(g,0,"pass");check(not g.legal_actions(1).any(func(a):return a.type=="support"),"Disaster attacker cannot use normal or amplified support")
  for method in ["normal","australia"]:
   g=fresh();put(g,"G098");give(g,"G043");give(g,"G044");give(g,"E01");give(g,"E03")
-  apply(g,0,"deploy",{"id":"E01","supply":method=="australia"});check(g.auto_used and g.token("R0")== (method=="australia"),"Deployment consumes quota; Australia only replaces payment")
-  check(not g.legal_actions(0).any(func(a):return a.type in ["auto","deploy"]),"Deployment blocks another deploy and takeover")
- g=fresh();put(g,"G098");give(g,"G043");give(g,"E01");apply(g,0,"auto",{"id":"G043","parent":"G098"});g.nodes.R0.token=1;check(action(g,0,"deploy").is_empty(),"Takeover also prevents Australia deployment even with restored root action")
+  apply(g,0,"deploy",{"id":"E01","supply":method=="australia"});check(g.deploy_used and not g.auto_used and g.token("R0")== (method=="australia"),"Deployment consumes its own quota; Australia only replaces payment")
+  check(not g.legal_actions(0).any(func(a):return a.type=="deploy"),"Deployment blocks another deploy")
+ g=fresh();put(g,"G098");give(g,"G043");give(g,"E01");apply(g,0,"auto",{"id":"G043","parent":"G098"});g.nodes.R0.token=1;check(not action(g,0,"deploy").is_empty(),"Takeover leaves deployment available")
 func snapshot(g: GameState) -> String:return JSON.stringify([g.nodes,g.hands,g.decks,g.discards,g.phase,g.battle,g.pending_plot,g.rng.state,g.auto_used])
 func button(node: Node,text: String):
  for b in node.find_children("*","Button",true,false):
@@ -120,7 +120,7 @@ func ui():
    var g=disaster();mount(g);main._dispatch_options(g.legal_actions(0).filter(func(a):return a.type=="support" and a.src=="G104"));await process_frame;check(button(main.large_layer,"普通支援 · GP +2")!=null and button(main.large_layer,"弹性扩容 · GP +4 · 另弃1张牌")!=null,"Disaster defense exposes plain and doubled support")
    main.interactions.cancel();main.modal_open=true
    g=fresh();put(g,"G098");give(g,"G043");give(g,"E01");mount(g);main.interactions.picker.begin([action(g,0,"deploy",{"id":"E01","supply":true})]);main.interactions.confirm()
-   var labels="\n".join(main.large_layer.find_children("*","Label",true,false).map(func(l):return l.text));check(labels.contains(GameLocale.text("与自动接管共用每回合1次机会。")),"Australia confirmation states shared quota")
+   var labels="\n".join(main.large_layer.find_children("*","Label",true,false).map(func(l):return l.text));check(labels.contains(GameLocale.text("每回合可部署1次，与自动接管分别限次。")),"Australia confirmation states separate quota")
    main.interactions.cancel();main.modal_open=true
    g=fresh();put(g,"G076");mount(g);main._inspect("G076");var swiss_text="\n".join(main.detail_layer.find_children("*","Label",true,false).map(func(l):return l.text))
    check(swiss_text.contains(GameLocale.text("灾难基础防御 4；被动+0；防备+0。灾难不计忠诚和位置。")),"Swiss reader shows P as disaster base in both languages")
@@ -130,4 +130,4 @@ func run():
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--output="):folder=arg.trim_prefix("--output=");DirAccess.make_dir_recursive_absolute(folder)
  root.size=Vector2i(1600,900);rules();await ui()
- var report={"checks":checks,"failures":failures,"scope":"Disaster plots, cloud support, counter browsing, shared deployment quota","android_device_tested":false};FileAccess.open("res://tests/disaster-responses-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("DISASTER RESPONSES: "+JSON.stringify(report));quit(0 if failures.is_empty() else 1)
+ var report={"checks":checks,"failures":failures,"scope":"Disaster plots, cloud support, counter browsing, independent deployment quota","android_device_tested":false};FileAccess.open("res://tests/disaster-responses-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("DISASTER RESPONSES: "+JSON.stringify(report));quit(0 if failures.is_empty() else 1)

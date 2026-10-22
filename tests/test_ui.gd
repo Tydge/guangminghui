@@ -14,7 +14,7 @@ func run() -> void:
 	main.sound_volume=0;main.reduced_motion=true;main.presentation_time_scale=0.12
 	check(main.overlay.get_child_count()>0 and main.game==null,"Main menu builds")
 	main._start_game(4318);await process_frame
-	check(main.game.phase=="setup_faction" and main.game.legal_actions(0).size()==8,"Eight faction choices")
+	check(main.game.phase=="setup_faction" and main.game.legal_actions(0).size()==12,"Twelve faction choices")
 	await main._do_action(0,main.game.legal_actions(0)[0]);await process_frame
 	check(main.game.phase=="setup_group" and main.game.legal_actions(0).filter(func(a):return a.type=="initial").size()==5,"Five opening cards")
 	await main._do_action(0,main.game.legal_actions(0)[0]);await process_frame

@@ -20,4 +20,4 @@ func run() -> void:
 	if GameLocale.english():success=success and GameLocale.missing.is_empty()
 	var report={"language":GameLocale.language,"untranslated":GameLocale.missing,"complete":success,"winner":main.game.winner,"player_commands":player_commands,"turns":main.game.turns,"elapsed_seconds":(Time.get_ticks_msec()-started)/1000.0,"phase":main.game.phase}
 	print("UI MATCH: "+JSON.stringify(report))
-	var f=FileAccess.open("res://tests/match-en-report.json" if GameLocale.english() else "res://tests/match-report.json",FileAccess.WRITE);f.store_string(JSON.stringify(report,"\t"));main.queue_free();await process_frame;quit(0 if success else 1)
+	var f=FileAccess.open("res://tests/match-en-report.json" if GameLocale.english() else "res://tests/match-report.json",FileAccess.WRITE);f.store_string(JSON.stringify(report,"\t"));main._menu();CardDB.finish_art_requests();await create_timer(0.6).timeout;main.queue_free();await process_frame;await process_frame;quit(0 if success else 1)

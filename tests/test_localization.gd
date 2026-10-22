@@ -9,6 +9,10 @@ func _initialize():call_deferred("run")
 func run():
  CardDB.load_all();GameLocale.set_language("en")
  check(GameLocale.has_chinese("政府"),"CJK detection works")
+ for id in CardDB.ids("plot"):
+  var c=CardDB.get_card(id)
+  if c.name.begins_with("新世界秩序："):check(not GameLocale.has_chinese(GameLocale.text("秩序 · "+c.name.trim_prefix("新世界秩序："))),"World Order short HUD name translated "+id)
+ check(GameLocale.text("贤者之石").contains("Philosopher's"),"English apostrophes use compact Latin glyphs")
  var catalog=JSON.parse_string(FileAccess.get_file_as_string("res://data/localization/en.json"))
  for source in catalog.ui:
   check(not GameLocale.has_chinese(GameLocale.text(source)) or source=="中文","Registered English phrase")

@@ -107,4 +107,4 @@ func run():
  check(overflows.is_empty(),"English buttons including icons fit their allotted width")
  var report={"checks":checks,"failures":failures,"missing":GameLocale.missing,"overflows":overflows,"captures":samples,"profiles":["1600x900","1280x720"],"android_device_tested":false}
  FileAccess.open("res://tests/localization-ui-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("ENGLISH UI: "+JSON.stringify(report))
- DirAccess.remove_absolute(ProjectSettings.globalize_path(main.settings_path));main._menu();await create_timer(0.6).timeout;GameLocale.set_language("zh");main.queue_free();await process_frame;await process_frame;quit(0 if failures.is_empty() else 1)
+ DirAccess.remove_absolute(ProjectSettings.globalize_path(main.settings_path));main._menu();CardDB.finish_art_requests();await create_timer(0.6).timeout;GameLocale.set_language("zh");main.queue_free();await process_frame;await process_frame;quit(0 if failures.is_empty() else 1)

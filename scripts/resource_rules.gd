@@ -77,7 +77,7 @@ func augment_actions(p: int,out: Array) -> Array:
 		if g.token(g.root(p)):
 			for kind in ["group","resource","plot"]:
 				if deck_available(kind) and (kind!="resource" or can_draw(p)):out.append(g._a("research","抽1张"+{"group":"团体","resource":"资源","plot":"阴谋"}[kind],{"src":g.root(p),"deck":kind}))
-		if not g.auto_used:
+		if not g.deploy_used:
 			for id in g.hands[p].resource:
 				var replacements=field(p) if field(p).size()>=2 else [""]
 				for old in replacements:
@@ -140,17 +140,8 @@ func handle(p: int,a: Dictionary) -> bool:
 		var pool=g.resource_candidates[1].duplicate();pool.sort_custom(func(x,y):return opening_score(x,1)>opening_score(y,1))
 		select_opening(0,a.id);select_opening(1,pool[0]);g._shuffle(g.decks.resource);g._finish_opening();return true
 	if a.type=="research":
-		g.nodes[g.root(p)].token=0;g._draw(p,a.deck);g._log(g._who(p)+"花主牌1行动抽取"+{"group":"团体","resource":"资源","plot":"阴谋"}[a.deck],"research",{"player":p});g._after_effect();return true
-	if a.type=="deploy":
-		var slot=g.nodes[a.replace].resource_slot if a.get("replace","")!="" else (1 if field(p).any(func(k):return g.nodes[k].resource_slot==0) else 0)
-		if a.get("replace","")!="":remove(a.replace)
-		if a.has("fee"):g._discard(p,a.fee)
-		else:g.nodes[g.root(p)].token=0
-		g.auto_used=true;g.hands[p].resource.erase(a.id)
-		g.nodes[a.id]={"card":a.id,"owner":p,"parent":"","token":0,"attached":[],"resource_slot":slot}
-		g._flow(a.id,"hand","resource_left" if slot==0 else "resource_right",p)
-		g.captured[a.id]=true
-		g._log(g._who(p)+"部署了「"+g.title(a.id)+"」","deploy",{"id":a.id,"player":p});g._after_effect();return true
+		g.spend(g.root(p));g._draw(p,a.deck);g._log(g._who(p)+"花主牌1行动抽取"+{"group":"团体","resource":"资源","plot":"阴谋"}[a.deck],"research",{"player":p});g._after_effect();return true
+	if a.type=="deploy":deploy(p,a);g._after_effect();return true
 	if a.type=="resource":
 		var src=a.src;var target=a.get("target","")
 		if src=="G091":g.nodes[src].token=0;g.used[src]=true;g._discard(p,a.fee);g._draw(p,"resource")
@@ -213,7 +204,7 @@ func reader(id: String) -> String:
 	var c=g.card(id)
 	if id in g.scrap:return "已报废 · 本局不回收。"
 	if id in g.discards.resource:return "资源弃牌堆 · 资源堆用尽时洗回。"
-	if not g.nodes.has(id):return "资源 · "+c.category+" · "+c.mode+"\n尚未部署。主要阶段花主牌1行动，与自动接管共用每回合1次机会。"
+	if not g.nodes.has(id):return "资源 · "+c.category+" · "+c.mode+"\n尚未部署。主要阶段花主牌1行动，每回合可部署1次，与自动接管分别限次。"
 	var text=("己方" if g.owner(id)==0 else "对方")+"资源 · "+("左侧" if g.nodes[id].resource_slot==0 else "右侧")+"\n在场资源 %d / 2"%field(g.owner(id)).size()
 	text+="\n资源手牌 %d / %d"%[g.hands[g.owner(id)].resource.size(),g.resource_hand_limit(g.owner(id))]
 	if c.action:
@@ -224,4 +215,17 @@ func reader(id: String) -> String:
 	if not ready(id):text+="\n技术封锁 · 失效至本回合结束"
 	if id=="E04" and g.used.has("e_archive"):text+="\n本回合抽牌次数已用"
 	if id=="E13" and g.used.has("e_museum:%d"%g.owner(id)):text+="\n本回合抽牌次数已用"
+	if id=="E20" and g.used.has("community_solar"):text+="\n本回合抽牌次数已用"
 	return text
+
+func deploy(p: int,a: Dictionary) -> void:
+	var slot=g.nodes[a.replace].resource_slot if a.get("replace","")!="" else (1 if field(p).any(func(k):return g.nodes[k].resource_slot==0) else 0)
+	if a.get("replace","")!="":remove(a.replace)
+	if a.has("fee"):g._discard(p,a.fee)
+	elif not a.get("free",false):g.spend(g.root(p))
+	g.deploy_used=true;g.hands[p].resource.erase(a.id)
+	g.nodes[a.id]={"card":a.id,"owner":p,"parent":"","token":0,"attached":[],"resource_slot":slot}
+	g._flow(a.id,"hand","resource_left" if slot==0 else "resource_right",p)
+	g.captured[a.id]=true
+	g._log(g._who(p)+"部署了「"+g.title(a.id)+"」","deploy",{"id":a.id,"player":p})
+	g.contemporary.deployed(p,a.id)

@@ -1,5 +1,6 @@
 extends RefCounted
 ## Expansion rules. Choices use the same private/public command boundary as the base game.
+const DISASTERS=["P31","P32","P33","P34","P35","P64"]
 var state: WeakRef
 var g:
 	get: return state.get_ref()
@@ -108,7 +109,7 @@ func disaster_target(id: String,target: String) -> bool:
 func main_plots(id: String,p: int) -> Array:
 	var out: Array=[];var actors=g.groups(p).filter(func(k):return g.token(k))
 	var targets: Array=[]
-	if id in ["P31","P32","P33","P34","P35"]:
+	if id in DISASTERS:
 		if g.can_enemy(p):
 			for target in g.groups(1-p):
 				if disaster_target(id,target):
@@ -148,13 +149,14 @@ func support_detail(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	if normal(b) and enabled("G111",p) and g.has(id,"沿海") and g.has(b.target,"沿海"):d.basis="P";base=g.stat(id,"p");d.reason="班轮网络"
 	var override=g.synergy.support_override(id,b,base,d.basis,d.reason)
 	override=g.covenant.support_override(id,b,override)
+	override=g.contemporary.support_override(id,b,override)
 	override=g.renewal.support_override(id,b,override)
 	base=override.base;d.basis=override.basis;d.reason=override.reason
-	if p==b.attacker and enabled("G095",1-p) and normal(b) and g.has(b.target,"沿海") and not g.has(id,"沿海") and d.basis=="GP":base=0;extra=0;d.reason="海峡屏障 · 禁止此GP支援"
-	if base<=0:d.power=0;return d
+	if p==b.attacker and enabled("G095",1-p) and normal(b) and g.has(b.target,"沿海") and not g.has(id,"沿海") and d.basis=="GP":d.basis="—";d.reason="海峡屏障 · 禁止此GP支援"
+	if d.basis=="—":d.power=0;return d
 	if normal(b) and enabled("G103",p) and g.has(id,"计算机") and b.get("computer_supports",[0,0])[p]==1:extra+=2;d.reason+=" · 并行计算+2"
 	if b.get("amplify",false) and id=="G104" and enabled(id):base*=2;d.reason+=" · 弹性扩容"
-	extra+=g.renewal.support_bonus(id,b)
+	extra+=g.renewal.support_bonus(id,b)+g.contemporary.support_bonus(id,b)
 	var satellite=g.synergy.support_bonus(id,b)
 	if satellite>0:extra+=satellite;d.reason+=" · 遥感网络+1"
 	d.power=base+extra;d["base"]=base;d["extra"]=extra
@@ -204,6 +206,7 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="trigger":
 		var c=g.choice.duplicate(true);g.choice={};g.phase=c.resume
 		var task=c.task
+		g.contemporary.trigger(task)
 		if task.kind=="prepared" and g.nodes.has(task.target):g.nodes[task.target].prepared=false
 		if task.kind=="draw" and (not task.has("quota") or once(task.quota)):
 			if task.has("quota"):remember(task.quota)
@@ -217,7 +220,7 @@ func handle(p: int,a: Dictionary) -> bool:
 		return true
 	if a.type=="choose" and g.choice.get("kind","").begins_with("w_"):choose(a.id);return true
 	if a.type=="rebuild":
-		for actor in a.payers:g.nodes[actor].token=0
+		for actor in a.payers:g.spend(actor)
 		if a.src=="P37":remember("resilient:%d"%p)
 		rebuild(a.target);g._log("重建完成 · "+g.title(a.target),"ability",{"id":a.target});g._after_effect();return true
 	if a.type=="ability" and (g.is_root(a.src) or int(a.src.substr(1))>=81):ability(p,a);return true
@@ -280,11 +283,12 @@ func rebuild(target: String) -> void:
 		if not options.is_empty():queue.append({"kind":"recharge","source":"G094","player":p,"options":options})
 
 func support(p: int,a: Dictionary) -> void:
-	var b=g.battle;var context=b.duplicate(true);context.algorithm=a.get("algorithm",false);context.amplify=a.get("amplify",false)
+	var b=g.battle;var context=b.duplicate(true);context.algorithm=a.get("algorithm",false);context.amplify=a.get("amplify",false);context.stake=a.get("stake",false)
 	var d=g.support_detail(a.src,context)
 	if a.has("plot_fee"):g._discard(p,a.plot_fee)
 	if a.has("group_fee"):g._discard(p,a.group_fee)
-	g.nodes[a.src].token=0;b.paid.append(a.src)
+	if a.has("resource_fee"):g.resources.remove(a.resource_fee)
+	g.spend(a.src);b.paid.append(a.src)
 	b["support_a" if p==b.attacker else "support_d"]+=d.power
 	if a.get("algorithm",false):b.algorithm_used=true
 	if not b.has("computer_supports"):b.computer_supports=[0,0]
@@ -293,22 +297,24 @@ func support(p: int,a: Dictionary) -> void:
 	if g.has(a.src,"计算机"):b.computer_supports[p]+=1
 	if not b.has("supporters"):b.supporters=[]
 	b.supporters.append({"id":a.src,"owner":p})
+	if a.src=="G154" and enabled(a.src) and normal(b) and p==b.defender:b.silent_reaction=true;g._battle_record("ability",p,a.src,b.target,"无声吐槽 · 进攻阵营加值至多+4")
 	var lead=b.src if p==b.attacker else b.target
 	if a.src=="G024" and g.has(lead,"计算机"):b.video.append({"id":a.src,"owner":p})
 	var message="%s 支援%s +%d（%s）"%[g.title(a.src),"进攻" if p==b.attacker else "防守",d.power,d.basis]
 	if a.has("plot_fee"):message+=" · 弃"+g.title(a.plot_fee)
+	if a.has("resource_fee"):message+=" · 庄家筹码报废"+g.title(a.resource_fee)
 	if a.has("group_fee"):message+=" · 通行费弃"+g.title(a.group_fee)
 	g._battle_record("support",p,a.src,b.target,message);g._log(g._who(p)+" · "+message,"support",{"id":a.src,"player":p})
 	g._response_changed(p)
 
 func plot_committed(p: int,a: Dictionary) -> void:
-	if a.has("payer"):g.nodes[a.payer].token=0
+	if a.has("payer"):g.spend(a.payer)
 	if a.has("fee"):g._discard(p,a.fee)
 
 func resolve_plot(a: Dictionary) -> bool:
 	var id=a.id;var p=a.player;var target=a.get("target","")
 	if g.synergy.resolve_plot(a):return true
-	if id in ["P31","P32","P33","P34","P35"]:start_disaster(a);return true
+	if id in DISASTERS:start_disaster(a);return true
 	if id not in ["P36","P37","P38","P39","P40","P41","P42"]:return false
 	match id:
 		"P36","P37":set_world(id)
@@ -363,13 +369,14 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 		if b.mode=="control" and b.src=="G097" and enabled("G097") and g.has(b.target,"绿色"):v.ability+=4;v.strength+=4
 		if b.get("reframed",false):v.strength-=2*v.alignment;v.alignment=-v.alignment
 	else:
-		var power={"P31":14,"P32":14,"P33":16,"P34":18,"P35":12}[b.disaster]
+		var power={"P31":14,"P32":14,"P33":16,"P34":18,"P35":12,"P64":15}[b.disaster]
 		var ability=0
 		if g.has(b.target,"巨大"):ability=-4 if b.disaster=="P31" else (4 if b.disaster=="P35" else 0)
+		if b.disaster=="P64" and g.has(b.target,"绿色"):ability+=4
 		v.power=power;v.alignment=0;v.ability=ability;v.loyalty=0;v.position=0;v.base=g.stat(b.target,"p")
 		v.defense=g.disaster_defense(b.target,b.src)
 		v.strength=power+ability+b.bonus_a-v.base-v.defense-b.bonus_d-b.support_d-b.self
-	v=g.renewal.values(b,g.synergy.values(b,v))
+	v=g.contemporary.values(b,g.renewal.values(b,g.synergy.values(b,v)))
 	var chance=0;var kill=0;var threshold=4 if b.get("disaster","")=="P31" else 6
 	for x in range(1,7):
 		for y in range(1,7):
@@ -378,7 +385,7 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 				if b.get("disaster","") in ["P31","P34"] and v.strength-x-y>=threshold:kill+=1
 	v.chance=chance/36.0;v.destroy_chance=kill/36.0
 	if b.get("rescue",false):v.destroy_chance=0.0
-	if b.has("fixed_dice"):v.chance=1.0 if b.fixed_dice[0]+b.fixed_dice[1]<=mini(10,v.strength) else 0.0
+	if b.has("fixed_dice"):v.fixed_dice=b.fixed_dice.duplicate();v.chance=1.0 if b.fixed_dice[0]+b.fixed_dice[1]<=mini(10,v.strength) else 0.0
 	return v
 
 func disaster_preview(a: Dictionary) -> Dictionary:
@@ -490,6 +497,7 @@ func resolve_battle() -> void:
 	g.battle={};g.phase="main"
 	g.synergy.battle_finished(b,success,destroyed_target)
 	g.renewal.battle_finished(b,success,destroyed_target)
+	g.contemporary.battle_finished(b,success,destroyed_target)
 	if success and b.mode=="control" and not enemy:g._entry_rewards(target,p,b.src,b.before)
 	var outcome="保镖挡下摧毁" if guarded else ("救援撤离" if rescued else ("摧毁" if destroyed_target else ("受灾" if new_devastated else ("成功" if success else "失败"))))
 	if success and b.mode=="control" and affected>1:outcome+=" · 夺取整支%d张"%affected
@@ -498,10 +506,16 @@ func resolve_battle() -> void:
 
 func presentation_cards(p: int,a: Dictionary) -> Array:
 	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)+g.resources.presentation_cards(a)
+	if a.get("nature",false):out.append(g.root(p))
+	if a.get("stake",false):out.append("G161")
+	if a.type=="support" and a.src in ["G154","G169"]:out.append(a.src)
 	if a.type in ["ability","plot","counter","rescue","wave","fact_check","rebuild","trigger"]:out.append(a.get("id",a.get("src","")))
 	if a.type=="choose" and g.choice.get("kind","").begins_with("w_") and a.id!="":out.append(g.choice.get("source",""))
 	if a.type=="choose" and g.choice.get("kind","")=="w_draft" and p==1:out.append(a.id)
 	if a.type=="support":
+		if g.nodes[a.src].parent=="G153" and enabled("G153",p) and g.has(a.src,"共产"):out.append("G153")
+		if g.has(a.src,"犯罪") and g.resources.ready("E18",p):out.append("E18")
+		if normal(g.battle) and p==g.battle.attacker and g.battle.mode=="destroy" and g.factions[p]=="I10" and g.has(a.src,"暴力"):out.append(g.root(p))
 		if a.get("algorithm",false):out.append("P36")
 		if a.get("amplify",false):out.append("G104")
 		if enabled("G103",p) and normal(g.battle) and g.has(a.src,"计算机") and g.battle.get("computer_supports",[0,0])[p]==1:out.append("G103")

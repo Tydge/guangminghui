@@ -4,7 +4,7 @@ extends RefCounted
 static func copy_state(source: GameState) -> GameState:
 	var copy=GameState.new(1)
 	for prop in source.get_property_list():
-		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources"]:continue
+		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources","contemporary"]:continue
 		var value=source.get(prop.name)
 		copy.set(prop.name,value.duplicate(true) if value is Array or value is Dictionary else value)
 	copy.rng.seed=source.rng.seed;copy.rng.state=source.rng.state
@@ -27,7 +27,7 @@ static func zones(g: GameState) -> Dictionary:
 	if g.world!="":result[g.world]={"place":"world","player":-1,"kind":"plot"}
 	if not g.pending_plot.is_empty():result[g.pending_plot.id]={"place":"pending","player":g.pending_plot.player,"kind":"plot"}
 	for id in g.battle.get("spent",[]):result[id]={"place":"spent","player":g.battle.attacker,"kind":"plot"}
-	var peek=g.choice.get("peek",g.choice.get("options",[]) if g.choice.get("kind","") in ["draw_keep","reorder","e_probe"] else [])
+	var peek=g.choice.get("peek",g.choice.get("options",[]) if g.choice.get("kind","") in ["draw_keep","reorder","e_probe","n_probe"] else [])
 	for id in peek:result[id]={"place":"choice","player":g.choice.get("player",0),"kind":g.card(id).kind}
 	return result
 
@@ -53,7 +53,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 			target=candidate;source=played.id
 	# Battle results must be read on the rehearsal, before any live settlement or motion.
 	# after_effect may replace last_event with a victory/choice; last_battle stays intact.
-	if a.type=="ability" and (a.src in ["G135","G138","G149"] or a.get("pacify",false)):
+	if a.type=="ability" and (a.src in ["G135","G149","G155","G159","G162","G164"] or a.get("pacify",false)):
 		target=a.target;source=a.get("attachment",a.src)
 	if a.type=="choose" and g.choice.get("kind","")=="x_rebuild" and a.id!="":target=a.id;source="G150"
 	if a.type=="resource" and a.get("target","")!="":target=a.target;source=a.src
@@ -63,7 +63,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 	for id in g.nodes.keys()+copy.nodes.keys():
 		if id in affected:continue
 		if node_visual(g.nodes.get(id,{}))!=node_visual(copy.nodes.get(id,{})) or public_values(g,id)!=public_values(copy,id):affected.append(id)
-	for key in ["src","target","parent","other","replace"]:
+	for key in ["src","target","parent","other","replace","resource_fee","payer"]:
 		var id=a.get(key,"")
 		if (g.nodes.has(id) or copy.nodes.has(id)) and id not in affected:affected.append(id)
 	if not result.is_empty():

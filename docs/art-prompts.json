@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-21",
-  "card_art_count": 233,
+  "date": "2026-10-22",
+  "card_art_count": 275,
   "ui_art_count": 4,
   "assets": [
     {
@@ -2264,6 +2264,426 @@
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1e1af882-bb85-4051-80b1-1095123ac79f.png",
       "encoding": "WebP quality 98",
       "updated": "2026-10-21"
+    },
+    {
+      "id": "G151",
+      "name": "维多利亚港",
+      "path": "assets/cards/G151.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Victoria Harbour Hong Kong, recognisable Star Ferry crossing blue water, dense Central banking skyline and Bank of China Tower, bright afternoon, waterfront shipping cranes distant. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-865e435b-d51f-4460-9122-2e920dea58df.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G152",
+      "name": "以色列",
+      "path": "assets/cards/G152.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Modern Israeli Mediterranean coast, Tel Aviv skyline, blue and white Israeli flag, foreground radar antenna and defensive interceptor launcher in a quiet scene, no explosions or violence. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0dcd6dd6-ab8b-41cb-9b64-210e603d72f9.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G153",
+      "name": "习近平",
+      "path": "assets/cards/G153.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Recognisable respectful editorial portrait of Xi Jinping in a dark suit, framed waist up at an official conference desk, warm red auditorium background, neutral expression, no slogans. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-65c0c564-8798-4ebe-9a9d-036803921b31.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G154",
+      "name": "面瘫哥",
+      "path": "assets/cards/G154.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Recognisable Khaby Lame, calm deadpan expression, familiar open-palms gesture with exactly two hands, casual shirt, smartphone tripod and simple household objects, bright creator studio. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-235368f3-47e8-4c1c-91b8-f597c3e0ac22.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G155",
+      "name": "MAGA草根团",
+      "path": "assets/cards/G155.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: American grassroots rally with diverse adults in bright red baseball caps, flags and a small-town street, peaceful documentary scene, no readable text or logos. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3cf9cbe2-1abf-4dda-8aa3-7898b11c6046.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G156",
+      "name": "理发店",
+      "path": "assets/cards/G156.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Neighbourhood barbershop, unmistakable striped barber pole, one barber carefully trimming one seated customer's hair with anatomically correct hands, mirror and lively conversation, warm daylight. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-4918168d-efc5-4db9-bab4-235cfa46d0bc.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G157",
+      "name": "塔罗占卜店",
+      "path": "assets/cards/G157.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square illustration for a contemporary strategy card game. Subject: Welcoming contemporary tarot shop, tarot cards and crystal ball on velvet table, incense, colourful daylight, unmistakable fortune-teller setting without conspiracy symbols. Style: high-recognition contemporary editorial illustration with realistic proportions, vivid cinematic colour, crisp readable silhouettes and natural textures. Composition: one cohesive scene, square 1:1, main subject clear at thumbnail size. No card frame, typography, numbers, watermark, Illuminati eyes, pyramids, or generic occult background. Accurate anatomy and perspective. Create a polished finished asset.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9ad3128d-f598-4df9-9ed7-41f1359793e6.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G158",
+      "name": "社区食堂",
+      "path": "assets/cards/G158.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square contemporary strategy card illustration, cinematic editorial realism, recognizable focal subject, no card border or caption. Scene: Busy community canteen with volunteers serving affordable steaming meals from stainless trays, communal tables, baskets of local vegetables, bright humane everyday scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-141bb462-5080-4ecb-ae1a-5c86b2395c2c.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G159",
+      "name": "军火掮客",
+      "path": "assets/cards/G159.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square contemporary strategy card illustration, cinematic editorial realism, recognizable focal subject, no card border or caption. Scene: Fictional arms dealer inspecting sealed military equipment crates in a warehouse, unmarked rifles secured on racks, discreet negotiation, no real person, no action violence.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-dd9bb11d-6127-4cfb-9e42-f59326e9006f.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G160",
+      "name": "勒索软件团伙",
+      "path": "assets/cards/G160.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square contemporary strategy card illustration, cinematic editorial realism, recognizable focal subject, no card border or caption. Scene: Distinctive ransomware scene: computer screen showing a large red padlock symbol and locked files, hooded fictional operator seen from side, modern cluttered desk, no readable instructions.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-083ffd38-f3c3-4c89-87f7-f4cc542c9f99.png",
+      "encoding": "WebP quality 92",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "I09",
+      "name": "UFO",
+      "path": "assets/cards/I09.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: original Illuminati faction master-card illustration, a single 1:1 square. Subject: An enormous unmistakable flying saucer suspended inside a cosmic circular astrolabe, violet tractor beams, star charts and alien geometric glyphs, secret society emblematic occult mysticism, cinematic indigo and silver. Style: monumental cinematic secret-society key art with a strong unique instantly recognisable central faction symbol, rich chiaroscuro, occult geometry, mystical and enigmatic atmosphere, luxurious material detail, painterly realism. This is a faction emblem scene, distinct from everyday group-card scenes. No card frame, letters, readable text, watermark, split panels, or collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2a382416-2062-4582-9b8b-060707a90985.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "I10",
+      "name": "刺客协会",
+      "path": "assets/cards/I10.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: original Illuminati faction master-card illustration, a single 1:1 square. Subject: A circular clandestine brotherhood of hooded figures in a monumental underground sanctuary, a single ornate silver dagger and black rose on an obsidian altar, ritual geometry, deep crimson and black, strong recognisable faction icon, no gore. Style: monumental cinematic secret-society key art with a strong unique instantly recognisable central faction symbol, rich chiaroscuro, occult geometry, mystical and enigmatic atmosphere, luxurious material detail, painterly realism. This is a faction emblem scene, distinct from everyday group-card scenes. No card frame, letters, readable text, watermark, split panels, or collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-fe53ad40-4716-462c-af36-cf1f1f678474.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "I11",
+      "name": "盖娅密会",
+      "path": "assets/cards/I11.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: original Illuminati faction master-card illustration, a single 1:1 square. Subject: Ancient luminous oak roots embracing a small Earth globe within a secret stone circle, emerald light and gold ritual geometry, mysterious natural sanctuary, emblematic environmental secret faction, strong central motif, no typography. Style: monumental cinematic secret-society key art with a strong unique instantly recognisable central faction symbol, rich chiaroscuro, occult geometry, mystical and enigmatic atmosphere, luxurious material detail, painterly realism. This is a faction emblem scene, distinct from everyday group-card scenes. No card frame, letters, readable text, watermark, split panels, or collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7e018a8c-d3d4-422b-9a2f-eb3d2b892e3e.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "I12",
+      "name": "红色议会",
+      "path": "assets/cards/I12.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: original Illuminati faction master-card illustration, a single 1:1 square. Subject: Twelve imposing empty council chairs around a circular underground table, glowing red star-shaped astrolabe at the centre, monumental art-deco concrete chamber, restrained arcane geometry, crimson and antique brass, powerful enigmatic secret-faction identity, no text. Style: monumental cinematic secret-society key art with a strong unique instantly recognisable central faction symbol, rich chiaroscuro, occult geometry, mystical and enigmatic atmosphere, luxurious material detail, painterly realism. This is a faction emblem scene, distinct from everyday group-card scenes. No card frame, letters, readable text, watermark, split panels, or collage.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7328251b-0db1-469f-a5f9-1417c23a86f2.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G161",
+      "name": "地下赌场",
+      "path": "assets/cards/G161.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Secret basement casino, roulette wheel, stacks of chips, green felt table, discreet fictional gamblers in everyday clothes, moody neon, recognisable composition.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-27bea9ab-780d-4e7f-9390-ee39dd14ceae.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G162",
+      "name": "再生维修工坊",
+      "path": "assets/cards/G162.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Repair cafe with old appliances disassembled and being fixed, screwdriver, salvaged circuit boards, plants, friendly hands of technicians, sunny workshop, no occult decoration.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7223d87e-a42f-4b9d-ade2-12b7714eac3f.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G163",
+      "name": "农民抗议联盟",
+      "path": "assets/cards/G163.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Peaceful European farmers' protest, tractors forming a vivid road blockade, hay bales and farmers in practical jackets, farmland beyond, no flames, no slogans.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-6a181b91-5866-4b64-bc51-a53aa9321084.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G164",
+      "name": "水晶疗愈社",
+      "path": "assets/cards/G164.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Modern crystal-healing circle, amethyst geodes and quartz bowls, houseplants and sunlight, adults meditating in simple clothing, recognisable wellness studio, no medical claims in text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-045d31de-8a49-4d80-ab37-6b612631c7ef.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G165",
+      "name": "开源硬件社",
+      "path": "assets/cards/G165.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Contemporary makerspace, open circuit boards, soldering station and desktop 3D printer, diverse hobbyists sharing a prototype, bright technical workshop, no logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ef2b8b0e-b9ab-425f-9779-c7eb35a85e76.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G166",
+      "name": "无人机竞速社",
+      "path": "assets/cards/G166.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: FPV racing drone sharply in foreground flying through a colourful racing gate, pilots wearing goggles behind, real sports field in daylight, no weaponry or explosions.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3f94613d-48ed-4d24-bb02-7e56ae2da05c.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G167",
+      "name": "网红传销团",
+      "path": "assets/cards/G167.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create a square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism with clear distinctive subject, natural anatomy, vivid coherent lighting, readable at thumbnail size. Do not use Illuminati eyes, pyramids, repeated secret-society backgrounds, card frames, captions or watermarks. Keep important subjects inside the image with breathing room. Scene: Fictional influencer sales seminar with ring lights, a pyramid of generic product boxes and an enthusiastic presenter on stage, clearly satirical, no real people or readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9a3dde3b-a1cd-48fb-9ceb-6d168a767aff.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G168",
+      "name": "二手交易平台",
+      "path": "assets/cards/G168.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Colourful secondhand marketplace scene: smartphone with simple item thumbnails, used camera bicycle and clothing, parcel boxes and two ordinary neighbours completing a trade, no readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d5fa9063-ecf3-416a-a4d2-b636fa27f11f.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G169",
+      "name": "合租公寓",
+      "path": "assets/cards/G169.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Cosy shared apartment with young adult roommates, mismatched mugs, shared kitchen and a noticeboard, friendly everyday living space, bright natural light.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-2cdc81f9-9b7a-4aeb-aa3e-818075215cd2.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "G170",
+      "name": "道教宫观",
+      "path": "assets/cards/G170.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Recognisable traditional Taoist temple courtyard, incense burner, yellow talismans, carved dragon roof and a robed Taoist caretaker, mountain greenery, atmospheric daylight. All objects physically coherent.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f2903c89-2aff-4c8b-b7c9-9d137da4ec18.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E16",
+      "name": "便携仓库",
+      "path": "assets/cards/E16.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Portable modular storage container with neatly organised equipment shelves, opened doors, daylight industrial yard.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3056296d-d31e-4717-bd35-a9533b596aac.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E17",
+      "name": "移动医疗站",
+      "path": "assets/cards/E17.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: A mobile medical clinic in a white truck with a simple medical cross, awning, supplies and paramedics at a quiet disaster-recovery site, no injuries.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1420b970-dc8e-4a55-8808-b19ba56eefe5.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E18",
+      "name": "区块链冷钱包",
+      "path": "assets/cards/E18.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: Unmistakable small hardware cryptocurrency wallet, metal USB device, gold digital coin motifs, secure personal desk, neutral contemporary product illustration.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-98607171-6709-42bc-92ee-60f97645fb9c.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E19",
+      "name": "雷击桃木剑",
+      "path": "assets/cards/E19.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: A distinctive carved peachwood ritual sword with dark lightning scars on a red silk stand, yellow Taoist talisman and incense, close-up, warm light, no Illuminati symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d5f1c866-8b27-4040-85d6-1cc9177bc570.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E20",
+      "name": "社区太阳能板",
+      "path": "assets/cards/E20.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: Shiny blue solar panels on a community building rooftop, local volunteers, allotment gardens and clear morning sky, vivid recognisable sustainable neighbourhood.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e339eba1-19c3-486b-8e89-bd25e66ab432.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E21",
+      "name": "所罗门之印",
+      "path": "assets/cards/E21.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: An ornate six-pointed Seal of Solomon engraved on an ancient gold medallion, blue enamel and glowing protective geometry, richly detailed tactile artifact on dark velvet, close-up, no text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-219ac855-45e0-4590-8774-06210076b2b9.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E22",
+      "name": "贤者之石",
+      "path": "assets/cards/E22.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: A single glowing crimson Philosopher’s Stone on an old alchemist’s balance, antique brass glass retorts and subtle gold transmutation sparkles, unmistakable mystical relic, close-up, no lettering.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-f192f5ff-0729-4ad8-84d1-7d0db4a8e51e.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "E23",
+      "name": "王权之杖",
+      "path": "assets/cards/E23.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: A majestic ancient royal scepter with a large blue gem and intricate gold crown finial, resting on worn royal velvet beside a broken wax seal, elegant clear silhouette, close-up, no text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-cf2e49e8-5cf9-423a-bdd7-9f0bf29786a4.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P61",
+      "name": "绿色未来",
+      "path": "assets/cards/P61.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: A flourishing contemporary eco-city with green roofs, solar panels, urban farms and people, hopeful golden daylight, broad clear composition.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-57987d1d-1fdc-4eee-abc8-4b3f86083d03.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P62",
+      "name": "新世界秩序：回归传统",
+      "path": "assets/cards/P62.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: Contemporary town square with historic courthouse, family-owned shops, people restoring an old clock tower, warm autumn colours, civic tradition not occult.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5fdc0e72-2ef7-4972-9ded-68244d463c85.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P63",
+      "name": "新世界秩序：资源循环",
+      "path": "assets/cards/P63.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Create square 1:1 full-bleed strategy card artwork. High-recognition contemporary cinematic editorial illustration, clear central subject, vibrant coherent light, rich material detail and strong silhouette visible at thumbnail size. Do not add a card frame, readable captions, watermarks or generic Illuminati-eye/pyramid backgrounds. Relics may feature their own traditional occult symbols appropriate to the object. Important subjects fully inside frame. Scene: Circular-economy recycling centre, conveyor of reusable appliances, repaired electronics and solar-powered facility, contemporary realistic scene, fresh greens and blue, no diagram or text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-bd7cd210-a253-4998-b313-1f7fdfcbc619.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P64",
+      "name": "山火",
+      "path": "assets/cards/P64.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Aerial view of a major forest wildfire near an evacuated town, orange fireline and dramatic smoke, no people in danger, clear terrain and recognisable event.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-65037f32-cdad-4719-bd49-cc9073dd93eb.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P65",
+      "name": "以旧换新",
+      "path": "assets/cards/P65.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Electronics trade-in counter, technician exchanging an old damaged device for a clean new one, recycling bins and refurbished products, contemporary storefront, no readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-50d99c22-df2f-4326-ba5d-9e1cb2c14e39.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P66",
+      "name": "紧急空运",
+      "path": "assets/cards/P66.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Cargo helicopter safely lowering a supply crate at a remote logistics base, strong clear silhouette and wide bright sky, no military combat.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ae369d51-b639-4458-a4bc-fbee8e35843e.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P67",
+      "name": "符箓封印",
+      "path": "assets/cards/P67.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Close-up yellow ritual talisman placed across a closed doorway, red calligraphic abstract marks without readable words, subtle magical light, realistic Taoist folk-magic scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e6178857-217a-4c35-a1ef-74dc72a3aa42.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P68",
+      "name": "生态修复",
+      "path": "assets/cards/P68.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Volunteers planting saplings and restoring a burnt hillside, surviving river and green shoots, hopeful contemporary recovery work, bright natural colours.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-6c061625-7336-4c82-b7e9-ff34cbbe1c9a.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P69",
+      "name": "热搜反噬",
+      "path": "assets/cards/P69.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: A fictional influencer facing a storm of social-media reaction icons on screens, camera lights and surprised publicist, no real person or readable content, vivid satirical scene.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a6adb2e0-88cd-4da9-8a82-46c15b85fda5.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
+    },
+    {
+      "id": "P70",
+      "name": "组织渗透",
+      "path": "assets/cards/P70.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed contemporary strategy plot-card illustration. High-recognition cinematic editorial realism, event immediately legible, strong focal action and clear visual story with natural anatomy. Exactly two arms per person, do not overlap ambiguous foreground limbs. Vibrant coherent light, crisp subject at thumbnail size. No card frames, no watermarks, no caption text, no generic Illuminati eyes or pyramid backgrounds. Scene: Anonymous fictional office worker discreetly swapping a document folder in an open-plan workplace, daytime corporate setting, subtle suspense, no symbols or readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-06f73032-8e5b-4c62-8192-c4e7b0abde66.png",
+      "encoding": "WebP quality 94",
+      "updated": "2026-10-22"
     }
   ],
   "generated_card_art_count": 184,

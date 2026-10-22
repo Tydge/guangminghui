@@ -4,9 +4,9 @@ var active=false
 var actions: Array=[]
 var chosen: Dictionary={}
 var history: Array=[]
-const MODE_KEYS=["use_plan","training","algorithm","amplify","solo","star","supply"]
+const MODE_KEYS=["use_plan","training","algorithm","amplify","solo","star","stake","supply"]
 # Choose an optional mode before its fees, so declining it remains possible.
-const KEYS=["replace","target","leader","src","parent","payer","other","attachment","use_plan","training","algorithm","amplify","solo","star","supply","fee","plot_fee","group_fee","tag","payers"]
+const KEYS=["replace","target","leader","src","parent","payer","other","attachment","use_plan","training","algorithm","amplify","solo","star","stake","supply","fee","plot_fee","group_fee","resource_fee","tag","payers"]
 func begin(options: Array) -> void:
 	active=true;actions=options.duplicate(true);chosen={};history=[]
 func clear() -> void:active=false;actions=[];chosen={};history=[]

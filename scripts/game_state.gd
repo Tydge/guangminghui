@@ -4,6 +4,8 @@ const WaveRules = preload("res://scripts/wave_rules.gd")
 const SynergyRules = preload("res://scripts/synergy_rules.gd")
 const RenewalRules = preload("res://scripts/renewal_rules.gd")
 var resources
+const ContemporaryRules=preload("res://scripts/contemporary_rules.gd")
+var contemporary
 var scrap: Array=[]
 var covenant
 var renewal
@@ -26,6 +28,7 @@ var phase = "setup_faction"
 var current = 0
 var serial = 0
 var auto_used = false
+var deploy_used = false
 var battle: Dictionary = {}
 var last_battle: Dictionary = {}
 var pending_plot: Dictionary = {}
@@ -67,6 +70,7 @@ func _mulligan(p: int) -> void:
 
 func _init(seed_value: int = 0) -> void:
 	resources=ResourceRules.new(self)
+	contemporary=ContemporaryRules.new(self)
 	wave=WaveRules.new(self)
 	synergy=SynergyRules.new(self)
 	renewal=RenewalRules.new(self)
@@ -109,6 +113,9 @@ func is_root(id: String) -> bool: return id.begins_with("R")
 func field(p: int) -> Array: return nodes.keys().filter(func(id): return nodes[id].owner == p and card(id).kind!="resource")
 func groups(p: int) -> Array: return field(p).filter(func(id): return not is_root(id))
 func children(id: String) -> Array: return nodes.keys().filter(func(k): return nodes[k].parent == id)
+func action_limit(id: String) -> int:return 2 if is_root(id) and factions[owner(id)]=="I09" else 1
+func self_power(id: String) -> int:return stat(id,"p")*2+contemporary.self_bonus(id)
+func spend(id: String) -> void:nodes[id].token=maxi(0,int(nodes[id].token)-1)
 func token(id: String) -> bool: return nodes.has(id) and nodes[id].token > 0 and not wave.devastated(id)
 func tags(id: String) -> Array:
 	var result=card(id).get("tags",[]).duplicate()
@@ -132,6 +139,7 @@ func alignments(id: String) -> Array:
 			if liberal: a.append("保守")
 			if conservative: a.append("自由")
 	if nodes.has(id) and nodes[id].has("mask"):a=nodes[id].mask.duplicate()
+	if nodes.has(id) and nodes[id].get("rally",false) and "狂热" not in a:a.append("狂热")
 	return a
 
 func stat(id: String, key: String,raw: bool=false) -> int:
@@ -147,13 +155,13 @@ func stat(id: String, key: String,raw: bool=false) -> int:
 		if key=="r" and parent=="G073" and (has(id,"企业") or has(id,"科学")):value+=2
 		if key == "gp":
 			if id=="G092" and wave.enabled(id):value+=resources.field(owner(id)).size()
-			if id=="G008" and wave.enabled(id):value+=children(id).filter(func(k):return has(k,"政府")).size()
+			if id=="G008" and wave.enabled(id):value+=children(id).filter(func(k):return has(k,"国家")).size()
 			if factions[owner(id)] == "I03" and has(id, "计算机"): value += 1
 			if parent=="G077" and (has(id,"企业") or has(id,"银行")):value+=1
 			value+=nodes[id].get("ad_gp",0)
 			if nodes[id].get("compute",false):value=stat(id,"p",true)
 			value = mini(value, stat(id, "p",true))
-	value=renewal.adjust_stat(id,key,synergy.adjust_stat(id,key,value))
+	value=contemporary.adjust_stat(id,key,renewal.adjust_stat(id,key,synergy.adjust_stat(id,key,value)))
 	if not raw and key in ["p","gp"] and wave.devastated(id):value=value/2
 	return value
 
@@ -226,6 +234,10 @@ func _affinity(id: String, p: int) -> float:
 		"I06": return 4.0 if has(id,"地点") else 0.0
 		"I07": return 4.0 if has(id,"和平") or has(id,"暴力") else 0.0
 		"I08": return 6.0 if has(id,"魔法") else 0.0
+		"I09": return 5.0 if has(id,"科学") or has(id,"太空") else 0.0
+		"I10": return 5.0 if has(id,"暴力") else 0.0
+		"I11": return 5.0 if has(id,"绿色") else 0.0
+		"I12": return 5.0 if has(id,"共产") else 0.0
 		"I05": return float(card(id).p) * 0.35
 	return float(card(id).p) * 0.25
 
@@ -242,40 +254,53 @@ func hand_limit(p: int) -> int:
 	if owner("G026") == p: n += 1
 	if owner("G051") == p: n += mini(2, children("G051").filter(func(id): return has(id,"犯罪")).size())
 	if resources.ready("E05",p):n+=1
+	if contemporary.ready("G156",p) and not children("G156").is_empty():n+=1
 	return n
 
 func resource_hand_limit(p: int) -> int:
-	return 2+int(resources.ready("E05",p))
+	return 2+int(resources.ready("E05",p))+contemporary.limit_bonus(p)
 
 func goal(p: int) -> Dictionary:
 	return covenant.faction_goal(p)
 
-func observation(p: int) -> Dictionary:
+func observation(p: int,include_previews: bool=true) -> Dictionary:
 	var public_nodes = nodes.duplicate(true)
 	var effective: Dictionary={}
 	for id in nodes:effective[id]={"p":stat(id,"p"),"gp":stat(id,"gp"),"r":stat(id,"r"),"slots":stat(id,"slots"),"tags":tags(id),"align":alignments(id)}
+	for id in nodes:
+		if not is_root(id) and card(id).kind=="group":
+			var context=card_context(id);effective[id].defense_control=context.control_total;effective[id].defense_destroy=context.destroy_total
 	var actions=legal_actions(p);var previews: Dictionary={}
-	for a in actions:
-		if a.type=="plot" and a.id in ["P31","P32","P33","P34","P35"]:
+	for a in (actions if include_previews else []):
+		if a.type=="plot" and a.id in GameState.WaveRules.DISASTERS:
 			previews[JSON.stringify(a)]=wave.disaster_preview(a);continue
 		if a.type!="attack":continue
-		var v=attack_preview(a.src,a.target,a.mode,a);var support=0
+		var v=attack_preview(a.src,a.target,a.mode,a);var support=0;var opposition=0
 		var context={"src":a.src,"target":a.target,"mode":a.mode,"attacker":p,"defender":owner(a.target),"solo":a.get("solo",false)}
 		for id in field(p):
 			if id!=a.src and token(id):support+=support_power(id,context)
+		if owner(a.target)>=0:
+			for helper in field(owner(a.target)):
+				if helper!=a.target and token(helper):opposition+=support_power(helper,context)
+		v["enemy_support_max"]=opposition;v["self_max"]=self_power(a.target) if nodes.has(a.target) and token(a.target) and not v.get("no_self",false) else 0
 		v["support_max"]=support;previews[JSON.stringify(a)]=v
 	var revealed = {"group":[], "plot":[]}
 	for kind in revealed:
 		for id in hands[1-p][kind]:
 			if id in exposed: revealed[kind].append(id)
-	return {"player":p,"nodes":public_nodes,"effective":effective,"hands":hands[p].duplicate(true),"opponent_counts":{"group":hands[1-p].group.size(),"plot":hands[1-p].plot.size(),"resource":hands[1-p].resource.size()},"revealed":revealed,"resource_hand_limit":resource_hand_limit(p),"decks":{"group":decks.group.size(),"plot":decks.plot.size(),"resource":decks.resource.size()},"discards":discards.duplicate(true),"scrap":scrap.duplicate(),"graves":graves.duplicate(true),"factions":factions.duplicate(),"goals":[goal(0),goal(1)],"secret_goals":covenant.private_goals(p),"turns":turns.duplicate(),"current":current,"phase":phase,"world":world,"battle":battle.duplicate(true),"battle_values":battle_values(),"choice":choice.duplicate(true) if choice.get("player",-1)==p else {},"actions":actions,"previews":previews}
+	var public_state={}
+	for key in ["serial","destroyed","attacked","auto_used","deploy_used","used","recharged","captured","rewards","failed_recruits","exposed","end_requested"]:
+		var value=get(key);public_state[key]=value.duplicate(true) if value is Array or value is Dictionary else value
+	public_state.locked=locked.filter(func(id):return id in hands[p].plot or id in exposed)
+	public_state.wave={"plans":wave.plans.duplicate(true),"announced":wave.announced.duplicate(true)}
+	return {"public_state":public_state,"player":p,"nodes":public_nodes,"effective":effective,"hands":hands[p].duplicate(true),"opponent_counts":{"group":hands[1-p].group.size(),"plot":hands[1-p].plot.size(),"resource":hands[1-p].resource.size()},"revealed":revealed,"resource_hand_limit":resource_hand_limit(p),"decks":{"group":decks.group.size(),"plot":decks.plot.size(),"resource":decks.resource.size()},"discards":discards.duplicate(true),"scrap":scrap.duplicate(),"graves":graves.duplicate(true),"factions":factions.duplicate(),"goals":[goal(0),goal(1)],"secret_goals":covenant.private_goals(p),"pending_plot":pending_plot.duplicate(true),"auto_used":auto_used,"deploy_used":deploy_used,"turns":turns.duplicate(),"current":current,"phase":phase,"world":world,"battle":battle.duplicate(true),"battle_values":battle_values(),"choice":choice.duplicate(true) if choice.get("player",-1)==p else {},"actions":actions,"previews":previews}
 
 func _a(kind: String, label: String, args: Dictionary = {}) -> Dictionary:
 	var a = args.duplicate(); a["type"] = kind; a["label"] = label
 	return a
 
 func legal_actions(p: int) -> Array:
-	return resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p))))))
+	return contemporary.augment_actions(p,resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))))))
 
 func _base_legal_actions(p: int) -> Array:
 	var out: Array = []
@@ -339,6 +364,7 @@ func _base_legal_actions(p: int) -> Array:
 func _ability_actions(src: String,p: int) -> Array:
 	if not wave.available(src):return []
 	if src in ["G091","G093","G092","G098"]:return resources.country_actions(src,p)
+	if src=="G138" or int(src.substr(1))>=151:return contemporary.ability_actions(src,p)
 	if int(src.substr(1))>=131:return renewal.ability_actions(src,p)
 	if int(src.substr(1))>=113:return synergy.ability_actions(src,p)
 	if int(src.substr(1))>=81:return wave.ability_actions(src,p)
@@ -391,6 +417,7 @@ func _ability_actions(src: String,p: int) -> Array:
 func _main_plot_actions(id: String,p: int) -> Array:
 	if id in ResourceRules.PLOTS:return resources.plot_actions(id,p)
 	if covenant.is_goal(id):return covenant.main_plots(id,p)
+	if int(id.substr(1))>=61:return contemporary.plot_actions(id,p)
 	if int(id.substr(1))>=43:return synergy.main_plots(id,p)
 	if int(id.substr(1))>=31:return wave.main_plots(id,p)
 	var out: Array = []; var targets: Array = []; var gs = groups(p)
@@ -440,6 +467,7 @@ func _battle_actions(p: int) -> Array:
 	return out
 
 func _combat_plot_actions(id: String,p: int,b: Dictionary) -> Array:
+	if int(id.substr(1))>=61:return contemporary.combat_plots(id,p,b)
 	if int(id.substr(1))>=43:return synergy.combat_plots(id,p,b)
 	if int(id.substr(1))>=31:return wave.combat_plots(id,p,b)
 	if b.has("disaster") and id in ["P10","P12","P13","P16"]:return []
@@ -526,18 +554,20 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 	if not nodes.has(id) or is_root(id):return 0
 	var value=0
 	if mode=="control":
+		if resources.ready("E21",owner(id)) and has(id,"魔法"):value+=2
 		if factions[owner(id)]=="I04" and has(id,"怪异"):value+=2
 		if "G006" in children(id):value+=2
 		if id=="G042" and src!="" and (has(src,"科学") or has(src,"太空")):value+=4
 		if id=="G039" and src!="" and has(src,"政府"):value+=4
 	else:
-		if id in ["G049","G058"]:value+=3 if id=="G049" else 2
+		if id=="G058":value+=2
+		if contemporary.ready("G049",owner(id)) and has(id,"绿色"):value+=3
 		if id=="G071":value+=10
 		if id=="G061" and src!="" and has(src,"暴力"):value+=4
 	return value
 
 func disaster_defense(id: String,src: String="") -> int:
-	return passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)+(3 if resources.ready("E03",owner(id)) else 0)
+	return (4 if id=="G152" and contemporary.ready(id) and resources.field(owner(id)).any(func(k):return has(k,"装置")) else 0)+passive_defense(id,"destroy",src)+(5 if wave.enabled("G030",owner(id)) else 0)+(3 if resources.ready("E03",owner(id)) else 0)
 
 func card_context(id: String) -> Dictionary:
 	if not nodes.has(id):return {"on_board":false,"loyalty":0,"position":0}
@@ -606,6 +636,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 	a=a.duplicate(true)
 	motion_events.clear()
 	last_event={}
+	if contemporary.handle(p,a):return true
 	if resources.handle(p,a):return true
 	if covenant.handle(p,a):return true
 	if renewal.handle(p,a):return true
@@ -626,18 +657,18 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 		"choose":_choose(a.id)
 		"auto":
 			var before=field(p);var free=auto_is_free(a.id,a.parent)
-			if not free:nodes[root(p)].token=0
+			if not free:spend(root(p))
 			auto_used=true;failed_recruits.erase(a.id)
 			_enter(a.id,p,a.parent);captured[a.id]=true;_entry_rewards(a.id,p,a.parent,before)
 			_log("%s自动接管了%s%s · 本回合无行动标记"%[_who(p),title(a.id)," · 连锁加盟免主牌标记" if free else ""],"enter",{"id":a.id,"parent":a.parent})
 			_after_effect()
-		"move":nodes[a.payer].token=0;nodes[a.src].parent=a.parent;_log("%s重组了势力结构"%_who(p),"move",{"id":a.src})
+		"move":spend(a.payer);nodes[a.src].parent=a.parent;_log("%s重组了势力结构"%_who(p),"move",{"id":a.src})
 		"ability":_ability(p,a)
 		"attack":_launch_attack(p,a)
 		"self_defend", "rescue":
-			nodes[a.src].token=0;battle.paid.append(a.src)
+			spend(a.src);battle.paid.append(a.src)
 			var message=""
-			if a.type=="self_defend":battle.self=stat(a.src,"p")*2;message="%s 自卫 · 防御 +%d"%[title(a.src),battle.self]
+			if a.type=="self_defend":battle.self=self_power(a.src);message="%s 自卫 · 防御 +%d"%[title(a.src),battle.self]
 			elif a.type=="rescue":battle.rescue=true;used[a.src]=true;message="%s 登记人道撤离 → %s"%[title(a.src),title(battle.target)]
 			_battle_record(a.type,p,a.src,battle.target,message)
 			_log(_who(p)+" · "+message,"support",{"id":a.src,"player":p})
@@ -659,8 +690,8 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 	return true
 
 func _launch_attack(p: int,a: Dictionary) -> void:
-	if a.has("delegate"):nodes[a.delegate].token=0
-	else:nodes[a.src].token=0
+	if a.has("delegate"):spend(a.delegate)
+	else:spend(a.src)
 	if nodes.has(a.target):attacked[p]=true
 	else:
 		if a.target not in failed_recruits:failed_recruits.append(a.target)
@@ -688,7 +719,7 @@ func _who(p: int) -> String:return "你" if p==0 else "AI"
 
 func _start_turn() -> void:
 	wave.start_turn()
-	serial+=1;auto_used=false;used.clear();recharged.clear();captured.clear();rewards.clear();failed_recruits.clear();locked.clear();exposed.clear();end_requested=false
+	serial+=1;auto_used=false;deploy_used=false;used.clear();recharged.clear();captured.clear();rewards.clear();failed_recruits.clear();locked.clear();exposed.clear();end_requested=false
 	phase="draw"
 
 func _begin_draw(a: Dictionary) -> void:
@@ -710,7 +741,7 @@ func _advance_draw() -> void:
 	for id in field(current):
 		if wave.devastated(id):nodes[id].token=0;continue
 		if nodes[id].get("debt",false):nodes[id].debt=false;_log("%s偿还借贷 · 本次不补行动标记"%title(id),"debt",{"id":id})
-		else:nodes[id].token=1
+		else:nodes[id].token=action_limit(id)
 	resources.refill(current)
 	phase="main";_log("%s的主要阶段"%_who(current),"turn")
 
@@ -820,6 +851,7 @@ func _resolve_plot() -> void:
 	var a=pending_plot.duplicate(true);pending_plot={};phase=resume_phase
 	var p=a.player;var id=a.id;var target=a.get("target","");var stays=false
 	_plot_record_status(id,"已生效")
+	if contemporary.resolve_plot(a):return
 	if resources.resolve_plot(a):return
 	if covenant.resolve_plot(a):return
 	if wave.resolve_plot(a):return
@@ -870,6 +902,7 @@ func _reward_draw(src: String,p: int,kind: String) -> void:
 func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 	if p!=current:return
 	resources.entry_reward(p)
+	contemporary.entry_reward(id,p)
 	synergy.entry_reward(id,p,before)
 	if "G044" in before and owner("G044")==p and card(id).p>card("G044").p and (has(id,"科学") or has(id,"太空")):_reward_draw("G044",p,"group")
 	if parent=="G069" and parent in before and has(id,"自由"):_reward_draw(parent,p,"group")
@@ -915,7 +948,7 @@ func _complete_end() -> void:
 	for p in [0,1]:
 		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p));return
 	for id in nodes:
-		nodes[id].erase("mask");nodes[id].erase("mask_card")
+		nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support")
 		nodes[id]["silenced"]=false;nodes[id]["flip"]=false;nodes[id]["ad_gp"]=0;nodes[id]["compute"]=false
 	used["renewal:cleanup"]=true
 	_complete_end()
@@ -933,7 +966,7 @@ func validate() -> Array:
 	for pool in resource_candidates:locations.append_array(pool)
 	for id in nodes:
 		if choice.get("kind","")!="x_overflow" and children(id).size()>stat(id,"slots"):errors.append("Overfull "+id)
-		if nodes[id].token not in [0,1]:errors.append("Invalid token "+id)
+		if nodes[id].token<0 or nodes[id].token>action_limit(id):errors.append("Invalid token "+id)
 		if is_root(id):
 			if nodes[id].parent!="":errors.append("Root has parent "+id)
 			continue
@@ -954,11 +987,11 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
-	if choice.get("kind","")=="e_probe":locations.append_array(choice.peek)
+	if choice.get("kind","") in ["e_probe","n_probe","n_relic"]:locations.append_array(choice.peek)
 	if choice.get("kind","")=="x_overflow":
 		var held=choice.saved_choice
 		if held.get("kind","") in ["draw_keep","reorder"]:locations.append_array(held.options);locations.append_array(held.get("order",[]))
-		if held.get("kind","") in ["nasa","japan","w_draft"]:locations.append_array(held.peek)
+		if held.get("kind","") in ["nasa","japan","w_draft","e_probe","n_probe","n_relic"]:locations.append_array(held.peek)
 	var seen: Dictionary={}
 	for id in locations:
 		if seen.has(id):errors.append("Duplicate "+id)

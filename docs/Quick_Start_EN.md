@@ -12,10 +12,10 @@ Roll two dice each. The higher total goes first; the second player draws 1 extra
 
 **Draw → Refresh Actions → Main Phase → End Turn**
 
-You may draw 1 Group and 1 Plot, then refill eligible cards to 1 action. In the main phase, recruit, attack, play Plots, use abilities, or rearrange your network. There is no fixed number of actions per turn.
+You may draw 1 Group and 1 Plot, then refill eligible cards to their action limit (normally 1). In the main phase, recruit, attack, play Plots, use abilities, or rearrange your network. There is no fixed number of actions per turn.
 
 - **Automatic Takeover:** Spend your Illuminati's action to recruit a Group from your hand into a free slot without rolling.
-- **Resources:** Keep up to 2 in play, beside your Illuminati. They use no control slots and do not count as Groups. Deployment and Automatic Takeover share one use per turn.
+- **Resources:** Keep up to 2 in play, beside your Illuminati. They use no control slots and do not count as Groups. Deployment and Automatic Takeover are each limited to once per turn, independently. Pay the relevant action cost for each.
 - **Extra draw:** Spend your Illuminati's action to draw 1 card from any deck. Resources are not drawn automatically; your Resource hand normally holds up to 2.
 
 New recruits and newly deployed action-based Resources start with **0 actions** and cannot be readied that turn.
@@ -85,6 +85,8 @@ Ordinary support costs the supporter's action. **Compare the supporter with the 
 Use only one value, P or GP. Card abilities may override support eligibility or add bonuses. Combat Plots may also affect eligible supporting groups; they do not have to target the attack leader.
 
 **Disasters** are special attacks against Places. They ignore alignment, loyalty, and position; only the defender can provide ordinary support. The target normally loses its action before responses. A devastated Place has halved P/GP, cannot act, and does not count toward victory until rebuilt. Rebuilding during your main phase costs 1 group action, or 2 different groups’ actions for a Huge Place, unless a card says otherwise.
+
+**Country** is a tag for national Places, excluding states, cities, and ports. The United Nations gains +1 GP for each direct Country subordinate, up to its P.
 
 ## Winning
 

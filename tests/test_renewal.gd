@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==233 and CardDB.ids("group").size()==150,"213 cards with 150 groups")
+	check(CardDB.cards.size()==275 and CardDB.ids("group").size()==170,"275 cards with 170 groups")
 	var g=fresh();put(g,"G131",1);put(g,"G001",1);put(g,"G007",0);var b=context("R0","G001","destroy");b.supporters=[{"id":"G007","owner":0}]
 	check(g.support_detail("G131",b).power==g.stat("G131","gp")+1,"Jackie adds per attacking supporter")
 	b.supporters.resize(8)
@@ -62,7 +62,7 @@ func _initialize() -> void:
 	give(g,"G044",0);g.used.erase("G015");check(action(g,0,"ability",{"src":"G015","target":"G044"}).is_empty(),"Granary once per turn")
 	g=fresh();put(g,"G137",1);give(g,"P28",0);give(g,"P01",1);apply(g,0,"plot",{"id":"P28"});check(g.phase=="plot_response","Tricksters create counter window")
 	apply(g,1,"trick",{"src":"G137","fee":"P01"});check(g.world=="" and "P28" in g.discards.plot and "P01" in g.discards.plot and not g.token("G137"),"Tricksters cancel without P15")
-	g=fresh();put(g,"G138",0);put(g,"G015",0);put(g,"G014",1);attach(g,"P45","G015");apply(g,0,"ability",{"src":"G138","other":"G015","target":"G014","attachment":"P45"});check("P45" in g.nodes.G014.attached and g.stat("G014","gp")==0,"Smugglers move hostile attachment to enemy")
+	g=fresh();put(g,"G138",0);give(g,"P10",0);apply(g,0,"ability",{"src":"G138","target":"P10"});check(g.choice.kind=="n_relic" and g.choice.peek.size()==3 and not g.token("G138"),"Smuggler pays action and Plot to inspect three Resources")
 	g=fresh();put(g,"G139",0);put(g,"G001",1);apply(g,0,"attack",{"src":"R0","target":"G001","mode":"destroy"});apply(g,1,"pass");var a=action(g,0,"support",{"src":"G139","star":true});check(not a.is_empty(),"Optional astrology support")
 	var original=g.rng.state;var plan=ActionFlow.plan(g,0,a);check(g.rng.state==original and plan.minor.roll in range(1,7),"Astrology rehearsal cannot advance live RNG")
 	var n=g.support_detail("G139",g.battle).power;apply(g,0,"support",{"src":"G139","star":true});check(g.battle.star_roll==plan.minor.roll and g.battle.support_a==n+(2 if plan.minor.roll<=3 else 0),"Astrology roll and support commit match rehearsal")

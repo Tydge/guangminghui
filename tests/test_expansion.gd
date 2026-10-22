@@ -34,8 +34,8 @@ func automatic(g: GameState) -> void:
 		if g.phase!="choice" or g.choice.kind!="w_auto":return
 		var p=g.choice.player;apply(g,p,"trigger")
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.cards.size()==233,"All 233 cards loaded")
-	check(CardDB.ids("faction").size()==8 and CardDB.ids("group").size()==150 and CardDB.ids("plot").size()==60 and CardDB.ids("resource").size()==15,"8/150/60/15 composition")
+	CardDB.load_all();check(CardDB.cards.size()==275,"All 275 cards loaded")
+	check(CardDB.ids("faction").size()==12 and CardDB.ids("group").size()==170 and CardDB.ids("plot").size()==70 and CardDB.ids("resource").size()==23,"12/170/70/23 composition")
 	check(CardDB.get_card("G099").p==3 and CardDB.get_card("G099").r==4 and CardDB.get_card("G091").gp==0,"Preserved user numeric changes")
 	check(CardDB.get_card("G092").align==["政府"] and "计算机" not in CardDB.get_card("G092").tags and "军队" not in CardDB.get_card("G093").tags,"Preserved user alignment/tag changes")
 	var g=fresh();put(g,"G081",0);put(g,"G028",0,"G081");check(g.has("G028","计算机"),"Musk gives computer to printed Space")

@@ -2,16 +2,79 @@ class_name AiAgent
 extends RefCounted
 ## No GameState reference. This agent receives only a redacted observation.
 
+const Tactics=preload("res://scripts/ai_tactics.gd")
+const Planner=preload("res://scripts/ai_planner.gd")
+var difficulty="normal"
+var planning=true
+var last_plan={}
+var planning_active=false
+var plan_revision=0
+var cancel_mutex=Mutex.new()
+var cancel_requested=false
+var workers: Array=[]
 var rng = RandomNumberGenerator.new()
 
 func _init() -> void:rng.randomize()
 
 func pick(o: Dictionary) -> Dictionary:
-	var actions=o.actions
+	var fallback=heuristic_pick(o)
+	if difficulty=="easy" or not planning or not Planner.applicable(o):return fallback
+	var search=Planner.new(o,difficulty,rng.randi(),heuristic_pick,heuristic_value)
+	while not search.done:
+		if is_cancelled():return {}
+		search.step()
+	last_plan={"nodes":search.visited,"depth":search.max_depth,"samples":search.samples.size()}
+	return search.result(fallback)
+
+func pick_async(o: Dictionary,tree: SceneTree,valid: Callable) -> Dictionary:
+	if difficulty=="easy" or not planning or not Planner.applicable(o):return heuristic_pick(o)
+	# The worker owns its agent, RNG, snapshots and rule models. It never touches UI
+	# or the real game. Joining only after completion keeps rendering responsive.
+	CardDB.load_all()
+	var worker=get_script().new();worker.difficulty=difficulty;worker.rng.seed=rng.randi()
+	var task=Thread.new();var error=task.start(worker.pick.bind(o.duplicate(true)))
+	if error!=OK:return heuristic_pick(o)
+	var job={"thread":task,"agent":worker};workers.append(job)
+	plan_revision+=1;var revision=plan_revision;planning_active=true;var cancelled=false
+	while task.is_alive():
+		if not valid.call():cancelled=true;worker.cancel()
+		await tree.process_frame
+	var command=task.wait_to_finish() if task.is_started() else {}
+	workers.erase(job)
+	if revision==plan_revision:planning_active=false;last_plan=worker.last_plan.duplicate(true)
+	return {} if cancelled or not valid.call() else command
+
+func cancel():
+	cancel_mutex.lock();cancel_requested=true;cancel_mutex.unlock()
+
+func is_cancelled() -> bool:
+	cancel_mutex.lock();var value=cancel_requested;cancel_mutex.unlock();return value
+
+func cancel_all():
+	for job in workers:job.agent.cancel()
+
+func shutdown():
+	cancel_all()
+	for job in workers:
+		if job.thread.is_started():job.thread.wait_to_finish()
+	workers.clear()
+
+func heuristic_value(action: Dictionary,o: Dictionary) -> float:
+	var value=_score(action,o)
+	if difficulty!="easy":value=Tactics.adjusted(action,o,value,difficulty=="hard")
+	if difficulty=="hard":value-=Tactics.defense_reserve(action,o)
+	return value
+
+func heuristic_pick(o: Dictionary) -> Dictionary:
+	var actions=Planner.shortlist(o)
 	if actions.is_empty():return {}
+	if difficulty=="easy" and o.phase=="battle" and rng.randf()<0.24:
+		for a in actions:
+			if a.type=="pass":return a
 	var best=actions[0];var score=-INF
 	for action in actions:
-		var value=_score(action,o)+rng.randf()*0.05
+		var value=heuristic_value(action,o)
+		value+=rng.randf()*(8.0 if difficulty=="easy" else 0.03)
 		if value>score:score=value;best=action
 	return best
 
@@ -34,6 +97,10 @@ func _value(id: String,o: Dictionary) -> float:
 	if faction=="I06" and "地点" in traits:value+=7+int("巨大" in traits)*3
 	if faction=="I07" and ("和平" in traits or "暴力" in traits):value+=6
 	if faction=="I08" and "魔法" in traits:value+=10
+	if faction=="I09" and ("科学" in traits or "太空" in traits):value+=8
+	if faction=="I10" and "暴力" in traits:value+=8
+	if faction=="I11" and "绿色" in traits:value+=9
+	if faction=="I12" and "共产" in traits:value+=9
 	for goal_id in o.get("secret_goals",{}):
 		match goal_id:
 			"P51":value+=6 if "犯罪" in traits else 0
@@ -52,6 +119,7 @@ func _value(id: String,o: Dictionary) -> float:
 func _score(a: Dictionary,o: Dictionary) -> float:
 	if a.type in ["resource","deploy","research"] or (a.type=="plot" and a.id in ResourceRules.PLOTS):return _resource_score(a,o)
 	if a.type=="plot" and CovenantRules.PLOTS.has(a.id):return 1000
+	if (a.type=="ability" and (a.src=="G138" or int(a.src.substr(1))>=151)) or (a.type=="plot" and int(a.id.substr(1))>=62):return _contemporary_score(a,o)
 	if a.type=="ability" and a.get("pacify",false):
 		return 40+_card(a.target,o).p if o.goals[o.player].ratio<1 else -1
 	if a.type in ["trick","militia"] or (a.type=="ability" and int(a.src.substr(1))>=131):return _renewal_score(a,o)
@@ -121,6 +189,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 			if not ours and strength<2:return -2
 			var cost=_value(a.group_fee,o)*0.1 if a.has("group_fee") else 0.0
 			if a.has("plot_fee"):cost+=_plot_value(a.plot_fee,o)*0.2
+			if a.has("resource_fee"):cost+=_value(a.resource_fee,o)*0.3
 			return 4+n*0.4+_value(leader,o)*0.04-cost
 		"rescue":return 24
 		"pass":return 0
@@ -137,7 +206,7 @@ func _placement_value(id: String,parent: String,o: Dictionary) -> float:
 	if parent=="G113" and "太空" in traits:return 5
 	if parent=="G114" and "科学" in traits:return 5
 	if parent=="G119" and "共产" in traits:return 5
-	if parent=="G008" and "政府" in traits and _card(parent,o).gp<_card(parent,o).p:return 4
+	if parent=="G008" and "国家" in traits and _card(parent,o).gp<_card(parent,o).p:return 4
 	if parent=="G017" and c.p<=2:return 8
 	if parent=="G035" and "媒体" in traits:return 6
 	if parent=="G073" and ("企业" in traits or "科学" in traits):return 4
@@ -253,10 +322,6 @@ func _renewal_score(a: Dictionary,o: Dictionary) -> float:
 	if a.type=="militia":return 7+a.power*0.5 if o.battle_values.strength>=2 else -2
 	match a.src:
 		"G135":return 9+_value(a.target,o)*0.1
-		"G138":
-			var own=o.nodes[a.target].owner==o.player
-			if a.attachment=="P45":return -8 if own else 9+_card(a.target,o).gp*2
-			return 7 if own else -8
 		"G141":return 2+_placement_value(a.target,a.src,o)
 		"G144":return 5
 		"G148":return 8-_value(a.fee,o)*0.2
@@ -287,6 +352,10 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		if a.id=="P57":return 17 if owned.size()<2 else 5
 		return 9
 	match a.src:
+		"E17":return 30+_value(a.target,o)*0.2
+		"E19":return 12 if o.battle_values.strength<10 else -4
+		"E22":return (14 if o.hands.plot.size()<3 else 5)-_value(a.target,o)*0.3
+		"E23":return 8+o.battle_values.loyalty if o.battle_values.strength<10 else -4
 		"E01":return 8 if o.battle_values.strength<10 else -3
 		"E07":return 13 if o.battle_values.strength>=2 else -3
 		"E02":return 18+_value(a.target,o)*0.1
@@ -299,3 +368,31 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		"G091":return 13-_value(a.fee,o)*0.2
 		"G093":return 17
 	return -2
+
+func _contemporary_score(a: Dictionary,o: Dictionary) -> float:
+	if a.type=="resource":return 30+_value(a.target,o)*0.2 if a.src=="E17" else (12 if o.battle_values.strength<10 else -4)
+	if a.type=="ability":
+		match a.src:
+			"G138":return 12-(_plot_value(a.target,o)*0.75 if a.target.begins_with("P") else _value(a.target,o)*0.4)
+			"G151","G168":return 9
+			"G155":return 5 if o.nodes[a.target].token>0 else -2
+			"G157":return 12
+			"G159":return 18+_value(a.target,o)*0.2-_value(a.other,o)*0.4
+			"G162":return 12+_value(a.target,o)*0.3-_value(a.fee,o)*0.2
+			"G164":return 15+_value(a.target,o)*0.3
+	if a.type=="plot":
+		match a.id:
+			"P62":
+				var balance=0
+				for k in o.nodes:
+					if "保守" in _card(k,o).align:balance+=1 if o.nodes[k].owner==o.player else -1
+				return balance*4-1
+			"P63":return 4 if o.hands.resource.size()>0 else 1
+			"P64":var v=o.previews.get(JSON.stringify(a),{});return v.get("chance",0.0)*(_value(a.target,o)+15)-5
+			"P65":return 8 if a.target in ["E01","E06","E11"] else 2
+			"P66":return 25+_value(a.target,o)
+			"P67":return 5+_card(a.target,o).gp*2
+			"P68":return 30+_value(a.target,o)*0.4
+			"P69":return 3+a.backlash if o.battle_values.strength in range(2,15) else -3
+			"P70":return _plot_value(a.target,o)-2
+	return -4

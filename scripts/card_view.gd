@@ -52,6 +52,8 @@ func _process(delta: float) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index==MOUSE_BUTTON_WHEEL_UP or event.button_index==MOUSE_BUTTON_WHEEL_DOWN:
+			# Only board cards own the wheel; readers and catalog cards pass it to scrolling parents.
+			if wheel_zoom.get_connections().is_empty():return
 			if event.pressed:wheel_zoom.emit(1.12 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.0/1.12,get_global_mouse_position())
 			accept_event();return
 		if event.button_index==MOUSE_BUTTON_LEFT:
@@ -110,6 +112,7 @@ func _draw() -> void:
 		if n.get("devastated",false):draw_rect(Rect2(6,32,36,23),Color("7d3931"));_text("Dev" if GameLocale.english() else "灾",Vector2(12,49),15,Color("ffe1bf"))
 		elif n.get("prepared",false):draw_rect(Rect2(6,32,36,23),Color("205b56"));_text("Prep" if GameLocale.english() else "备",Vector2(10,49),12 if GameLocale.english() else 15,Color("9affe1"))
 		draw_circle(Vector2(size.x-14,14),7,action_color)
+		if state.action_limit(id)>1:_text(str(n.token),Vector2(size.x-18,18),11,Color("142b29"))
 		draw_arc(Vector2(size.x-14,14),9,0,TAU,24,gold,1,true)
 		var slots=state.stat(id,"slots");var occupied=state.children(id).size()
 		for i in slots:draw_circle(Vector2(size.x/2.0+(i-(slots-1)/2.0)*12,size.y-5),3,Color("ddbd78") if i<occupied else Color("455b54"))

@@ -28,16 +28,6 @@ func can_swap(a: String,b: String) -> bool:
 	var capacity=mini(3,int(g.card(parent).slots)+int("P19" in g.nodes[parent].attached))
 	return not housing_bonus(parent) or g.children(parent).size()<=capacity
 
-func attachment_ok(id: String,target: String) -> bool:
-	if id in g.nodes[target].attached:return false
-	match id:
-		"P19":return g.card(target).slots<3 and g.stat(target,"slots")<3
-		"P27":return g.card(target).p<=3
-		"P39":return g.has(target,"名人")
-		"P44":return g.has(target,"名人")
-		"P45":return g.has(target,"企业") or g.has(target,"银行")
-	return id in ["P26","P27"]
-
 func ability_actions(src: String,p: int) -> Array:
 	var out: Array=[]
 	if not g.wave.available(src,p) or g.used.has(src):return out
@@ -46,12 +36,6 @@ func ability_actions(src: String,p: int) -> Array:
 		"G135":
 			for target in g.groups(p):
 				if g.stat(target,"p")<=2 and (g.has(target,"自由") or g.has(target,"狂热")):out.append(g._a("ability","革命课堂 → "+g.title(target),{"src":src,"target":target}))
-		"G138":
-			for target in g.groups(p):
-				for attachment in g.nodes[target].attached:
-					if not g.synergy.can_detach(target,attachment):continue
-					for other in g.groups(p)+(g.groups(1-p) if g.can_enemy(p) else []):
-						if other!=target and attachment_ok(attachment,other):out.append(g._a("ability","秘宝转手 · %s → %s"%[g.title(attachment),g.title(other)],{"src":src,"target":other,"other":target,"attachment":attachment}))
 		"G141":
 			for target in g.groups(p):
 				if g.has(target,"太空") and g.can_parent(src,target):out.append(g._a("ability","轨道接驳 → "+g.title(target),{"src":src,"target":target}))
@@ -71,7 +55,7 @@ func plot_costs(p: int) -> Array:
 
 func uses_grain(a: Dictionary) -> bool:
 	var id=""
-	if a.type=="ability" and a.src in ["G015","G102"]:id=a.target
+	if a.type=="ability" and a.src in ["G015","G102","G138"]:id=a.target
 	elif a.type=="support":id=a.get("plot_fee","")
 	elif a.type=="plot" and a.id=="P50":id=a.fee
 	elif a.type=="trick":id=a.fee
@@ -102,6 +86,7 @@ func augment_actions(p: int,out: Array) -> Array:
 	return out
 
 func support_override(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
+	if d.basis=="—":return d
 	if not normal(b):return d
 	if g.owner(id)==b.attacker and b.get("solo",false):return {"base":0,"basis":"—","reason":"孤军破袭 · 无进攻支援"}
 	if g.owner(id)==b.attacker and b.get("army_gp_only",false) and g.has(id,"军队"):
@@ -160,7 +145,6 @@ func handle(p: int,a: Dictionary) -> bool:
 		if a.src not in ["G141","G148"]:g.nodes[a.src].token=0
 		match a.src:
 			"G135":g.nodes[a.target].learned=g.nodes[a.target].get("learned",0)+1
-			"G138":g.nodes[a.other].attached.erase(a.attachment);g.nodes[a.target].attached.append(a.attachment)
 			"G141":g.nodes[a.target].parent=a.src
 			"G144":
 				var options: Array=[]
