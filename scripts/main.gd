@@ -631,9 +631,19 @@ func _choice_overlay() -> void:
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",20);scroll.add_child(row)
 	row.size_flags_vertical=Control.SIZE_SHRINK_BEGIN
+	if c.kind=="n_contact":
+		scroll.size.y-=55
+		var skip_action=game.legal_actions(0).filter(func(a):return a.id=="")[0]
+		var skip=_button("全部放回" if c.options.is_empty() else "跳过",func():_do_action(0,skip_action),p);skip.name="ContactReturn";skip.position=Vector2(28,p.size.y-70);skip.size=Vector2(180,48)
 	var card_height=minf(540,scroll.size.y-65);var card_width=minf(290,card_height*0.54)
 	var actions=game.legal_actions(0)
-	var items=c.peek+[""] if c.kind in ["nasa","japan","n_relic","n_divine"] else actions.map(func(a):return a.id)
+	if c.kind=="n_inside":
+		var v=CardView.new();v.name="InsideJobCard";v.configure(c.revealed_card,game,true);v.custom_minimum_size=Vector2(card_width,card_height);row.add_child(v);v.inspected.connect(_inspect);v.selected.connect(_inspect)
+		var modes=VBoxContainer.new();modes.add_theme_constant_override("separation",16);modes.custom_minimum_size.x=minf(380,scroll.size.x-card_width-20);row.add_child(modes)
+		for a in actions:
+			var choose=_button(a.label,func():_do_action(0,a),modes,true);choose.name="InsideJobTop" if a.id=="top" else "InsideJobBottom";choose.custom_minimum_size.y=70
+		return
+	var items=c.peek if c.kind=="n_contact" else (c.peek+[""] if c.kind in ["nasa","japan","n_relic","n_divine"] else actions.map(func(a):return a.id))
 	for id in items:
 		var matching=actions.filter(func(a):return a.id==id)
 		var a=matching[0] if not matching.is_empty() else {}
@@ -645,7 +655,7 @@ func _choice_overlay() -> void:
 			var choose=_button("选择",func():_do_action(0,a),column,true);choose.custom_minimum_size.y=55
 		else:
 			if c.kind!="n_divine":v.modulate=Color("a3ada6")
-			var unavailable=_button("仅查看 · 原序放回" if c.kind=="n_divine" else ("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底"),func():pass,column);unavailable.disabled=true
+			var unavailable=_button("仅查看 · 原序放回" if c.kind=="n_divine" else ("非太空 · 洗回" if c.kind=="n_contact" else ("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底")),func():pass,column);unavailable.disabled=true
 
 func _battle_overlay() -> void:
 	var b=game.battle;var v=game.battle_values();var width=minf(1320,size.x-100);var height=minf(680,size.y-170)
@@ -807,7 +817,7 @@ func _card_context_text(id: String) -> String:
 	if n.parent=="G133" and game.renewal.ready("G133") and game.has(id,"共产"):lines.append("自治工厂 · 直属共产下属 P+2。")
 	if game.renewal.housing_bonus(id):lines.append("社区住房合作社 · 本团体下属槽+1，上限3。")
 	if id=="G145" and game.renewal.ready(id) and game.renewal.unused(id) and game.token(id):lines.append("民兵动员 · 可免标记自卫 +%d。"%game.stat(id,"p"))
-	if n.get("silenced",false):lines.append("公关危机 · 本回合卡面能力失效。")
+	if n.get("silenced",false):lines.append("本回合卡面能力失效。")
 	if id=="G088":lines.append("训练 %d / 2"%n.get("training",0))
 	if id=="G119" and game.synergy.ready(id):lines.append("联合生产 · 直属共产下属提供P+%d（上限2）。"%mini(2,game.children(id).filter(func(k):return game.has(k,"共产")).size()))
 	if id=="G008" and game.wave.enabled(id):lines.append("联合协作 · 直属国家下属%d个。"%game.children(id).filter(func(k):return game.has(k,"国家")).size())
@@ -820,7 +830,7 @@ func _card_context_text(id: String) -> String:
 		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.disaster_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
 		if game.wave.enabled("G030",context.owner):lines.append("国际气象组织 · 灾难防御+5。")
 		if game.resources.ready("E03",context.owner):lines.append("防灾卫星 · 灾难防御+3。")
-		if game.wave.devastated(id) and game.has(id,"巨大") and game.resources.ready("E14",context.owner):lines.append("重型抢修车 · 重建只需1行动。")
+		if game.wave.devastated(id) and game.has(id,"巨大") and game.resources.ready("E14",context.owner):lines.append("重型抢修车 · 重建只需1行动，完成后抽1张团体。")
 	if n.get("debt",false):lines.append("借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。")
 	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+%d，不超过有效P。"%n.ad_gp)
 	if n.get("compute",false):lines.append("本回合GP等于有效P。")

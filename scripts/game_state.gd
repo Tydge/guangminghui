@@ -114,7 +114,7 @@ func is_root(id: String) -> bool: return id.begins_with("R")
 func field(p: int) -> Array: return nodes.keys().filter(func(id): return nodes[id].owner == p and card(id).kind!="resource")
 func groups(p: int) -> Array: return field(p).filter(func(id): return not is_root(id))
 func children(id: String) -> Array: return nodes.keys().filter(func(k): return nodes[k].parent == id)
-func action_limit(id: String) -> int:return 2 if is_root(id) and factions[owner(id)]=="I09" else 1
+func action_limit(_id: String) -> int:return 1
 func self_power(id: String) -> int:return stat(id,"p")*2+contemporary.self_bonus(id)
 func spend(id: String) -> void:nodes[id].token=maxi(0,int(nodes[id].token)-1)
 func token(id: String) -> bool: return nodes.has(id) and nodes[id].token > 0 and not wave.devastated(id)
@@ -506,7 +506,6 @@ func support_detail(id: String,b: Dictionary) -> Dictionary:
 	if id=="G007" and p==b.attacker and b.mode=="destroy":value+=2
 	if id=="G068" and p==b.defender and has(b.target,"科学"):value+=2
 	if id=="G075" and p==b.defender and has(b.target,"自由"):value+=4;reason+=" · 法国防守自由目标 +4"
-	if id=="G050":value+=mini(2,children(id).filter(func(k):return has(k,"怪异")).size())
 	return resources.support_detail(id,wave.support_detail(id,b,{"id":id,"power":value,"basis":"P" if full else "GP","reason":reason,"base":base,"extra":value-base}))
 
 func support_power(id: String,b: Dictionary) -> int:return support_detail(id,b).power
@@ -623,7 +622,6 @@ func battle_values(b: Dictionary = {}) -> Dictionary:
 		if src=="G053":ability+=2
 		if src=="G019" and has(target,"绿色"):ability+=2
 		if src=="G027" and has(target,"科学"):ability+=2
-		if src=="G057" and has(target,"和平"):ability+=2
 		if src=="G079" and has(target,"犯罪"):ability+=2
 	var strength=attack+alignment+ability+b.get("support_a",0)+b.get("bonus_a",0)-base-loyalty-position-defense-b.get("support_d",0)-b.get("bonus_d",0)-b.get("self",0)
 	var chance=0
@@ -957,7 +955,7 @@ func _complete_end() -> void:
 	for p in [0,1]:
 		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p),{"kind":"elimination"});return
 	for id in nodes:
-		nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support")
+		nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support");nodes[id].erase("pr_crisis");nodes[id].erase("battery_power")
 		nodes[id]["silenced"]=false;nodes[id]["flip"]=false;nodes[id]["ad_gp"]=0;nodes[id]["compute"]=false
 	used["renewal:cleanup"]=true
 	_complete_end()
@@ -996,11 +994,11 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
-	if choice.get("kind","") in ["e_probe","n_probe","n_relic","n_divine"]:locations.append_array(choice.peek)
+	if choice.get("kind","") in ["e_probe","n_probe","n_relic","n_divine","n_contact"]:locations.append_array(choice.peek)
 	if choice.get("kind","")=="x_overflow":
 		var held=choice.saved_choice
 		if held.get("kind","") in ["draw_keep","reorder"]:locations.append_array(held.options);locations.append_array(held.get("order",[]))
-		if held.get("kind","") in ["nasa","japan","w_draft","e_probe","n_probe","n_relic","n_divine"]:locations.append_array(held.peek)
+		if held.get("kind","") in ["nasa","japan","w_draft","e_probe","n_probe","n_relic","n_divine","n_contact"]:locations.append_array(held.peek)
 	var seen: Dictionary={}
 	for id in locations:
 		if seen.has(id):errors.append("Duplicate "+id)

@@ -22,7 +22,6 @@ func opening_score(id: String,p: int) -> float:
 	if id=="E14" and g.groups(p).any(func(k):return g.has(k,"巨大")):value+=6
 	if id=="E09" and g.groups(p).any(func(k):return g.has(k,"沿海")):value+=6
 	if id=="E11" and g.groups(p).any(func(k):return g.stat(k,"p")>g.stat(k,"gp")+2):value+=6
-	if id=="E13" and not g.hands[p].resource.any(func(k):return "秘宝" in g.card(k).tags):value-=4
 	return value
 func reroll(p: int) -> void:
 	var pool=g.resource_candidates[p].duplicate()
@@ -44,11 +43,11 @@ func repair_hand() -> bool:
 func refill(p: int) -> void:
 	for id in field(p):g.nodes[id].token=1 if g.card(id).action else 0
 func remove(id: String) -> void:
-	var p=g.owner(id);var relic="秘宝" in g.tags(id)
+	var p=g.owner(id)
 	g.nodes.erase(id);g.scrap.append(id);g._flow(id,"board","scrap",p)
-	if relic and ready("E13",p) and not g.used.has("e_museum:%d"%p):
+	if ready("E13",p) and not g.used.has("e_museum:%d"%p):
 		g.used["e_museum:%d"%p]=true
-		var task={"kind":"draw","source":"E13","player":p,"deck":"plot","amount":1,"message":"私人博物馆 · 抽1张阴谋"}
+		var task={"kind":"draw","source":"E13","player":p,"deck":"plot","amount":2,"message":"私人博物馆 · 抽2张阴谋"}
 		if g.battle.is_empty():g.wave.defer(task)
 		else:g.wave.response_queue.append(task)
 func entry_reward(p: int) -> void:
@@ -110,9 +109,9 @@ func augment_actions(p: int,out: Array) -> Array:
 			match id:
 				"E02":
 					for target in g.groups(p):
-						if g.can_recharge(target):out.append(g._a("resource","应急电池 · 报废，恢复1行动",{"src":id,"target":target}))
+						if g.can_recharge(target):out.append(g._a("resource","应急电池 · 恢复1行动，本回合P+2 · 报废",{"src":id,"target":target}))
 				"E06":
-					if not g.decks.group.is_empty() or not g.discards.group.is_empty():out.append(g._a("resource","量子计算机 · 抽2弃1团体",{"src":id}))
+					if not g.decks.group.is_empty() or not g.discards.group.is_empty():out.append(g._a("resource","量子计算机 · 抽2张团体，保留1张",{"src":id}))
 				"E08":
 					if can_draw(p) and not g.decks.resource.is_empty():out.append(g._a("resource","深空探测器 · 查看资源堆顶3张",{"src":id}))
 				"E11":
@@ -127,10 +126,10 @@ func augment_actions(p: int,out: Array) -> Array:
 		if not b.has("disaster"):
 			if can_evacuate(p):out.append(g._a("resource","安全屋 · 整支回手，取消攻击 · 报废",{"src":"E16","target":b.target}))
 			var opposing="support_d" if p==b.attacker else "support_a"
-			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-4 · 报废",{"src":"E12","target":b.target}))
+			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-6 · 报废",{"src":"E12","target":b.target}))
 			if ready("E15",p) and b.get("fixed_dice",[])!=[3,4]:out.append(g._a("resource","命运硬币 · 骰点固定3＋4 · 报废",{"src":"E15","target":b.target}))
 			if p==b.attacker and ready("E01",p) and g.token("E01"):out.append(g._a("resource","战术雷达 · 强度+2 · 花资源1行动",{"src":"E01","target":b.target}))
-			if p==b.defender and b.mode=="destroy" and ready("E07",p):out.append(g._a("resource","凤凰护符 · 防御+6 · 报废资源",{"src":"E07","target":b.target}))
+			if p==b.defender and b.mode=="destroy" and ready("E07",p):out.append(g._a("resource","凤凰护符 · 防御+8 · 报废资源",{"src":"E07","target":b.target}))
 	return out
 func plot_actions(id: String,p: int) -> Array:
 	var out: Array=[]
@@ -173,13 +172,17 @@ func handle(p: int,a: Dictionary) -> bool:
 			match src:
 				"E11":g.nodes[target].compute=true
 				"E12":
-					remove(src);var opposing="support_d" if p==g.battle.attacker else "support_a";g.battle[opposing]=maxi(0,g.battle[opposing]-4)
+					remove(src);var opposing="support_d" if p==g.battle.attacker else "support_a";g.battle[opposing]=maxi(0,g.battle[opposing]-6)
 				"E15":remove(src);g.battle.fixed_dice=[3,4]
 				"E01":g.battle.bonus_a+=2
-				"E02":remove(src);g.nodes[target].token=1;g.recharged[target]=true
+				"E02":remove(src);g.nodes[target].token=1;g.nodes[target].battery_power=2;g.recharged[target]=true
 				"E06":
-					g._draw(p,"group");g._draw(p,"group");g._set_choice(p,"量子计算机 · 弃1张团体",g.hands[p].group,"e_discard")
-				"E07":remove(src);g.battle.bonus_d+=6
+					var cards: Array=[]
+					for i in 2:
+						var drawn=g._draw(p,"group")
+						if drawn!="":cards.append(drawn)
+					if not cards.is_empty():g._set_choice(p,"量子计算机 · 保留1张团体",cards,"e_keep",{"new_cards":cards})
+				"E07":remove(src);g.battle.bonus_d+=8
 				"E08":
 					probe(p,3,true)
 				"E10":g.nodes[target].parent=a.parent
@@ -190,6 +193,9 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="choose" and g.choice.get("kind","").begins_with("e_"):
 		var c=g.choice;g.choice={};g.phase="main"
 		if c.kind in ["e_discard","e_limit"]:g._discard(p,a.id)
+		elif c.kind=="e_keep":
+			for id in c.new_cards:
+				if id!=a.id:g._discard(p,id)
 		elif c.kind=="e_probe":
 			if a.id!="":g.hands[p][g.card(a.id).kind].append(a.id);g._flow(a.id,"choice","hand",p)
 			for id in c.peek:

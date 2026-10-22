@@ -10,8 +10,8 @@ const FACTIONS={
 	"I06":{"traits":["地点"],"groups":5,"huge":2,"power":30},
 	"I07":{"traits":["和平"],"groups":6,"power":25},
 	"I08":{"traits":["魔法"],"groups":5,"power":24},
-	"I09":{"traits":["太空"],"groups":5,"power":25},
-	"I10":{"traits":["暴力"],"groups":5,"power":27},
+	"I09":{"traits":["太空"],"groups":6,"power":28},
+	"I10":{"traits":["暴力"],"groups":6,"power":28},
 	"I11":{"traits":["绿色"],"groups":5,"power":24},
 	"I12":{"traits":["共产"],"groups":5,"power":25}
 }

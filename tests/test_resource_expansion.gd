@@ -25,7 +25,7 @@ func _initialize() -> void:
 	g.battle.support_a=3;apply(g,1,"resource",{"src":"E12"});check(g.battle.support_a==0 and "E12" in g.scrap,"Decoy subtracts support with zero floor and scraps itself")
 	g=fresh();put(g,"E13",1);put(g,"E07",1);put(g,"G043");put(g,"G023",1);apply(g,0,"attack",{"src":"G043","target":"G023","mode":"destroy"});apply(g,1,"resource",{"src":"E07"})
 	check(g.choice.get("source","")=="E13" and g.hands[1].plot.is_empty(),"Museum trigger waits until amulet scrap settles")
-	apply(g,1,"trigger",{"src":"E13"});check(g.hands[1].plot.size()==1 and g.phase=="battle","Museum grants plot during opponent turn then resumes battle")
+	apply(g,1,"trigger",{"src":"E13"});check(g.hands[1].plot.size()==2 and g.phase=="battle","Museum grants two Plots during opponent turn then resumes battle")
 	g=fresh();put(g,"E14");put(g,"G071");g.nodes.G071.devastated=true;g.nodes.G071.token=0
 	check(not action(g,0,"rebuild",{"target":"G071","payers":["R0"]}).is_empty(),"Repair vehicle permits one action to rebuild huge place")
 	g.nodes.E14.silenced=true;check(action(g,0,"rebuild",{"target":"G071","payers":["R0"]}).is_empty(),"Blocked repair vehicle cannot reduce reconstruction cost")

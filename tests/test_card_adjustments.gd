@@ -2,15 +2,15 @@ extends "res://tests/test_contemporary.gd"
 
 func run():
 	var g=fresh("I09")
-	check(g.stat("R0","p")==4 and g.stat("R0","gp")==2,"Edited UFO printed stats reach the root")
-	var science=CardDB.ids("group").filter(func(k):return "科学" in g.card(k).tags and "太空" not in g.card(k).tags).slice(0,5)
+	check(g.stat("R0","p")==7 and g.stat("R0","gp")==3,"Edited UFO printed stats reach the root")
+	var science=CardDB.ids("group").filter(func(k):return "科学" in g.card(k).tags and "太空" not in g.card(k).tags).slice(0,6)
 	for id in science:put(g,id);g.nodes[id].learned=10
 	check(g.goal(0).values.groups==0 and not g.goal(0).met,"Science without Space no longer advances the UFO goal")
 	for id in science:g.synergy.add_tag(id,"太空")
-	check(g.goal(0).met,"Five Space groups satisfy the edited UFO goal when power is sufficient")
+	check(g.goal(0).met,"Six Space groups satisfy the edited UFO goal when power is sufficient")
 	for id in ["I08","I09","I10","I11","I12"]:
-		var expected={"I08":24,"I09":25,"I10":27,"I11":24,"I12":25}
-		check(CovenantRules.FACTIONS[id].groups==5 and CovenantRules.FACTIONS[id].power==expected[id],"Edited shared faction evaluator "+id)
+		var expected={"I08":24,"I09":28,"I10":28,"I11":24,"I12":25}
+		check(CovenantRules.FACTIONS[id].groups==(6 if id in ["I09","I10"] else 5) and CovenantRules.FACTIONS[id].power==expected[id],"Edited shared faction evaluator "+id)
 	check(g.card("G071").align==["政府","正统"] and g.card("G153").align==["政府","正统"],"China and Xi alignments match the table")
 	check(g.card("G156").name=="高档沙龙" and g.card("G156").p==3 and g.card("G156").align==["正统"],"Luxury Salon preserves its edited printed data")
 	# A private read-only view neither takes a card nor changes deck order/RNG.
@@ -56,10 +56,10 @@ func run():
 	check(action(g,0,"plot",{"id":"P66"}).is_empty(),"A ready root alone cannot pay for Airlift")
 	put(g,"G043");give(g,"P15",1);apply(g,0,"plot",{"id":"P66","payer":"G043"});apply(g,1,"counter")
 	check(not g.token("G043") and g.token("R0") and not g.deploy_used and not g.auto_used and "E01" in g.hands[0].resource,"Countered Airlift spends its Group fee without deploying or taking over")
-	# Inside Job moves one exposed card to the exact top, without a draw or shuffle.
+	# Inside Job privately selects a random card, then moves it without a draw or shuffle.
 	g=fresh();give(g,"P70");give(g,"P13",1);g.exposed.append("P13");g.locked.append("P13");rng_before=g.rng.state;deck=g.decks.plot.duplicate()
-	apply(g,0,"plot",{"id":"P70","target":"P13"})
-	check(g.decks.plot==["P13"]+deck and g.hands[1].plot.is_empty() and g.rng.state==rng_before,"Inside Job puts the card first without replacement or randomization")
+	apply(g,0,"plot",{"id":"P70"});rng_before=g.rng.state;apply(g,0,"choose",{"id":"top"})
+	check(g.decks.plot==["P13"]+deck and g.hands[1].plot.is_empty() and g.rng.state==rng_before,"Inside Job puts the selected card first without replacement or shuffling")
 	check("P13" not in g.exposed and "P13" not in g.locked,"Inside Job clears hand-only statuses")
 	# Capacity governs hands only. Full hands reject voluntary draws before fees.
 	g=fresh();put(g,"G091");put(g,"G138");give(g,"G043");give(g,"P10");give(g,"E01");give(g,"E02")

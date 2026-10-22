@@ -17,11 +17,14 @@ func tenant_alignments(id: String) -> Array:
 func adjust_stat(id: String,key: String,value: int) -> int:
 	if not g.nodes.has(id):return value
 	if key=="p":
+		value+=int(g.nodes[id].get("battery_power",0))
 		if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):value+=1
 		if id=="G169" and ready(id) and tenant_alignments(id).size()>=5:value+=3
 	if key in ["gp","r"] and g.world=="P62" and g.has(id,"保守"):value+=1
-	if key=="r" and g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):value+=1
-	if key=="gp":value=mini(value,g.stat(id,"p",true))
+	if key=="r" and g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):value+=2
+	if key=="gp":
+		if id=="G050" and ready(id):value+=mini(2,g.children(id).filter(func(k):return g.has(k,"怪异")).size())
+		value=0 if g.nodes[id].get("pr_crisis",false) or "P45" in g.nodes[id].attached else mini(value,g.stat(id,"p",true))
 	return value
 func support_override(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	var p=g.owner(id)
@@ -37,13 +40,17 @@ func support_bonus(id: String,b: Dictionary) -> int:
 func self_bonus(id: String) -> int:
 	return 3 if g.nodes[id].parent=="G158" and ready("G158") and g.has(id,"共产") else 0
 func values(b: Dictionary,v: Dictionary) -> Dictionary:
+	if normal(b) and b.src=="G057" and ready("G057") and b.mode=="control" and g.has(b.target,"暴力"):v.ability+=2;v.strength+=2
 	if normal(b) and b.src=="G166" and ready("G166") and b.mode=="destroy":
 		var amount=mini(3,v.position);v.position-=amount;v.strength+=amount
 	if normal(b) and b.get("silent_reaction",false) and v.alignment>4:v.strength-=v.alignment-4;v.alignment=4
 	if b.get("ignore_loyalty",false):v.strength+=v.loyalty;v.loyalty=0
 	return v
 func augment_actions(p: int,out: Array) -> Array:
+	if g.phase=="choice" and g.choice.get("kind","")=="n_inside" and g.choice.player==p:
+		return [g._a("choose","放到阴谋堆顶",{"id":"top"}),g._a("choose","放到阴谋堆底",{"id":"bottom"})]
 	if g.phase=="main" and g.current==p:
+		if g.factions[p]=="I09":out.append_array(ability_actions(g.root(p),p))
 		if ready("E17",p) and g.token("E17"):
 			for target in g.groups(p):
 				if g.wave.devastated(target) and not g.has(target,"巨大"):out.append(g._a("resource","移动医疗站 · 重建 → "+g.title(target),{"src":"E17","target":target}))
@@ -80,6 +87,9 @@ func ability_actions(src: String,p: int) -> Array:
 	var out: Array=[]
 	if not g.wave.available(src,p) or (src!="G159" and not g.token(src)) or g.used.has(src):return out
 	var targets: Array=[]
+	if g.is_root(src) and g.factions[p]=="I09":
+		if g.resources.deck_available("group"):out.append(g._a("ability","第三类接触 · 查看团体堆顶5张",{"src":src,"target":""}))
+		return out
 	match src:
 		"G138":
 			if g.resources.can_draw(p) and g.resources.deck_available("resource"):targets=g.renewal.plot_costs(p).duplicate()
@@ -115,7 +125,7 @@ func plot_actions(id: String,p: int) -> Array:
 					for payer in g.groups(p).filter(func(k):return g.token(k) and g.has(k,"魔法")):out.append(g._a("plot","符箓封印 → "+g.title(target),{"id":id,"src":id,"target":target,"payer":payer}))
 		"P68":targets=g.groups(p).filter(func(k):return g.has(k,"地点") and g.has(k,"绿色") and g.wave.devastated(k))
 		"P70":
-			if g.can_enemy(p):targets=g.hands[1-p].plot.filter(func(k):return k in g.exposed)
+			if g.can_enemy(p) and not g.hands[1-p].plot.is_empty():targets=[""]
 	for target in targets:out.append(g._a("plot",g.title(id)+(" → "+g.title(target) if target!="" else ""),{"id":id,"src":id,"target":target}))
 	return out
 func media_count(p: int,b: Dictionary) -> int:return b.paid.filter(func(k):return g.owner(k)==p and g.has(k,"媒体")).size()
@@ -126,6 +136,11 @@ func peek(p: int,n: int,kind: String,public: bool=false):
 	var cards=g._take(p,"resource",n)
 	if not cards.is_empty():g._set_choice(p,"选择1张资源加入手牌",cards,"n_probe",{"peek":cards,"return_kind":kind,"public":public})
 func handle(p: int,a: Dictionary) -> bool:
+	if a.type=="ability" and g.is_root(a.src) and g.factions[p]=="I09":
+		g.spend(a.src);g.used[a.src]=true
+		var cards=g._take(p,"group",5)
+		g._set_choice(p,"第三类接触 · 可取1张太空团体",cards.filter(func(k):return g.has(k,"太空")),"n_contact",{"peek":cards},true)
+		g._log(g._who(p)+" · 第三类接触","ability",{"id":a.src,"player":p});g._after_effect();return true
 	if a.type=="ability" and a.src in ["G138","G151","G155","G157","G159","G162","G164","G168"]:
 		if a.src!="G159":g.spend(a.src)
 		g.used[a.src]=true
@@ -162,6 +177,18 @@ func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="choose" and g.choice.get("kind","").begins_with("n_"):
 		var c=g.choice.duplicate(true);g.choice={};g.phase="main"
 		match c.kind:
+			"n_contact":
+				if a.id!="":g.hands[p].group.append(a.id);g._flow(a.id,"choice","hand",p)
+				for id in c.peek:
+					if id!=a.id:g.decks.group.append(id);g._flow(id,"choice","deck",p)
+				g._shuffle(g.decks.group)
+			"n_inside":
+				var victim=1-p;var id=c.revealed_card
+				g.hands[victim].plot.erase(id);g.exposed.erase(id);g.locked.erase(id)
+				if a.id=="top":g.decks.plot.push_front(id)
+				else:g.decks.plot.append(id)
+				g._flow(id,"hand","deck",victim)
+				g._log(g._who(p)+" · 组织渗透 · "+("放到阴谋堆顶" if a.id=="top" else "放到阴谋堆底"),"ability",{"id":"P70","player":p})
 			"n_divine":
 				for i in range(c.peek.size()-1,-1,-1):g.decks.plot.push_front(c.peek[i])
 			"n_probe":
@@ -192,7 +219,8 @@ func resolve_plot(a: Dictionary) -> bool:
 		"P68":g.wave.rebuild(a.target);g.nodes[a.target].prepared=true
 		"P69":g.battle["bonus_d" if p==g.battle.attacker else "bonus_a"]-=a.backlash
 		"P70":
-			g.hands[1-p].plot.erase(a.target);g.exposed.erase(a.target);g.locked.erase(a.target);g.decks.plot.push_front(a.target);g._flow(a.target,"hand","deck",1-p)
+			var hand=g.hands[1-p].plot
+			if not hand.is_empty():g._set_choice(p,"组织渗透 · 选择放回位置",[],"n_inside",{"revealed_card":hand[g.rng.randi_range(0,hand.size()-1)]})
 	if a.id not in ["P62","P63"]:g._spent_plot(a.id)
 	g.wave.plot_rewards(p,a.id,a)
 	if not g.battle.is_empty():g._response_changed(p)
@@ -223,17 +251,21 @@ func trigger(task: Dictionary):
 		if not options.is_empty():g._set_choice(p,"共同仓储 · 可恢复1个共产团体",options,"n_recharge",{},true)
 func reader(id: String) -> Array:
 	var out: Array=[]
+	if g.nodes[id].get("pr_crisis",false):out.append("公关危机 · 本回合GP=0。")
+	if g.nodes[id].get("battery_power",0)>0:out.append("应急电池 · 本回合P+2。")
+	if id=="G050" and ready(id):out.append("信众合唱 · GP+%d。"%mini(2,g.children(id).filter(func(k):return g.has(k,"怪异")).size()))
 	if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):out.append("形象塑造 · 来自高档沙龙的P+1。")
 	if id=="G169":
 		out.append("多元合租 · 直属下属阵营 %d / 5"%tenant_alignments(id).size())
 		if ready(id) and tenant_alignments(id).size()>=5:out.append("多元合租 · P+3已生效。")
 	if g.nodes[id].get("no_support",false):out.append("符箓封印 · 本回合不能支援，仍可自卫。")
 	if g.nodes[id].get("rally",false):out.append("红帽集会 · 本回合增加狂热。")
-	if g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):out.append("符箓庇护 · R+1。")
+	if g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):out.append("符箓庇护 · R+2。")
 	if g.nodes[id].parent=="G153" and ready("G153") and g.has(id,"共产"):out.append("集中统筹 · 支援可用P。")
 	if id in ["G165","G167","E20","R0","R1"]:
 		var quota={"G165":"open_blueprints","G167":"recruitment_spiral","E20":"community_solar"}.get(id,"")
 		if id.begins_with("R"):
 			quota="collective_stores" if g.card(id).id=="I12" else ""
+			if g.card(id).id=="I09":quota=id
 		if quota!="" and g.used.has(quota):out.append("本回合触发次数已用。")
 	return out

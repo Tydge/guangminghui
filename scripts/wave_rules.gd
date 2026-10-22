@@ -116,7 +116,7 @@ func main_plots(id: String,p: int) -> Array:
 					for actor in actors:out.append(g._a("plot",g.title(id)+" → "+g.title(target)+" · "+g.title(actor)+"策动",{"id":id,"src":id,"target":target,"payer":actor}))
 	elif id in ["P36","P37"]:targets=[""]
 	elif id=="P38" and g.can_enemy(p):
-		for target in g.groups(1-p).filter(func(k):return g.has(k,"名人") and not g.nodes[k].get("silenced",false)):
+		for target in g.groups(1-p).filter(func(k):return g.has(k,"名人") and (not g.nodes[k].get("silenced",false) or not g.nodes[k].get("pr_crisis",false))):
 			for actor in actors.filter(func(k):return g.has(k,"媒体")):out.append(g._a("plot","公关危机 → "+g.title(target)+" · "+g.title(actor)+"行动",{"id":id,"src":id,"target":target,"payer":actor}))
 	elif id=="P39":targets=g.groups(p).filter(func(k):return g.has(k,"名人"))
 	elif id=="P41":
@@ -276,8 +276,10 @@ func set_world(id: String) -> void:
 	if g.world!="":g.discards.plot.push_front(g.world)
 	g.world=id
 func rebuild(target: String) -> void:
+	var was_devastated=devastated(target)
 	g.nodes[target].devastated=false
 	var p=g.owner(target)
+	if was_devastated and g.has(target,"巨大") and g.resources.ready("E14",p):defer({"kind":"draw","source":"E14","player":p,"deck":"group","amount":1,"message":"重型抢修车 · 抽1张团体"})
 	if p==g.current and enabled("G094",p) and once("G094"):
 		var options=g.groups(p).filter(func(k):return g.has(k,"绿色") and g.can_recharge(k))
 		if not options.is_empty():queue.append({"kind":"recharge","source":"G094","player":p,"options":options})
@@ -318,7 +320,7 @@ func resolve_plot(a: Dictionary) -> bool:
 	if id not in ["P36","P37","P38","P39","P40","P41","P42"]:return false
 	match id:
 		"P36","P37":set_world(id)
-		"P38":g.nodes[target].silenced=true
+		"P38":g.nodes[target].silenced=true;g.nodes[target].pr_crisis=true
 		"P39":g.nodes[target].attached.append(id)
 		"P40":g.nodes[target].parent=a.parent
 		"P41":rebuild(target)

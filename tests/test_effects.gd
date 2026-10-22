@@ -56,7 +56,7 @@ func _initialize() -> void:
 	for id in cases:
 		var g=fresh();place(g,id,0,"R0");give(g,cases[id][0],0)
 		check(g.attack_preview(id,cases[id][0],"control").ability==cases[id][1],id+" control modifier")
-	for row in [["G019","G059",2],["G027","G066",2],["G053","G043",2],["G057","G043",2],["G079","G051",2]]:
+	for row in [["G019","G059",2],["G027","G066",2],["G053","G043",2],["G057","G043",0],["G079","G051",2]]:
 		var g=fresh();place(g,row[0],0,"R0");place(g,row[1],1,"R1");check(g.attack_preview(row[0],row[1],"destroy").ability==row[2],row[0]+" destroy modifier")
 	for row in [["G049",3],["G058",2],["G061",4],["G071",10]]:
 		var g=fresh();place(g,"G001",0,"R0");place(g,row[0],1,"R1");check(g.attack_preview("G001",row[0],"destroy").defense==row[1],row[0]+" destroy defense")
@@ -143,7 +143,7 @@ func _initialize() -> void:
 	g=fresh();place(g,"G007",0,"R0");place(g,"G043",1,"R1");b={"src":"R0","target":"G043","mode":"destroy","attacker":0,"defender":1}
 	check(g.support_power("G007",b)==8,"NATO destroy support +2")
 	g=fresh();place(g,"G050",0,"R0");place(g,"G043",0,"G050");place(g,"G041",0,"G050");give(g,"G042",0);b={"src":"R0","target":"G042","mode":"control","attacker":0,"defender":-1}
-	check(g.support_power("G050",b)==4,"Elvis direct weird choir +2")
+	check(g.stat("G050","gp")==2 and g.support_power("G050",b)==2,"Elvis choir raises GP without adding to P support")
 	for source in ["G033","G044","G069"]:
 		g=fresh();place(g,source,0,"R0")
 		var incoming={"G033":"G043","G044":"G023","G069":"G064"}[source];give(g,incoming,0)

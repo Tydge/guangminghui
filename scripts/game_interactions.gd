@@ -205,7 +205,10 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 	elif place=="choice":center=Vector2(m.size.x*0.5,m.size.y*0.45)
 	return Rect2(center-area*0.5,area)
 func known(id: String) -> bool:
-	return id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
+	return private_choice_known(id) or id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
+func private_choice_known(id: String) -> bool:
+	var c=m.game.choice
+	return c.get("player",-1)==0 and (id in c.get("peek",[]) or id==c.get("revealed_card",""))
 func flight(id: String,kind: String,show_face: bool) -> Control:
 	var view=Panel.new();view.name="MovingCard";view.size=Vector2(94,142);view.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_theme_stylebox_override("panel",m._style(Color("142c2e"),m.GOLD,2));m.presentation_layer.add_child(view)
 	if show_face:
@@ -250,7 +253,7 @@ func moves(events: Array) -> bool:
 		var start=anchor(event.from,event.get("from_player",event.player),event.kind,event.id,event.get("from_target",""));var finish=anchor(event.to,event.player,event.kind,event.id)
 		var source=visible_card(event.id)
 		if event.from in ["hand","board"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.0 if event.from=="board" else 0.12
-		var show_face=(known(event.id) and event.from!="deck" and (event.from!="choice" or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
+		var show_face=(known(event.id) and event.from!="deck" and (event.from!="choice" or private_choice_known(event.id) or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
 		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))

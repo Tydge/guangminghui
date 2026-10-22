@@ -119,7 +119,7 @@ func _value(id: String,o: Dictionary) -> float:
 func _score(a: Dictionary,o: Dictionary) -> float:
 	if a.type in ["resource","deploy","research"] or (a.type=="plot" and a.id in ResourceRules.PLOTS):return _resource_score(a,o)
 	if a.type=="plot" and CovenantRules.PLOTS.has(a.id):return 1000
-	if (a.type=="ability" and (a.src=="G138" or int(a.src.substr(1))>=151)) or (a.type=="plot" and int(a.id.substr(1))>=62):return _contemporary_score(a,o)
+	if (a.type=="ability" and ((a.src.begins_with("R") and o.factions[o.player]=="I09") or a.src=="G138" or int(a.src.substr(1))>=151)) or (a.type=="plot" and int(a.id.substr(1))>=62):return _contemporary_score(a,o)
 	if a.type=="ability" and a.get("pacify",false):
 		return 40+_card(a.target,o).p if o.goals[o.player].ratio<1 else -1
 	if a.type in ["trick","militia"] or (a.type=="ability" and int(a.src.substr(1))>=131):return _renewal_score(a,o)
@@ -132,6 +132,7 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 		"draw":return float(int(a.group)+int(a.plot))*5+int(a.get("filter_group",false))+int(a.get("filter_plot",false))
 		"choose":
 			var kind=o.choice.get("kind","")
+			if kind=="n_inside":return _plot_value(o.choice.revealed_card,o) if a.id=="bottom" else 0
 			if kind=="c_goal_limit":return _plot_value(a.id,o)
 			if a.id=="":return -20
 			var value=_value(a.id,o) if a.id.begins_with("G") or a.id.begins_with("E") else _plot_value(a.id,o)
@@ -369,7 +370,7 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		"E08":return 12 if owned.size()<2 else 3
 		"E10":return _placement_value(a.target,a.parent,o)-5
 		"E11":return 8+_card(a.target,o).p-_card(a.target,o).gp
-		"E12":return 10 if o.battle_values.strength>=2 and o.battle_values.strength<=13 else -3
+		"E12":return 10 if o.battle_values.strength>=2 and o.battle_values.strength<=15 else -3
 		"E15":return (18 if o.battle_values.strength>=7 else -4) if o.battle.attacker==o.player else (18 if o.battle_values.strength<7 else -4)
 		"G091":return 13-_value(a.fee,o)*0.2
 		"G093":return 17
@@ -378,6 +379,7 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 func _contemporary_score(a: Dictionary,o: Dictionary) -> float:
 	if a.type=="resource":return 30+_value(a.target,o)*0.2 if a.src=="E17" else (12 if o.battle_values.strength<10 else -4)
 	if a.type=="ability":
+		if a.src.begins_with("R") and o.factions[o.player]=="I09":return 8 if o.hands.group.any(func(k):return "太空" in _card(k,o).tags) else 16
 		match a.src:
 			"G138":return 12-(_plot_value(a.target,o)*0.75 if a.target.begins_with("P") else _value(a.target,o)*0.4)
 			"G151","G168":return 9
@@ -400,5 +402,5 @@ func _contemporary_score(a: Dictionary,o: Dictionary) -> float:
 			"P67":return 5+_card(a.target,o).gp*2
 			"P68":return 30+_value(a.target,o)*0.4
 			"P69":return 3+a.backlash if o.battle_values.strength in range(2,15) else -3
-			"P70":return _plot_value(a.target,o)-2
+			"P70":return 8
 	return -4

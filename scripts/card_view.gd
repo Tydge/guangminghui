@@ -162,6 +162,8 @@ func text_layout() -> Array:
 		if n.get("prepared",false):flags.append("防备+4")
 		if n.get("pacified",false):flags.append("化干戈")
 		if n.get("silenced",false):flags.append("能力失效")
+		if n.get("pr_crisis",false):flags.append("公关GP 0")
+		if n.get("battery_power",0)>0:flags.append("电池P+2")
 		if id=="G088":flags.append("训练%d"%n.get("training",0))
 		if state.used.has(id):flags.append("能力已用")
 		if state.recharged.has(id):flags.append("额外恢复已用")
