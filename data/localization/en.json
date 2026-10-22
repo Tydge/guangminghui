@@ -207,7 +207,6 @@
     "封存秘闻 → ": "Seal the Secrets → ",
     "将5张候选资源放回并重抽；不影响团体和阴谋。": "Return all 5 Resource candidates and redraw. Groups and Plots are unchanged.",
     "小团体": "Small groups",
-    "尚未计入支援与阴谋。\n确认后双方交替响应。": "Excludes support and Plots.\nPlayers alternate responses after confirmation.",
     "尚未达成": "Not met",
     "展开": "Expand",
     "工业标准：来自德国的抗性 +2。": "Industrial Standards: +2 R from Germany.",
@@ -1706,7 +1705,19 @@
     "多元合租：直属下属的阵营合计至少5种时，该团体P+3。": "Diverse Tenants: While its direct subordinates have at least 5 different alignments in total, this Group gains +3 P.",
     "形象塑造 · 来自高档沙龙的P+1。": "Image Styling · +1 P from Luxury Salon.",
     "多元合租 · 直属下属阵营 %d / 5": "Diverse Tenants · Direct subordinate alignments %d / 5",
-    "多元合租 · P+3已生效。": "Diverse Tenants · +3 P active."
+    "多元合租 · P+3已生效。": "Diverse Tenants · +3 P active.",
+    "查看战场 · 对局结束": "Viewing battlefield · Match ended",
+    "返回结果": "Back to results",
+    "平局": "Draw",
+    "你获胜": "You win",
+    "AI 获胜": "AI wins",
+    "达成目标阴谋": "Goal Plot completed",
+    "达成光明会目标": "Illuminati goal completed",
+    "对手支援后可用": "After opposing support",
+    "收起结果，查看场上与手牌，再返回结果。": "Hide the result to inspect the board and your hand, then return.",
+    "你的势力已被消灭": "Your power structure has been eliminated",
+    "AI的势力已被消灭": "The AI power structure has been eliminated",
+    "尚未计入支援、资源与阴谋。\n确认后双方交替响应。": "Excludes support, Resources and Plots.\nPlayers alternate responses after confirmation."
   },
   "templates": [
     {

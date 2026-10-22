@@ -98,7 +98,7 @@ func run():
   main._settings();main._change_language("en");main._close_settings();main.interactions.cancel();main.modal_open=true
  for cid in CardDB.cards:
   main._inspect(cid);audit(main.detail_layer,"all-card reader "+cid);main._close_inspection();main.modal_open=true
- var g=fixture();g._finish(0,g.title("P54")+" · 目标阴谋宣告胜利");main._refresh();main.modal_open=true
+ var g=fixture();g._finish(0,g.title("P54")+" · 目标阴谋宣告胜利",{"kind":"goal","card":"P54"});main._refresh();main.modal_open=true
  await take("english-victory")
  for panel in main.overlay.get_children():
   if panel is Panel:

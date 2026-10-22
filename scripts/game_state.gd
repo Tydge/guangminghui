@@ -45,6 +45,7 @@ var world = ""
 var logs: Array = []
 var last_event: Dictionary = {}
 var winner = -2
+var victory: Dictionary={}
 var end_requested = false
 var claim: Dictionary={}
 var draw_queue: Array = []
@@ -299,7 +300,10 @@ func _a(kind: String, label: String, args: Dictionary = {}) -> Dictionary:
 	return a
 
 func legal_actions(p: int) -> Array:
-	return contemporary.augment_actions(p,resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))))))
+	var actions=contemporary.augment_actions(p,resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))))))
+	# Extension responses may be appended by any module. Keep decline/accept last.
+	if phase in ["battle","plot_response"]:return actions.filter(func(a):return a.type not in ["pass","accept_plot"])+actions.filter(func(a):return a.type in ["pass","accept_plot"])
+	return actions
 
 func _base_legal_actions(p: int) -> Array:
 	var out: Array = []
@@ -511,6 +515,7 @@ func attack_options(src: String,target: String,mode: String,action: Dictionary={
 	# Pure preview. Uses the same eligibility functions as the live response window.
 	var p=owner(src)
 	var context={"src":src,"target":target,"mode":mode,"attacker":p,"defender":owner(target),"paid":[src],"solo":action.get("solo",false)}
+	if action.get("use_plan",false) and wave.plans.has(p):context.fixed_dice=wave.plans[p].duplicate()
 	var supports: Array=[];var plots: Array=[];var total=0
 	for id in field(p):
 		if id==src or id==action.get("delegate","") or not token(id):continue
@@ -534,7 +539,9 @@ func attack_options(src: String,target: String,mode: String,action: Dictionary={
 		elif card(id).category=="己方主要阶段":reason="仅主要阶段可用，不能在战斗中打出"
 		var amount=4 if int(id.substr(1)) in range(1,10) else (6 if id in ["P12","P13"] else 0)
 		plots.append({"id":id,"status":status,"reason":reason,"targets":targets,"bonus":amount})
-	return {"supports":supports,"plots":plots,"support_total":total,"mobilized_supports":mobilized}
+	var resource_options=resources.attack_options(context);var resource_total=0
+	for entry in resource_options:resource_total+=entry.bonus
+	return {"supports":supports,"plots":plots,"support_total":total+resource_total,"group_support_total":total,"resources":resource_options,"resource_total":resource_total,"mobilized_supports":mobilized}
 
 func position_defense(id: String) -> int:
 	if not nodes.has(id) or is_root(id):return 0
@@ -920,7 +927,7 @@ func _after_effect() -> void:
 	for p in [0,1]:
 		if p!=current and hands[p].plot.size()>hand_limit(p):_limit_choice(p);return
 	for p in [0,1]:
-		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p));return
+		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p),{"kind":"elimination"});return
 	if end_requested:_complete_end()
 
 func _limit_choice(p: int) -> void:
@@ -944,17 +951,19 @@ func _complete_end() -> void:
 	turns[current]+=1
 	if mini(turns[0],turns[1])>=1:
 		var g0=goal(0).met;var g1=goal(1).met
-		if g0 or g1:_finish(-1 if g0 and g1 else (0 if g0 else 1),"双方同时完成目标" if g0 and g1 else "光明会的计划已经完成");return
+		if g0 or g1:
+			var victor=-1 if g0 and g1 else (0 if g0 else 1)
+			_finish(victor,"双方同时完成目标" if g0 and g1 else "光明会的计划已经完成",{"kind":"draw" if victor<0 else "faction","card":"" if victor<0 else factions[victor]});return
 	for p in [0,1]:
-		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p));return
+		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p),{"kind":"elimination"});return
 	for id in nodes:
 		nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support")
 		nodes[id]["silenced"]=false;nodes[id]["flip"]=false;nodes[id]["ad_gp"]=0;nodes[id]["compute"]=false
 	used["renewal:cleanup"]=true
 	_complete_end()
 
-func _finish(p: int,reason: String) -> void:
-	winner=p;phase="over";_log(reason,"victory")
+func _finish(p: int,reason: String,details: Dictionary={}) -> void:
+	winner=p;phase="over";victory=details.duplicate(true);victory.merge({"winner":p,"reason":reason},true);_log(reason,"victory",victory)
 
 func validate() -> Array:
 	var errors: Array=[];var locations: Array=[]

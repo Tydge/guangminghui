@@ -34,11 +34,11 @@ func begin_effect() -> void:
 func end_effect() -> void:restore(effect_layers);effect_layers=[]
 func offer(panel: Control,at: Vector2=Vector2(-1,20)) -> Button:
 	var button=m._button("查看战场",peek,panel);button.name="PeekBattlefield";button.custom_minimum_size=Vector2(144,40);button.position=Vector2(panel.size.x-170,at.y) if at.x<0 else at
-	button.tooltip_text=GameLocale.text("暂时收起窗口，查看场上与手牌，再返回继续操作。")
+	button.tooltip_text=GameLocale.text("收起结果，查看场上与手牌，再返回结果。" if m.game!=null and m.game.phase=="over" else "暂时收起窗口，查看场上与手牌，再返回继续操作。")
 	return button
 func peek() -> void:
 	if browsing or transitioning or m.busy or m.panel_dragging or m.game==null:return
-	if m.game.phase.begins_with("setup") or m.game.phase=="over":return
+	if m.game.phase.begins_with("setup"):return
 	version+=1
 	parked=layer_states();saved_selected=m.selected;saved_tab=m.hand_tab;saved_modal=m.modal_open;saved_size=m.size;scrolls=[]
 	for state in parked:

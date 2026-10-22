@@ -100,7 +100,7 @@ func resolve_plot(a: Dictionary) -> bool:
 func settle_claim() -> bool:
 	if g.claim.is_empty():return false
 	var c=g.claim;g.claim={}
-	if progress(c.player,c.id).met:g._finish(c.player,g.title(c.id)+" · 目标阴谋宣告胜利");return true
+	if progress(c.player,c.id).met:g._finish(c.player,g.title(c.id)+" · 目标阴谋宣告胜利",{"kind":"goal","card":c.id});return true
 	g._log(g.title(c.id)+" · 目标条件已不满足","goal_failed");return false
 func reader_text(id: String) -> String:
 	for p in [0,1]:

@@ -56,6 +56,23 @@ func support_detail(id: String,d: Dictionary) -> Dictionary:
 	if d.basis=="GP" and d.power>0 and ready("E09",g.owner(id)) and g.has(id,"沿海"):
 		d.power+=1;d.extra=d.get("extra",0)+1;d.reason+=" · 海底光缆+1"
 	return d
+func attack_options(context: Dictionary) -> Array:
+	if field(context.attacker).is_empty():return []
+	# Query the actual battle commands and rehearse each resource on isolated models.
+	# This shares card eligibility and numeric effects with play, without touching live RNG.
+	var model=ActionFlow.copy_state(g);var p=context.attacker;model.phase="battle";model.battle=context.duplicate(true)
+	model.battle.merge({"responder":p,"passes":0,"support_a":0,"support_d":0,"bonus_a":0,"bonus_d":0,"self":0,"entries":[],"supporters":[],"support_counts":[0,0]},false)
+	var direct=model.legal_actions(p).filter(func(a):return a.type=="resource" and model.card(a.src).kind=="resource")
+	var result=[];var before=model.battle_values().strength
+	for a in direct:
+		var trial=ActionFlow.copy_state(model)
+		if trial.act(p,a):result.append({"id":a.src,"label":a.label,"bonus":maxi(0,trial.battle_values().strength-before),"conditional":false})
+	var potential=ActionFlow.copy_state(model)
+	for id in potential.field(1-p):
+		if potential.token(id):potential.battle.support_d+=potential.support_power(id,potential.battle)
+	for a in potential.legal_actions(p):
+		if a.type=="resource" and potential.card(a.src).kind=="resource" and not result.any(func(entry):return entry.id==a.src):result.append({"id":a.src,"label":a.label,"bonus":0,"conditional":true})
+	return result
 func country_actions(src: String,p: int) -> Array:
 	if src not in ["G091","G093"] or not g.wave.available(src,p) or not g.token(src) or g.used.has(src):return []
 	if src=="G091":

@@ -101,17 +101,17 @@ func run() -> void:
 	for reduced in [false,true]:
 		main.reduced_motion=reduced;var g=fresh();g.turns=[3,3];put(g,"G005",0,"R0");put(g,"G001",1,"R1");put(g,"G024",1,"G001");await settle();battle(g,"G005","G001","control")
 		main.board.set_process(false);main._do_action(0,action(g,0,"pass"));main.modal_open=true;main.presentation_tween.pause()
-		check(g.phase=="battle" and not texts(main.overlay).contains("计划得逞"),"Deciding roll is shown before real victory")
+		check(g.phase=="battle" and not texts(main.overlay).contains("你获胜"),"Deciding roll is shown before real victory")
 		finish_cues();check(main.busy and not main.board.is_settled() and g.phase=="over" and not main.overlay.visible,"Victory waits for branch transfer to finish")
-		main._phase_overlay();main._victory_overlay();check(not texts(main.overlay).contains("计划得逞"),"Phase refresh cannot bypass the presentation lock")
+		main._phase_overlay();main._victory_overlay();check(not texts(main.overlay).contains("你获胜"),"Phase refresh cannot bypass the presentation lock")
 		main.board.set_process(true);await idle();main.modal_open=true
-		check(texts(main.overlay).contains("计划得逞") and main.board.is_settled() and g.owner("G024")==0,"Victory appears after the complete branch has landed")
+		check(texts(main.overlay).contains("你获胜") and main.board.is_settled() and g.owner("G024")==0,"Victory appears after the complete branch has landed")
 	# The AI's deciding attack follows exactly the same gates.
 	var ai_game=fresh();ai_game.current=1;ai_game.turns=[3,3];put(ai_game,"G005",1,"R1");put(ai_game,"G001",0,"R0");await settle()
 	ai_game.act(1,action(ai_game,1,"attack",{"src":"G005","target":"G001","mode":"control"}));ai_game.battle.bonus_a=100;ai_game.battle.rolled=[2,2];ai_game.act(0,action(ai_game,0,"pass"));main._refresh()
 	main.board.set_process(false);main._do_action(1,action(ai_game,1,"pass"));main.modal_open=true;main.presentation_tween.pause();check(ai_game.phase=="battle","AI victory waits for visible dice");finish_cues()
 	check(main.busy and not main.overlay.visible and ai_game.winner==1,"AI victory window also waits for its transfer")
-	main.board.set_process(true);await idle();main.modal_open=true;check(texts(main.overlay).contains("暗流反噬"),"AI victory is announced after landing")
+	main.board.set_process(true);await idle();main.modal_open=true;check(texts(main.overlay).contains("AI 获胜"),"AI victory is announced after landing")
 	# Destroy rewards have a separate source cue and draw, after exits, before victory.
 	main.reduced_motion=false;var g=fresh();g.turns=[3,3];put(g,"G052",0,"R0");put(g,"G001",1,"R1");put(g,"G024",1,"G001");await settle();battle(g,"G052","G001","destroy")
 	main._do_action(0,action(g,0,"pass"));main.modal_open=true;finish_cues()
@@ -119,12 +119,12 @@ func run() -> void:
 	check(main.busy and g.phase=="choice" and g.choice.source=="G052" and g.hands[0].group.is_empty(),"Street gang reward is queued, without drawing during destruction")
 	check(not main.overlay.visible and not main.presenting and "G024" in g.hands[1].group,"Descendant return precedes reward cue and destruction finishes under the input lock")
 	for tween in main.board.visual_tweens:tween.play()
-	await idle();main.modal_open=true;check(g.winner==-2 and not texts(main.overlay).contains("计划得逞"),"Victory checks wait for outstanding post-battle rewards")
+	await idle();main.modal_open=true;check(g.winner==-2 and not texts(main.overlay).contains("你获胜"),"Victory checks wait for outstanding post-battle rewards")
 	var before=snapshot(g);main._do_action(0,action(g,0,"trigger"));main.modal_open=true;main.presentation_tween.pause()
 	check(main.presentation_layer.has_node("RevealBody") and snapshot(g)==before and main.board.is_settled(),"Reward source is shown only after the board settles; draw remains uncommitted")
 	main.presentation_tween.custom_step(100);main.presentation_tween.pause();check(main.presentation_layer.has_node("MovingCard") and g.hands[0].group.is_empty(),"Reward draw flight follows its source cue and precedes the real draw")
 	finish_cues();await idle();main.modal_open=true
-	check(g.hands[0].group.size()==1 and g.phase=="over" and texts(main.overlay).contains("计划得逞") and g.validate().is_empty(),"Reward draw completes once, then victory is announced")
+	check(g.hands[0].group.size()==1 and g.phase=="over" and texts(main.overlay).contains("你获胜") and g.validate().is_empty(),"Reward draw completes once, then victory is announced")
 	# Entry rewards also wait for entry/layout motion, not only battle outcomes.
 	g=fresh();put(g,"G044",0,"R0");put(g,"G001",1,"R1");give(g,"G023",0);await settle();main.board.set_process(false)
 	main._do_action(0,action(g,0,"auto",{"id":"G023","parent":"R0"}));main.modal_open=true;finish_cues()

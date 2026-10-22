@@ -168,17 +168,25 @@ func _menu() -> void:
 	ai.cancel_all()
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
 	_clear(overlay);_clear(hud);_clear(hand_layer);_clear(inspector);_clear(large_layer);game=null;board.visible=false;modal_open=true;_dim(overlay)
-	var c=size/2
-	var heading=_label("ILLUMINATI",overlay,82,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,c.y-300);heading.size.x=size.x
-	var sub=_label("光 明 会    /    暗 流 对 决",overlay,29,CREAM);sub.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;sub.position=Vector2(0,c.y-190);sub.size.x=size.x
-	var art=TextureRect.new();art.texture=CardDB.art("I01");art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.position=c+Vector2(-150,-150);art.size=Vector2(300,220);overlay.add_child(art)
-	var levels=HBoxContainer.new();levels.name="DifficultyOptions";levels.position=c+Vector2(-213,88);levels.add_theme_constant_override("separation",10);overlay.add_child(levels)
+	var content=Control.new();content.name="MenuContent";content.mouse_filter=Control.MOUSE_FILTER_IGNORE;overlay.add_child(content);content.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	var heading=_label("ILLUMINATI",content,82,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(-400,-300);heading.size.x=800
+	var sub=_label("光 明 会    /    暗 流 对 决",content,29,CREAM);sub.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;sub.position=Vector2(-400,-190);sub.size.x=800
+	var art=TextureRect.new();art.texture=CardDB.art("I01");art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;art.position=Vector2(-150,-150);art.size=Vector2(300,220);content.add_child(art)
+	var levels=HBoxContainer.new();levels.name="DifficultyOptions";levels.position=Vector2(-213,88);levels.add_theme_constant_override("separation",10);content.add_child(levels)
+	var difficulty_group=ButtonGroup.new()
 	for level in ["easy","normal","hard"]:
-		var b=_button({"easy":"简单","normal":"普通","hard":"困难"}[level],func():ai_difficulty=level;ai.difficulty=level;_save_settings();_menu(),levels,ai_difficulty==level);b.custom_minimum_size=Vector2(135,44)
-	var start=_button("开始对局",func():_start_game(),overlay,true);start.position=c+Vector2(-150,145);start.size=Vector2(300,62)
-	var catalog=_button("卡牌图鉴",_catalog,overlay);catalog.position=c+Vector2(-150,221);catalog.size=Vector2(145,48)
-	var settings=_button("设置",_settings,overlay);settings.position=c+Vector2(5,221);settings.size=Vector2(145,48)
-	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.position=Vector2(0,size.y-65);foot.size.x=size.x
+		var b=_button({"easy":"简单","normal":"普通","hard":"困难"}[level],func():_choose_menu_difficulty(level),levels);b.custom_minimum_size=Vector2(135,44);b.set_meta("difficulty",level);b.toggle_mode=true;b.button_group=difficulty_group;b.button_pressed=ai_difficulty==level;b.add_theme_stylebox_override("pressed",_style(Color("254b47"),GOLD,2))
+	var start=_button("开始对局",func():_start_game(),content,true);start.position=Vector2(-150,145);start.size=Vector2(300,62)
+	var catalog=_button("卡牌图鉴",_catalog,content);catalog.position=Vector2(-150,221);catalog.size=Vector2(145,48)
+	var settings=_button("设置",_settings,content);settings.position=Vector2(5,221);settings.size=Vector2(145,48)
+	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);foot.offset_top=-65;foot.offset_bottom=-25
+
+func _choose_menu_difficulty(level: String) -> void:
+	ai_difficulty=level;ai.difficulty=level
+	var options=overlay.find_child("DifficultyOptions",true,false)
+	if options!=null:
+		for b in options.get_children():b.set_pressed_no_signal(b.get_meta("difficulty")==level)
+	_save_settings()
 
 func _start_game(seed_value: int=0) -> void:
 	ai.cancel_all()
@@ -219,7 +227,7 @@ func _draw_hud() -> void:
 		if ResourceLoader.exists(back):piles.icon=load(back);piles.expand_icon=true;piles.add_theme_constant_override("icon_max_width",22)
 	if game.world!="":
 		var order=_button("秩序 · "+CardDB.name_of(game.world).replace("新世界秩序：",""),func():_inspect(game.world),hud);order.position=Vector2(515,160)
-	var eventtext="查看战场 · 对局暂停" if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
+	var eventtext=("查看战场 · 对局结束" if game.phase=="over" else "查看战场 · 对局暂停") if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
 	var log_width=w-(385 if not compact else 70)-(155 if not game.last_battle.is_empty() else 0)
 	var log_button=_button("◈  "+eventtext,_journal,hud);log_button.add_theme_font_size_override("font_size",16);log_button.custom_minimum_size.y=42;log_button.position=Vector2(35,h-249);log_button.size=Vector2(log_width,42);log_button.clip_text=true;log_button.disabled=window_access.browsing
 	if not game.last_battle.is_empty():
@@ -230,7 +238,7 @@ func _draw_hud() -> void:
 	var action_scroll=ScrollContainer.new();action_scroll.name="ActionToolbar";action_scroll.position=Vector2(actions_x,h-205);action_scroll.size=Vector2(w-(350 if not compact else 35)-actions_x,54);action_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;hud.add_child(action_scroll)
 	var actions=HBoxContainer.new();actions.size_flags_vertical=Control.SIZE_SHRINK_BEGIN;actions.add_theme_constant_override("separation",8);action_scroll.add_child(actions)
 	if window_access.browsing:
-		_button("返回操作窗口",window_access.resume,actions,true)
+		_button("返回结果" if game.phase=="over" else "返回操作窗口",window_access.resume,actions,true)
 	elif not action_candidates.is_empty():
 		var hint=_label(action_hint,actions,19,TEAL);hint.clip_text=true;hint.custom_minimum_size.x=clampf(action_scroll.size.x-360,180,380);hint.tooltip_text=GameLocale.text(action_hint)
 		_button("上一步",interactions.back,actions) if interactions.picker.active else null
@@ -368,19 +376,19 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	if v.get("no_self",false):note+="目标本次不能自卫。\n"
 	if a.target=="G067" and game.wave.enabled("G067"):note+="高额账单 · 失败后随机弃1阴谋。\n"
 	if a.get("solo",false):note+="孤军破袭 · 忽略位置，无进攻支援。\n"
-	_paragraph(note+"尚未计入支援与阴谋。\n确认后双方交替响应。",p,Rect2(28,extent.y-185,left_w-20,85),18,Color("aabbb0"))
+	_paragraph(note+"尚未计入支援、资源与阴谋。\n确认后双方交替响应。",p,Rect2(28,extent.y-185,left_w-20,85),18,Color("aabbb0"))
 	var options=game.attack_options(a.src,a.target,a.mode,a)
 	var scroll=ScrollContainer.new();scroll.name="AttackResources";scroll.position=Vector2(right_x,125);scroll.size=Vector2(extent.x-right_x-28,extent.y-231);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;p.add_child(scroll)
 	var col=VBoxContainer.new();col.size_flags_horizontal=Control.SIZE_EXPAND_FILL;col.add_theme_constant_override("separation",10);scroll.add_child(col)
-	_label("支援  %d个 · 合计 +%d"%[options.supports.size(),options.support_total],col,23,GOLD)
+	_label("支援  %d个 · 合计 +%d"%[options.supports.size()+options.resources.filter(func(entry):return entry.bonus>0).size(),options.support_total],col,23,GOLD)
 	var support_flow=HFlowContainer.new();support_flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;support_flow.add_theme_constant_override("h_separation",8);support_flow.add_theme_constant_override("v_separation",8);col.add_child(support_flow)
 	for entry in options.supports:
 		var b=_button("%s  %s +%d"%[game.title(entry.id),entry.basis,entry.power],func():_inspect(entry.id),support_flow)
 		b.add_theme_font_size_override("font_size",18);b.tooltip_text=GameLocale.text(entry.reason+"；消耗1个行动标记。点击查看卡牌。")
-	if options.supports.is_empty():_label("暂无可用支援",col,18,Color("9aaca0"))
+	if options.supports.is_empty() and options.resource_total==0:_label("暂无可用支援",col,18,Color("9aaca0"))
 	if options.mobilized_supports>0:_label("联合动员可增强%d个支援"%options.mobilized_supports,col,17,TEAL)
-	var available_resources=game.resources.field(0).filter(func(k):return game.resources.ready(k) and (k in ["E12","E15"] or (k=="E01" and game.token(k)) or (k=="E07" and a.mode=="destroy" and game.owner(a.target)==0)))
-	for k in available_resources:_button(game.title(k)+{"E01":" · 强度+2","E07":" · 防御+6","E12":" · 对手支援-4","E15":" · 固定骰点3＋4"}[k],func():_inspect(k),col)
+	for entry in options.resources:
+		var resource_button=_button(entry.label+("\n"+"对手支援后可用" if entry.conditional else ""),func():_inspect(entry.id),col);resource_button.name="PreviewResource_"+entry.id;resource_button.add_theme_font_size_override("font_size",18);resource_button.alignment=HORIZONTAL_ALIGNMENT_LEFT
 	var usable=options.plots.filter(func(entry):return entry.status!="不可用")
 	_label("阴谋  %d张可用 · %d张需先支援"%[usable.filter(func(entry):return entry.status=="可用").size(),usable.filter(func(entry):return entry.status=="先支援").size()],col,23,GOLD)
 	var plot_flow=HFlowContainer.new();plot_flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL;plot_flow.add_theme_constant_override("h_separation",8);plot_flow.add_theme_constant_override("v_separation",8);col.add_child(plot_flow)
@@ -700,18 +708,30 @@ func _battle_history() -> void:
 
 func _victory_overlay() -> void:
 	if busy:return
-	_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(350,245),Vector2(700,490)))
-	var heading="势均力敌" if game.winner==-1 else ("计划得逞" if game.winner==0 else "暗流反噬")
-	if GameLocale.english():
-		var title=_paragraph(heading,p,Rect2(28,42,644,90),50,GOLD);title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-		_paragraph(game.logs.back(),p,Rect2(50,155,600,58),23)
-		for who in [0,1]:_paragraph(("你  " if who==0 else "AI  ")+GameLocale.progress(game.goal(who).text),p,Rect2(80,220+who*55,540,48),22,TEAL if who==0 else Color("d29b8d"))
-	else:
-		_label(heading,p,60,GOLD).position=Vector2(210,48)
-		_label(game.logs.back(),p,23).position=Vector2(90,155)
-		for who in [0,1]:_label(("你  " if who==0 else "AI  ")+game.goal(who).text,p,22,TEAL if who==0 else Color("d29b8d")).position=Vector2(80,220+who*45)
-	var again=_button("再来一局",func():_start_game(),p,true);again.position=Vector2(80,370);again.size=Vector2(240,58)
-	var menu=_button("主菜单",_menu,p);menu.position=Vector2(375,370);menu.size=Vector2(240,58)
+	var result=game.victory;var kind=result.get("kind","");var goal_id=result.get("card","") if kind=="goal" else ""
+	var show_goal=game.covenant.is_goal(goal_id)
+	var extent=Vector2(minf(980 if show_goal else 800,size.x-90),minf(750 if show_goal else 500,size.y-90))
+	_dim(overlay);var p=_panel(overlay,Rect2((size-extent)/2,extent));p.name="VictoryWindow"
+	var heading="平局" if game.winner<0 else ("你获胜" if game.winner==0 else "AI 获胜")
+	var title=_paragraph(heading,p,Rect2(28,24,extent.x-56,72),46,GOLD);title.name="VictoryHeading";title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	var x=40.0
+	if show_goal:
+		var view=CardView.new();view.name="WinningGoal";view.configure(goal_id,game,true);view.size=Vector2(minf(270,(extent.y-200)*0.58),extent.y-200);view.position=Vector2(28,112);p.add_child(view);view.selected.connect(_inspect);view.inspected.connect(_inspect);x=view.position.x+view.size.x+34
+	var col=_scroll_column(p,Rect2(x,112,extent.x-x-36,extent.y-225));col.get_parent().name="VictoryReason"
+	if game.winner>=0:_wrapped(game.title(game.root(game.winner)),col,27,TEAL)
+	if kind=="goal":
+		_wrapped("达成目标阴谋",col,24,GOLD);_wrapped(game.card(goal_id).effect,col,25)
+	elif kind=="faction":
+		_wrapped("达成光明会目标",col,24,GOLD);_wrapped(game.card(game.root(game.winner)).goal,col,25)
+	elif kind=="elimination":_wrapped(result.reason,col,26,GOLD)
+	elif kind=="draw":
+		_wrapped("双方同时完成目标",col,25,GOLD)
+		for who in [0,1]:_wrapped(game.title(game.root(who))+" · "+game.card(game.root(who)).goal,col,22)
+	else:_wrapped(result.get("reason",game.logs.back() if not game.logs.is_empty() else ""),col,25)
+	var width=minf(220,(extent.x-80)/3);var y=extent.y-80
+	var again=_button("再来一局",func():_start_game(),p,true);again.position=Vector2(28,y);again.size=Vector2(width,52)
+	var peek=window_access.offer(p,Vector2((extent.x-width)/2,y));peek.size=Vector2(width,52)
+	var menu=_button("主菜单",_menu,p);menu.position=Vector2(extent.x-width-28,y);menu.size=Vector2(width,52)
 
 func _inspect(id: String,nested: bool=false) -> void:
 	if busy or window_access.transitioning:return
