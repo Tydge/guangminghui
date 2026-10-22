@@ -64,7 +64,7 @@ func _initialize() -> void:
 	check(g.card_context("G071").disaster_passive==15 and g.card_context("G071").destroy_passive==10,"Reader separates disaster aura from ordinary destruction defense")
 	check(g.attack_preview("G043","G071","destroy").defense==10,"Weather never boosts ordinary destruction")
 	check(g.attack_preview("G043","G030","destroy").defense==0,"Weather's obsolete self-only destruction defense is removed")
-	check(g.wave.disaster_preview({"id":"P31","payer":"G043","target":"G076"}).base==7,"Swiss disaster base remains Resistance")
+	check(g.wave.disaster_preview({"id":"P31","payer":"G043","target":"G076"}).base==4,"Swiss disaster base uses Power")
 	g.nodes.G030.silenced=true;check(g.wave.disaster_preview({"id":"P31","payer":"G043","target":"G076"}).defense==0,"Silenced Weather aura stops")
 	g.nodes.G030.silenced=false;g.nodes.G030.devastated=true;check(g.wave.disaster_preview({"id":"P31","payer":"G043","target":"G076"}).defense==5,"Devastated Weather retains passive")
 	g.nodes.G030.devastated=false;g.nodes.G071.prepared=true;give(g,"P31");apply(g,0,"plot",{"id":"P31","payer":"G043","target":"G071"})

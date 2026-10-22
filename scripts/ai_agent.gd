@@ -186,7 +186,7 @@ func _expansion_score(a: Dictionary,o: Dictionary) -> float:
 		"G096":
 			var v=_value(a.target,o)
 			return 8+v*0.2 if not o.nodes.has(a.target) else 3
-		"G102":return 7-_plot_value(a.target,o)*0.25
+		"G102":return 4.5-_plot_value(a.target,o)*0.25
 		"G107":return 10 if a.target in o.revealed.get("own_plot",[]) else 5-_plot_value(a.target,o)*0.2
 		"G109":return 25+_value(a.target,o)*0.2
 		"G110":return 7+_value(a.target,o)*0.12

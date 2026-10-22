@@ -195,7 +195,6 @@
     "孤军破袭 · 无进攻支援": "Lone Raid · No attacking support",
     "孤军破袭 · 进攻方式": "Lone Raid · Attack mode",
     "安插特工 · 查看并弃掉一张": "Agent in Place · Inspect and discard 1",
-    "定向投放：本回合GP+2，不超过有效P。": "Targeted Advertising: +2 GP this turn, up to effective P.",
     "宣告胜利": "Declare Victory",
     "宣告胜利 · ": "Declare Victory · ",
     "对局结束": "Game Over",
@@ -203,7 +202,6 @@
     "对手主牌": "Enemy Illuminati",
     "对手仍受开局保护": "Opponent still has opening protection",
     "对手打出阴谋时可反制": "Counter when the opponent plays a Plot",
-    "对政府团体的控制攻击，额外防御 +2。": "+2 defense against Government-led Control attacks.",
     "对方": "Opponent",
     "对暴力团体的摧毁攻击，额外防御 +4。": "+4 defense against Violent-led Destroy attacks.",
     "封存秘闻 → ": "Seal the Secrets → ",
@@ -225,7 +223,6 @@
     "已生效": "Resolved",
     "已被事实核查取消": "Cancelled by Fact Check",
     "已被反制": "Countered",
-    "广告GP+2": "Advertising GP +2",
     "应急电池 · 报废，恢复1行动": "Emergency Battery · Scrap: restore 1 action",
     "开始对局": "Start Game",
     "弃1张阴谋 · 取消对手阴谋": "Discard 1 Plot · Cancel enemy Plot",
@@ -360,7 +357,6 @@
     "潮流更替 · 可弃一张阴谋重抽": "Changing Trends · May discard 1 Plot to redraw",
     "灾": "Dev",
     "灾难与状态": "Disasters & States",
-    "灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。": "Disasters attack Places and cost an action from a non-Illuminati group.\nAfter the counter window, remove the target's action, consume Preparedness, then alternate responses.\n\nDisaster strength attacks the target's P; Switzerland uses R.\nIgnore alignment, loyalty, and position. Only the defender can provide normal support.\nAbilities limited to normal attacks do not apply to disasters.\n\nDevastated: P/GP halved, cannot act, and does not count for victory. Descendants are unaffected.\nRebuild: Spend 1 group action in your main phase; Huge Places need 2 different groups. Heavy Repair Vehicle reduces this to 1.\nRebuilding does not grant an action immediately.\n\nPreparedness: +4 defense against the next disaster.\nTraining: Ronaldo may spend 1 when leading an attack for +2 strength.\nPlan: Decide whether to use it when launching a Control attack.",
     "牌堆已空": "Deck empty",
     "犯罪": "Criminal",
     "狂热": "Fanatic",
@@ -705,7 +701,6 @@
     "好莱坞": "Hollywood",
     "跨界改编（主动）": "Cross-Media Adaptation (Action)",
     "跨界改编": "Cross-Media Adaptation",
-    "定向投放（主动）：令己方另1个媒体团体本回合GP+2，不超过P。": "Targeted Advertising (Action): Another Media group you control has +2 GP this turn, up to its P.",
     "麦迪逊大道": "Madison Avenue",
     "定向投放（主动）": "Targeted Advertising (Action)",
     "定向投放": "Targeted Advertising",
@@ -713,7 +708,6 @@
     "小报": "Tabloids",
     "爆料（主动）": "Scoop (Action)",
     "爆料": "Scoop",
-    "抵御政府团体发起的控制攻击时，防御+2。": "+2 defense against Control attacks led by Government groups.",
     "地下报刊": "Underground Newspapers",
     "对保守目标发动控制攻击时，攻击强度+2。": "Control attacks against Conservative targets have +2 strength.",
     "电视布道者": "TV Preachers",
@@ -809,7 +803,6 @@
     "金融中介": "Financial Brokerage",
     "本团体支援防守自由目标时，支援力量+4。": "When supporting the defense of a Liberal target, this group's support strength +4.",
     "法国": "France",
-    "中立保障：抵御摧毁攻击或灾难时，基础防御改用R；自卫仍用P。": "Neutrality Guarantee: Use R as base defense against Destroy attacks and disasters. Self-defense still uses P.",
     "瑞士": "Switzerland",
     "中立保障": "Neutrality Guarantee",
     "资本枢纽：直属企业或银行下属GP+1，不超过P。": "Capital Hub: Direct Corporate or Bank subordinates have +1 GP, up to their P.",
@@ -893,13 +886,11 @@
     "签证通道：己方名人刚受普通攻击、尚未有响应时，可花本团体1标记，把目标整支移到本团体空槽；攻击继续，按新位置计算。": "Visa Channel: Immediately after your Celebrity is normally attacked, before any response, spend this group's action to move the target and its descendants into a free slot here. The attack continues using the new position.",
     "迪拜": "Dubai",
     "签证通道": "Visa Channel",
-    "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，4–6抽3张阴谋；不花标记。": "Lucky Bet: Once during your main phase, discard 1 Plot and roll one die. On 4–6, draw 3 Plots. No action cost.",
     "拉斯维加斯": "Las Vegas",
     "幸运押注": "Lucky Bet",
     "并行计算：每次普通战斗，己方第2个提供普通支援的计算机团体，本次支援额外+2。": "Parallel Computing: In each normal battle, your second Computer group to provide normal support adds +2 support strength.",
     "英伟达": "NVIDIA",
     "并行计算": "Parallel Computing",
-    "弹性扩容：本团体普通支援时，可另弃1张阴谋，将本次采用的P／GP翻倍；其他加值不翻倍。": "Elastic Scaling: When providing normal support, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled.",
     "云服务商": "Cloud Providers",
     "弹性扩容": "Elastic Scaling",
     "推荐流（主动）：公开团体堆顶最多3张，双方各选1张加入手牌，你先选；未选的弃掉。": "Recommendation Feed (Action): Reveal up to 3 Groups from the deck's top. Each player chooses 1 to keep, you first. Discard any unchosen cards.",
@@ -1423,7 +1414,16 @@
     "骗局 → 取消「": "Hoax → Cancel \"",
     "骰点 ": "Roll ",
     "高额账单 · ": "Hefty Bill · ",
-    "弃「": " discards \""
+    "弃「": " discards \"",
+    "己方受到普通控制或摧毁攻击的团体。": "One of your groups targeted by a normal Control or Destroy attack.",
+    "与自动接管共用每回合1次机会。": "Shares the once-per-turn use with Automatic Takeover.",
+    "定向投放（主动）：令己方另1个媒体团体本回合GP+3，不超过P。": "Targeted Advertising (Action): Another Media group you control has +3 GP this turn, up to its P.",
+    "抵御政府团体发起的控制攻击时，防御+4。": "+4 defense against Control attacks led by Government groups.",
+    "对政府团体的控制攻击，额外防御 +4。": "+4 defense against Government-led Control attacks.",
+    "灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。": "Disasters attack Places and cost an action from a non-Illuminati group.\nAfter the counter window, remove the target's action, consume Preparedness, then alternate responses.\n\nDisaster strength attacks the target's P.\nIgnore alignment, loyalty, and position. Only the defender can provide normal support.\nAbilities limited to normal attacks do not apply to disasters.\n\nDevastated: P/GP halved, cannot act, and does not count for victory. Descendants are unaffected.\nRebuild: Spend 1 group action in your main phase; Huge Places need 2 different groups. Heavy Repair Vehicle reduces this to 1.\nRebuilding does not grant an action immediately.\n\nPreparedness: +4 defense against the next disaster.\nTraining: Ronaldo may spend 1 when leading an attack for +2 strength.\nPlan: Decide whether to use it when launching a Control attack.",
+    "中立保障：抵御普通摧毁攻击时，基础防御改用R；自卫仍用P。": "Neutrality: Use R as base defense against normal Destroy attacks. Self-defense still uses P.",
+    "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，5–6抽3张阴谋；不花标记。": "Lucky Wager: Once during your main phase, discard 1 Plot and roll 1 die. On 5–6, draw 3 Plots. No action cost.",
+    "弹性扩容：本团体支援时，可另弃1张阴谋，使采用的P／GP翻倍；其他加值不翻倍。": "Elastic Scaling: When this group supports, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled."
   },
   "templates": [
     {
@@ -1526,6 +1526,12 @@
       "source": "安可 · 原骰%d＋%d · 可弃1张阴谋重掷",
       "pattern": "^安可\\ ·\\ 原骰([+-]?[0-9]+)＋([+-]?[0-9]+)\\ ·\\ 可弃1张阴谋重掷$",
       "text": "Encore · Original {0} + {1} · Discard 1 Plot to reroll",
+      "weight": 19
+    },
+    {
+      "source": "定向投放：本回合GP+%d，不超过有效P。",
+      "pattern": "^定向投放：本回合GP\\+([+-]?[0-9]+)，不超过有效P。$",
+      "text": "Targeted Advertising: +{0} GP this turn, up to effective P.",
       "weight": 19
     },
     {
@@ -2039,6 +2045,12 @@
       "weight": 5
     },
     {
+      "source": "广告GP+%d",
+      "pattern": "^广告GP\\+([+-]?[0-9]+)$",
+      "text": "Advertising GP +{0}",
+      "weight": 5
+    },
+    {
       "source": "上级「%s」",
       "pattern": "^上级「(.*?)」$",
       "text": "Parent: {0}",
@@ -2320,13 +2332,13 @@
       "effect": "Cross-Media Adaptation (Action): Give one of your Weird groups the Media tag while it remains in play."
     },
     "G037": {
-      "effect": "Targeted Advertising (Action): Another Media group you control has +2 GP this turn, up to its P."
+      "effect": "Targeted Advertising (Action): Another Media group you control has +3 GP this turn, up to its P."
     },
     "G038": {
       "effect": "Scoop (Action): Randomly reveal 1 enemy Plot card in hand until this turn ends."
     },
     "G039": {
-      "effect": "+2 defense against Control attacks led by Government groups."
+      "effect": "+4 defense against Control attacks led by Government groups."
     },
     "G040": {
       "effect": "Control attacks against Conservative targets have +2 strength."
@@ -2437,7 +2449,7 @@
       "effect": "When supporting the defense of a Liberal target, this group's support strength +4."
     },
     "G076": {
-      "effect": "Neutrality Guarantee: Use R as base defense against Destroy attacks and disasters. Self-defense still uses P."
+      "effect": "Neutrality: Use R as base defense against normal Destroy attacks. Self-defense still uses P."
     },
     "G077": {
       "effect": "Capital Hub: Direct Corporate or Bank subordinates have +1 GP, up to their P."
@@ -2515,13 +2527,13 @@
       "effect": "Visa Channel: Immediately after your Celebrity is normally attacked, before any response, spend this group's action to move the target and its descendants into a free slot here. The attack continues using the new position."
     },
     "G102": {
-      "effect": "Lucky Bet: Once during your main phase, discard 1 Plot and roll one die. On 4–6, draw 3 Plots. No action cost."
+      "effect": "Lucky Wager: Once during your main phase, discard 1 Plot and roll 1 die. On 5–6, draw 3 Plots. No action cost."
     },
     "G103": {
       "effect": "Parallel Computing: In each normal battle, your second Computer group to provide normal support adds +2 support strength."
     },
     "G104": {
-      "effect": "Elastic Scaling: When providing normal support, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled."
+      "effect": "Elastic Scaling: When this group supports, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled."
     },
     "G105": {
       "effect": "Recommendation Feed (Action): Reveal up to 3 Groups from the deck's top. Each player chooses 1 to keep, you first. Discard any unchosen cards."
@@ -2747,7 +2759,7 @@
       "cost": "Discard this card."
     },
     "P10": {
-      "target": "Your group currently under attack.",
+      "target": "One of your groups targeted by a normal Control or Destroy attack.",
       "effect": "Defense +4 this battle.",
       "cost": "Discard this card."
     },
@@ -3312,7 +3324,7 @@
     "G037": {
       "name": "麦迪逊大道",
       "en": "Madison Avenue",
-      "effect": "定向投放（主动）：令己方另1个媒体团体本回合GP+2，不超过P。",
+      "effect": "定向投放（主动）：令己方另1个媒体团体本回合GP+3，不超过P。",
       "category": "组织"
     },
     "G038": {
@@ -3324,7 +3336,7 @@
     "G039": {
       "name": "地下报刊",
       "en": "Underground Newspapers",
-      "effect": "抵御政府团体发起的控制攻击时，防御+2。",
+      "effect": "抵御政府团体发起的控制攻击时，防御+4。",
       "category": "组织"
     },
     "G040": {
@@ -3546,7 +3558,7 @@
     "G076": {
       "name": "瑞士",
       "en": "Switzerland",
-      "effect": "中立保障：抵御摧毁攻击或灾难时，基础防御改用R；自卫仍用P。",
+      "effect": "中立保障：抵御普通摧毁攻击时，基础防御改用R；自卫仍用P。",
       "category": "地点"
     },
     "G077": {
@@ -3702,7 +3714,7 @@
     "G102": {
       "name": "拉斯维加斯",
       "en": "Las Vegas",
-      "effect": "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，4–6抽3张阴谋；不花标记。",
+      "effect": "幸运押注：己方主要阶段每回合1次，弃1张阴谋掷1颗骰，5–6抽3张阴谋；不花标记。",
       "category": "地点"
     },
     "G103": {
@@ -3714,7 +3726,7 @@
     "G104": {
       "name": "云服务商",
       "en": "Cloud Providers",
-      "effect": "弹性扩容：本团体普通支援时，可另弃1张阴谋，将本次采用的P／GP翻倍；其他加值不翻倍。",
+      "effect": "弹性扩容：本团体支援时，可另弃1张阴谋，使采用的P／GP翻倍；其他加值不翻倍。",
       "category": "组织"
     },
     "G105": {
@@ -4133,7 +4145,7 @@
       "name": "民调利好",
       "en": "Good Polls",
       "effect": "本次防御+4。",
-      "target": "本次被攻击的己方团体。",
+      "target": "己方受到普通控制或摧毁攻击的团体。",
       "cost": "弃本牌。",
       "category": "战斗"
     },

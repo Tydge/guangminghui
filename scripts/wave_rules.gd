@@ -164,8 +164,8 @@ func battle_actions(p: int,out: Array) -> Array:
 	var b=g.battle
 	if b.get("responder",-1)!=p:return out
 	out=out.filter(func(a):return not (b.has("disaster") and a.type=="support" and p==b.attacker))
-	# Generate the algorithm and cloud variants even if the unmodified GP would be zero.
-	if normal(b):
+	# Cloud scaling also applies to disaster defense; attack-only abilities stay below.
+	if normal(b) or p==b.defender:
 		for id in g.field(p):
 			if not g.token(id) or id in b.paid or id in [b.src,b.target]:continue
 			var bases=[false,true] if p==b.attacker and g.world=="P36" and g.has(id,"媒体") and not b.get("algorithm_used",false) else [false]
@@ -178,6 +178,7 @@ func battle_actions(p: int,out: Array) -> Array:
 				if id=="G104" and enabled(id):
 					context.amplify=true;d=g.support_detail(id,context)
 					for fee in g.renewal.plot_costs(p):out.append(g._a("support","弹性扩容 · +%d · 弃%s"%[d.power,g.title(fee)],{"src":id,"power":d.power,"basis":d.basis,"algorithm":algorithm,"amplify":true,"plot_fee":fee}))
+	if normal(b):
 		if p==b.attacker and enabled("G100",b.defender) and g.has(b.target,"沿海") and b.get("support_counts",[0,0])[p]==1:
 			var revised: Array=[]
 			for a in out:
@@ -251,9 +252,10 @@ func ability(p: int,a: Dictionary) -> void:
 			"G099":g.nodes[target].parent=a.parent;g._draw(p,"group")
 			"G102":
 				g._discard(p,target);var roll=g._die()
-				if roll>=4:
+				var won=roll>=5
+				if won:
 					for i in 3:g._draw(p,"plot")
-				g._log("幸运押注 · 骰点 %d · %s"%[roll,"抽3张阴谋" if roll>=4 else "未获收益"],"ability",{"id":src});g._after_effect();return
+				g._log("幸运押注 · 骰点 %d · %s"%[roll,"抽3张阴谋" if won else "未获收益"],"ability",{"id":src});g._after_effect();return
 			"G105":
 				var peek=g._take(p,"group",3)
 				if not peek.is_empty():g._set_choice(p,"推荐流 · 选择1张势力牌",peek,"w_draft",{"peek":peek,"initiator":p,"round":0})
@@ -364,7 +366,7 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 		var power={"P31":14,"P32":14,"P33":16,"P34":18,"P35":12}[b.disaster]
 		var ability=0
 		if g.has(b.target,"巨大"):ability=-4 if b.disaster=="P31" else (4 if b.disaster=="P35" else 0)
-		v.power=power;v.alignment=0;v.ability=ability;v.loyalty=0;v.position=0;v.base=g.stat(b.target,"r" if b.target=="G076" else "p")
+		v.power=power;v.alignment=0;v.ability=ability;v.loyalty=0;v.position=0;v.base=g.stat(b.target,"p")
 		v.defense=g.disaster_defense(b.target,b.src)
 		v.strength=power+ability+b.bonus_a-v.base-v.defense-b.bonus_d-b.support_d-b.self
 	v=g.renewal.values(b,g.synergy.values(b,v))

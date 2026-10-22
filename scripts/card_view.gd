@@ -164,7 +164,7 @@ func text_layout() -> Array:
 		if state.recharged.has(id):flags.append("额外恢复已用")
 		if state.captured.has(id):flags.append("本回合不能补标记")
 		if n.get("debt",false):flags.append("负债：下次不补标记")
-		if n.get("ad_gp",0)>0:flags.append("广告GP+2")
+		if n.get("ad_gp",0)>0:flags.append("广告GP+%d"%n.ad_gp)
 		if n.get("compute",false):flags.append("算力GP=P")
 		if "P44" in n.attached:flags.append("保镖保护")
 		if "P45" in n.attached:flags.append("监管GP 0")

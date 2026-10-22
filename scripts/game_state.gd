@@ -442,7 +442,7 @@ func _battle_actions(p: int) -> Array:
 func _combat_plot_actions(id: String,p: int,b: Dictionary) -> Array:
 	if int(id.substr(1))>=43:return synergy.combat_plots(id,p,b)
 	if int(id.substr(1))>=31:return wave.combat_plots(id,p,b)
-	if b.has("disaster") and id in ["P12","P13","P16"]:return []
+	if b.has("disaster") and id in ["P10","P12","P13","P16"]:return []
 	var out: Array=[]
 	var index=int(id.substr(1))
 	if index>=1 and index<=9:
@@ -529,7 +529,7 @@ func passive_defense(id: String,mode: String,src: String="") -> int:
 		if factions[owner(id)]=="I04" and has(id,"怪异"):value+=2
 		if "G006" in children(id):value+=2
 		if id=="G042" and src!="" and (has(src,"科学") or has(src,"太空")):value+=4
-		if id=="G039" and src!="" and has(src,"政府"):value+=2
+		if id=="G039" and src!="" and has(src,"政府"):value+=4
 	else:
 		if id in ["G049","G058"]:value+=3 if id=="G049" else 2
 		if id=="G071":value+=10
@@ -545,7 +545,7 @@ func card_context(id: String) -> Dictionary:
 	var c=card(id);var position=position_defense(id);var loyalty=loyalty_defense(id)
 	var control=passive_defense(id,"control");var destroy=passive_defense(id,"destroy")
 	var destroy_base=stat(id,"r" if id=="G076" else "p")
-	return {"on_board":true,"owner":owner(id),"root":is_root(id),"parent":nodes[id].parent,"depth":depth(id),"loyalty":loyalty,"position":position,"control_passive":control,"destroy_passive":destroy,"disaster_passive":disaster_defense(id),"control_total":stat(id,"r")+loyalty+position+control,"destroy_base":destroy_base,"destroy_total":destroy_base+position+destroy,"token":int(token(id)),"can_recharge":can_recharge(id),"recharged":recharged.has(id),"captured":captured.has(id),"used":used.has(id),"occupied":children(id).size(),"slots":stat(id,"slots"),"attached":nodes[id].attached.duplicate(),"printed":{"p":c.p,"gp":c.gp,"r":c.r,"slots":c.slots}}
+	return {"on_board":true,"owner":owner(id),"root":is_root(id),"parent":nodes[id].parent,"depth":depth(id),"loyalty":loyalty,"position":position,"control_passive":control,"destroy_passive":destroy,"disaster_passive":disaster_defense(id),"disaster_base":stat(id,"p"),"control_total":stat(id,"r")+loyalty+position+control,"destroy_base":destroy_base,"destroy_total":destroy_base+position+destroy,"token":int(token(id)),"can_recharge":can_recharge(id),"recharged":recharged.has(id),"captured":captured.has(id),"used":used.has(id),"occupied":children(id).size(),"slots":stat(id,"slots"),"attached":nodes[id].attached.duplicate(),"printed":{"p":c.p,"gp":c.gp,"r":c.r,"slots":c.slots}}
 
 func _battle_record(kind: String,p: int,id: String,target: String,message: String,status: String="") -> void:
 	if battle.is_empty():return
@@ -777,7 +777,7 @@ func _ability(p: int,a: Dictionary) -> void:
 		"G036":
 			if not nodes[target].has("extra_tags"):nodes[target].extra_tags=[]
 			nodes[target].extra_tags.append("媒体")
-		"G037":nodes[target].ad_gp=2
+		"G037":nodes[target].ad_gp=3
 		"G046":_discard(p,target);_draw(p,"plot")
 		"G056":discards.group.erase(target);hands[p].group.append(target)
 		"G065":nodes[target].flip=not nodes[target].get("flip",false)

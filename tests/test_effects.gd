@@ -60,7 +60,7 @@ func _initialize() -> void:
 		var g=fresh();place(g,row[0],0,"R0");place(g,row[1],1,"R1");check(g.attack_preview(row[0],row[1],"destroy").ability==row[2],row[0]+" destroy modifier")
 	for row in [["G049",3],["G058",2],["G061",4],["G071",10]]:
 		var g=fresh();place(g,"G001",0,"R0");place(g,row[0],1,"R1");check(g.attack_preview("G001",row[0],"destroy").defense==row[1],row[0]+" destroy defense")
-	for row in [["G042",0],["G039",2]]:
+	for row in [["G042",0],["G039",4]]:
 		var g=fresh();place(g,"G001",0,"R0");place(g,row[0],1,"R1");check(g.attack_preview("G001",row[0],"control").defense==row[1],row[0]+" control defense")
 	var g=fresh();place(g,"G076",1,"R1");check(g.attack_preview("R0","G076","destroy").base==7,"Swiss resistance destroy base")
 	place(g,"G005",0,"R0");place(g,"G006",0,"G005");place(g,"G001",1,"R1")

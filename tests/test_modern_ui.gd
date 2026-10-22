@@ -56,6 +56,8 @@ func run() -> void:
 	check("G034" in g.hands[0].group and g.phase=="main","Japan choice returns to live match")
 	g=fresh();main._start_game(4318);main.game=g
 	place(g,"G016",0,"R0");place(g,"G078",0,"R0");place(g,"G036",0,"R0");place(g,"G024",0,"G016");place(g,"G037",0,"G024");place(g,"G071",1,"R1")
+	# Leave room below P after advertising +3 so compute remains a legal follow-up.
+	g.nodes.G024.learned=1
 	give(g,"P27",0);await main._do_action(0,action(g,"plot",{"id":"P27","target":"G024"}))
 	await main._do_action(0,action(g,"ability",{"src":"G036","target":"G024"}))
 	await main._do_action(0,action(g,"ability",{"src":"G037","target":"G024"}))
@@ -71,7 +73,7 @@ func run() -> void:
 	give(g,"P17",0);await main._do_action(0,action(g,"plot",{"id":"P17","target":"G078"}))
 	var attack=action(g,"attack",{"src":"G078","target":"G071","mode":"control"});main._review_action(attack);await process_frame
 	var resources=main.large_layer.find_children("*","Button",true,false).map(func(button):return button.text)
-	check(resources.any(func(label):return label.contains("电子游戏") and label.contains("GP +4")),"Preflight uses boosted effective GP without expanding rule text")
+	check(resources.any(func(label):return label.contains("电子游戏") and label.contains("GP +%d"%g.stat("G024","gp"))),"Preflight uses boosted effective GP without expanding rule text")
 	await capture("光明会_新机制_攻击预览")
 	main._clear(main.large_layer);main.preview_action={}
 	g=fresh();main._start_game(4318);main.game=g;place(g,"G005",0,"R0");place(g,"G051",1,"R1");place(g,"G008",1,"R1");place(g,"G010",1,"G008")

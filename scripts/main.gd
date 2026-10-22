@@ -573,10 +573,12 @@ func _phase_overlay() -> void:
 	elif game.phase=="plot_response":
 		if game.pending_plot.player==1:
 			if not game.battle.is_empty():_battle_overlay()
-			_dim(overlay);var p=_panel(overlay,Rect2(size/2-Vector2(370,255),Vector2(740,510)))
-			var heading=_label("AI 打出「%s」"%game.title(game.pending_plot.id),p,28,GOLD);heading.position=Vector2(26,25);heading.size.x=p.size.x-225;heading.clip_text=true;window_access.offer(p)
-			var col=_scroll_column(p,Rect2(26,90,688,290));_wrapped(CardDB.plot_text(game.card(game.pending_plot.id)),col,22)
-			var row=HBoxContainer.new();row.position=Vector2(26,410);row.add_theme_constant_override("separation",20);p.add_child(row)
+			var extent=Vector2(minf(900,size.x-100),560)
+			_dim(overlay);var p=_panel(overlay,Rect2((size-extent)/2,extent));p.name="PlotResponse"
+			var heading=_label("AI 打出「%s」"%game.title(game.pending_plot.id),p,28,GOLD);heading.position=Vector2(26,25);heading.size.x=p.size.x-56;heading.clip_text=true
+			var col=_scroll_column(p,Rect2(26,90,extent.x-52,300));_wrapped(CardDB.plot_text(game.card(game.pending_plot.id)),col,22)
+			var row=HFlowContainer.new();row.name="ResponseOptions";row.position=Vector2(26,420);row.size=Vector2(extent.x-52,112);row.add_theme_constant_override("h_separation",12);row.add_theme_constant_override("v_separation",10);p.add_child(row)
+			var peek=window_access.offer(p);peek.reparent(row);peek.position=Vector2.ZERO
 			for item in interactions.group_actions(game.legal_actions(0)):
 				var a=item.action;var options=item.options
 				var title={"counter":"骗局反制","trick":"替身骗局","fact_check":"事实核查","accept_plot":"放行"}.get(a.type,a.label)
@@ -754,7 +756,7 @@ func _card_context_text(id: String) -> String:
 		lines.append("控制防御 %d = 抗性%d + 忠诚%d + 位置%d + 被动%d"%[context.control_total,game.stat(id,"r"),context.loyalty,context.position,context.control_passive])
 		lines.append("摧毁防御 %d = %s%d + 位置%d + 被动%d"%[context.destroy_total,"抗性" if id=="G076" else "力量",context.destroy_base,context.position,context.destroy_passive])
 		lines.append("可自卫 +%d（消耗1标记）"%(2*game.stat(id,"p")) if context.token>0 else "无标记 · 当前不可支援或自卫")
-		if id=="G039":lines.append("对政府团体的控制攻击，额外防御 +2。")
+		if id=="G039":lines.append("对政府团体的控制攻击，额外防御 +4。")
 		if id=="G061":lines.append("对暴力团体的摧毁攻击，额外防御 +4。")
 		if id=="G042":lines.append("抵御科学或太空团体的控制攻击，额外防御 +4。")
 		lines.append("以上未计攻击者能力、支援与阴谋。")
@@ -785,12 +787,12 @@ func _card_context_text(id: String) -> String:
 	if id=="G083" and game.wave.plans.has(context.owner):lines.append("公开预案 · %d＋%d"%game.wave.plans[context.owner])
 	if n.parent=="G081" and game.wave.enabled("G081"):lines.append("跨界整合 · 当前标签："+" / ".join(game.tags(id)))
 	if game.has(id,"地点"):
-		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.destroy_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
+		lines.append("灾难基础防御 %d；被动+%d；防备+%d。灾难不计忠诚和位置。"%[context.disaster_base,context.disaster_passive,4 if n.get("prepared",false) else 0])
 		if game.wave.enabled("G030",context.owner):lines.append("国际气象组织 · 灾难防御+5。")
 		if game.resources.ready("E03",context.owner):lines.append("防灾卫星 · 灾难防御+3。")
 		if game.wave.devastated(id) and game.has(id,"巨大") and game.resources.ready("E14",context.owner):lines.append("重型抢修车 · 重建只需1行动。")
 	if n.get("debt",false):lines.append("借贷负债：下次轮到控制者补标记时，跳过本团体一次；已有标记不移除。")
-	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+2，不超过有效P。")
+	if n.get("ad_gp",0)>0:lines.append("定向投放：本回合GP+%d，不超过有效P。"%n.ad_gp)
 	if n.get("compute",false):lines.append("本回合GP等于有效P。")
 	if not n.get("extra_tags",[]).is_empty():lines.append("新增标签 · "+" / ".join(n.extra_tags)+"（离场清除）")
 	if n.parent=="G073" and (game.has(id,"企业") or game.has(id,"科学")):lines.append("工业标准：来自德国的抗性 +2。")
@@ -917,7 +919,7 @@ func _help(page: String="basic") -> void:
 	var pages={
 		"alignments":"P力量：带头进攻、自卫和合资格支援。GP全球力量：不满足P支援条件时使用；P与GP不相加。R抗性：控制攻击的基础防御。\n\n相反阵营：政府↔企业、自由↔保守、和平↔暴力、正统↔怪异、狂热↔狂热。犯罪没有相反阵营。狂热不算共同阵营。\n控制攻击：带头者与目标每个共同阵营+4，每对相反阵营−4；摧毁攻击反过来。\n\n忠诚：目标与直属上级每个共同阵营+4，仅防控制，相反阵营不扣分。\n位置：主牌直属下属+10，下一层+5，更深+0；同时防控制与摧毁。\n自卫：目标花自身行动，额外防御+2P。\n\n支援时与受攻击目标比较：控制进攻共有阵营用P；摧毁进攻相反阵营用P；防守共有阵营或互为直属上下级用P。否则用GP，通常花支援者1行动。\n\n标签不是阵营：军队、共产、魔法、太空、名人、地点等只在卡文指定时生效；不会自动增加阵营修正。巨大与沿海也属于标签。",
 		"basic":"初始团体从五张手牌中选，可整手重随至多2次。\n初始团体选完后，从5张资源候选中选1张入手，可独立重随2次。团体、阴谋、资源使用独立牌堆。\n掷骰定先后，后手额外抽1张阴谋。\n抽牌 → 补行动 → 自由行动 → 回合末检查主牌目标。\n目标阴谋：己方主要阶段达标后主动打出，可被反制。\n\n自动接管：每回合一次，花主牌行动。新团体当回合无标记，且不能恢复；控制进场也相同。\n控制：带头者须有空槽，成功夺取整支子树。\n摧毁：只摧毁目标，其下属回原主人的手中。\n\n双方交替支援和出阴谋，连续放行才掷骰。\n2d6 ≤ 最终强度成功；11、12永远失败。\n\n支援控制：共有阵营可用P，否则GP。\n支援摧毁：相反阵营可用P，否则GP。\n支援防守：共有阵营或直属上下级可用P，否则GP。\n每个参战者通常花1个标记，P与GP不相加。",
-		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P；瑞士改用R。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
+		"disaster":"灾难只攻击地点，花1个非主牌团体标记策动。\n反制窗口后，目标失去标记，再消耗防备并交替响应。\n\n灾难以威力攻击目标P。\n忽略阵营、忠诚和位置；只有防守方可普通支援。\n普通攻击专用能力不适用于灾难。\n\n受灾：自身P／GP减半、不能行动，不计胜利；下属正常。\n重建：主要阶段花1个团体标记，巨大需2个不同团体；重型抢修车可减至1个。\n重建后不会立刻获得标记。\n\n防备：下次灾难防御+4。\n训练：C罗带头攻击时可花1枚换+2。\n预案：发动控制攻击时就决定是否采用。",
 		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管共用每回合1次机会，通常花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
@@ -943,6 +945,7 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		elif interactions.picker.active:interactions.back()
 		elif not large_layer.get_children().is_empty():preview_action={};_clear(large_layer);modal_open=false;_schedule_ai()
 		elif not action_candidates.is_empty():action_candidates.clear();_refresh(false)
+		elif game!=null and game.phase=="plot_response" and game.pending_plot.player==1:window_access.peek()
 		else:_settings()
 
 func _snapshot_setup() -> void:

@@ -70,7 +70,7 @@ func _initialize() -> void:
 	# Ads and compute have distinct sizes, caps, durations and source costs.
 	g=fresh();place(g,"G037",0,"R0");place(g,"G034",0,"R0")
 	apply(g,0,"ability",{"src":"G037","target":"G034"})
-	check(g.stat("G034","gp")==2 and g.stat("G034","p")==2 and not g.token("G037"),"Ads increase GP by two up to P without changing P")
+	check(g.stat("G034","gp")==2 and g.stat("G034","p")==2 and not g.token("G037"),"Ads increase GP up to P without changing P")
 	g._complete_end();check(g.stat("G034","gp")==0 and g.nodes.G034.ad_gp==0,"Ads expire at current turn end")
 	g=fresh();place(g,"G078",0,"R0");place(g,"G021",0,"R0")
 	apply(g,0,"ability",{"src":"G078","target":"G021"})

@@ -137,6 +137,7 @@ func confirm() -> void:
 	m.window_access.offer(p)
 	var lines: Array=[]
 	if a.type in ["deploy","resource","research"]:lines.append(a.label)
+	if a.type=="deploy":lines.append("与自动接管共用每回合1次机会。")
 	if a.type=="support":
 		lines.append(("支援进攻" if m.game.owner(a.src)==m.game.battle.attacker else "支援防守")+" · "+support_value([a]))
 		if a.get("algorithm",false):lines.append("算法时代 · 本战限1次")
