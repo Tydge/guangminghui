@@ -17,10 +17,10 @@ const FACTIONS={
 }
 const PLOTS={
 	"P51":{"traits":["犯罪"],"groups":5,"power":20},
-	"P52":{"groups":9,"small":6},
+	"P52":{"groups":9,"small":8},
 	"P53":{"traits":["军队"],"groups":4,"destroyed":3},
 	"P54":{"groups":7,"celebrity":3,"media":4},
-	"P55":{"groups":7,"alignments":10},
+	"P55":{"groups":9,"alignments":10},
 	"P61":{"traits":["绿色"],"groups":5,"facilities":2}
 }
 const ALIGNMENTS=["政府","企业","自由","保守","和平","暴力","正统","怪异","犯罪","狂热"]

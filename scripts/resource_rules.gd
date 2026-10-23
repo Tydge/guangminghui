@@ -109,7 +109,7 @@ func augment_actions(p: int,out: Array) -> Array:
 			match id:
 				"E02":
 					for target in g.groups(p):
-						if g.can_recharge(target):out.append(g._a("resource","应急电池 · 恢复1行动，本回合P+2 · 报废",{"src":id,"target":target}))
+						if g.can_recharge(target):out.append(g._a("resource","应急电池 · 恢复1行动，本回合P+4 · 报废",{"src":id,"target":target}))
 				"E06":
 					if not g.decks.group.is_empty() or not g.discards.group.is_empty():out.append(g._a("resource","量子计算机 · 抽2张团体，保留1张",{"src":id}))
 				"E08":
@@ -126,10 +126,10 @@ func augment_actions(p: int,out: Array) -> Array:
 		if not b.has("disaster"):
 			if can_evacuate(p):out.append(g._a("resource","安全屋 · 整支回手，取消攻击 · 报废",{"src":"E16","target":b.target}))
 			var opposing="support_d" if p==b.attacker else "support_a"
-			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-6 · 报废",{"src":"E12","target":b.target}))
-			if ready("E15",p) and b.get("fixed_dice",[])!=[3,4]:out.append(g._a("resource","命运硬币 · 骰点固定3＋4 · 报废",{"src":"E15","target":b.target}))
-			if p==b.attacker and ready("E01",p) and g.token("E01"):out.append(g._a("resource","战术雷达 · 强度+2 · 花资源1行动",{"src":"E01","target":b.target}))
-			if p==b.defender and b.mode=="destroy" and ready("E07",p):out.append(g._a("resource","凤凰护符 · 防御+8 · 报废资源",{"src":"E07","target":b.target}))
+			if ready("E12",p) and b[opposing]>0:out.append(g._a("resource","数字诱饵 · 对手支援-8 · 报废",{"src":"E12","target":b.target}))
+			if ready("E15",p) and b.get("fixed_dice",[])!=[4,4]:out.append(g._a("resource","命运硬币 · 骰点固定4＋4 · 报废",{"src":"E15","target":b.target}))
+			if p==b.attacker and ready("E01",p) and g.token("E01"):out.append(g._a("resource","战术雷达 · 强度+3 · 花资源1行动",{"src":"E01","target":b.target}))
+			if p==b.defender and b.mode=="destroy" and ready("E07",p):out.append(g._a("resource","凤凰护符 · 防御+10 · 报废资源",{"src":"E07","target":b.target}))
 	return out
 func plot_actions(id: String,p: int) -> Array:
 	var out: Array=[]
@@ -177,17 +177,17 @@ func handle(p: int,a: Dictionary) -> bool:
 			match src:
 				"E11":g.nodes[target].compute=true
 				"E12":
-					remove(src);var opposing="support_d" if p==g.battle.attacker else "support_a";g.battle[opposing]=maxi(0,g.battle[opposing]-6)
-				"E15":remove(src);g.battle.fixed_dice=[3,4]
-				"E01":g.battle.bonus_a+=2
-				"E02":remove(src);g.nodes[target].token=1;g.nodes[target].battery_power=2;g.recharged[target]=true
+					remove(src);var opposing="support_d" if p==g.battle.attacker else "support_a";g.battle[opposing]=maxi(0,g.battle[opposing]-8)
+				"E15":remove(src);g.battle.fixed_dice=[4,4]
+				"E01":g.battle.bonus_a+=3
+				"E02":remove(src);g.nodes[target].token=1;g.nodes[target].battery_power=4;g.recharged[target]=true
 				"E06":
 					var cards: Array=[]
 					for i in 2:
 						var drawn=g._draw(p,"group")
 						if drawn!="":cards.append(drawn)
 					if not cards.is_empty():g._set_choice(p,"量子计算机 · 保留1张团体",cards,"e_keep",{"new_cards":cards})
-				"E07":remove(src);g.battle.bonus_d+=8
+				"E07":remove(src);g.battle.bonus_d+=10
 				"E08":
 					probe(p,3,true)
 				"E10":g.nodes[target].parent=a.parent

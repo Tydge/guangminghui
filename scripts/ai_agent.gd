@@ -358,7 +358,10 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 			for id in Tactics.branch(a.target,o):value+=_value(id,o)
 			# Compare losing a whole branch to withdrawing it and spending the facility.
 			return risk*value*2.0-(1.0-risk)*value*0.7-_value(a.src,o)*0.6
-		"E17":return 30+_value(a.target,o)*0.2
+		"E17":
+			var public_state=o.get("public_state",{})
+			var recoverable=o.nodes[a.target].token==0 and not public_state.get("captured",{}).has(a.target) and not public_state.get("recharged",{}).has(a.target)
+			return 30+_value(a.target,o)*0.2+(6 if recoverable else 0)
 		"E19":return 12 if o.battle_values.strength<10 else -4
 		"E22":return (14 if o.hands.plot.size()<3 else 5)-_value(a.target,o)*0.3
 		"E23":return 8+o.battle_values.loyalty if o.battle_values.strength<10 else -4
@@ -370,13 +373,13 @@ func _resource_score(a: Dictionary,o: Dictionary) -> float:
 		"E10":return _placement_value(a.target,a.parent,o)-5
 		"E11":return 8+_card(a.target,o).p-_card(a.target,o).gp
 		"E12":return 10 if o.battle_values.strength>=2 and o.battle_values.strength<=15 else -3
-		"E15":return (18 if o.battle_values.strength>=7 else -4) if o.battle.attacker==o.player else (18 if o.battle_values.strength<7 else -4)
+		"E15":return (18 if o.battle_values.strength>=8 else -4) if o.battle.attacker==o.player else (18 if o.battle_values.strength<8 else -4)
 		"G091":return 13-_value(a.fee,o)*0.2
 		"G093":return 17
 	return -2
 
 func _contemporary_score(a: Dictionary,o: Dictionary) -> float:
-	if a.type=="resource":return 30+_value(a.target,o)*0.2 if a.src=="E17" else (12 if o.battle_values.strength<10 else -4)
+	if a.type=="resource":return _resource_score(a,o)
 	if a.type=="ability":
 		if a.src.begins_with("R") and o.factions[o.player]=="I09":return 8 if o.hands.group.any(func(k):return "太空" in _card(k,o).tags) else 16
 		match a.src:
@@ -398,7 +401,11 @@ func _contemporary_score(a: Dictionary,o: Dictionary) -> float:
 			"P64":var v=o.previews.get(JSON.stringify(a),{});return v.get("chance",0.0)*(_value(a.target,o)+15)-5
 			"P65":return 8 if a.target in ["E01","E06","E11"] else 2
 			"P66":return 25+_value(a.target,o)
-			"P67":return 5+_card(a.target,o).gp*2
+			"P67":
+				var value=5.0
+				for id in [a.target]+o.nodes.keys().filter(func(k):return o.nodes[k].parent==a.target):
+					if not o.nodes[id].get("no_support",false) and o.nodes[id].token>0:value+=_card(id,o).gp*2
+				return value
 			"P68":return 30+_value(a.target,o)*0.4
 			"P69":return 3+a.backlash if o.battle_values.strength in range(2,15) else -3
 			"P70":return 8

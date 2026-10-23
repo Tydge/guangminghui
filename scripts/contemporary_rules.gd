@@ -14,6 +14,8 @@ func tenant_alignments(id: String) -> Array:
 		for alignment in g.alignments(child):
 			if alignment not in result:result.append(alignment)
 	return result
+func seal_targets(target: String) -> Array:
+	return [target]+g.children(target)
 func adjust_stat(id: String,key: String,value: int) -> int:
 	if not g.nodes.has(id):return value
 	if key=="p":
@@ -21,7 +23,7 @@ func adjust_stat(id: String,key: String,value: int) -> int:
 		if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):value+=1
 		if id=="G169" and ready(id) and tenant_alignments(id).size()>=5:value+=3
 	if key in ["gp","r"] and g.world=="P62" and g.has(id,"保守"):value+=1
-	if key=="r" and g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):value+=2
+	if key=="r" and g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):value+=3
 	if key=="gp":
 		if id=="G050" and ready(id):value+=mini(2,g.children(id).filter(func(k):return g.has(k,"怪异")).size())
 		value=0 if g.nodes[id].get("pr_crisis",false) or "P45" in g.nodes[id].attached else mini(value,g.stat(id,"p",true))
@@ -53,12 +55,12 @@ func augment_actions(p: int,out: Array) -> Array:
 		if g.factions[p]=="I09":out.append_array(ability_actions(g.root(p),p))
 		if ready("E17",p) and g.token("E17"):
 			for target in g.groups(p):
-				if g.wave.devastated(target) and not g.has(target,"巨大"):out.append(g._a("resource","移动医疗站 · 重建 → "+g.title(target),{"src":"E17","target":target}))
+				if g.wave.devastated(target) and g.has(target,"地点") and not g.has(target,"巨大"):out.append(g._a("resource","移动医疗站 · 重建并恢复行动 → "+g.title(target),{"src":"E17","target":target}))
 		if ready("E22",p) and g.token("E22"):
 			for target in g.hands[p].resource:out.append(g._a("resource","炼金置换 · 洗回1资源，抽2阴谋",{"src":"E22","target":target}))
 	elif g.phase=="battle" and g.battle.responder==p:
 		var b=g.battle
-		if normal(b) and p==b.attacker and g.has(b.src,"魔法") and ready("E19",p):out.append(g._a("resource","雷击桃木剑 · 攻击强度+5 · 报废",{"src":"E19","target":b.target}))
+		if normal(b) and p==b.attacker and g.has(b.src,"魔法") and ready("E19",p):out.append(g._a("resource","雷击桃木剑 · 攻击强度+8 · 报废",{"src":"E19","target":b.target}))
 		if normal(b) and p==b.attacker and b.mode=="control" and ready("E23",p) and g.nodes.has(b.target) and g.loyalty_defense(b.target)>0 and not b.get("ignore_loyalty",false):out.append(g._a("resource","王权之杖 · 忽略忠诚 · 报废",{"src":"E23","target":b.target}))
 		var revised: Array=[]
 		for original in out:
@@ -121,7 +123,7 @@ func plot_actions(id: String,p: int) -> Array:
 						for payer in g.groups(p).filter(func(k):return g.token(k)):out.append(g._a("plot","紧急空运 → "+g.title(target),{"id":id,"src":id,"target":target,"replace":old,"payer":payer}))
 		"P67":
 			if g.can_enemy(p):
-				for target in g.groups(1-p).filter(func(k):return not g.nodes[k].get("no_support",false)):
+				for target in g.groups(1-p).filter(func(k):return seal_targets(k).any(func(child):return not g.nodes[child].get("no_support",false))):
 					for payer in g.groups(p).filter(func(k):return g.token(k) and g.has(k,"魔法")):out.append(g._a("plot","符箓封印 → "+g.title(target),{"id":id,"src":id,"target":target,"payer":payer}))
 		"P68":targets=g.groups(p).filter(func(k):return g.has(k,"地点") and g.has(k,"绿色") and g.wave.devastated(k))
 		"P70":
@@ -163,11 +165,11 @@ func handle(p: int,a: Dictionary) -> bool:
 			"G168":g._discard(p,a.target);g._draw(p,"group");g._draw(p,"plot")
 		g._log(g._who(p)+" · "+a.label,"ability",{"id":a.src,"target":a.get("target",""),"player":p});g._after_effect();return true
 	if a.type=="resource" and a.src in ["E17","E19","E22","E23"]:
-		if a.src=="E17":g.spend(a.src);g.wave.rebuild(a.target)
+		if a.src=="E17":g.spend(a.src);g.wave.rebuild(a.target,true)
 		elif a.src=="E22":
 			g.spend(a.src);g.hands[p].resource.erase(a.target);g.decks.resource.append(a.target);g._flow(a.target,"hand","deck",p);g._shuffle(g.decks.resource);g._draw(p,"plot");g._draw(p,"plot")
 		elif a.src=="E23":g.resources.remove(a.src);g.battle.ignore_loyalty=true
-		else:g.resources.remove(a.src);g.battle.bonus_a+=5
+		else:g.resources.remove(a.src);g.battle.bonus_a+=8
 		g._log(g._who(p)+" · "+a.label,"resource",{"id":a.src,"target":a.target,"player":p})
 		if not g.battle.is_empty():g._battle_record("resource",p,a.src,a.target,a.label,"已生效");g._response_changed(p)
 		else:g._after_effect()
@@ -215,7 +217,8 @@ func resolve_plot(a: Dictionary) -> bool:
 		"P65":g.resources.remove(a.target);peek(p,3,"shuffle")
 		"P66":
 			var deploy={"type":"deploy","id":a.target,"src":a.target,"replace":a.get("replace",""),"free":true};g.resources.deploy(p,deploy)
-		"P67":g.nodes[a.target].no_support=true
+		"P67":
+			for target in seal_targets(a.target):g.nodes[target].no_support=true
 		"P68":g.wave.rebuild(a.target);g.nodes[a.target].prepared=true
 		"P69":g.battle["bonus_d" if p==g.battle.attacker else "bonus_a"]-=a.backlash
 		"P70":
@@ -252,7 +255,7 @@ func trigger(task: Dictionary):
 func reader(id: String) -> Array:
 	var out: Array=[]
 	if g.nodes[id].get("pr_crisis",false):out.append("公关危机 · 本回合GP=0。")
-	if g.nodes[id].get("battery_power",0)>0:out.append("应急电池 · 本回合P+2。")
+	if g.nodes[id].get("battery_power",0)>0:out.append("应急电池 · 本回合P+4。")
 	if id=="G050" and ready(id):out.append("信众合唱 · GP+%d。"%mini(2,g.children(id).filter(func(k):return g.has(k,"怪异")).size()))
 	if g.nodes[id].parent=="G156" and ready("G156") and g.has(id,"名人"):out.append("形象塑造 · 来自高档沙龙的P+1。")
 	if id=="G169":
@@ -260,7 +263,7 @@ func reader(id: String) -> Array:
 		if ready(id) and tenant_alignments(id).size()>=5:out.append("多元合租 · P+3已生效。")
 	if g.nodes[id].get("no_support",false):out.append("符箓封印 · 本回合不能支援，仍可自卫。")
 	if g.nodes[id].get("rally",false):out.append("红帽集会 · 本回合增加狂热。")
-	if g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):out.append("符箓庇护 · R+2。")
+	if g.nodes[id].parent=="G170" and ready("G170") and g.has(id,"魔法"):out.append("符箓庇护 · R+3。")
 	if g.nodes[id].parent=="G153" and ready("G153") and g.has(id,"共产"):out.append("集中统筹 · 支援可用P。")
 	if id in ["G165","G167","E20","R0","R1"]:
 		var quota={"G165":"open_blueprints","G167":"recruitment_spiral","E20":"community_solar"}.get(id,"")

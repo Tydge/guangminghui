@@ -63,8 +63,10 @@
 - 在线操作按双端prepare展示、服务端单次commit、双端桌面settled、release推进；动画／断线暂停服务端计时，查看战场／设置不暂停。每次战斗与反制响应15秒、回合120秒、开局选择60秒。对战强制完整动画且保留离线精简偏好，语言／音量／布局只影响显示。异步重连、旧release及重开不得解锁错误事务或将动作提交到新局。回归：`test_online.gd`、`test_online_ui.gd --battle`、`test_online_settings.gd`、`test_online_matches.gd`。
 - 普通攻击声明与支援演出由`ActionFlow.plan`提供公开的`attack`／`support`元数据，走双端同一展示屏障；自动接管与灾难不使用普通攻击箭头。手牌招募目标使用`AttackPresentation`独立临时卡，不进入真实节点或`BoardView.cards`；战斗结束后才从`recruit`视觉区飞入真实场面或回手，失败回手同时恢复之前取景，成功不能重复进场。支援取景与高亮同时包含支援者和实际受支援者，显示真实P／GP加值。缩放、重连、重开及取消均需清理箭头和临时卡；`_clear_board`保留演出控制器。回归：`test_attack_presentation.gd`、`test_dice_sequence.gd`、`test_online_ui.gd --battle`。
 
-- 当前卡牌调优：猫王教会按直属怪异下属加GP（最多2），不额外加P支援；公关危机独立`pr_crisis`状态令最终GP为0，不改变普通沉默。电池临时P、危机GP在回合末／离场清除。量子计算机仅在新抽2张中保留1张，其余按手牌弃牌触发通则。博物馆每回合首次报废己方其他资源抽2阴谋；抢修车在己方巨大地点实际重建后排队抽团体，免费重建也算。新私密界面和时序回归为`test_contact_tuning.gd`、`test_contact_tuning_ui.gd`。
+- 当前卡牌调优：猫王教会按直属怪异下属加GP（最多2），不额外加P支援；公关危机独立`pr_crisis`状态令最终GP为0，不改变普通沉默。电池临时P、危机GP在回合末／离场清除。量子计算机仅在新抽2张中保留1张，其余按手牌弃牌触发通则。博物馆每回合首次报废己方其他资源抽2阴谋；抢修车在己方任意地点实际重建后排队抽团体，巨大地点重建仍减为1行动，免费重建也算。新私密界面和时序回归为`test_contact_tuning.gd`、`test_contact_tuning_ui.gd`。
 
 - AI终局估值同时考虑己方建设与敌方削弱、各项胜利进度、私密目标、分支安全及资源投入。普通骰子按2d6分布经真实规则结算并合并等价结果；固定骰不平均。资源主要阶段行动不按回合末留存标记奖励。模型内已生成的合法动作可经`GameState._act_generated`复用同一规则派发和清理，避免重复生成整张动作表；真实对局、界面和基准对局仍必须走`act`。根动作须在两个重建样本中验证，后续动作须来自各自模型的合法列表。回归：`test_ai_resources.gd`、`test_ai_expectation.gd`、`test_ai_rehearsal.gd`。
 - 对旧版困难AI的强度验收使用`benchmark_challenger.gd`与冻结的`tests/ai_baseline/`，不可修改基线或混合候选版本。固定连续种子、镜像派系和交换席位，完整100局由`tools/summarize_ai_benchmark.py`核对；未结束不计胜利。不能将少量开发样本、途中版本或不同规则版本的胜率混成验收结果。
 - AI信息隔离回归`test_ai_fairness.gd`覆盖主要阶段、战斗和反制：改变真实敌方隐藏牌、牌序与真实RNG不得改变观察、样本或同AI种子的选择；思考不得修改真实规则状态或共享卡牌定义。补充翻盘对照用`--baseline-control`先跑同种子旧对旧，按其输家席位匹配原强度样本；开局指纹和固定完整复跑由`summarize_ai_replacement.py`核对。控制组、仅开局复演与复跑不重复计入100局胜率，无法确定输家的控制局必须明确列出。
+
+- 医疗站重建非巨大地点后按`can_recharge`恢复1行动，标记`recharged`；进场／被夺取／已额外恢复者仍可重建，但不恢复行动，普通重建不继承恢复。符箓封印在结算时给目标及当前直属下属施加本回合`no_support`，不含孙辈；移动后保留，新接下属不继承，全部仍可自卫，反制则全部无效。目标与直属下属有任一未封印时可选。相关回归：`test_release_tuning.gd`、`test_release_tuning_ui.gd`。

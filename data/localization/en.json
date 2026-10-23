@@ -558,7 +558,6 @@
     "网络渗透": "Network Infiltration",
     "数字自由": "Digital Freedom",
     "旧神的低语": "Whispers of the Old Gods",
-    "普通战斗响应时，花本资源1行动，使己方本次进攻强度+2。": "During a normal battle response, spend 1 action from this resource: your attack strength +2.",
     "战术雷达": "Tactical Radar",
     "应急电池": "Emergency Battery",
     "己方团体抵御灾难时，防御+3。": "Your groups have +3 defense against disasters.",
@@ -580,7 +579,6 @@
     "数字诱饵": "Digital Decoy",
     "私人博物馆": "Private Museum",
     "重型抢修车": "Heavy Repair Vehicle",
-    "普通战斗响应时，报废本资源，将本次骰点固定为3＋4。": "During a normal battle response, scrap this resource: set this battle's dice to 3 + 4.",
     "命运硬币": "Coin of Fate",
     "对犯罪目标发动控制攻击时，攻击强度+2。": "Control attacks against Criminal targets have +2 strength.",
     "地方警察": "Local Police Departments",
@@ -1196,13 +1194,11 @@
     "满足本牌条件的己方势力。": "Your network, when the condition is met.",
     "控制至少5个犯罪团体，且它们的有效P合计至少20。": "Control at least 5 Criminal groups with a combined effective P of at least 20.",
     "犯罪霸权": "Criminal Overlords",
-    "控制至少9个团体，其中至少6个印刷P≤3。": "Control at least 9 groups, including 6 with printed P of 3 or less.",
     "草根接管": "Grassroots Takeover",
     "控制至少4个军队团体，并累计摧毁至少3个敌方团体。": "Control at least 4 Military groups and have destroyed at least 3 enemy groups.",
     "铁腕统治": "Rule by Force",
     "控制至少7个团体，其中至少3位名人、至少4个媒体团体。": "Control at least 7 groups, including 3 Celebrities and 4 Media groups.",
     "聚光灯帝国": "Spotlight Empire",
-    "控制至少7个团体，并覆盖全部10种阵营。": "Control at least 7 groups covering all 10 alignments.",
     "万象归一": "All Sides of the World",
     "敌方1张在场资源。": "An enemy resource in play.",
     "报废目标资源。": "Scrap the target resource.",
@@ -1409,7 +1405,6 @@
     "弹性扩容：本团体支援时，可另弃1张阴谋，使采用的P／GP翻倍；其他加值不翻倍。": "Elastic Scaling: When this group supports, you may discard 1 Plot to double the P or GP used. Other bonuses are not doubled.",
     "资源手牌上限+1。": "Your Resource hand limit is increased by 1.",
     "移动医疗站": "Mobile Medical Station",
-    "花本资源1行动，重建1个己方非巨大地点。": "Spend this Resource’s action to rebuild one of your non-Huge Places.",
     "区块链冷钱包": "Crypto Cold Wallet",
     "己方犯罪团体支援时，额外支援+1。": "Your Criminal groups provide +1 support strength.",
     "雷击桃木剑": "Lightning-Struck Peachwood Sword",
@@ -1564,7 +1559,6 @@
     "己方1张资源手牌。": "One Resource in your hand.",
     "弃本牌；满额时须选择报废替换。": "Discard this card. At capacity, choose a Resource to scrap and replace.",
     "符箓封印": "Talisman Seal",
-    "目标本回合不能提供支援；仍可自卫。": "The target cannot provide support this turn. It may still self-defend.",
     "敌方1个团体。": "One enemy group.",
     "弃本牌，花己方1个魔法团体行动。": "Discard this card and spend an action from one of your Magic groups.",
     "生态修复": "Ecological Restoration",
@@ -1704,16 +1698,10 @@
     "控制至少6个暴力团体，且它们的有效P合计至少28。": "Control at least 6 Violent Groups with combined effective P of at least 28.",
     "信众合唱：每个直属怪异下属使该团体GP+1，最多+2。": "Choir of Believers: This Group gains +1 GP per direct Weird subordinate, up to +2.",
     "该团体对暴力目标发动控制攻击时，攻击强度+2。": "This Group gets +2 attack strength when leading a Control attack against a Violent target.",
-    "符箓庇护：该团体的直属魔法下属R+2。": "Talisman Shelter: This Group's direct Magic subordinates get +2 R.",
     "卡面能力失效且GP=0至回合结束。": "The target's printed ability is disabled and its GP becomes 0 until the end of the turn.",
     "秘密查看对手随机1张阴谋手牌，将其放到阴谋堆顶或堆底。": "Privately look at 1 random Plot in your opponent's hand. Put it on the top or bottom of the Plot deck.",
-    "己方主要阶段，报废本资源，使1个己方团体恢复1行动，且本回合P+2。": "During your main phase, scrap this Resource to restore 1 action to a friendly Group and give it +2 P this turn.",
     "己方主要阶段，花本资源1行动，抽2张团体，保留其中1张，弃掉另一张。": "During your main phase, spend 1 action from this Resource to draw 2 Groups. Keep 1 of those cards and discard the other.",
-    "抵御普通摧毁的响应中，报废本资源，使本次防御+8。": "When responding to an ordinary Destroy attack against you, scrap this Resource for +8 defense in this battle.",
-    "普通战斗响应时，报废本资源，使对手本次支援力量-6，最低0。": "During an ordinary battle response, scrap this Resource to reduce your opponent's total support by 6, to a minimum of 0.",
     "每回合首次报废己方其他资源后，抽2张阴谋。": "The first time each turn another friendly Resource is scrapped, draw 2 Plots.",
-    "己方巨大地点重建只需1个团体行动；重建后抽1张团体。": "Rebuilding a friendly Huge Place costs only 1 Group action. After it is rebuilt, draw 1 Group.",
-    "己方魔法团体带头普通控制或摧毁攻击的响应中，报废本资源，使本次攻击强度+5。": "While responding on offense in an ordinary Control or Destroy attack led by a friendly Magic Group, scrap this Resource for +5 attack strength.",
     "第三类接触（主动）": "Close Encounters (Action)",
     "第三类接触 · 查看团体堆顶5张": "Close Encounters · Look at the top 5 Groups",
     "第三类接触 · 可取1张太空团体": "Close Encounters · You may take 1 Space Group",
@@ -1825,7 +1813,29 @@
     "正在提交操作…": "Submitting action…",
     "连接中断": "Connection interrupted",
     "重试连接": "Retry connection",
-    "好友对战统一完整动画": "Online play always uses full animations"
+    "好友对战统一完整动画": "Online play always uses full animations",
+    "符箓庇护：该团体的直属魔法下属R+3。": "Talisman Shelter: This Group's direct Magic subordinates get +3 R.",
+    "控制至少9个团体，其中至少8个印刷P≤3。": "Control at least 9 Groups, including at least 8 with printed P 3 or less.",
+    "控制至少9个团体，并覆盖全部10种阵营。": "Control at least 9 Groups covering all 10 alignments.",
+    "目标及其直属下属本回合不能支援；仍可自卫。": "The target and its direct subordinates cannot support this turn; they may still defend themselves.",
+    "普通战斗响应时，花本资源1行动，使己方本次进攻强度+3。": "During an ordinary battle response, spend this Resource’s action for +3 attack strength.",
+    "己方主要阶段，报废本资源，使1个己方团体恢复1行动，且本回合P+4。": "During your main phase, scrap this Resource to restore 1 action to one of your Groups and give it +4 P this turn.",
+    "抵御普通摧毁的响应中，报废本资源，使本次防御+10。": "While defending against an ordinary Destroy attack, scrap this Resource for +10 defense.",
+    "普通战斗响应时，报废本资源，使对手本次支援力量-8，最低0。": "During an ordinary battle response, scrap this Resource to reduce the opponent’s support total by 8, to a minimum of 0.",
+    "己方巨大地点重建只需1个团体行动；己方地点重建后抽1张团体。": "Rebuilding your Huge Places costs only 1 Group action. Draw 1 Group after any of your Places is rebuilt.",
+    "普通战斗响应时，报废本资源，将本次骰点固定为4＋4。": "During an ordinary battle response, scrap this Resource to fix the dice at 4 + 4.",
+    "花本资源1行动，重建己方1个非巨大地点，并恢复其1行动。": "Spend this Resource’s action to rebuild one of your non-Huge Places and restore 1 action to it.",
+    "己方魔法团体带头普通控制或摧毁攻击的响应中，报废本资源，使本次攻击强度+8。": "While your Magic Group leads an ordinary Control or Destroy attack, scrap this Resource for +8 attack strength.",
+    "应急电池 · 恢复1行动，本回合P+4 · 报废": "Emergency Battery · Restore 1 action, +4 P this turn · Scrap",
+    "应急电池 · 本回合P+4。": "Emergency Battery · +4 P this turn.",
+    "电池P+4": "Battery P+4",
+    "数字诱饵 · 对手支援-8 · 报废": "Digital Decoy · Enemy support -8 · Scrap",
+    "命运硬币 · 骰点固定4＋4 · 报废": "Coin of Fate · Set dice 4 + 4 · Scrap",
+    "战术雷达 · 强度+3 · 花资源1行动": "Tactical Radar · Strength +3 · Spend resource action",
+    "凤凰护符 · 防御+10 · 报废资源": "Phoenix Amulet · +10 defense · Scrap",
+    "移动医疗站 · 重建并恢复行动 → ": "Mobile Medical Station · Rebuild and restore action → ",
+    "雷击桃木剑 · 攻击强度+8 · 报废": "Peachwood Sword · Attack +8 · Scrap",
+    "符箓庇护 · R+3。": "Talisman Shelter · +3 R."
   },
   "templates": [
     {
@@ -2642,10 +2652,10 @@
   ],
   "cards": {
     "E01": {
-      "effect": "During a normal battle response, spend 1 action from this resource: your attack strength +2."
+      "effect": "During an ordinary battle response, spend this Resource’s action for +3 attack strength."
     },
     "E02": {
-      "effect": "During your main phase, scrap this Resource to restore 1 action to a friendly Group and give it +2 P this turn."
+      "effect": "During your main phase, scrap this Resource to restore 1 action to one of your Groups and give it +4 P this turn."
     },
     "E03": {
       "effect": "Your groups have +3 defense against disasters."
@@ -2660,7 +2670,7 @@
       "effect": "During your main phase, spend 1 action from this Resource to draw 2 Groups. Keep 1 of those cards and discard the other."
     },
     "E07": {
-      "effect": "When responding to an ordinary Destroy attack against you, scrap this Resource for +8 defense in this battle."
+      "effect": "While defending against an ordinary Destroy attack, scrap this Resource for +10 defense."
     },
     "E08": {
       "effect": "During your main phase, spend 1 action from this resource: look at the top 3 Resources. You may take 1; put the rest on the bottom."
@@ -2675,16 +2685,16 @@
       "effect": "During your main phase, spend 1 action from this resource: one of your groups has GP equal to P this turn."
     },
     "E12": {
-      "effect": "During an ordinary battle response, scrap this Resource to reduce your opponent's total support by 6, to a minimum of 0."
+      "effect": "During an ordinary battle response, scrap this Resource to reduce the opponent’s support total by 8, to a minimum of 0."
     },
     "E13": {
       "effect": "The first time each turn another friendly Resource is scrapped, draw 2 Plots."
     },
     "E14": {
-      "effect": "Rebuilding a friendly Huge Place costs only 1 Group action. After it is rebuilt, draw 1 Group."
+      "effect": "Rebuilding your Huge Places costs only 1 Group action. Draw 1 Group after any of your Places is rebuilt."
     },
     "E15": {
-      "effect": "During a normal battle response, scrap this resource: set this battle's dice to 3 + 4."
+      "effect": "During an ordinary battle response, scrap this Resource to fix the dice at 4 + 4."
     },
     "G001": {
       "effect": "This group's Control attacks against Criminal targets have +2 strength."
@@ -3433,7 +3443,7 @@
     },
     "P52": {
       "target": "Your network, when the condition is met.",
-      "effect": "Control at least 9 groups, including 6 with printed P of 3 or less.",
+      "effect": "Control at least 9 Groups, including at least 8 with printed P 3 or less.",
       "cost": "Discard this card."
     },
     "P53": {
@@ -3448,7 +3458,7 @@
     },
     "P55": {
       "target": "Your network, when the condition is met.",
-      "effect": "Control at least 7 groups covering all 10 alignments.",
+      "effect": "Control at least 9 Groups covering all 10 alignments.",
       "cost": "Discard this card."
     },
     "P56": {
@@ -3534,19 +3544,19 @@
       "effect": "Diverse Tenants: While its direct subordinates have at least 5 different alignments in total, this Group gains +3 P."
     },
     "G170": {
-      "effect": "Talisman Shelter: This Group's direct Magic subordinates get +2 R."
+      "effect": "Talisman Shelter: This Group's direct Magic subordinates get +3 R."
     },
     "E16": {
       "effect": "Emergency Evacuation: When one of your Groups faces a normal control attack, you may scrap this Resource to return the target and all its descendants to your hand and cancel the attack."
     },
     "E17": {
-      "effect": "Spend this Resource’s action to rebuild one of your non-Huge Places."
+      "effect": "Spend this Resource’s action to rebuild one of your non-Huge Places and restore 1 action to it."
     },
     "E18": {
       "effect": "Your Criminal groups provide +1 support strength."
     },
     "E19": {
-      "effect": "While responding on offense in an ordinary Control or Destroy attack led by a friendly Magic Group, scrap this Resource for +5 attack strength."
+      "effect": "While your Magic Group leads an ordinary Control or Destroy attack, scrap this Resource for +8 attack strength."
     },
     "E20": {
       "effect": "Once on your turn, after your first Green Group enters play, draw 1 Group."
@@ -3582,7 +3592,7 @@
       "cost": "Discard this Plot and spend 1 action from one of your non-Illuminati Groups. If both Resource slots are occupied, choose one Resource to scrap and replace."
     },
     "P67": {
-      "effect": "The target cannot provide support this turn. It may still self-defend.",
+      "effect": "The target and its direct subordinates cannot support this turn; they may still defend themselves.",
       "target": "One enemy group.",
       "cost": "Discard this card and spend an action from one of your Magic groups."
     },
@@ -3635,13 +3645,13 @@
     "E01": {
       "name": "战术雷达",
       "en": "Tactical Radar",
-      "effect": "普通战斗响应时，花本资源1行动，使己方本次进攻强度+2。",
+      "effect": "普通战斗响应时，花本资源1行动，使己方本次进攻强度+3。",
       "category": "装置"
     },
     "E02": {
       "name": "应急电池",
       "en": "Emergency Battery",
-      "effect": "己方主要阶段，报废本资源，使1个己方团体恢复1行动，且本回合P+2。",
+      "effect": "己方主要阶段，报废本资源，使1个己方团体恢复1行动，且本回合P+4。",
       "category": "装置"
     },
     "E03": {
@@ -3671,7 +3681,7 @@
     "E07": {
       "name": "凤凰护符",
       "en": "Phoenix Amulet",
-      "effect": "抵御普通摧毁的响应中，报废本资源，使本次防御+8。",
+      "effect": "抵御普通摧毁的响应中，报废本资源，使本次防御+10。",
       "category": "秘宝"
     },
     "E08": {
@@ -3701,7 +3711,7 @@
     "E12": {
       "name": "数字诱饵",
       "en": "Digital Decoy",
-      "effect": "普通战斗响应时，报废本资源，使对手本次支援力量-6，最低0。",
+      "effect": "普通战斗响应时，报废本资源，使对手本次支援力量-8，最低0。",
       "category": "装置"
     },
     "E13": {
@@ -3713,13 +3723,13 @@
     "E14": {
       "name": "重型抢修车",
       "en": "Heavy Repair Vehicle",
-      "effect": "己方巨大地点重建只需1个团体行动；重建后抽1张团体。",
+      "effect": "己方巨大地点重建只需1个团体行动；己方地点重建后抽1张团体。",
       "category": "装置"
     },
     "E15": {
       "name": "命运硬币",
       "en": "Coin of Fate",
-      "effect": "普通战斗响应时，报废本资源，将本次骰点固定为3＋4。",
+      "effect": "普通战斗响应时，报废本资源，将本次骰点固定为4＋4。",
       "category": "秘宝"
     },
     "G001": {
@@ -5097,7 +5107,7 @@
     "P52": {
       "name": "草根接管",
       "en": "Grassroots Takeover",
-      "effect": "控制至少9个团体，其中至少6个印刷P≤3。",
+      "effect": "控制至少9个团体，其中至少8个印刷P≤3。",
       "target": "满足本牌条件的己方势力。",
       "cost": "弃本牌。",
       "category": "己方主要阶段·目标"
@@ -5121,7 +5131,7 @@
     "P55": {
       "name": "万象归一",
       "en": "All Sides of the World",
-      "effect": "控制至少7个团体，并覆盖全部10种阵营。",
+      "effect": "控制至少9个团体，并覆盖全部10种阵营。",
       "target": "满足本牌条件的己方势力。",
       "cost": "弃本牌。",
       "category": "己方主要阶段·目标"
@@ -5175,7 +5185,7 @@
     "E17": {
       "name": "移动医疗站",
       "en": "Mobile Medical Station",
-      "effect": "花本资源1行动，重建1个己方非巨大地点。",
+      "effect": "花本资源1行动，重建己方1个非巨大地点，并恢复其1行动。",
       "category": "设施"
     },
     "E18": {
@@ -5187,7 +5197,7 @@
     "E19": {
       "name": "雷击桃木剑",
       "en": "Lightning-Struck Peachwood Sword",
-      "effect": "己方魔法团体带头普通控制或摧毁攻击的响应中，报废本资源，使本次攻击强度+5。",
+      "effect": "己方魔法团体带头普通控制或摧毁攻击的响应中，报废本资源，使本次攻击强度+8。",
       "category": "秘宝"
     },
     "E20": {
@@ -5331,7 +5341,7 @@
     "G170": {
       "name": "道教宫观",
       "en": "Taoist Temple",
-      "effect": "符箓庇护：该团体的直属魔法下属R+2。",
+      "effect": "符箓庇护：该团体的直属魔法下属R+3。",
       "category": "组织"
     },
     "I09": {
@@ -5417,7 +5427,7 @@
     "P67": {
       "name": "符箓封印",
       "en": "Talisman Seal",
-      "effect": "目标本回合不能提供支援；仍可自卫。",
+      "effect": "目标及其直属下属本回合不能支援；仍可自卫。",
       "target": "敌方1个团体。",
       "cost": "弃本牌，花己方1个魔法团体行动。",
       "category": "己方主要阶段"

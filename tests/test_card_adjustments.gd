@@ -50,7 +50,7 @@ func run():
 	# The sword works for either ordinary attack, but not disasters or non-Magic leaders.
 	g=fresh();put(g,"G055");put(g,"G043",1);put(g,"E19")
 	g._launch_attack(0,{"src":"G055","target":"G043","mode":"destroy"});apply(g,1,"pass");apply(g,0,"resource",{"src":"E19"})
-	check(g.battle.bonus_a==5 and "E19" in g.scrap,"Peachwood Sword now also supports ordinary Destroy")
+	check(g.battle.bonus_a==8 and "E19" in g.scrap,"Peachwood Sword now also supports ordinary Destroy")
 	# Airlift spends a non-root Group mark even when countered; it preserves takeover quota.
 	g=fresh();give(g,"P66");give(g,"E01")
 	check(action(g,0,"plot",{"id":"P66"}).is_empty(),"A ready root alone cannot pay for Airlift")

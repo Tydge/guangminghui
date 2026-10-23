@@ -64,7 +64,7 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float) -> float:
 		for parent in [old,a.parent]:
 			var factor=1 if parent==a.parent else -1
 			if parent=="G133" and "共产" in t:gain+=factor*7
-			if parent=="G170" and "魔法" in t:gain+=factor*6
+			if parent=="G170" and "魔法" in t:gain+=factor*9
 			if parent=="G153" and "共产" in t:gain+=factor*4
 			if parent=="G008" and "国家" in t:gain+=factor*5
 			if parent=="G134":gain+=0

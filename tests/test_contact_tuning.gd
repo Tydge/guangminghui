@@ -19,7 +19,7 @@ func run():
 	g=fresh("I09");g.graves[0]=g.decks.group.slice(2);g.decks.group=g.decks.group.slice(0,2)
 	apply(g,0,"ability",{"src":"R0"});check(g.choice.peek.size()==2 and g.choice.options.is_empty(),"Short deck/no Space still offers a private view")
 	apply(g,0,"choose",{"id":""});check(g.decks.group.size()==2 and not g.token("R0"),"Declining never refunds action")
-	g=fresh("I07");check(g.stat("R0","p")==6,"Shangri-La's latest printed P is six")
+	g=fresh("I07");check(g.stat("R0","p")==7,"Shangri-La's latest printed P is seven")
 	for faction in ["I09","I10"]:
 		g=fresh(faction);var required_trait="太空" if faction=="I09" else "暴力"
 		for id in CardDB.ids("group").filter(func(k):return required_trait in g.card(k).tags+g.card(k).align).slice(0,5):put(g,id);g.nodes[id].learned=10
@@ -39,7 +39,7 @@ func run():
 	g=fresh();put(g,"G057");give(g,"G001");give(g,"G043")
 	check(g.attack_preview("G057","G001","control").ability==3 and g.attack_preview("G057","G043","control").ability==1,"Gun Lobby only gets its new control bonus against Violent targets")
 	g.nodes.G057.silenced=true;check(g.attack_preview("G057","G001","control").ability==1,"Disabled Lobby bonus ends")
-	g=fresh();put(g,"G170");put(g,"G055",0,"G170");check(g.stat("G055","r")==g.card("G055").r+2,"Temple gives direct Magic children two R")
+	g=fresh();put(g,"G170");put(g,"G055",0,"G170");check(g.stat("G055","r")==g.card("G055").r+3,"Temple gives direct Magic children three R")
 	# PR Crisis forces final GP to zero, even with P=GP effects or external buffs.
 	g=fresh();put(g,"G032");put(g,"G082",1);g.nodes.G082.compute=true;g.nodes.G082.ad_gp=3;give(g,"P38")
 	apply(g,0,"plot",{"id":"P38","target":"G082"})
@@ -61,13 +61,13 @@ func run():
 	check(str(g.rng.state)==before and g.hands[1].plot==["P13"] and g.choice.is_empty(),"Countered Inside Job neither peeks nor moves a hidden card")
 	# Battery P boost is temporary, not an extra recovery loophole.
 	g=fresh();put(g,"E02");put(g,"G043");g.nodes.G043.token=0;var power=g.stat("G043","p");apply(g,0,"resource",{"src":"E02","target":"G043"})
-	check(g.stat("G043","p")==power+2 and g.token("G043") and not g.can_recharge("G043"),"Battery restores action and grants temporary Power")
+	check(g.stat("G043","p")==power+4 and g.token("G043") and not g.can_recharge("G043"),"Battery restores action and grants temporary Power")
 	g._complete_end();check(g.stat("G043","p")==power,"Battery P expires at end of turn")
-	# Decoy reduces accumulated support by exactly six, on either side.
+	# Decoy reduces accumulated support by exactly eight, on either side.
 	for side in [0,1]:
 		g=fresh();put(g,"G043");put(g,"G023",1);put(g,"E12",side);g._launch_attack(0,{"src":"G043","target":"G023","mode":"destroy"});g.battle.responder=side
 		var opposing="support_d" if side==0 else "support_a";g.battle[opposing]=10
-		apply(g,side,"resource",{"src":"E12"});check(g.battle[opposing]==4,"Decoy subtracts six from the opposing support total")
+		apply(g,side,"resource",{"src":"E12"});check(g.battle[opposing]==2,"Decoy subtracts eight from the opposing support total")
 	# Quantum keep choice never includes the old hand. Both moves are rehearsed.
 	g=fresh();put(g,"E06");give(g,"G170");deck=g.decks.group.slice(0,2);apply(g,0,"resource",{"src":"E06"})
 	check(g.choice.options==deck and g.hands[0].group==["G170"]+deck and g.observation(1,false).choice.is_empty(),"Quantum offers only its two new private cards")
@@ -82,7 +82,7 @@ func run():
 	drain(g);check(g.hands[0].plot.size()==2,"Museum draws two Plots")
 	put(g,"E01");g.resources.remove("E01");g._after_effect();drain(g);check(g.hands[0].plot.size()==2,"Further scraps this turn cannot repeat Museum reward")
 	g=fresh();put(g,"E13");g.resources.remove("E13");g._after_effect();check(g.wave.queue.is_empty() and g.phase=="main","Museum does not reward its own destruction")
-	# Huge rebuilding rewards all rebuilding methods; never intact/small targets.
+	# Rebuilding rewards all Place sizes and methods; never intact targets.
 	g=fresh();put(g,"E14");put(g,"G071");g.nodes.G071.devastated=true;apply(g,0,"rebuild",{"target":"G071","payers":["R0"]})
 	check(g.hands[0].group.is_empty() and g.choice.get("source","")=="E14","Rebuild reward waits behind the table animation")
 	drain(g);check(g.hands[0].group.size()==1,"Repair vehicle draws one Group after rebuilding a Huge Place")

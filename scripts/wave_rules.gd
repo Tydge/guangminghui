@@ -275,11 +275,13 @@ func if_not_exposed(id: String) -> void:
 func set_world(id: String) -> void:
 	if g.world!="":g.discards.plot.push_front(g.world)
 	g.world=id
-func rebuild(target: String) -> void:
+func rebuild(target: String,restore_action: bool=false) -> void:
 	var was_devastated=devastated(target)
 	g.nodes[target].devastated=false
 	var p=g.owner(target)
-	if was_devastated and g.has(target,"巨大") and g.resources.ready("E14",p):defer({"kind":"draw","source":"E14","player":p,"deck":"group","amount":1,"message":"重型抢修车 · 抽1张团体"})
+	if was_devastated and restore_action and g.can_recharge(target):
+		g.nodes[target].token=1;g.recharged[target]=true
+	if was_devastated and g.has(target,"地点") and g.resources.ready("E14",p):defer({"kind":"draw","source":"E14","player":p,"deck":"group","amount":1,"message":"重型抢修车 · 抽1张团体"})
 	if p==g.current and enabled("G094",p) and once("G094"):
 		var options=g.groups(p).filter(func(k):return g.has(k,"绿色") and g.can_recharge(k))
 		if not options.is_empty():queue.append({"kind":"recharge","source":"G094","player":p,"options":options})
