@@ -1835,7 +1835,14 @@
     "凤凰护符 · 防御+10 · 报废资源": "Phoenix Amulet · +10 defense · Scrap",
     "移动医疗站 · 重建并恢复行动 → ": "Mobile Medical Station · Rebuild and restore action → ",
     "雷击桃木剑 · 攻击强度+8 · 报废": "Peachwood Sword · Attack +8 · Scrap",
-    "符箓庇护 · R+3。": "Talisman Shelter · +3 R."
+    "符箓庇护 · R+3。": "Talisman Shelter · +3 R.",
+    "房间确认超时，请重试。": "Room confirmation timed out. Please try again.",
+    "服务器响应超时，正在重新连接…": "Server response timed out. Reconnecting…",
+    "对手邀请再来一局": "Your opponent invites you to play again.",
+    "请求中…": "Sending…",
+    "等待确认": "Waiting",
+    "接受邀请": "Accept",
+    "等待对手确认": "Waiting for your opponent."
   },
   "templates": [
     {

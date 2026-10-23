@@ -77,14 +77,14 @@ func receive(id: int,message: Dictionary,now: int):
 	var c=clients[id];var op=message.get("op","")
 	if c.room!="" and (not rooms.has(c.room) or c.seat not in [0,1] or rooms[c.room].peers[c.seat]!=id):
 		clear_client_room(id,now);send(id,{"op":"error","reason":"expired"});return
-	if op=="ping":send(id,{"op":"pong"});return
+	if op=="ping":send(id,{"op":"pong","nonce":message.get("nonce",0)});return
 	if c.room!="":
 		var room=rooms[c.room]
 		if op=="leave":
 			if room.started:room.forfeit(c.seat,"对手离开房间",now)
 			elif c.seat==0:
 				close_room(room.code,"closed",now,id);send(id,{"op":"left"});return
-			room.detach(c.seat,now);clear_client_room(id,now);send(id,{"op":"left"});return
+			room.leave_seat(c.seat,now);clear_client_room(id,now);send(id,{"op":"left"});return
 		room.input(c.seat,message,now);return
 	if op not in ["create","join","resume"]:return
 	if not Config.compatible(message.get("build",{})):send(id,{"op":"error","reason":"version"});return
@@ -108,7 +108,7 @@ func receive(id: int,message: Dictionary,now: int):
 				if clients.has(old):clients[old].room="";clients[old].seat=-1;clients[old].socket.close(1000,"Session resumed")
 		else:
 			if room.started or room.peers[1]>=0:send(id,{"op":"error","reason":"full"});return
-			seat=1
+			seat=1;room.claim_seat(seat)
 	c.room=room.code;c.seat=seat;room.attach(seat,id,now);flush(room,now)
 func flush(room,now: int):
 	var messages=room.outgoing;room.outgoing=[]

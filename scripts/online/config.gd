@@ -5,6 +5,12 @@ const RESPONSE_MS=15000
 const OPENING_MS=60000
 const TURN_MS=120000
 const GRACE_MS=90000
+const CONNECT_MS=7000
+const HEARTBEAT_MS=5000
+const HEARTBEAT_TIMEOUT_MS=10000
+const SILENCE_MS=15000
+const PRESENT_MS=35000
+const SETTLE_MS=15000
 static func build() -> Dictionary:
 	return {"protocol":PROTOCOL,"code":JSON.parse_string(FileAccess.get_file_as_string("res://data/release.json")).code,"cards":FileAccess.get_sha256("res://data/cards.json")}
 static func compatible(value: Dictionary) -> bool:

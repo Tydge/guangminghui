@@ -28,6 +28,15 @@ func action(p: int,kind: String) -> bool:
 	check(mains[p].busy or mains[p].online.revision>previous,"Submitting "+kind+" locks input")
 	if not await wait_until(func():return mains.all(func(m):return m.online.revision>previous),"Both clients receive committed "+kind):return false
 	return await settle()
+func finish_draw_choices() -> bool:
+	for i in 8:
+		if mains[0].game.phase!="choice":return true
+		var owner=-1
+		for p in [0,1]:
+			if mains[p].game.choice.get("kind","") in ["c_goal_limit","draw_keep"]:owner=p
+		check(owner>=0,"Random draw choice is an expected Goal-limit or keep-one decision")
+		if owner<0 or not await action(owner,"choose"):return false
+	check(false,"Draw choices finish within their normal bound");return false
 func capture(name: String,p: int):
 	audit(mains[p],name)
 	if output=="" or DisplayServer.get_name()=="headless":return
@@ -192,9 +201,17 @@ func run():
 		check(mains[0].game.opening_waiting,"First selection waits without leaking opponent choice")
 		if not await action(1,phase):await stop();return
 		check(mains[0].game.factions[0]==mains[1].game.factions[1],"Faction views reverse correctly")
+	# Random initial Plots may require choosing which single Goal to keep.
+	for i in 2:
+		var owner=-1
+		for p in [0,1]:
+			if mains[p].game.choice.get("kind","")=="c_goal_limit":owner=p
+		if owner<0:break
+		if not await action(owner,"choose"):await stop();return
 	check(mains[0].game.phase=="draw" and mains[1].game.phase=="draw","Both clients reach first turn")
 	var first=0 if mains[0].game.current==0 else 1
 	if not await action(first,"draw"):await stop();return
+	if not await finish_draw_choices():await stop();return
 	check(mains[first].game.legal_actions(0).any(func(a):return a.type=="end") and mains[1-first].game.legal_actions(0).is_empty(),"Only current player can act")
 	check(mains[first].online.clock.active[0] and mains[1-first].online.clock.active[1],"Both see active player's clock")
 	check(mains[first].online.rings.size()==2,"Both circular clocks available")
@@ -242,13 +259,18 @@ func run():
 	var current=0 if mains[0].game.current==0 else 1
 	if mains[current].game.phase=="draw":
 		if not await action(current,"draw"):await stop();return
+		if not await finish_draw_choices():await stop();return
 	var bank=mains[current].online.rings[0].seconds();mains[current]._inspect(mains[current].game.root(0));await create_timer(0.4).timeout
 	check(mains[current].online.rings[0].seconds()<bank,"Reading a large card keeps online time running")
 	mains[current]._close_inspection();mains[current].online.send({"op":"resign"})
 	if not await wait_until(func():return mains.all(func(item):return item.game.phase=="over"),"Resign gives synchronized results"):await stop();return
 	check(mains[current].game.winner==1 and mains[1-current].game.winner==0,"Winner relative to each seat")
 	await capture("result",1-current)
-	for item in mains:item._start_game()
+	mains[0]._start_game()
+	if not await wait_until(func():return mains[1].online.lobby_data.get("rematch",[false,false])[1],"Opponent receives the rematch invitation"):await stop();return
+	check(mains[1].overlay.find_child("OnlineRematchStatus",true,false).text==GameLocale.text("对手邀请再来一局"),"Result visibly explains the received invitation")
+	check(mains[0].overlay.find_child("OnlineRematchButton",true,false).disabled and mains[0].overlay.find_child("OnlineRematchStatus",true,false).text==GameLocale.text("等待对手确认"),"Requesting player visibly waits and cannot submit twice")
+	await capture("rematch-invite",1);mains[1]._start_game()
 	if not await wait_until(func():return mains.all(func(item):return item.game.phase=="setup_faction" and not item.busy),"Both request rematch in same room"):await stop();return
 	check(mains[0].online.code==mains[1].online.code,"Rematch keeps room code")
 	await stop()

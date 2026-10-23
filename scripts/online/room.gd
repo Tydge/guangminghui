@@ -62,6 +62,10 @@ func attach(p: int,peer: int,now: int):
 func detach(p: int,now: int):
 	if both_connected() and not pending.is_empty():pending.timeout_left=maxi(0,pending.deadline-now)
 	peers[p]=-1;last_tick=now;released=false;touched=now;broadcast_lobby();broadcast_clock(now);save()
+func claim_seat(p: int):
+	tokens[p]=Config.secret();ready[p]=false;rematch[p]=false
+func leave_seat(p: int,now: int):
+	tokens[p]="";ready[p]=false;rematch[p]=false;detach(p,now)
 func state_for(p: int) -> Dictionary:
 	var actions=game.legal_actions(p);issued[p]={};var display=[]
 	for i in actions.size():
@@ -107,9 +111,11 @@ func intent(p: int,key: String,now: int):
 	if not both_connected():emit(p,{"op":"error","reason":"reconnecting"});return
 	if not pending.is_empty():
 		# Simultaneous opening selections may arrive during the other seat's reveal.
-		if game.phase.begins_with("setup") and p!=pending.actor and not queued.any(func(item):return item.player==p):queued.append({"player":p,"action":a.duplicate(true)});return
+		if game.phase.begins_with("setup") and p!=pending.actor and not queued.any(func(item):return item.player==p):
+			queued.append({"player":p,"action":a.duplicate(true)});emit(p,{"op":"accepted","id":key,"queued":true});return
 		emit(p,{"op":"error","reason":"busy"});return
 	if a not in game.legal_actions(p):emit(p,{"op":"error","reason":"stale"});send_state(p);return
+	emit(p,{"op":"accepted","id":key,"queued":false})
 	acted_serial[p]=game.serial;idle_turns[p]=0;prepare(p,a,now)
 
 func prepare(p: int,a: Dictionary,now: int,notice: String=""):
@@ -118,7 +124,7 @@ func prepare(p: int,a: Dictionary,now: int,notice: String=""):
 	var plan=ActionFlow.plan(game,p,a)
 	var after=ActionFlow.copy_state(game)
 	if not after.act(p,a):return
-	pending={"id":sequence,"actor":p,"action":a.duplicate(true),"plan":plan,"after":after,"stage":"present","presented":[false,false],"settled":[false,false],"deadline":now+35000,"notice":notice}
+	pending={"id":sequence,"actor":p,"action":a.duplicate(true),"plan":plan,"after":after,"stage":"present","presented":[false,false],"settled":[false,false],"deadline":now+Config.PRESENT_MS,"notice":notice}
 	for who in [0,1]:send_prepare(who)
 	broadcast_clock(now);save()
 func send_prepare(p: int):
@@ -129,7 +135,7 @@ func commit(now: int):
 		pending={}
 		for p in [0,1]:send_state(p)
 		drive(now);return
-	revision+=1;pending.stage="settle";pending.deadline=now+15000
+	revision+=1;pending.stage="settle";pending.deadline=now+Config.SETTLE_MS
 	for p in [0,1]:emit(p,{"op":"commit","tx":pending.id,"revision":revision,"state":state_for(p),"result":ViewProjection.relative(pending.plan.result,p)})
 	save()
 func actor() -> int:

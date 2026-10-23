@@ -775,8 +775,11 @@ func _victory_overlay() -> void:
 		_wrapped("双方同时完成目标",col,25,GOLD)
 		for who in [0,1]:_wrapped(game.title(game.root(who))+" · "+game.card(game.root(who)).goal,col,22)
 	else:_wrapped(result.get("reason",game.logs.back() if not game.logs.is_empty() else ""),col,25)
+	if _online_active():
+		var invitation=_wrapped("",col,21,TEAL);invitation.name="OnlineRematchStatus"
 	var width=minf(220,(extent.x-80)/3);var y=extent.y-80
 	var again=_button("再来一局",func():_start_game(),p,true);again.position=Vector2(28,y);again.size=Vector2(width,52)
+	if _online_active():again.name="OnlineRematchButton";online.update_rematch_ui()
 	var peek=window_access.offer(p,Vector2((extent.x-width)/2,y));peek.size=Vector2(width,52)
 	var menu=_button("主菜单",_menu,p);menu.position=Vector2(extent.x-width-28,y);menu.size=Vector2(width,52)
 
