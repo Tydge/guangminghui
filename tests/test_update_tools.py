@@ -1,15 +1,23 @@
 """Check cumulative pack delivery, immutable bootstrap, and native deletion semantics."""
 from pathlib import Path
 import argparse
+import base64
+import contextlib
+import hashlib
+import io
+import json
 import struct
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from release_updates import contents, patch, write_pack
+from release_updates import publish
+from deploy_updates import release_files
 
 GODOT = None
 
@@ -57,6 +65,47 @@ class PatchTests(unittest.TestCase):
                 write_pack(self.header, candidate, self.target)
                 with self.assertRaisesRegex(ValueError, 'new complete base'):
                     patch(self.base, self.target, self.output)
+
+    def patch_only_fixture(self):
+        data=self.folder/'data';data.mkdir()
+        release={'version':'0.3.3','code':2026102305,'base_id':'base','engine':'4.6.2','platform':'windows-x86_64'}
+        channel={'origin':'https://127.0.0.1','product':'illuminati'}
+        (data/'release.json').write_text(json.dumps(release));(data/'update_channel.json').write_text(json.dumps(channel))
+        previous=dict(release,version='0.3.2',code=2026102304,product=channel['product'],full_version='0.3.1',full={'url':channel['origin']+'/releases/2026102303/Illuminati-Windows-x64.zip','bytes':1234,'sha256':'a'*64})
+        manifest=self.folder/'previous.json';manifest.write_text(json.dumps({'payload':base64.b64encode(json.dumps(previous).encode()).decode(),'signature':'fixture'}))
+        args=argparse.Namespace(zip=None,patch_only=True,pack=self.target,baseline=self.base,previous_manifest=manifest,output=self.folder/'site',key='fixture',openssl='fixture',notes_zh='修复',notes_en='Fix')
+        return args,previous
+
+    def test_patch_only_manifest_retains_complete_download(self):
+        args,previous=self.patch_only_fixture()
+        def signed(payload,*_args):return {'payload':base64.b64encode(json.dumps(payload).encode()).decode(),'signature':'fixture'}
+        with mock.patch('release_updates.ROOT',self.folder),mock.patch('release_updates.sign_payload',side_effect=signed),contextlib.redirect_stdout(io.StringIO()):publish(args)
+        manifest=json.loads((args.output/'windows/latest.json').read_text());payload=json.loads(base64.b64decode(manifest['payload']))
+        self.assertEqual(payload['full'],previous['full'])
+        self.assertEqual(payload['full_version'],'0.3.1')
+        directory=args.output/'releases/2026102305'
+        self.assertTrue((directory/'update.pck').is_file())
+        self.assertFalse((directory/'Illuminati-Windows-x64.zip').exists())
+        self.assertNotIn('Illuminati-Windows-x64.zip',(directory/'SHA256SUMS.txt').read_text())
+        self.assertEqual([item['name'] for item in release_files(args.output,payload,True)],['update.pck'])
+
+    def test_patch_only_requires_compatible_older_manifest_and_base(self):
+        args,previous=self.patch_only_fixture()
+        for field,value in [('baseline',None),('zip','unexpected.zip'),('previous_manifest',None)]:
+            with self.subTest(field=field),mock.patch('release_updates.ROOT',self.folder):
+                changed=argparse.Namespace(**vars(args));setattr(changed,field,value)
+                with self.assertRaises(ValueError):publish(changed)
+        previous['code']=2026102305
+        args.previous_manifest.write_text(json.dumps({'payload':base64.b64encode(json.dumps(previous).encode()).decode()}))
+        with mock.patch('release_updates.ROOT',self.folder),self.assertRaisesRegex(ValueError,'older compatible'):publish(args)
+
+    def test_patch_only_upload_checks_content_without_complete_archive(self):
+        directory=self.folder/'releases/5';directory.mkdir(parents=True);data=b'patch contents';(directory/'update.pck').write_bytes(data)
+        payload={'code':5,'full':{},'patch':{'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}}
+        self.assertEqual(release_files(self.folder,payload,True)[0]['route'],'patch')
+        (directory/'update.pck').write_bytes(b'wrong contents')
+        with self.assertRaises(ValueError):release_files(self.folder,payload,True)
+        with self.assertRaisesRegex(ValueError,'requires a patch'):release_files(self.folder,{'code':5,'full':{}},True)
 
     def test_native_mount_changed_added_removed_and_unchanged(self):
         if not GODOT:

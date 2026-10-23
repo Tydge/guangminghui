@@ -44,6 +44,11 @@ func broadcast_lobby():
 	for p in [0,1]:emit(p,lobby(p))
 func attach(p: int,peer: int,now: int):
 	peers[p]=peer;touched=now;last_tick=now
+	if not pending.is_empty():
+		# Replaying a stage on the resumed client requires a fresh acknowledgement.
+		pending["presented" if pending.stage=="present" else "settled"][p]=false
+		if both_connected() and pending.has("timeout_left"):
+			pending.deadline=now+pending.timeout_left;pending.erase("timeout_left")
 	emit(p,{"op":"joined","code":code,"token":tokens[p],"seat":p})
 	broadcast_lobby()
 	if started:
@@ -55,6 +60,7 @@ func attach(p: int,peer: int,now: int):
 		broadcast_clock(now)
 	save()
 func detach(p: int,now: int):
+	if both_connected() and not pending.is_empty():pending.timeout_left=maxi(0,pending.deadline-now)
 	peers[p]=-1;last_tick=now;released=false;touched=now;broadcast_lobby();broadcast_clock(now);save()
 func state_for(p: int) -> Dictionary:
 	var actions=game.legal_actions(p);issued[p]={};var display=[]
@@ -118,7 +124,7 @@ func prepare(p: int,a: Dictionary,now: int,notice: String=""):
 func send_prepare(p: int):
 	emit(p,{"op":"prepare","tx":pending.id,"revision":revision,"state":state_for(p),"plan":ViewProjection.presentation(game,pending.after,p,pending.actor,pending.action,pending.plan),"notice":ViewProjection.relative(pending.notice,p)})
 func commit(now: int):
-	if pending.is_empty() or not both_connected():return
+	if pending.is_empty() or pending.stage!="present" or not both_connected():return
 	if not game.act(pending.actor,pending.action):
 		pending={}
 		for p in [0,1]:send_state(p)

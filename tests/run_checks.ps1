@@ -8,7 +8,7 @@ $projectPath = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 if ($LASTEXITCODE -ne 0) { throw 'Failed: offline update checks' }
 & $PythonPath (Join-Path $PSScriptRoot 'test_update_tools.py') --godot $GodotPath
 if ($LASTEXITCODE -ne 0) { throw 'Failed: native cumulative patch checks' }
-foreach ($script in @('test_online.gd','test_online_ui.gd','test_online_settings.gd')) {
+foreach ($script in @('test_online.gd','test_online_lifecycle.gd','test_online_ui.gd','test_online_settings.gd')) {
     $onlineOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) -- --test-defaults 2>&1
     $onlineOutput | Write-Output
     if ($LASTEXITCODE -ne 0 -or ($onlineOutput -match 'SCRIPT ERROR:|ERROR:|Parse Error')) { throw ('Failed: ' + $script) }

@@ -51,8 +51,7 @@ func _process(_delta):
 	for code in rooms.keys():
 		var room=rooms[code];room.tick(now);flush(room,now)
 		if not room.both_connected() and now-room.touched>600000 and (not room.started or room.game.phase=="over"):
-			rooms.erase(code)
-			if FileAccess.file_exists(storage.path_join(code+".json")):DirAccess.remove_absolute(storage.path_join(code+".json"))
+			close_room(code,"expired",now)
 	if now-last_checkpoint>=2000:
 		last_checkpoint=now
 		for room in rooms.values():
@@ -60,19 +59,33 @@ func _process(_delta):
 	return
 func send(id: int,message: Dictionary):
 	if clients.has(id) and clients[id].socket.get_ready_state()==WebSocketPeer.STATE_OPEN:clients[id].socket.send_text(JSON.stringify(message))
+func clear_client_room(id: int,now: int):
+	if not clients.has(id):return
+	clients[id].room="";clients[id].seat=-1;clients[id].joined=now
+func close_room(code: String,reason: String,now: int,leaving_peer: int=-1):
+	var room=rooms.get(code)
+	rooms.erase(code)
+	for id in clients:
+		if clients[id].room!=code:continue
+		clear_client_room(id,now)
+		if id!=leaving_peer:send(id,{"op":"error","reason":reason})
+	if room!=null:
+		room.checkpoint=Callable();room.peers=[-1,-1];room.outgoing=[]
+	if FileAccess.file_exists(storage.path_join(code+".json")):DirAccess.remove_absolute(storage.path_join(code+".json"))
 func receive(id: int,message: Dictionary,now: int):
+	if not clients.has(id):return
 	var c=clients[id];var op=message.get("op","")
+	if c.room!="" and (not rooms.has(c.room) or c.seat not in [0,1] or rooms[c.room].peers[c.seat]!=id):
+		clear_client_room(id,now);send(id,{"op":"error","reason":"expired"});return
 	if op=="ping":send(id,{"op":"pong"});return
 	if c.room!="":
+		var room=rooms[c.room]
 		if op=="leave":
-			var room=rooms[c.room]
 			if room.started:room.forfeit(c.seat,"对手离开房间",now)
 			elif c.seat==0:
-				var other=room.peers[1]
-				if clients.has(other):send(other,{"op":"error","reason":"closed"});clients[other].room="";clients[other].seat=-1
-				rooms.erase(room.code)
-			room.detach(c.seat,now);c.room="";c.seat=-1;send(id,{"op":"left"});return
-		rooms[c.room].input(c.seat,message,now);return
+				close_room(room.code,"closed",now,id);send(id,{"op":"left"});return
+			room.detach(c.seat,now);clear_client_room(id,now);send(id,{"op":"left"});return
+		room.input(c.seat,message,now);return
 	if op not in ["create","join","resume"]:return
 	if not Config.compatible(message.get("build",{})):send(id,{"op":"error","reason":"version"});return
 	var room=null;var seat=-1

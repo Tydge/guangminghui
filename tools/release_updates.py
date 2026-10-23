@@ -67,28 +67,45 @@ def sign_payload(payload, key, openssl):
 def publish(args):
     channel=json.loads((ROOT/'data/update_channel.json').read_text(encoding='utf-8'))
     release=json.loads((ROOT/'data/release.json').read_text(encoding='utf-8'))
+    patch_only=getattr(args,'patch_only',False)
+    if patch_only:
+        if args.zip or not args.baseline or not args.pack or not args.previous_manifest:
+            raise ValueError('Patch-only publishing requires --baseline, --pack and --previous-manifest, without --zip.')
+        previous=json.loads(base64.b64decode(json.loads(Path(args.previous_manifest).read_text(encoding='utf-8'))['payload']))
+        if any(previous.get(k)!=release.get(k) for k in ['base_id','engine','platform']) or previous.get('product')!=channel['product'] or int(previous['code'])>=int(release['code']):
+            raise ValueError('Previous manifest must be an older compatible release on this channel.')
+        full_info=previous['full'].copy()
+    elif not args.zip:
+        raise ValueError('A complete release requires --zip.')
     output=Path(args.output).resolve(); directory=output/'releases'/str(release['code']); directory.mkdir(parents=True,exist_ok=True)
-    archive=Path(args.zip).resolve(); full=directory/'Illuminati-Windows-x64.zip'; shutil.copyfile(archive,full)
     url=channel['origin']+'/releases/'+str(release['code'])
+    if not patch_only:
+        archive=Path(args.zip).resolve(); full=directory/'Illuminati-Windows-x64.zip'; shutil.copyfile(archive,full)
+        full_info={'url':url+'/'+full.name,'bytes':full.stat().st_size,'sha256':sha(full)}
     payload=dict(release,schema=1,product=channel['product'],min_bootstrap=1,
                  notes={'zh':args.notes_zh,'en':args.notes_en},
-                 full={'url':url+'/'+full.name,'bytes':full.stat().st_size,'sha256':sha(full)})
+                 full=full_info)
+    if patch_only:payload['full_version']=previous.get('full_version',previous['version'])
+    sums=[] if patch_only else [sha(full)+'  '+full.name+'\n']
     if args.baseline:
         result=patch(args.baseline,args.pack,directory/'update.pck')
         payload['patch']={k:result[k] for k in ['bytes','sha256']}
         payload['patch']['url']=url+'/update.pck'
         (directory/'patch-build.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+        sums.append(result['sha256']+'  update.pck\n')
     manifest=sign_payload(payload,Path(args.key),args.openssl)
     (output/'windows').mkdir(exist_ok=True)
     for path in [directory/'manifest.json',output/'windows/latest.json']:
         path.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
-    (directory/'SHA256SUMS.txt').write_text(sha(full)+'  '+full.name+'\n',encoding='ascii')
-    print(json.dumps({'version':release['version'],'bytes':full.stat().st_size,'url':payload['full']['url'],'manifest':str(output/'windows/latest.json')},indent=2))
+    (directory/'SHA256SUMS.txt').write_text(''.join(sums),encoding='ascii')
+    print(json.dumps({'version':release['version'],'patch_only':patch_only,'full':full_info,'manifest':str(output/'windows/latest.json')},indent=2))
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--zip',required=True)
+    parser.add_argument('--zip')
+    parser.add_argument('--patch-only',action='store_true')
+    parser.add_argument('--previous-manifest',help='Previously published signed manifest whose complete download is retained.')
     parser.add_argument('--pack')
     parser.add_argument('--baseline')
     parser.add_argument('--key',required=True)

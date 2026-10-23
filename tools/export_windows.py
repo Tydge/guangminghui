@@ -154,7 +154,8 @@ def build(args):
         if result.returncode or not screenshot.exists() or 'ERROR:' in messages:
             raise RuntimeError('Native release rendering failed: '+mode)
         print('Native release snapshot: '+mode,flush=True)
-    package(output,report)
+    if not getattr(args,'pack_only',False):package(output,report)
+    else:print('Verified PCK ready; complete ZIP packaging skipped.',flush=True)
 
 def package(output,report):
     """Create a conventional ZIP; Windows Explorer can extract it directly."""
@@ -221,4 +222,5 @@ if __name__ == '__main__':
     parser.add_argument('--godot',required=True)
     parser.add_argument('--output',default=str(ROOT/'outputs/windows/Illuminati'))
     parser.add_argument('--reference',default=str(ROOT/'work/windows-texture-reference.json'))
+    parser.add_argument('--pack-only',action='store_true',help='Verify the optimized PCK without packaging a complete ZIP.')
     build(parser.parse_args())
