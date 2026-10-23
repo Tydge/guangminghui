@@ -224,9 +224,11 @@ func run():
 		mains[first]._do_action(0,candidates[0])
 		if not await wait_until(func():return mains.all(func(m):return m.combat.stage=="trace"),"Public host delivers the declaration animation before commit"):await stop();return
 		check(mains.all(func(m):return m.online.revision==revision and m.online.clock.paused),"Public host pauses true state and clocks throughout the arrow")
+		check(mains.all(func(m):return m.combat.ghost_id==target),"Both peers show the hand recruit during the declaration")
 		if not await wait_until(func():return mains.all(func(m):return m.online.revision>revision),"Public attack declared after both presentations"):await stop();return
 		if not await settle():await stop();return
-		check(mains.all(func(m):return m.combat.ghost_id==target),"Public host sends the new attack cue to both peers")
+		# With no eligible responses the host may already have resolved the battle.
+		check(mains.all(func(m):return m.game.battle.is_empty() or m.combat.ghost_id==target),"Unresolved hand recruits retain their temporary card")
 		for i in 20:
 			if mains[0].game.battle.is_empty() and mains[0].game.phase=="main":break
 			var p=int(mains[0].game.battle.responder) if mains[0].game.phase=="battle" else int(mains[0].game.choice.player)
@@ -269,6 +271,8 @@ func run():
 	mains[0]._start_game()
 	if not await wait_until(func():return mains[1].online.lobby_data.get("rematch",[false,false])[1],"Opponent receives the rematch invitation"):await stop();return
 	check(mains[1].overlay.find_child("OnlineRematchStatus",true,false).text==GameLocale.text("对手邀请再来一局"),"Result visibly explains the received invitation")
+	# The invite can reach the opponent before its acknowledgement reaches the sender.
+	if not await wait_until(func():return mains[0].online.lobby_data.get("rematch",[false,false])[0],"Requester receives the rematch acknowledgement"):await stop();return
 	check(mains[0].overlay.find_child("OnlineRematchButton",true,false).disabled and mains[0].overlay.find_child("OnlineRematchStatus",true,false).text==GameLocale.text("等待对手确认"),"Requesting player visibly waits and cannot submit twice")
 	await capture("rematch-invite",1);mains[1]._start_game()
 	if not await wait_until(func():return mains.all(func(item):return item.game.phase=="setup_faction" and not item.busy),"Both request rematch in same room"):await stop();return
