@@ -1,6 +1,10 @@
 extends Control
 
 signal presentation_finished(completed: bool)
+const OnlineSession=preload("res://scripts/online/session.gd")
+const RemoteState=preload("res://scripts/online/remote_state.gd")
+const OnlineProjection=preload("res://scripts/online/projection.gd")
+var online
 
 const GOLD=Color("d8ba77")
 const CREAM=Color("e8ddbf")
@@ -27,7 +31,10 @@ var action_hint=""
 var busy=false
 var thinking=false
 var compact=false
-var reduced_motion=false
+var preferred_reduced_motion=false
+var reduced_motion: bool:
+	get:return preferred_reduced_motion and not _online_active()
+	set(value):preferred_reduced_motion=value
 var sound_volume=0.6
 var ai_difficulty="normal"
 var faction_page=0
@@ -93,6 +100,7 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--snapshot-language="):GameLocale.set_language(arg.trim_prefix("--snapshot-language="))
 	updates=UpdateClient.new();updates.auto_check=auto_update_check;add_child(updates);updates.changed.connect(_sync_update_badge)
+	online=OnlineSession.new(self);add_child(online)
 	if snapshot_mode!="":_start_game(4318);_snapshot_setup()
 	else:_menu()
 	get_node("/root/UpdateBootstrap").confirm_startup()
@@ -174,6 +182,7 @@ func _dim(layer: Control,opacity: float=0.85) -> void:
 	var d=ColorRect.new();d.color=Color(0.015,0.04,0.045,opacity);d.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);layer.add_child(d)
 
 func _menu() -> void:
+	if online!=null and online.in_room:online.ask_leave();return
 	ai.cancel_all()
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
 	_clear(overlay);_clear(hud);_clear(hand_layer);_clear(inspector);_clear(large_layer);game=null;board.visible=false;modal_open=true;_dim(overlay)
@@ -185,7 +194,8 @@ func _menu() -> void:
 	var difficulty_group=ButtonGroup.new()
 	for level in ["easy","normal","hard"]:
 		var b=_button({"easy":"简单","normal":"普通","hard":"困难"}[level],func():_choose_menu_difficulty(level),levels);b.custom_minimum_size=Vector2(135,44);b.set_meta("difficulty",level);b.toggle_mode=true;b.button_group=difficulty_group;b.button_pressed=ai_difficulty==level;b.add_theme_stylebox_override("pressed",_style(Color("254b47"),GOLD,2))
-	var start=_button("开始对局",func():_start_game(),content,true);start.position=Vector2(-150,145);start.size=Vector2(300,62)
+	var start=_button("开始对局",func():_start_game(),content,true);start.position=Vector2(-225,145);start.size=Vector2(215,62)
+	var friends=_button("好友对战",func():online.enter(),content,true);friends.name="OnlinePlay";friends.position=Vector2(10,145);friends.size=Vector2(215,62)
 	var catalog=_button("卡牌图鉴",_catalog,content);catalog.position=Vector2(-150,221);catalog.size=Vector2(145,48)
 	var settings=_button("设置",_settings,content);settings.position=Vector2(5,221);settings.size=Vector2(145,48)
 	var version_button=_button("检查更新",_updates,content);version_button.name="MenuUpdate";version_button.position=Vector2(-150,284);version_button.size=Vector2(300,40);version_button.add_theme_font_size_override("font_size",17);_sync_update_badge()
@@ -199,6 +209,7 @@ func _choose_menu_difficulty(level: String) -> void:
 	_save_settings()
 
 func _start_game(seed_value: int=0) -> void:
+	if _online_active():online.rematch_request();return
 	ai.cancel_all()
 	faction_page=0
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
@@ -221,10 +232,11 @@ func _draw_hud() -> void:
 	if game.phase=="battle":status="战斗响应"
 	if busy:status="效果结算"
 	elif game.phase=="over":status="对局结束"
-	_label(status,hud,25,TEAL if game.current==0 else Color("df9c8d")).position=Vector2(w/2-80,20)
+	if _online_active():status=online.status_text() if game.phase!="over" else "对局结束"
+	var status_label=_label(status,hud,22 if _online_active() else 25,TEAL if game.current==0 else Color("df9c8d"));status_label.name="OnlineStatus";status_label.position=Vector2(w/2-130,20);status_label.size.x=330;status_label.clip_text=true
 	if not game.nodes.is_empty():
 		_label("你 · "+CardDB.name_of(game.factions[0])+"   "+GameLocale.progress(game.goal(0).text),hud,18).position=Vector2(35,70)
-		_label("AI · "+CardDB.name_of(game.factions[1])+"   "+GameLocale.progress(game.goal(1).text),hud,18,Color("d69b8e")).position=Vector2(w/2+20,70)
+		_label(_opponent_name()+" · "+CardDB.name_of(game.factions[1])+"   "+GameLocale.progress(game.goal(1).text),hud,18,Color("d69b8e")).position=Vector2(w/2+20,70)
 	var menu=_button("☰",_settings,hud);menu.position=Vector2(w-92,16);menu.custom_minimum_size.x=54;menu.size=Vector2(54,46);menu.disabled=window_access.browsing
 	var camera=HBoxContainer.new();camera.position=Vector2(35,105);camera.add_theme_constant_override("separation",7);hud.add_child(camera)
 	_button("己方",func():board.focus(0),camera);_button("对手",func():board.focus(1),camera);_button("全局",func():board.fit_all(),camera)
@@ -237,7 +249,7 @@ func _draw_hud() -> void:
 		if ResourceLoader.exists(back):piles.icon=load(back);piles.expand_icon=true;piles.add_theme_constant_override("icon_max_width",22)
 	if game.world!="":
 		var order=_button("秩序 · "+CardDB.name_of(game.world).replace("新世界秩序：",""),func():_inspect(game.world),hud);order.position=Vector2(515,160)
-	var eventtext=("查看战场 · 对局结束" if game.phase=="over" else "查看战场 · 对局暂停") if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
+	var eventtext=("查看战场 · 对局结束" if game.phase=="over" else ("查看战场 · 计时继续" if _online_active() else "查看战场 · 对局暂停")) if window_access.browsing else ("效果结算" if busy else (game.logs.back() if not game.logs.is_empty() else ""))
 	var log_width=w-(385 if not compact else 70)-(155 if not game.last_battle.is_empty() else 0)
 	var log_button=_button("◈  "+eventtext,_journal,hud);log_button.add_theme_font_size_override("font_size",16);log_button.custom_minimum_size.y=42;log_button.position=Vector2(35,h-249);log_button.size=Vector2(log_width,42);log_button.clip_text=true;log_button.disabled=window_access.browsing
 	if not game.last_battle.is_empty():
@@ -254,7 +266,7 @@ func _draw_hud() -> void:
 		_button("上一步",interactions.back,actions) if interactions.picker.active else null
 		_button("取消",func():interactions.cancel(),actions);_button("列出目标",func():interactions.show_targets(action_candidates),actions)
 	elif game.phase=="main" and game.current==0 and not busy:_context_actions(actions)
-	else:_label("AI 正在行动…" if thinking else "",actions,20,GOLD)
+	else:_label(("等待对手操作…" if _online_active() else "AI 正在行动…") if thinking or _online_active() else "",actions,20,GOLD)
 	if selected!="":_button("查看大卡",func():_inspect(selected),actions)
 	if game.nodes.has(selected) and not game.children(selected).is_empty():_button("展开" if board.collapsed.get(selected,false) else "收起",func():board.collapsed[selected]=not board.collapsed.get(selected,false);_refresh(false),actions)
 	if game.phase=="main" and game.current==0 and not window_access.browsing:
@@ -369,6 +381,8 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	if a.type=="ability" and a.src=="G096":
 		_review_action({"type":"attack","src":a.leader,"target":a.target,"mode":"control","use_plan":a.get("use_plan",false),"delegate":"G096","delegate_command":a},all_plots);return
 	if a.type!="attack":_do_action(0,a);return
+	if _online_active() and not game.preview_cache.has(OnlineProjection.preview_key(a)):
+		preview_action=a.duplicate(true);online.request_preview(a);_toast("正在准备攻击预览…");return
 	preview_action=a.duplicate(true)
 	_clear(large_layer);_clear(hover_layer);_dim(large_layer,0.12)
 	var extent=Vector2(minf(1120,size.x-100),minf(670,size.y-130))
@@ -420,6 +434,7 @@ func _perform_type(kind: String) -> void:
 
 func _do_action(p: int,a: Dictionary) -> void:
 	if busy or window_access.browsing or window_access.transitioning or panel_dragging or game==null or a not in game.legal_actions(p):return
+	if _online_active():online.submit(a);return
 	var this_match=match_id
 	var old_phase=game.phase
 	interactions.picker.clear()
@@ -472,7 +487,7 @@ func _present_action(player: int,a: Dictionary) -> bool:
 	notification.modulate.a=0
 	var id=a.get("presentation_id",a.get("id",a.get("src","")));var c=game.card(id)
 	var is_plot=c.kind=="plot" and a.type in ["plot","counter"]
-	var actor="你" if player==0 else "AI"
+	var actor="你" if player==0 else _opponent_name()
 	var accent=TEAL if player==0 else Color("e4ac94")
 	var shade=ColorRect.new();shade.name="RevealShade";shade.color=Color(0.015,0.04,0.045,0.88);shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);shade.mouse_filter=Control.MOUSE_FILTER_IGNORE;shade.modulate.a=0;presentation_layer.add_child(shade)
 	var extent=Vector2(minf(790,size.x-100),minf(650,size.y-110))
@@ -600,7 +615,7 @@ func _phase_overlay() -> void:
 			if not game.battle.is_empty():_battle_overlay()
 			var extent=Vector2(minf(900,size.x-100),560)
 			_dim(overlay);var p=_panel(overlay,Rect2((size-extent)/2,extent));p.name="PlotResponse"
-			var heading=_label("AI 打出「%s」"%game.title(game.pending_plot.id),p,28,GOLD);heading.position=Vector2(26,25);heading.size.x=p.size.x-56;heading.clip_text=true
+			var heading=_label("%s 打出「%s」"%[_opponent_name(),game.title(game.pending_plot.id)],p,28,GOLD);heading.position=Vector2(26,25);heading.size.x=p.size.x-56;heading.clip_text=true
 			var col=_scroll_column(p,Rect2(26,90,extent.x-52,300));_wrapped(CardDB.plot_text(game.card(game.pending_plot.id)),col,22)
 			var row=HFlowContainer.new();row.name="ResponseOptions";row.position=Vector2(26,420);row.size=Vector2(extent.x-52,112);row.add_theme_constant_override("h_separation",12);row.add_theme_constant_override("v_separation",10);p.add_child(row)
 			var peek=window_access.offer(p);peek.reparent(row);peek.position=Vector2.ZERO
@@ -611,6 +626,12 @@ func _phase_overlay() -> void:
 	elif game.phase=="battle":_battle_overlay()
 
 func _setup_overlay() -> void:
+	if _online_active() and game.opening_waiting:
+		_dim(overlay,0.65)
+		var waiting=_panel(overlay,Rect2(size/2-Vector2(330,140),Vector2(660,280)))
+		_paragraph("已确认 · 等待对手",waiting,Rect2(28,55,604,65),32,GOLD)
+		_paragraph("双方确认后同时揭晓。",waiting,Rect2(28,135,604,55),22,TEAL)
+		return
 	_dim(overlay);var factions=game.phase=="setup_faction";var resources=game.phase=="setup_resource"
 	var heading=_label("选择你的光明会" if factions else ("选择初始资源" if resources else "选择初始手下"),overlay,38,GOLD);heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;heading.position=Vector2(0,55);heading.size.x=size.x
 	var note=_label("双方主牌同时揭晓 · 点击卡面查看完整能力" if factions else ("选1张加入手牌 · 其余返回资源堆" if resources else "从这五张中选一张 · 其余四张保留在手中"),overlay,20);note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;note.position=Vector2(0,117);note.size.x=size.x
@@ -686,7 +707,7 @@ func _battle_overlay() -> void:
 	if not changes.is_empty():_label(" · ".join(changes),p,16,GOLD).position=Vector2(26,201)
 	_label("本次战斗",p,24,GOLD).position=Vector2(left_w+22,65)
 	_battle_feed(p,Rect2(left_w+22,110,width-left_w-48,height-136),b.get("entries",[]))
-	if b.responder==1 or game.phase=="plot_response":_label("AI 正在响应…",p,24,GOLD).position=Vector2(26,235);return
+	if b.responder==1 or game.phase=="plot_response":_label("等待对手响应" if _online_active() else "AI 正在响应…",p,24,GOLD).position=Vector2(26,235);return
 	if game.legal_actions(0).size()==1 and game.legal_actions(0)[0].type=="pass":_label("双方完成响应，准备掷骰…",p,23,GOLD).position=Vector2(26,235);return
 	_label("你的响应 · 追加一次后交给对方",p,20,Color("a6b5a6")).position=Vector2(26,224)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(26,270);scroll.size=Vector2(left_w-42,height-296);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;p.add_child(scroll)
@@ -732,13 +753,13 @@ func _victory_overlay() -> void:
 	var show_goal=game.covenant.is_goal(goal_id)
 	var extent=Vector2(minf(980 if show_goal else 800,size.x-90),minf(750 if show_goal else 500,size.y-90))
 	_dim(overlay);var p=_panel(overlay,Rect2((size-extent)/2,extent));p.name="VictoryWindow"
-	var heading="平局" if game.winner<0 else ("你获胜" if game.winner==0 else "AI 获胜")
+	var heading="平局" if game.winner<0 else ("你获胜" if game.winner==0 else ("对手获胜" if _online_active() else "AI 获胜"))
 	var title=_paragraph(heading,p,Rect2(28,24,extent.x-56,72),46,GOLD);title.name="VictoryHeading";title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	var x=40.0
 	if show_goal:
 		var view=CardView.new();view.name="WinningGoal";view.configure(goal_id,game,true);view.size=Vector2(minf(270,(extent.y-200)*0.58),extent.y-200);view.position=Vector2(28,112);p.add_child(view);view.selected.connect(_inspect);view.inspected.connect(_inspect);x=view.position.x+view.size.x+34
 	var col=_scroll_column(p,Rect2(x,112,extent.x-x-36,extent.y-225));col.get_parent().name="VictoryReason"
-	if game.winner>=0:_wrapped(game.title(game.root(game.winner)),col,27,TEAL)
+	if game.winner>=0 and game.nodes.has(game.root(game.winner)):_wrapped(game.title(game.root(game.winner)),col,27,TEAL)
 	if kind=="goal":
 		_wrapped("达成目标阴谋",col,24,GOLD);_wrapped(game.card(goal_id).effect,col,25)
 	elif kind=="faction":
@@ -895,6 +916,7 @@ func _hover(id: String,showing: bool) -> void:
 	var v=CardView.new();v.configure(id,game,true);v.mouse_filter=Control.MOUSE_FILTER_IGNORE;v.position=Vector2(size.x-415,145);v.size=Vector2(380,size.y-230);hover_layer.add_child(v)
 
 func _schedule_ai() -> void:
+	if _online_active():return
 	if window_access.browsing or window_access.transitioning or interactions.picker.active or thinking or busy or panel_dragging or modal_open or game==null or game.phase=="over" or game.phase.begins_with("setup"):return
 	var forced=game.legal_actions(0)
 	if forced.size()==1 and forced[0].type in ["pass","trigger"]:_forced_pass();return
@@ -945,7 +967,7 @@ func _piles() -> void:
 	_label("公开牌区",p,30,GOLD).position=Vector2(26,20)
 	var scroll=ScrollContainer.new();scroll.position=Vector2(26,85);scroll.size=Vector2(828,460);p.add_child(scroll)
 	var col=VBoxContainer.new();col.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(col)
-	var piles={"团体弃牌":game.discards.group,"阴谋弃牌":game.discards.plot,"资源弃牌":game.discards.resource,"资源报废":game.scrap,"你的摧毁记录":game.graves[0],"AI 的摧毁记录":game.graves[1],"已公开的对手手牌":game.exposed.filter(func(id):return id in game.hands[1].group or id in game.hands[1].plot)}
+	var piles={"团体弃牌":game.discards.group,"阴谋弃牌":game.discards.plot,"资源弃牌":game.discards.resource,"资源报废":game.scrap,"你的摧毁记录":game.graves[0],("对手的摧毁记录" if _online_active() else "AI 的摧毁记录"):game.graves[1],"已公开的对手手牌":game.exposed.filter(func(id):return id in game.hands[1].group or id in game.hands[1].plot)}
 	for key in piles:
 		_label(key+" · %d"%piles[key].size(),col,22,GOLD)
 		for id in piles[key]:_button(game.title(id),func():_inspect(id),col)
@@ -956,16 +978,17 @@ func _settings() -> void:
 	modal_open=true;_clear(large_layer);_clear(hover_layer);_dim(large_layer);var p=_panel(large_layer,Rect2(size/2-Vector2(340,310),Vector2(680,620)))
 	_label("设置",p,34,GOLD).position=Vector2(28,20);_label("音效",p,22).position=Vector2(30,100)
 	var slider=HSlider.new();slider.min_value=0;slider.max_value=1;slider.step=0.05;slider.value=sound_volume;slider.position=Vector2(165,100);slider.size=Vector2(455,40);p.add_child(slider);slider.value_changed.connect(func(v):sound_volume=v;_save_settings())
-	var motion=CheckButton.new();motion.text=GameLocale.text("减少动态效果");motion.button_pressed=reduced_motion;motion.position=Vector2(30,175);p.add_child(motion);motion.toggled.connect(func(v):reduced_motion=v;_save_settings())
+	var motion=CheckButton.new();motion.name="ReducedMotion";motion.text=GameLocale.text("好友对战统一完整动画" if _online_active() else "减少动态效果");motion.button_pressed=reduced_motion;motion.disabled=_online_active();motion.position=Vector2(30,175);p.add_child(motion);motion.toggled.connect(func(v):reduced_motion=v;_save_settings())
 	var mobile=CheckButton.new();mobile.text=GameLocale.text("横屏移动布局");mobile.button_pressed=compact;mobile.position=Vector2(30,238);p.add_child(mobile);mobile.toggled.connect(func(v):compact=v;_save_settings();_resize())
 	_button("玩法与操作",_help,p).position=Vector2(30,370);_button("卡牌图鉴",_catalog,p).position=Vector2(310,370)
 	_label("语言 / Language",p,22).position=Vector2(30,300)
 	var language_choice=OptionButton.new();language_choice.name="LanguageChoice";language_choice.position=Vector2(325,292);language_choice.size=Vector2(290,48);language_choice.add_item("中文");language_choice.add_item("English");language_choice.select(1 if GameLocale.english() else 0);p.add_child(language_choice)
 	language_choice.item_selected.connect(func(index):_change_language("en" if index==1 else "zh"))
-	_label("AI难度",p,22).position=Vector2(30,435)
+	var difficulty_caption=_label("好友对战" if _online_active() else "AI难度",p,22);difficulty_caption.position=Vector2(30,435)
 	var difficulty_choice=OptionButton.new();difficulty_choice.name="DifficultyChoice";difficulty_choice.position=Vector2(325,427);difficulty_choice.size=Vector2(290,48)
 	for level in ["简单","普通","困难"]:difficulty_choice.add_item(GameLocale.text(level))
 	difficulty_choice.select(["easy","normal","hard"].find(ai_difficulty));p.add_child(difficulty_choice)
+	if _online_active():difficulty_choice.hide();_label(GameLocale.text("房间号")+" · "+online.code,p,22,TEAL).position=Vector2(325,435)
 	difficulty_choice.item_selected.connect(func(index):ai_difficulty=["easy","normal","hard"][index];ai.difficulty=ai_difficulty;_save_settings())
 	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,530)
 	var update_button=_button("检查更新",_updates,p);update_button.name="CheckUpdates";update_button.position=Vector2(325,485);update_button.size=Vector2(290,36);update_button.custom_minimum_size.y=36;update_button.add_theme_font_size_override("font_size",18)
@@ -990,7 +1013,7 @@ func _catalog() -> void:
 
 func _save_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():return
-	var c=ConfigFile.new();c.set_value("settings","difficulty",ai_difficulty);c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.set_value("settings","auto_update_check",auto_update_check);c.save(settings_path)
+	var c=ConfigFile.new();c.set_value("settings","difficulty",ai_difficulty);c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",preferred_reduced_motion);c.set_value("settings","auto_update_check",auto_update_check);c.save(settings_path)
 
 func _load_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():GameLocale.set_language("zh");return
@@ -1114,3 +1137,54 @@ func _sync_update_badge() -> void:
 	if badge==null:return
 	var text="下载完成 · 应用更新" if updates.status=="ready" else ("发现新版本 · 查看" if updates.status in ["available","full"] else "检查更新")
 	badge.text="v"+str(updates.current().get("version","?"))+" · "+GameLocale.text(text)
+
+func _online_active() -> bool:return online!=null and online.started
+func _opponent_name() -> String:return "对手" if _online_active() else "AI"
+
+func _online_install(data: Dictionary,fresh: bool) -> void:
+	if fresh or not game is RemoteState:
+		ai.cancel_all();match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false
+		_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear();board.initialized=false;floating_positions.clear();selected="";faction_page=0
+		_clear(overlay);_clear(large_layer);_clear(detail_layer);_clear(hover_layer);game=RemoteState.new()
+	game.install(data);board.visible=true;modal_open=false
+	if game.phase=="over":notification.text=""
+	if selected!="" and not game.nodes.has(selected) and selected not in game.hands[0].group and selected not in game.hands[0].plot and selected not in game.hands[0].resource:selected=""
+	_refresh(false)
+
+func _online_wait() -> void:
+	if game==null:return
+	if not detail_layer.get_children().is_empty():online.saved_reader=interactions.reader_id;_clear(detail_layer)
+	window_access.reset();interactions.reset();action_candidates.clear();preview_action={};_clear(large_layer);_clear(overlay);_clear(hover_layer)
+	modal_open=false;_set_busy(true)
+
+func _online_prepare(message: Dictionary) -> void:
+	if not message.get("plan",{}) is Dictionary or not message.plan.has("reveals"):
+		online.network_lost();return
+	var ticket=online.epoch;var transaction=int(message.tx)
+	_online_wait();_online_install(message.state,false);_set_busy(true)
+	if message.get("notice","")!="":_toast(message.notice)
+	var plan=message.plan
+	for reveal in plan.reveals:
+		if not await _present_action(reveal.player,reveal.action):return
+		if ticket!=online.epoch or transaction!=online.tx:return
+	if not plan.result.is_empty() and not plan.result.get("cancelled",false):
+		if not await _present_result(plan.result):return
+		if ticket!=online.epoch or transaction!=online.tx:return
+	if not await interactions.prepare_board(plan):return
+	if ticket!=online.epoch or transaction!=online.tx:return
+	for target in [plan.target,plan.get("other_target","")]:
+		if target=="":continue
+		if not await interactions.target_cue(plan.source,target):return
+		if ticket!=online.epoch or transaction!=online.tx:return
+	if not plan.moves.is_empty():
+		if not await interactions.moves(plan.moves):return
+		if ticket!=online.epoch or transaction!=online.tx:return
+	interactions.restore_sources();online.send({"op":"presented","tx":transaction})
+
+func _online_commit(message: Dictionary) -> void:
+	var ticket=online.epoch;var transaction=int(message.tx)
+	_online_install(message.state,false);_set_busy(true)
+	board.settlement_result=message.get("result",{});_refresh(false)
+	if not await board.wait_for_settlement():return
+	if ticket!=online.epoch or transaction!=online.tx:return
+	online.send({"op":"settled","tx":transaction})

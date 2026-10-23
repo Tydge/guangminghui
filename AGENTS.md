@@ -59,6 +59,9 @@
 - 开始菜单使用中心锚点适配初始窗口尺寸；切换难度只更新按钮状态与设置，不重建菜单或重置对局标识。所有扩展响应完成后统一将`pass`／`accept_plot`置于末尾。资源预览在独立规则副本中查询并预演合法资源响应，直接强度加成计入合计，条件资源和固定骰点不能虚增数值。
 - 结束原因由`GameState.victory`显式记录类型及获胜卡ID，目标宣告经`covenant_rules.gd`结算后写入；不要从日志文本反推获胜卡。结果窗口仍须等待原有展示与桌面结算；允许通过`WindowAccess`收起并查看已结束场面，规则与AI保持结束，恢复、缩放窗口和重开均须正常释放过渡。回归：`test_battle_ui_polish.gd`、`test_flow_order.gd`、`test_covenant_ui.gd`。
 
+- 好友对战由`server/host.gd`及`scripts/online/room.gd`权威结算，客户端只持有脱敏`RemoteState`和服务端签发的`_net`命令ID；命令ID是不可改写的字符串，不做席位替换。双方同时确认前不泄露初始选择，未知手牌／牌序／RNG不进入投影。JSON检查点保留64位RNG字符串，并恢复规则整数；公开下载目录不得包含房间凭证或检查点。
+- 在线操作按双端prepare展示、服务端单次commit、双端桌面settled、release推进；动画／断线暂停服务端计时，查看战场／设置不暂停。每次战斗与反制响应15秒、回合120秒、开局选择60秒。对战强制完整动画且保留离线精简偏好，语言／音量／布局只影响显示。异步重连、旧release及重开不得解锁错误事务或将动作提交到新局。回归：`test_online.gd`、`test_online_ui.gd --battle`、`test_online_settings.gd`、`test_online_matches.gd`。
+
 - 当前卡牌调优：猫王教会按直属怪异下属加GP（最多2），不额外加P支援；公关危机独立`pr_crisis`状态令最终GP为0，不改变普通沉默。电池临时P、危机GP在回合末／离场清除。量子计算机仅在新抽2张中保留1张，其余按手牌弃牌触发通则。博物馆每回合首次报废己方其他资源抽2阴谋；抢修车在己方巨大地点实际重建后排队抽团体，免费重建也算。新私密界面和时序回归为`test_contact_tuning.gd`、`test_contact_tuning_ui.gd`。
 
 - AI终局估值同时考虑己方建设与敌方削弱、各项胜利进度、私密目标、分支安全及资源投入。普通骰子按2d6分布经真实规则结算并合并等价结果；固定骰不平均。资源主要阶段行动不按回合末留存标记奖励。模型内已生成的合法动作可经`GameState._act_generated`复用同一规则派发和清理，避免重复生成整张动作表；真实对局、界面和基准对局仍必须走`act`。根动作须在两个重建样本中验证，后续动作须来自各自模型的合法列表。回归：`test_ai_resources.gd`、`test_ai_expectation.gd`、`test_ai_rehearsal.gd`。

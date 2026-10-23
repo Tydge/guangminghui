@@ -166,6 +166,12 @@ Windows 64-bit (Intel/AMD), OpenGL 3.3 compatible graphics.
 
 The first launch is in English. Settings > Language switches English / Chinese.
 Choose Easy, Normal or Hard, then start a game against the AI.
+Play with a friend creates or joins a private online room using a 6-digit code.
+Both players press Ready, then choose their starting cards independently.
+Online turns allow 120 seconds; every battle response has a fresh 15 seconds.
+Circular clocks show whose time is running. Required animations pause the clock.
+An interrupted connection is retried automatically; the seat has 90 seconds of
+total reconnection grace per match. Leaving an ongoing room counts as resigning.
 
 CONTROLS
 Click to select a card. Hover, right-click or use Inspect to read the full card.
@@ -184,7 +190,7 @@ Return to the main menu to apply a downloaded update. The game reopens itself.
 Download failures leave your installed game playable. --safe-mode starts the
 bundled version without cached patches or automatic update checks.
 
-This is a local single-player playtest against AI.
+Includes offline AI matches and private online two-player rooms.
 '''
     (output/'README.txt').write_text(readme,encoding='utf-8')
     quick=(ROOT/'docs/Quick_Start_EN.md').read_text(encoding='utf-8')

@@ -257,7 +257,7 @@ func moves(events: Array) -> bool:
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
 		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
-		m.presentation_tween.tween_callback(func():caption.text=GameLocale.text(("你" if event.player==0 else ("AI" if event.player==1 else ""))+" · "+GameLocale.text(verb));view.modulate.a=1.0;m._sound("card")).set_delay(at)
+		m.presentation_tween.tween_callback(func():caption.text=GameLocale.text(("你" if event.player==0 else (m._opponent_name() if event.player==1 else ""))+" · "+GameLocale.text(verb));view.modulate.a=1.0;m._sound("card")).set_delay(at)
 		m.presentation_tween.tween_method(func(t):arc(view,start,finish,t,22),0.0,1.0,duration).set_delay(at).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		m.presentation_tween.tween_property(view,"modulate:a",0.0,0.08*m.presentation_time_scale).set_delay(at+duration)
 		last_end=delay+index*0.07+(0.22 if m.reduced_motion else 0.42)+0.08;index+=1

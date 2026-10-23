@@ -55,6 +55,8 @@ var mulligans: Array=[0,0]
 var motion_events: Array=[]
 var resource_candidates: Array=[[],[]]
 var resource_rerolls: Array=[0,0]
+var human_duel=false
+var opening_picks={"faction":["",""],"group":["",""],"resource":["",""]}
 
 func _flow(id: String,from: String,to: String,p: int) -> void:
 	motion_events.append({"id":id,"from":from,"to":to,"player":p,"kind":card(id).kind})
@@ -65,11 +67,12 @@ func _mulligan(p: int) -> void:
 	_shuffle(decks.group)
 	for i in returned.size():_draw(p,"group")
 	mulligans[p]+=1
-	if p==1:
+	if p==1 and not human_duel:
 		var candidates=hands[1].group.duplicate();candidates.sort_custom(func(a,b):return _initial_score(a,1)>_initial_score(b,1));initial_ai=candidates[0]
 	_log(_who(p)+"重随初始团体 · 剩余%d次"%(2-mulligans[p]),"mulligan",{"player":p})
 
-func _init(seed_value: int = 0) -> void:
+func _init(seed_value: int = 0,duel: bool=false) -> void:
+	human_duel=duel
 	resources=ResourceRules.new(self)
 	contemporary=ContemporaryRules.new(self)
 	wave=WaveRules.new(self)
@@ -79,7 +82,7 @@ func _init(seed_value: int = 0) -> void:
 	CardDB.load_all()
 	if seed_value == 0: rng.randomize()
 	else: rng.seed = seed_value
-	factions[1] = CardDB.ids("faction")[rng.randi_range(0,CardDB.ids("faction").size()-1)]
+	if not human_duel:factions[1] = CardDB.ids("faction")[rng.randi_range(0,CardDB.ids("faction").size()-1)]
 	for kind in decks:
 		decks[kind] = CardDB.ids(kind)
 		_shuffle(decks[kind])
@@ -88,7 +91,7 @@ func _init(seed_value: int = 0) -> void:
 			for p in [0, 1]: _draw(p, kind)
 	var candidates = hands[1].group.duplicate()
 	candidates.sort_custom(func(a, b): return _initial_score(a, 1) > _initial_score(b, 1))
-	initial_ai = candidates[0]
+	if not human_duel:initial_ai = candidates[0]
 
 func _initial_score(id: String, p: int) -> float:
 	var c = CardDB.get_card(id)
@@ -309,13 +312,13 @@ func _base_legal_actions(p: int) -> Array:
 	var out: Array = []
 	if phase == "over": return out
 	if phase == "setup_faction":
-		if p == 0:
+		if (human_duel and opening_picks.faction[p]=="") or (not human_duel and p==0):
 			for id in CardDB.ids("faction"): out.append(_a("faction",CardDB.name_of(id),{"id":id}))
 		return out
 	if phase == "setup_group":
-		if p == 0:
-			for id in hands[0].group: out.append(_a("initial","选择「%s」"%title(id),{"id":id}))
-		if mulligans[p]<2:out.append(_a("mulligan","重随 · 剩余%d次"%(2-mulligans[p])))
+		if (human_duel and opening_picks.group[p]=="") or (not human_duel and p==0):
+			for id in hands[p].group: out.append(_a("initial","选择「%s」"%title(id),{"id":id}))
+		if (not human_duel or opening_picks.group[p]=="") and mulligans[p]<2:out.append(_a("mulligan","重随 · 剩余%d次"%(2-mulligans[p])))
 		return out
 	if phase == "choice" or phase == "discard":
 		if choice.get("player",-1) == p:
@@ -655,12 +658,22 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 	match a.type:
 		"mulligan":_mulligan(p)
 		"faction":
-			factions[0]=a.id
+			if human_duel:
+				opening_picks.faction[p]=a.id
+				if "" in opening_picks.faction:return true
+				factions=opening_picks.faction.duplicate()
+			else:factions[0]=a.id
 			for who in [0,1]:nodes[root(who)]={"card":factions[who],"owner":who,"parent":"","token":0,"attached":[]}
 			phase="setup_group";_log("主牌揭晓 · %s 对 %s"%[title(root(0)),title(root(1))],"reveal")
 		"initial":
-			while mulligans[1]<2 and _initial_score(initial_ai,1)<11:_mulligan(1)
-			_enter(a.id,0,root(0));_enter(initial_ai,1,root(1));_shuffle(decks.group)
+			if human_duel:
+				opening_picks.group[p]=a.id
+				if "" in opening_picks.group:return true
+				for who in [0,1]:_enter(opening_picks.group[who],who,root(who))
+			else:
+				while mulligans[1]<2 and _initial_score(initial_ai,1)<11:_mulligan(1)
+				_enter(a.id,0,root(0));_enter(initial_ai,1,root(1))
+			_shuffle(decks.group)
 			resources.opening()
 			_log("初始手下同时亮出 · 选择初始资源","opening_resource")
 		"draw":_begin_draw(a)
@@ -721,11 +734,11 @@ func _finish_opening() -> void:
 		if initiative[0][0]+initiative[0][1]!=initiative[1][0]+initiative[1][1]:break
 	current=0 if initiative[0][0]+initiative[0][1]>initiative[1][0]+initiative[1][1] else 1
 	_draw(1-current,"plot")
-	_log("初始手下同时亮出 · 你 %d，AI %d · %s先手 · %s后手额外抽1张阴谋"%[initiative[0][0]+initiative[0][1],initiative[1][0]+initiative[1][1],"你" if current==0 else "AI",_who(1-current)],"initiative")
+	_log("初始手下同时亮出 · %s %d，%s %d · %s先手 · %s后手额外抽1张阴谋"%[_who(0),initiative[0][0]+initiative[0][1],_who(1),initiative[1][0]+initiative[1][1],_who(current),_who(1-current)],"initiative")
 	_start_turn()
 
 func _die() -> int:return rng.randi_range(1,6)
-func _who(p: int) -> String:return "你" if p==0 else "AI"
+func _who(p: int) -> String:return ("玩家一" if p==0 else "玩家二") if human_duel else ("你" if p==0 else "AI")
 
 func _start_turn() -> void:
 	wave.start_turn()

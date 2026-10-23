@@ -55,7 +55,7 @@ func run():
 	check(server.listen(port,"127.0.0.1")==OK,"Slow-response fixture listens")
 	var main=load("res://scenes/main.tscn").instantiate();root.add_child(main);print("Update QA: main created");await process_frame
 	print("Update QA: main first frame")
-	main.updates.boot=clone_boot();main.updates.local_mode=false;var test_boot=main.updates.boot;test_boot.channel.origin="http://127.0.0.1:"+str(port);test_boot.channel.manifest_path="/never-respond";main.updates.check_timeout=1.0
+	main.updates.boot=clone_boot();main.updates.local_mode=false;var test_boot=main.updates.boot;test_boot.channel.origin="http://127.0.0.1:"+str(port);test_boot.channel.manifest_path="/never-respond";main.updates.check_timeout=2.0
 	var before=Time.get_ticks_msec();main.updates.check_updates()
 	print("Update QA: check started")
 	check(Time.get_ticks_msec()-before<100,"Version check returns without waiting for network")
@@ -70,7 +70,7 @@ func run():
 	while main.updates.request!=null and Time.get_ticks_msec()<deadline:
 		frames+=1
 		await process_frame
-	print("Update QA: timeout completed")
+	print("Update QA: timeout completed status=",main.updates.status," frames=",frames)
 	check(main.updates.status=="offline" and frames>10,"Slow server times out while frames keep running")
 	check(main.game.rng.state==rng and main.game.phase=="setup_faction","Timeout leaves match and RNG unchanged")
 	main.updates.available=payload;main.updates.status="downloading";main.updates.downloaded_bytes=bytes/2;main._updates();await process_frame

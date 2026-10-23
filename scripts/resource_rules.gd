@@ -88,9 +88,9 @@ func country_actions(src: String,p: int) -> Array:
 	return out
 func augment_actions(p: int,out: Array) -> Array:
 	if g.phase=="setup_resource":
-		if p==0:
-			for id in g.resource_candidates[0]:out.append(g._a("initial_resource","选择「%s」"%g.title(id),{"id":id}))
-			if g.resource_rerolls[0]<2:out.append(g._a("reroll_resource","重随资源",{}))
+		if (g.human_duel and g.opening_picks.resource[p]=="") or (not g.human_duel and p==0):
+			for id in g.resource_candidates[p]:out.append(g._a("initial_resource","选择「%s」"%g.title(id),{"id":id}))
+			if g.resource_rerolls[p]<2:out.append(g._a("reroll_resource","重随资源",{}))
 		return out
 	if g.phase=="main" and g.current==p:
 		if g.token(g.root(p)):
@@ -156,6 +156,11 @@ func plot_actions(id: String,p: int) -> Array:
 func handle(p: int,a: Dictionary) -> bool:
 	if a.type=="reroll_resource":reroll(p);return true
 	if a.type=="initial_resource":
+		if g.human_duel:
+			g.opening_picks.resource[p]=a.id
+			if "" in g.opening_picks.resource:return true
+			for who in [0,1]:select_opening(who,g.opening_picks.resource[who])
+			g._shuffle(g.decks.resource);g._finish_opening();return true
 		while g.resource_rerolls[1]<2 and g.resource_candidates[1].all(func(k):return opening_score(k,1)<15):reroll(1)
 		var pool=g.resource_candidates[1].duplicate();pool.sort_custom(func(x,y):return opening_score(x,1)>opening_score(y,1))
 		select_opening(0,a.id);select_opening(1,pool[0]);g._shuffle(g.decks.resource);g._finish_opening();return true

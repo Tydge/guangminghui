@@ -2,6 +2,16 @@
 
 A two-player strategy card game. Lead a secret society, build your network, and defeat your rival.
 
+## Playing Online
+
+Choose **Play with a friend**. Create a room and share its 6-digit code, or enter your friend's code. Both players press **Ready to play**, then choose their starting cards independently. No account is needed.
+
+Starting selections allow 60 seconds per step. Each turn allows 120 seconds. Every battle or counter response gets a fresh **15 seconds** when the response passes to you. Circular clocks show both players' time; the last seconds pulse and play a quiet cue.
+
+Online matches always use full animations. Both players finish the presentation before the server opens the next operation and starts its clock. Language, volume, and layout remain personal settings and never change the rules or dice. Inspecting cards, opening Settings, or using **View Battlefield** keeps your online clock running.
+
+If a response expires, the game passes or accepts the Plot. Required choices are completed automatically; an expired turn ends. Two entire turns without input count as a loss. Disconnections pause play and reconnect automatically, with 90 seconds of total grace per player per match. Leaving an ongoing room counts as resigning. After the result, both players can request another game in the same room.
+
 ## Setup
 
 Choose an Illuminati faction. Each player gets 2 Plot cards and 5 Group cards. Pick 1 Group as your starting subordinate and keep the rest. Then choose 1 Resource from 5 random candidates to keep in your hand. Group and Resource selections each allow up to 2 redraws.

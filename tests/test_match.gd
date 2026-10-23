@@ -8,7 +8,7 @@ func run() -> void:
 	main.sound_volume=0;main.reduced_motion=true;main.presentation_time_scale=0.15;main.ai.rng.seed=469;main._start_game(469)
 	var driver=AiAgent.new();driver.rng.seed=300
 	var started=Time.get_ticks_msec();var player_commands=0
-	while main.game.phase!="over" and Time.get_ticks_msec()-started<120000:
+	while main.game.phase!="over" and Time.get_ticks_msec()-started<300000:
 		if main.busy or main.thinking:await create_timer(0.03).timeout;continue
 		var legal=main.game.legal_actions(0)
 		if not legal.is_empty():

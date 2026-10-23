@@ -113,15 +113,16 @@ func _initialize() -> void:
 	apply(g,1,"support",{"src":"G075"})
 	check(g.nodes.G075.token==0 and g.battle_values().strength==france_strength-g.stat("G075","p")-4,"France spends a token and its bonus appears in actual battle values")
 	check(g.battle.entries.back().text.contains("+8"),"France's complete support contribution is public")
-	# Bavaria counts eight groups and their 45 effective P, excluding the root.
+	# Bavaria counts group power, excluding the root, at the current configured threshold.
 	g=fresh();g.factions[0]="I01";g.nodes.R0.card="I01"
 	for id in ["G005","G007","G003"]:place(g,id,0,"R0")
 	for id in ["G011","G020"]:place(g,id,0,"G005")
-	check(not g.goal(0).met and g.goal(0).text.contains("5/8") and g.goal(0).text.ends_with("/45"),"Bavaria uses the user's current thresholds")
+	var bavaria_power=g.covenant.FACTIONS.I01.power
+	check(not g.goal(0).met and g.goal(0).text.contains("5/8") and g.goal(0).text.ends_with("/"+str(bavaria_power)),"Bavaria uses the user's current thresholds")
 	for id in ["G073","G015","G010"]:place(g,id,0,"G007")
-	g.nodes.G010.learned=7
-	check(not g.goal(0).met and g.goal(0).text.contains("8/8") and g.goal(0).values.power==44,"Eight groups still need 45 group power; root is excluded")
-	g.nodes.G010.learned=8
+	g.nodes.G010.learned=bavaria_power-g.goal(0).values.power-1
+	check(not g.goal(0).met and g.goal(0).text.contains("8/8") and g.goal(0).values.power==bavaria_power-1,"Eight groups below the power threshold cannot win; root is excluded")
+	g.nodes.G010.learned+=1
 	check(g.goal(0).met,"Bavaria wins at both thresholds")
 	g._return_subtree("G010");check(not g.goal(0).met,"Losing a group breaks Bavaria's new victory condition")
 	check(g.validate().is_empty(),"New victory thresholds preserve normal game structure")
