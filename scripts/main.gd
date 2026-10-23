@@ -48,6 +48,9 @@ var floating_positions: Dictionary={}
 # Regression harnesses can accelerate time; the user setting keeps the reading pause.
 var presentation_time_scale=1.0
 var settings_path="user://settings.cfg"
+var updates: UpdateClient
+var update_window: UpdateWindow
+var auto_update_check=true
 
 func _set_busy(value: bool) -> void:
 	busy=value
@@ -83,11 +86,17 @@ func _ready() -> void:
 	window_access=WindowAccess.new(self);add_child(window_access)
 	font=CardDB.readable_font()
 	var t=Theme.new();t.default_font=font;t.default_font_size=20;theme=t
-	compact=OS.has_feature("mobile");_load_settings();_build_shell();resized.connect(_resize)
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--snapshot="):snapshot_mode=arg.get_slice("=",1)
+	if snapshot_mode!="":settings_path="user://export-snapshot-%d.cfg"%OS.get_process_id()
+	compact=OS.has_feature("mobile");_load_settings();_build_shell();resized.connect(_resize)
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--snapshot-language="):GameLocale.set_language(arg.trim_prefix("--snapshot-language="))
+	updates=UpdateClient.new();updates.auto_check=auto_update_check;add_child(updates);updates.changed.connect(_sync_update_badge)
 	if snapshot_mode!="":_start_game(4318);_snapshot_setup()
 	else:_menu()
+	get_node("/root/UpdateBootstrap").confirm_startup()
+	updates.call_deferred("startup_check")
 
 func _style(color: Color=Color("142e32"),border: Color=Color("846e47"),width: int=1) -> StyleBoxFlat:
 	var s=StyleBoxFlat.new();s.bg_color=color;s.border_color=border;s.set_border_width_all(width);s.set_corner_radius_all(8);s.content_margin_left=16;s.content_margin_right=16;s.content_margin_top=9;s.content_margin_bottom=9;return s
@@ -179,6 +188,7 @@ func _menu() -> void:
 	var start=_button("开始对局",func():_start_game(),content,true);start.position=Vector2(-150,145);start.size=Vector2(300,62)
 	var catalog=_button("卡牌图鉴",_catalog,content);catalog.position=Vector2(-150,221);catalog.size=Vector2(145,48)
 	var settings=_button("设置",_settings,content);settings.position=Vector2(5,221);settings.size=Vector2(145,48)
+	var version_button=_button("检查更新",_updates,content);version_button.name="MenuUpdate";version_button.position=Vector2(-150,284);version_button.size=Vector2(300,40);version_button.add_theme_font_size_override("font_size",17);_sync_update_badge()
 	var foot=_label("1V1 · 共享牌堆 · 离线 AI",overlay,17,Color("9aa99a"));foot.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;foot.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);foot.offset_top=-65;foot.offset_bottom=-25
 
 func _choose_menu_difficulty(level: String) -> void:
@@ -958,6 +968,7 @@ func _settings() -> void:
 	difficulty_choice.select(["easy","normal","hard"].find(ai_difficulty));p.add_child(difficulty_choice)
 	difficulty_choice.item_selected.connect(func(index):ai_difficulty=["easy","normal","hard"][index];ai.difficulty=ai_difficulty;_save_settings())
 	if game!=null:_button("返回主菜单",_menu,p).position=Vector2(30,530)
+	var update_button=_button("检查更新",_updates,p);update_button.name="CheckUpdates";update_button.position=Vector2(325,485);update_button.size=Vector2(290,36);update_button.custom_minimum_size.y=36;update_button.add_theme_font_size_override("font_size",18)
 	var close=_button("返回游戏" if game!=null else "返回",_close_settings,p,true);close.position=Vector2(440,530);close.size=Vector2(205,55)
 
 func _help(page: String="basic") -> void:
@@ -979,7 +990,7 @@ func _catalog() -> void:
 
 func _save_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():return
-	var c=ConfigFile.new();c.set_value("settings","difficulty",ai_difficulty);c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.save(settings_path)
+	var c=ConfigFile.new();c.set_value("settings","difficulty",ai_difficulty);c.set_value("settings","language",GameLocale.language);c.set_value("settings","volume",sound_volume);c.set_value("settings","compact",compact);c.set_value("settings","reduced_motion",reduced_motion);c.set_value("settings","auto_update_check",auto_update_check);c.save(settings_path)
 
 func _load_settings() -> void:
 	if settings_path=="user://settings.cfg" and "--test-defaults" in OS.get_cmdline_user_args():GameLocale.set_language("zh");return
@@ -987,13 +998,15 @@ func _load_settings() -> void:
 	GameLocale.set_language(default_language)
 	var c=ConfigFile.new()
 	if c.load(settings_path)==OK:
+		auto_update_check=c.get_value("settings","auto_update_check",true)
 		ai_difficulty=c.get_value("settings","difficulty","normal");ai_difficulty=ai_difficulty if ai_difficulty in ["easy","normal","hard"] else "normal";ai.difficulty=ai_difficulty
 		GameLocale.set_language(c.get_value("settings","language",default_language));sound_volume=c.get_value("settings","volume",0.6);compact=c.get_value("settings","compact",compact);reduced_motion=c.get_value("settings","reduced_motion",false)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if busy or window_access.transitioning:return
 	if e is InputEventKey and e.pressed and e.keycode==KEY_ESCAPE:
-		if not detail_layer.get_children().is_empty():_close_inspection()
+		if update_window!=null:update_window.close()
+		elif not detail_layer.get_children().is_empty():_close_inspection()
 		elif window_access.browsing:window_access.resume()
 		elif interactions.picker.active:interactions.back()
 		elif not large_layer.get_children().is_empty():preview_action={};_clear(large_layer);modal_open=false;_schedule_ai()
@@ -1089,3 +1102,15 @@ func _close_settings() -> void:
 		if not preview_action.is_empty():_review_action(preview_action);return
 		_refresh()
 	modal_open=false;_schedule_ai()
+
+func _updates() -> void:
+	if update_window!=null or busy:return
+	update_window=UpdateWindow.new(self,updates);add_child(update_window)
+	if updates.status in ["idle","offline","invalid"]:updates.check_updates()
+
+func _sync_update_badge() -> void:
+	if updates==null:return
+	var badge=overlay.find_child("MenuUpdate",true,false)
+	if badge==null:return
+	var text="下载完成 · 应用更新" if updates.status=="ready" else ("发现新版本 · 查看" if updates.status in ["available","full"] else "检查更新")
+	badge.text="v"+str(updates.current().get("version","?"))+" · "+GameLocale.text(text)

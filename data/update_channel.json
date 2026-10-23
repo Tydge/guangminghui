@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "product": "illuminati",
+  "base_id": "windows-4.6.2-v1",
+  "origin": "https://47.119.37.251",
+  "manifest_path": "/windows/latest.json",
+  "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAt2DHhUZPMpObrRdMmCe+\nfIaaCrCrXdpzmJX6uP6QB3DhKbBYSJ8yQ+p7s9UryjlPrzZJhezixV8SluBuMFPx\nRGj10g6quJDrgCRUA+wwgn5brp5Kz1a8lwEFoQZxpTWYUMDmtO5JkN+R1Gr4Nesa\nzRPonVF8RtXtCbUKoNfb1TdfoEH0/kJZXhnd+osIxs2Xr14h1mGMqYxCfodmBDZo\nKNPfAlvtaV68j+9WhczAY+ubQsNxJz5bpPE4IbrVSr1qAU9LbIoSS57ZvDA1vvhC\nij2QXRYCOAobwJBnyzOiUul5mm9qeXkVSAxfuAh3/5Ky2evhIZonUpDUPaYj5mAY\n2qzeX8BhnAA9ob7fABsoLbovgRuEA3O3gxQNRK+k3rbO8Fxjd8eMVuiomN7vXh5O\nbd2X9LmqLXRTvah/hce3tG5yP8awhR6EZPU4lIAGsb24u9YrhwxxY8u5wuYgpnqN\nWvkIfMI4KcMoyoGxXjOaPr+c7GIH6gs+0wONniPF1U5BAgMBAAE=\n-----END PUBLIC KEY-----\n"
+}

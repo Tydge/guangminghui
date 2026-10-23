@@ -12,9 +12,18 @@ config_version=5
 
 config/name="光明会"
 config/name.english_default="Illuminati"
+config/version="0.2.0"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+UpdateBootstrap="*res://scripts/update_bootstrap.gd"
+
+[internationalization]
+
+locale/include_text_server_data=true
 
 [display]
 

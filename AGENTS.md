@@ -1,5 +1,9 @@
 # 本项目的卡牌维护约定
 
+- Windows更新由`UpdateBootstrap`在autoload的`_init`中先验签、核对大小及SHA-256，再挂载独立缓存中的累积PCK；该启动器不得引用或预加载游戏类。对局中只下载和暂存，不挂载或改动规则；应用仅限菜单／结束场面，通过原生重启API自动重新打开。未确认成功启动的补丁下次回退，失败版本不自动重试。F5不安装玩家补丁，测试使用独立缓存并禁用启动检查。
+- 更新检查使用逐帧非阻塞HTTPRequest，默认5秒超时，不能阻塞开始本地对局。勿恢复在慢响应取消时会等待工作线程的HTTP线程模式。手动窗口可随时关闭，保留后台请求；下载显示字节进度和取消按钮。回归`tests/test_updates.gd`；真实服务验证`tests/test_live_updates.gd`显式传`--live-update-test`，不进入离线完整测试入口。
+- 发布使用`tools/export_windows.py`、`tools/release_updates.py`及`tools/deploy_updates.py`，保留原始基础包，以最终优化PCK按字节生成累积差异及原生删除记录，不重新降质压图。引擎／启动器／项目设置／全局类注册表／信任配置变化需新基础包。`data/release.json`版本码单调递增，已发布版本不可换内容。私钥、PEM、缓存和导出包不进Git。上传后校验服务端哈希，再原子切换清单；临时上传入口必须关闭。详见`docs/更新服务.md`。
+
 - 与用户共同维护 `docs/光明会_全部卡牌完整效果_当前版.md`。用户当前阅读、修改的副本位置记录于 `data/card_sync_config.json`；两份都属于可编辑文档。使用稳定文件名，不在总表追加每轮新增清单。
 - 修改卡牌前，先运行 `python tools/card_table.py check`，检查表格相对游戏数据的修改。不能重新生成并覆盖用户的表格修改。`sync` 会按字段合并表格、项目副本及 `data/cards.json`，相同字段的冲突会拒绝覆盖；先解决冲突再继续。
 - 数值、阵营、标签等修改可以通过 `python tools/card_table.py sync` 同步。效果、目标、费用和胜利条件是规则，需要同时检查/修改 GDScript 实现及相应测试；确认实现后使用 `sync --accept-rule-text`。

@@ -117,10 +117,15 @@ def optimize_pack(stock, target, reference):
 
 def build(args):
     (ROOT/'work').mkdir(exist_ok=True)
+    (ROOT/'work/.gdignore').touch()
+    (ROOT/'outputs').mkdir(exist_ok=True)
+    (ROOT/'outputs/.gdignore').touch()
     templates()
     output = Path(args.output).resolve(); output.mkdir(parents=True,exist_ok=True)
     executable = output/'Illuminati.exe'
-    subprocess.run([args.godot,'--headless','--path',str(ROOT),'--export-release','Windows Share',str(executable)],check=True,cwd=ROOT)
+    export_log=ROOT/'work/windows-build.log'
+    with export_log.open('w',encoding='utf-8') as stream:
+        subprocess.run([args.godot,'--headless','--path',str(ROOT),'--export-release','Windows Share',str(executable)],check=True,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT)
     reference_log=ROOT/'work/windows-reference.log'
     with reference_log.open('w',encoding='utf-8') as stream:
         result=subprocess.run([args.godot,'--path',str(ROOT),'--position','9000,9000','--script','res://tests/test_windows_export.gd','--',f'--reference={Path(args.reference).resolve()}'],cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=120)
@@ -142,9 +147,9 @@ def build(args):
     if result.returncode or any(word in diagnostics for word in ['ERROR:', 'SCRIPT ERROR:', 'Parse Error']) or '"failures":[]' not in diagnostics:
         raise RuntimeError('Exported executable smoke test failed; inspect '+str(log))
     print(diagnostics[-1600:],flush=True)
-    for mode in ['menu','battle','inspect']:
-        screenshot=captures/f'release-{mode}.png';runtime_log=captures/f'release-{mode}.log'
-        result=subprocess.run([str(executable),'--position','9000,9000','--log-file',str(runtime_log),'--',f'--snapshot={mode}',f'--snapshot-output={screenshot}'],cwd=output,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=45)
+    for mode,language in [('menu','en'),('battle','en'),('inspect','en'),('inspect','zh')]:
+        screenshot=captures/f'release-{mode}-{language}.png';runtime_log=captures/f'release-{mode}-{language}.log'
+        result=subprocess.run([str(executable),'--position','9000,9000','--log-file',str(runtime_log),'--',f'--snapshot={mode}',f'--snapshot-language={language}',f'--snapshot-output={screenshot}'],cwd=output,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=45)
         messages=runtime_log.read_text(encoding='utf-8') if runtime_log.exists() else ''
         if result.returncode or not screenshot.exists() or 'ERROR:' in messages:
             raise RuntimeError('Native release rendering failed: '+mode)
@@ -172,6 +177,13 @@ Use View Battlefield to hide a choice or battle window, then return to it.
 See Quick_Start_EN.txt for rules, alignments, tags, support and Resources.
 Your language and other preferences are saved locally on your own computer.
 
+UPDATES
+The game checks for updates in the background without blocking offline play.
+Settings > Check for updates also provides download progress and cancellation.
+Return to the main menu to apply a downloaded update. The game reopens itself.
+Download failures leave your installed game playable. --safe-mode starts the
+bundled version without cached patches or automatic update checks.
+
 This is a local single-player playtest against AI.
 '''
     (output/'README.txt').write_text(readme,encoding='utf-8')
@@ -183,7 +195,8 @@ This is a local single-player playtest against AI.
     (output/'CREDITS.txt').write_text('Engine: Godot Engine 4.6.2 (MIT).\nFont: Noto Sans SC (SIL OFL 1.1).\nAudio: Kenney Interface Sounds (CC0).\nCard and interface illustrations: generated for this project.\nTaylor Swift and Lionel Messi photographs: supplied by the project owner; original photographic rights remain with their owners.\nCard names and themes are inspired by Illuminati.\nSee Licenses for engine, font and audio license texts.\n',encoding='utf-8')
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     card_count=len(json.loads((ROOT/'data/cards.json').read_text(encoding='utf-8')))
-    manifest={'engine':VERSION,'source_commit':revision,'platform':'Windows x86_64','default_language':'en','card_count':card_count,'additional_image_quality_loss':False,'files':{p.name:{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in [output/'Illuminati.exe',output/'Illuminati.pck']}}
+    release=json.loads((ROOT/'data/release.json').read_text(encoding='utf-8'))
+    manifest={'release':release,'engine':VERSION,'source_commit':revision,'source_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),'platform':'Windows x86_64','default_language':'en','card_count':card_count,'additional_image_quality_loss':False,'files':{p.name:{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in [output/'Illuminati.exe',output/'Illuminati.pck']}}
     (output/'BUILD.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     archive=output.parent/'Illuminati-Windows-x64-EN.zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as zip:

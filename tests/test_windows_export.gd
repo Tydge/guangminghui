@@ -60,6 +60,8 @@ func shipped():
 		verified+=1
 		if verified%25==0:print("Verified exported textures: ",verified," / ",reference_data.size())
 	check(FileAccess.file_exists("res://data/cards.json") and FileAccess.file_exists("res://data/localization/en.json"),"Runtime JSON shipped")
+	check(ProjectSettings.get_setting("internationalization/locale/include_text_server_data",false),"TextServer word/line breaking data included")
+	check(FileAccess.file_exists("res://data/update_channel.json") and FileAccess.file_exists("res://data/release.json"),"Update channel and version shipped")
 	check(not FileAccess.file_exists("res://data/card_sync_config.json") and not FileAccess.file_exists("res://AGENTS.md") and not FileAccess.file_exists("res://tests/test_match.gd"),"No local configuration, instructions or tests shipped")
 	var main=load("res://scenes/main.tscn").instantiate();main.settings_path="user://windows-export-qa-%d.cfg"%OS.get_process_id();root.add_child(main);await process_frame
 	check(GameLocale.english(),"Fresh exported install defaults to English")
@@ -74,6 +76,9 @@ func shipped():
 	main._refresh();main.board.fit_all();await create_timer(0.3).timeout;await capture("board-en")
 	main._inspect("E16");CardDB.finish_art_requests();await process_frame;await capture("safe-house-en");main._close_inspection();main.modal_open=true
 	var before_rng=g.rng.state;main._change_language("zh");check(not GameLocale.english() and g.rng.state==before_rng,"Chinese switch preserves match and RNG")
+	var card_font=CardDB.readable_font();var text=CardDB.get_card("G003").get("effect","")
+	check(card_font.get_multiline_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,300,22).y>card_font.get_height(22)*1.5,"Chinese ability wraps across multiple lines in shipped pack")
+	main._close_settings();main._inspect("G003");await capture("cia-zh");main._close_inspection();main.modal_open=true
 	main._change_language("en");check(GameLocale.english(),"Can switch back to English");main._close_settings();main.modal_open=true
 	GameLocale.set_language("zh");main._load_settings();check(GameLocale.english(),"Saved language restored")
 	main._close_inspection();main._clear(main.large_layer);main.modal_open=true
