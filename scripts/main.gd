@@ -4,7 +4,9 @@ signal presentation_finished(completed: bool)
 const OnlineSession=preload("res://scripts/online/session.gd")
 const RemoteState=preload("res://scripts/online/remote_state.gd")
 const OnlineProjection=preload("res://scripts/online/projection.gd")
+const AttackPresentation=preload("res://scripts/attack_presentation.gd")
 var online
+var combat
 
 const GOLD=Color("d8ba77")
 const CREAM=Color("e8ddbf")
@@ -143,6 +145,7 @@ func _clear(node: Node) -> void:
 func _build_shell() -> void:
 	var background=TextureRect.new();background.texture=load("res://assets/ui/table.webp");background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;background.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED;background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);background.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(background)
 	board=BoardView.new();board.input_blocked_at=_board_input_blocked;add_child(board);board.card_selected.connect(_select_card);board.card_inspected.connect(_inspect);board.card_hovered.connect(_hover)
+	combat=AttackPresentation.new(self);board.add_child(combat)
 	hud=Control.new();hud.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(hud)
 	hand_layer=Control.new();hand_layer.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(hand_layer)
 	inspector=Control.new();inspector.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(inspector)
@@ -184,6 +187,7 @@ func _dim(layer: Control,opacity: float=0.85) -> void:
 func _menu() -> void:
 	if online!=null and online.in_room:online.ask_leave();return
 	ai.cancel_all()
+	combat.reset()
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();notification.text="";preview_action={};_clear(detail_layer);_clear(hover_layer)
 	_clear(overlay);_clear(hud);_clear(hand_layer);_clear(inspector);_clear(large_layer);game=null;board.visible=false;modal_open=true;_dim(overlay)
 	var content=Control.new();content.name="MenuContent";content.mouse_filter=Control.MOUSE_FILTER_IGNORE;overlay.add_child(content);content.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
@@ -211,9 +215,10 @@ func _choose_menu_difficulty(level: String) -> void:
 func _start_game(seed_value: int=0) -> void:
 	if _online_active():online.rematch_request();return
 	ai.cancel_all()
+	combat.reset()
 	faction_page=0
 	match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();_set_busy(false);board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false;floating_positions.clear();preview_action={};_clear(large_layer);_clear(detail_layer);_clear(hover_layer)
-	_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear()
+	_clear_board()
 	ai.difficulty=ai_difficulty;game=GameState.new(seed_value);selected="";action_candidates.clear();modal_open=false;board.visible=true;board.initialized=false;_refresh();_sound("open")
 
 func _refresh(with_modal: bool=true) -> void:
@@ -221,6 +226,7 @@ func _refresh(with_modal: bool=true) -> void:
 	_clear(hud);_clear(hand_layer);_clear(inspector)
 	board.game=game;board.selected_id=selected;board.legal_ids=[] if window_access.browsing else (interactions.picker.values(target_key) if interactions.picker.active and not action_candidates.is_empty() else action_candidates.map(func(a):return a.get(target_key,"")));board.reduced_motion=reduced_motion;board.motion_time_scale=presentation_time_scale
 	if not game.nodes.is_empty():board.sync(game)
+	combat.sync_state(game);combat.move_to_front()
 	_draw_hud();_draw_hand();_draw_inspector()
 	if with_modal and not window_access.browsing and not window_access.transitioning:_phase_overlay()
 
@@ -452,14 +458,14 @@ func _do_action(p: int,a: Dictionary) -> void:
 	if not plan.result.is_empty() and not plan.result.get("cancelled",false):
 		if not await _present_result(plan.result):return
 		if game==null or this_match!=match_id:return
-	if not await interactions.prepare_board(plan):return
+	if not await interactions.battle_cue(plan):return
 	if game==null or this_match!=match_id:return
 	for target in [plan.target,plan.get("other_target","")]:
 		if target=="":continue
 		if not await interactions.target_cue(plan.source,target):return
 		if game==null or this_match!=match_id:return
 	if not plan.moves.is_empty():
-		if not await interactions.moves(plan.moves):return
+		if not await interactions.moves(plan.moves,plan):return
 		if game==null or this_match!=match_id:return
 	# The rehearsal never mutates game or its RNG. Commit after the final landing.
 	interactions.restore_sources()
@@ -568,7 +574,7 @@ func _finish_presentation(completed: bool) -> void:
 	if not presenting:return
 	presenting=false
 	if not completed and presentation_tween!=null:presentation_tween.kill()
-	if not completed:interactions.restore_sources()
+	if not completed:interactions.restore_sources();combat.reset()
 	presentation_tween=null
 	_clear(presentation_layer)
 	presentation_finished.emit(completed)
@@ -1067,6 +1073,7 @@ func _capture_snapshot() -> void:
 
 func _exit_tree() -> void:
 	ai.shutdown()
+	combat.reset()
 	match_id+=1;_finish_presentation(false)
 	board.reset_motion();window_access.reset()
 	CardDB.finish_art_requests()
@@ -1141,10 +1148,16 @@ func _sync_update_badge() -> void:
 func _online_active() -> bool:return online!=null and online.started
 func _opponent_name() -> String:return "对手" if _online_active() else "AI"
 
+func _clear_board() -> void:
+	combat.reset()
+	for child in board.get_children():
+		if child!=combat:board.remove_child(child);child.queue_free()
+	board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear()
+
 func _online_install(data: Dictionary,fresh: bool) -> void:
 	if fresh or not game is RemoteState:
 		ai.cancel_all();match_id+=1;_finish_presentation(false);window_access.reset();interactions.reset();board.reset_motion();thinking=false;forced_pending=false;panel_dragging=false
-		_clear(board);board.cards.clear();board.positions.clear();board.targets.clear();board.collapsed.clear();board.initialized=false;floating_positions.clear();selected="";faction_page=0
+		_clear_board();board.initialized=false;floating_positions.clear();selected="";faction_page=0
 		_clear(overlay);_clear(large_layer);_clear(detail_layer);_clear(hover_layer);game=RemoteState.new()
 	game.install(data);board.visible=true;modal_open=false
 	if game.phase=="over":notification.text=""
@@ -1170,14 +1183,14 @@ func _online_prepare(message: Dictionary) -> void:
 	if not plan.result.is_empty() and not plan.result.get("cancelled",false):
 		if not await _present_result(plan.result):return
 		if ticket!=online.epoch or transaction!=online.tx:return
-	if not await interactions.prepare_board(plan):return
+	if not await interactions.battle_cue(plan):return
 	if ticket!=online.epoch or transaction!=online.tx:return
 	for target in [plan.target,plan.get("other_target","")]:
 		if target=="":continue
 		if not await interactions.target_cue(plan.source,target):return
 		if ticket!=online.epoch or transaction!=online.tx:return
 	if not plan.moves.is_empty():
-		if not await interactions.moves(plan.moves):return
+		if not await interactions.moves(plan.moves,plan):return
 		if ticket!=online.epoch or transaction!=online.tx:return
 	interactions.restore_sources();online.send({"op":"presented","tx":transaction})
 

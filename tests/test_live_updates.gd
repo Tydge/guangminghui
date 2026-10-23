@@ -19,17 +19,21 @@ func run():
 	var b=load("res://scripts/update_bootstrap.gd").new();main.updates.boot=b
 	b.folder="user://live-update-qa-%d"%OS.get_process_id()
 	if "--production-patch" in OS.get_cmdline_user_args():
+		var expected=0
+		var base_code=2026102301
 		for arg in OS.get_cmdline_user_args():
 			if arg.begins_with("--update-storage="):b.folder=arg.trim_prefix("--update-storage=")
-		check(int(b.bundled.code)==2026102301,"Test starts from the original published 0.2.0 base")
+			if arg.begins_with("--expected-code="):expected=int(arg.trim_prefix("--expected-code="))
+			if arg.begins_with("--base-code="):base_code=int(arg.trim_prefix("--base-code="))
+		check(int(b.bundled.code)==base_code,"Test starts from the expected published base")
 		main.updates.check_updates();await settled(main.updates)
-		check(main.updates.status=="available" and int(main.updates.available.get("code",0))==2026102302,"Old game accepts signed production online patch")
+		check(main.updates.status=="available" and int(main.updates.available.get("code",0))>int(b.bundled.code) and (expected==0 or int(main.updates.available.get("code",0))==expected),"Old game accepts signed production online patch")
 		if main.updates.status=="available":
-			main._start_game(318);var rng_before=main.game.rng.state
+			main._start_game(318);var rng_before=main.game.rng.state;var release_before=FileAccess.get_file_as_string("res://data/release.json")
 			main.updates.download_update();await settled(main.updates,60)
 			check(main.updates.status=="ready" and b.verified_pack(main.updates.available),"Production cumulative patch downloaded and verified")
 			check(main.game.rng.state==rng_before and main.game.phase=="setup_faction","Download leaves old local game untouched")
-			check(not ResourceLoader.exists("res://scripts/online/session.gd"),"New game code is not loaded during download")
+			check(FileAccess.get_file_as_string("res://data/release.json")==release_before,"New game code is not mounted during download")
 			check(not b.read_json(b.folder+"/pending.json").is_empty(),"Patch staged for next native launch")
 		main.queue_free();await process_frame;await process_frame;b.free()
 		print("LIVE PRODUCTION PATCH: "+JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1);return

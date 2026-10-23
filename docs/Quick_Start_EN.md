@@ -74,6 +74,8 @@ Spend a group's action to lead an attack. A player is protected until they compl
 
 Start with the leader's **P**. Subtract the target's **R** for Control, or usually its **P** for Destroy, then apply modifiers.
 
+After confirmation, the camera frames the leader and follows a labeled arrow to the target: teal for Control, coral for Destroy. A recruit from hand appears as a temporary public card; it joins your network on success or returns to your hand on failure. Support briefly highlights both participating cards and shows the actual bonus. These cues finish before the action is committed. Automatic Takeover does not use an attack arrow.
+
 Players alternate support and Plot responses. When both pass, roll two dice: a total **at or below the final strength succeeds**. **11 or 12 always fails.** Strength below 2 fails without rolling.
 
 ### Defense and Support

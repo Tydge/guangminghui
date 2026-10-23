@@ -2628,6 +2628,16 @@
       "source": "信众合唱 · GP+%d。",
       "pattern": "^信众合唱 · GP\\+(\\d+)。$",
       "text": "Choir of Believers · +{0} GP."
+    },
+    {
+      "source": "自卫 +%d",
+      "pattern": "^自卫 \\+(\\d+)$",
+      "text": "Self-defense +{0}"
+    },
+    {
+      "source": "支援 +%d（%s）",
+      "pattern": "^支援 \\+(\\d+)（(.+?)）$",
+      "text": "Support +{0} ({1})"
     }
   ],
   "cards": {

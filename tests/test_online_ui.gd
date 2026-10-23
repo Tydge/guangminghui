@@ -74,7 +74,13 @@ func battle_after_restart() -> bool:
 	server_pid=OS.create_process(OS.get_executable_path(),["--headless","--path",ProjectSettings.globalize_path("res://"),"--log-file",folder+"/server.log","--script","res://server/online_server.gd","--","--test-defaults","--port="+str(port),"--rooms="+folder+"/rooms"])
 	if not await wait_until(func():return mains.all(func(m):return not m.online.reconnecting and not m.busy and m.game.nodes.has("E01")),"Both clients recover authoritative checkpoint",12):return false
 	var a=mains[0].game.legal_actions(0).filter(func(item):return item.type=="attack" and item.src=="R0" and item.target=="G003" and item.mode=="control")[0]
-	mains[0]._do_action(0,a);await process_frame
+	for m in mains:m.presentation_time_scale=0.20
+	var revision=mains[0].online.revision
+	mains[0]._do_action(0,a)
+	if not await wait_until(func():return mains.all(func(m):return m.combat.stage=="trace"),"Both peers show the declaration arrow before commit"):return false
+	mains[1].presentation_tween.pause();await create_timer(0.65).timeout
+	check(mains.all(func(m):return m.online.revision==revision and m.game.phase=="main" and m.busy and m.online.clock.paused),"Slower peer's arrow keeps both rules and thinking clocks paused")
+	mains[1].presentation_tween.play()
 	if not await settle():return false
 	check(mains[0].game.phase=="battle","Two real clients enter battle")
 	var responder=0 if mains[0].game.battle.responder==0 else 1
@@ -115,6 +121,47 @@ func battle_after_restart() -> bool:
 		var p=mains[0].game.battle.responder
 		if not await action(p,"pass"):return false
 	check(not mains[0].game.last_battle.is_empty() and mains[1].game.last_battle.dice==mains[0].game.last_battle.dice and mains[1].game.last_battle.success==mains[0].game.last_battle.success,"Dice/result history agrees across seats")
+	for success in [false,true]:
+		if not await online_recruit(success):return false
+	return true
+func online_recruit(success: bool) -> bool:
+	OS.kill(server_pid)
+	if not await wait_until(func():return not OS.is_process_running(server_pid),"Host stops for private recruit fixture"):return false
+	var path=folder+"/rooms/"+mains[0].online.code+".json"
+	var room=load("res://scripts/online/room.gd").restore(JSON.parse_string(FileAccess.get_file_as_string(path)),Time.get_ticks_msec())
+	var g=GameState.new(1,true);g.nodes={};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}]
+	for kind in g.decks:g.decks[kind]=CardDB.ids(kind)
+	g.factions=["I01","I02"];g.phase="main";g.current=0;g.turns=[2,2];g.serial=41 if success else 40
+	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
+	var src="R0" if success else "G042";var target="G043" if success else "G005"
+	if not success:put(g,"G042",0,"R0")
+	else:g.nodes.R0.learned=100
+	put(g,"G004",0,"R0");put(g,"G001",1,"R1");g.decks.group.erase(target);g.hands[0].group.append(target)
+	for candidate in 20:
+		var rng=RandomNumberGenerator.new();rng.seed=candidate+1
+		if rng.randi_range(1,6)+rng.randi_range(1,6)<=10:g.rng.seed=candidate+1;break
+	room.game=g;room.revision+=100;room.pending={};room.restart_intent={};room.turn_serial=-1;room.clock_kind="";room.clock_actor=-1
+	FileAccess.open(path,FileAccess.WRITE).store_string(JSON.stringify(room.record()));DirAccess.remove_absolute(folder+"/server.log")
+	server_pid=OS.create_process(OS.get_executable_path(),["--headless","--path",ProjectSettings.globalize_path("res://"),"--log-file",folder+"/server.log","--script","res://server/online_server.gd","--","--test-defaults","--port="+str(port),"--rooms="+folder+"/rooms"])
+	if not await wait_until(func():return mains.all(func(m):return not m.online.reconnecting and not m.busy and m.game.serial==g.serial),"Both clients resume new authoritative recruit fixture",12):return false
+	var candidates=mains[0].game.legal_actions(0).filter(func(item):return item.type=="attack" and item.src==src and item.target==target and item.mode=="control")
+	check(not candidates.is_empty(),"Private fixture has a legal hand attack")
+	if candidates.is_empty():return false
+	var a=candidates[0]
+	var revision=mains[0].online.revision;mains[0]._do_action(0,a)
+	if not await wait_until(func():return mains.all(func(m):return m.online.revision>revision) and mains[0].game.phase=="battle","Recruit declaration commits after both animations"):return false
+	if not await settle():return false
+	check(mains.all(func(m):return m.combat.ghost_id==target and not m.game.nodes.has(target) and not m.board.cards.has(target)),"Both peers show the same public recruit without inventing ownership")
+	# Interrupt once more during an actual battle: the public preview must recover.
+	var token=mains[1].online.token;mains[1].online.network_lost()
+	if not await wait_until(func():return not mains[1].online.reconnecting and not mains[1].busy,"Recruit battle resumes after client disconnect",12):return false
+	check(mains[1].online.token==token and mains[1].combat.ghost_id==target,"Reconnect restores the recruit, not a duplicate or a hidden hand")
+	for i in 12:
+		if mains[0].game.phase!="battle":break
+		if not await action(int(mains[0].game.battle.responder),"pass"):return false
+	check(mains[0].game.last_battle.success==success and mains[1].game.last_battle.success==success,"Both recruit outcomes agree with authoritative dice")
+	check(mains.all(func(m):return m.combat.ghost_id=="" and m.combat.attack.is_empty()),"No recruit or arrow remains after result settlement")
+	check(mains[0].game.nodes.has(target) and mains[1].game.nodes.has(target) if success else target in mains[0].game.hands[0].group and not mains[1].game.nodes.has(target),"Successful recruit enters both boards; failed recruit returns only to its owner's hand")
 	return true
 func run():
 	get_root().size=Vector2i(1600,900)
@@ -127,7 +174,7 @@ func run():
 		server_pid=OS.create_process(OS.get_executable_path(),["--headless","--path",ProjectSettings.globalize_path("res://"),"--log-file",folder+"/server.log","--script","res://server/online_server.gd","--","--test-defaults","--port="+str(port),"--rooms="+folder+"/rooms"])
 		if not await wait_until(func():return FileAccess.file_exists(folder+"/server.log") and "ONLINE READY" in FileAccess.get_file_as_string(folder+"/server.log"),"Local authoritative server starts"):await stop();return
 	for p in [0,1]:
-		var m=load("res://scenes/main.tscn").instantiate();m.settings_path="user://online-ui-settings-%d-%d.cfg"%[OS.get_process_id(),p];root.add_child(m);m.presentation_time_scale=0.003;m.reduced_motion=true
+		var m=load("res://scenes/main.tscn").instantiate();m.settings_path="user://online-ui-settings-%d-%d.cfg"%[OS.get_process_id(),p];root.add_child(m);m.presentation_time_scale=0.003;m.reduced_motion=true;m.sound_volume=0
 		m.online.url=live_url if live_url!="" else "ws://127.0.0.1:"+str(port);m.online.storage="user://online-ui-session-%d-%d.cfg"%[OS.get_process_id(),p];m.online.screen=true;mains.append(m)
 	if "--english" in OS.get_cmdline_user_args():GameLocale.set_language("en")
 	if "--mobile" in OS.get_cmdline_user_args():root.size=Vector2i(1280,720);for m in mains:m.compact=true;m._resize()
@@ -151,6 +198,24 @@ func run():
 	check(mains[first].game.legal_actions(0).any(func(a):return a.type=="end") and mains[1-first].game.legal_actions(0).is_empty(),"Only current player can act")
 	check(mains[first].online.clock.active[0] and mains[1-first].online.clock.active[1],"Both see active player's clock")
 	check(mains[first].online.rings.size()==2,"Both circular clocks available")
+	if "--live-attack" in OS.get_cmdline_user_args():
+		var candidates=mains[first].game.legal_actions(0).filter(func(a):return a.type=="attack" and a.src=="R0" and a.mode=="control" and not mains[first].game.nodes.has(a.target))
+		check(not candidates.is_empty(),"Public server offers a genuine hand recruit")
+		if candidates.is_empty():await stop();return
+		var target=candidates[0].target;var revision=mains[first].online.revision
+		for m in mains:m.presentation_time_scale=0.20
+		mains[first]._do_action(0,candidates[0])
+		if not await wait_until(func():return mains.all(func(m):return m.combat.stage=="trace"),"Public host delivers the declaration animation before commit"):await stop();return
+		check(mains.all(func(m):return m.online.revision==revision and m.online.clock.paused),"Public host pauses true state and clocks throughout the arrow")
+		if not await wait_until(func():return mains.all(func(m):return m.online.revision>revision),"Public attack declared after both presentations"):await stop();return
+		if not await settle():await stop();return
+		check(mains.all(func(m):return m.combat.ghost_id==target),"Public host sends the new attack cue to both peers")
+		for i in 20:
+			if mains[0].game.battle.is_empty() and mains[0].game.phase=="main":break
+			var p=int(mains[0].game.battle.responder) if mains[0].game.phase=="battle" else int(mains[0].game.choice.player)
+			var kind="pass" if mains[0].game.phase=="battle" else "choose"
+			if not await action(p,kind):await stop();return
+		check(mains.all(func(m):return m.combat.ghost_id=="" and m.game.battle.is_empty()),"Public recruit settles without leftover visuals")
 	var draws=mains[first].game.legal_actions(0).filter(func(a):return a.type=="auto")
 	if not draws.is_empty():
 		mains[first]._do_action(0,draws[0]);if not await settle():await stop();return

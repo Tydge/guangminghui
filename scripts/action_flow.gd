@@ -27,6 +27,7 @@ static func zones(g: GameState) -> Dictionary:
 	if g.world!="":result[g.world]={"place":"world","player":-1,"kind":"plot"}
 	if not g.pending_plot.is_empty():result[g.pending_plot.id]={"place":"pending","player":g.pending_plot.player,"kind":"plot"}
 	for id in g.battle.get("spent",[]):result[id]={"place":"spent","player":g.battle.attacker,"kind":"plot"}
+	if g.battle.get("hand_target",false):result[g.battle.target]={"place":"recruit","player":g.battle.attacker,"kind":"group"}
 	var peek=g.choice.get("peek",g.choice.get("options",[]) if g.choice.get("kind","") in ["draw_keep","reorder","e_probe","n_probe"] else [])
 	for id in peek:result[id]={"place":"choice","player":g.choice.get("player",0),"kind":g.card(id).kind}
 	return result
@@ -42,7 +43,7 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 		if id in recorded or not before.has(id):continue
 		var start=before[id];var finish=after[id]
 		if start==finish:continue
-		if finish.place in ["hand","discard","scrap"] or (start.place=="deck" and finish.place=="choice") or (start.place=="hand" and finish.place=="deck"):
+		if finish.place in ["hand","discard","scrap"] or (start.place=="deck" and finish.place=="choice") or (start.place=="hand" and finish.place=="deck") or (start.place=="recruit" and finish.place=="board"):
 			moves.append({"id":id,"kind":finish.kind,"from":start.place,"to":finish.place,"player":finish.player if finish.place=="hand" else start.player,"from_player":start.player,"from_target":start.get("target","")})
 	var played=a if a.type=="plot" else g.pending_plot
 	var target="";var source=""
@@ -85,7 +86,18 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 			var node=nodes.get(id,{})
 			var parent="R%d"%node.owner if node.has("resource_slot") else node.get("parent","")
 			if parent!="" and parent not in affected:affected.append(parent)
-	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor,"camera_ids":affected,"board_before":g.nodes.duplicate(true),"board_after":copy.nodes.duplicate(true),"other_target":played.get("other","") if not source.is_empty() and played.get("id","")=="P60" else ""}
+	var attack={};var support={}
+	if g.battle.is_empty() and not copy.battle.is_empty() and not copy.battle.has("disaster"):
+		for key in ["src","target","mode","attacker","hand_target"]:attack[key]=copy.battle[key]
+	if a.type in ["support","self_defend"] and not g.battle.is_empty():
+		var defending=p!=g.battle.attacker
+		var context=g.battle.duplicate(true)
+		for key in ["algorithm","amplify","stake"]:context[key]=a.get(key,false)
+		var detail=g.support_detail(a.src,context) if a.type=="support" else {"basis":"P","power":g.self_power(a.src)}
+		support={"src":a.src,"target":g.battle.target if defending else g.battle.src,"kind":a.type,"power":detail.power,"basis":detail.basis,"player":p}
+		for id in [support.src,support.target]:
+			if id not in affected:affected.append(id)
+	return {"moves":moves,"target":target,"source":source,"result":result,"minor":minor,"attack":attack,"support":support,"camera_ids":affected,"board_before":g.nodes.duplicate(true),"board_after":copy.nodes.duplicate(true),"other_target":played.get("other","") if not source.is_empty() and played.get("id","")=="P60" else ""}
 
 static func node_visual(node: Dictionary) -> Dictionary:
 	if node.is_empty():return {}

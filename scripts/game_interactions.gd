@@ -185,6 +185,7 @@ func visible_card(id: String) -> Control:
 		for view in layer.find_children("*","Control",true,false):
 			if view is CardView and view.id==id and view.is_visible_in_tree():return view
 	if m.board.cards.has(id) and m.board.cards[id].is_visible_in_tree():return m.board.cards[id]
+	if m.combat.ghost_id==id and is_instance_valid(m.combat.ghost) and m.combat.ghost.visible:return m.combat.ghost
 	return null
 func anchor(place: String,p: int,kind: String,id: String="",target: String="") -> Rect2:
 	var area=Vector2(94,142);var center=m.size*0.5
@@ -197,6 +198,7 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 	if place in ["board","attached"]:
 		var view=visible_card(target if target!="" else id)
 		if view!=null:return view.get_global_rect()
+	if place=="recruit" and m.combat.ghost_id==id:return m.combat.global_rect(id)
 	if place=="hand":
 		var view=visible_card(id)
 		if view!=null:return view.get_global_rect()
@@ -205,6 +207,7 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 	elif place=="choice":center=Vector2(m.size.x*0.5,m.size.y*0.45)
 	return Rect2(center-area*0.5,area)
 func known(id: String) -> bool:
+	if m.game.battle.get("hand_target",false) and m.game.battle.target==id:return true
 	return private_choice_known(id) or id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
 func private_choice_known(id: String) -> bool:
 	var c=m.game.choice
@@ -241,7 +244,7 @@ func target_cue(id: String,target: String) -> bool:
 	m.presentation_tween.tween_property(card,"modulate:a",0.0,0.12*m.presentation_time_scale);m.presentation_tween.parallel().tween_property(ring,"modulate:a",0.0,0.12*m.presentation_time_scale)
 	m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
 	return await m.presentation_finished
-func moves(events: Array) -> bool:
+func moves(events: Array,plan: Dictionary={}) -> bool:
 	if events.is_empty():return true
 	m.presenting=true;m._clear(m.presentation_layer)
 	var caption=m._label("",m.presentation_layer,24,m.GOLD);caption.position=Vector2(35,m.size.y-255)
@@ -251,11 +254,15 @@ func moves(events: Array) -> bool:
 		var group=event.from+":"+event.to+":"+str(event.player)+":"+event.kind
 		if group!=signature:delay=last_end+0.05 if signature!="" else 0.0;index=0;signature=group
 		var start=anchor(event.from,event.get("from_player",event.player),event.kind,event.id,event.get("from_target",""));var finish=anchor(event.to,event.player,event.kind,event.id)
+		if event.from=="recruit" and event.to=="board" and plan.get("board_after",{}).has(event.id):
+			var positions=BoardView.layout_nodes(plan.board_after,m.board.card_size,m.board.collapsed)
+			finish=Rect2(m.board.global_position+positions[event.id]*m.board.zoom+m.board.pan-m.board.card_size*m.board.zoom/2,m.board.card_size*m.board.zoom)
 		var source=visible_card(event.id)
-		if event.from in ["hand","board"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.0 if event.from=="board" else 0.12
+		if event.from in ["hand","board","recruit"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.12 if event.from=="hand" else 0.0
 		var show_face=(known(event.id) and event.from!="deck" and (event.from!="choice" or private_choice_known(event.id) or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
+		if event.from=="recruit" and event.to=="hand":m.combat.restore_recruit_camera(m.presentation_tween,at,duration)
 		var verb="摸牌" if event.from=="deck" else (("报废资源" if event.to=="scrap" else "弃牌") if event.to in ["discard","scrap"] else ("放回牌堆" if event.to=="deck" else "取得卡牌"))
 		m.presentation_tween.tween_callback(func():caption.text=GameLocale.text(("你" if event.player==0 else (m._opponent_name() if event.player==1 else ""))+" · "+GameLocale.text(verb));view.modulate.a=1.0;m._sound("card")).set_delay(at)
 		m.presentation_tween.tween_method(func(t):arc(view,start,finish,t,22),0.0,1.0,duration).set_delay(at).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
@@ -277,6 +284,7 @@ func prepare_board(plan: Dictionary) -> bool:
 	if not await board.wait_for_settlement():return false
 	var before=BoardView.layout_nodes(plan.board_before,board.card_size,board.collapsed)
 	var after=BoardView.layout_nodes(plan.board_after,board.card_size,board.collapsed)
+	if m.combat.ghost_id!="":before[m.combat.ghost_id]=m.combat.ghost_point
 	var bounds=Rect2();var first=true
 	for id in ids:
 		for positions in [before,after]:
@@ -300,4 +308,10 @@ func prepare_board(plan: Dictionary) -> bool:
 	m.presentation_tween.finished.connect(func():m._finish_presentation(true),CONNECT_ONE_SHOT)
 	if not await m.presentation_finished:return false
 	board._process(0)
+	return true
+
+func battle_cue(plan: Dictionary) -> bool:
+	if not plan.get("attack",{}).is_empty():return await m.combat.launch(plan.attack)
+	if not await prepare_board(plan):return false
+	if not plan.get("support",{}).is_empty():return await m.combat.support(plan.support)
 	return true

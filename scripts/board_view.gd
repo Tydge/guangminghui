@@ -79,7 +79,7 @@ func sync(g: GameState) -> void:
 			var view=CardView.new();view.configure(id,g);view.size=card_size;add_child(view)
 			view.selected.connect(func(k):card_selected.emit(k));view.inspected.connect(func(k):card_inspected.emit(k));view.hovered.connect(func(k,showing):card_hovered.emit(k,showing));view.wheel_zoom.connect(_wheel)
 			cards[id]=view;positions[id]=targets[id]+Vector2(0,100);view.modulate.a=0
-			if g.card(id).kind=="resource":positions[id]=targets[id];view.modulate.a=1
+			if g.card(id).kind=="resource" or (outcome.get("hand_target",false) and outcome.get("success",false) and outcome.get("target","")==id):positions[id]=targets[id];view.modulate.a=1
 			else:track_motion(create_tween()).tween_property(view,"modulate:a",1.0,0.3*motion_time_scale)
 		cards[id].visible=not hidden_by_collapse(id)
 		cards[id].collapsed_count=g.subtree(id).size()-1 if collapsed.get(id,false) else 0
