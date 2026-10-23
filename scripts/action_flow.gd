@@ -4,7 +4,7 @@ extends RefCounted
 static func copy_state(source: GameState) -> GameState:
 	var copy=GameState.new(1)
 	for prop in source.get_property_list():
-		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources","contemporary"]:continue
+		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources","contemporary","association"]:continue
 		var value=source.get(prop.name)
 		copy.set(prop.name,value.duplicate(true) if value is Array or value is Dictionary else value)
 	copy.rng.seed=source.rng.seed;copy.rng.state=source.rng.state
@@ -20,6 +20,8 @@ static func zones(g: GameState) -> Dictionary:
 			for id in g.hands[p][kind]:result[id]={"place":"hand","player":p,"kind":kind}
 	for p in [0,1]:
 		for id in g.resource_candidates[p]:result[id]={"place":"choice","player":p,"kind":"resource"}
+	for p in [0,1]:
+		for id in g.graves[p]:result[id]={"place":"grave","player":p,"kind":"group"}
 	for id in g.scrap:result[id]={"place":"scrap","player":-1,"kind":"resource"}
 	for id in g.nodes:
 		if not g.is_root(id):result[id]={"place":"board","player":g.owner(id),"kind":g.card(id).kind}
@@ -54,9 +56,10 @@ static func plan(g: GameState,p: int,a: Dictionary) -> Dictionary:
 			target=candidate;source=played.id
 	# Battle results must be read on the rehearsal, before any live settlement or motion.
 	# after_effect may replace last_event with a victory/choice; last_battle stays intact.
-	if a.type=="ability" and (a.src in ["G135","G149","G155","G159","G162","G164"] or a.get("pacify",false)):
+	if a.type=="ability" and (a.src in ["G135","G149","G155","G159","G162","G164","G182","G193"] or a.get("pacify",false)):
 		target=a.target;source=a.get("attachment",a.src)
 	if a.type=="choose" and g.choice.get("kind","")=="x_rebuild" and a.id!="":target=a.id;source="G150"
+	if a.type=="trigger" and g.choice.get("task",{}).get("kind","")=="a_green":target=g.choice.task.target;source=g.choice.task.source
 	if a.type=="resource" and a.get("target","")!="":target=a.target;source=a.src
 	var minor={"roll":copy.battle.get("star_roll",0)} if a.get("star",false) else {}
 	var result=copy.last_battle.duplicate(true) if not g.battle.is_empty() and copy.battle.is_empty() else {}

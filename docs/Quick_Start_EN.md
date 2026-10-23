@@ -109,3 +109,11 @@ You also win by eliminating all enemy groups once the opponent has completed at 
 **Safe House** can be scrapped during a normal control attack against one of your Groups. Return that Group and its entire branch to your hand and cancel the attack. Attachments are discarded. Paid costs stay spent; no dice are rolled and no attack success, failure, or post-battle recovery abilities trigger.
 
 A Group exposed for recruitment must be discarded at turn end if recruitment still failed. Read cards for special rules. Hover, right-click, or long-press to inspect them.
+
+## Finding Groups
+
+Deck, hand and discard searches use printed alignments and tags. Unless a card says to put a Group into play, the selected card goes into your hand. Revealed candidates are public; private looks are shown only to the acting player.
+
+Random searches sample matching cards from the entire specified deck without duplicates. Take fewer candidates if necessary. Shuffle remaining candidates back, or put them on the bottom in order, as instructed. An empty search or a declined pick does not refund paid costs.
+
+Free support still joins the battle only once, but does not qualify for effects requiring a spent action token. Post-battle moves and rewards finish after the battle animation; turn-end searches and draws finish before faction victory is checked. Soul Harvest keeps the destruction count and takes only the destroyed target itself.

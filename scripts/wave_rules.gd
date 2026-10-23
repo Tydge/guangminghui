@@ -150,13 +150,14 @@ func support_detail(id: String,b: Dictionary,d: Dictionary) -> Dictionary:
 	var override=g.synergy.support_override(id,b,base,d.basis,d.reason)
 	override=g.covenant.support_override(id,b,override)
 	override=g.contemporary.support_override(id,b,override)
+	override=g.association.support_override(id,b,override)
 	override=g.renewal.support_override(id,b,override)
 	base=override.base;d.basis=override.basis;d.reason=override.reason
 	if p==b.attacker and enabled("G095",1-p) and normal(b) and g.has(b.target,"沿海") and not g.has(id,"沿海") and d.basis=="GP":d.basis="—";d.reason="海峡屏障 · 禁止此GP支援"
 	if d.basis=="—":d.power=0;return d
 	if normal(b) and enabled("G103",p) and g.has(id,"计算机") and b.get("computer_supports",[0,0])[p]==1:extra+=2;d.reason+=" · 并行计算+2"
 	if b.get("amplify",false) and id=="G104" and enabled(id):base*=2;d.reason+=" · 弹性扩容"
-	extra+=g.renewal.support_bonus(id,b)+g.contemporary.support_bonus(id,b)
+	extra+=g.renewal.support_bonus(id,b)+g.contemporary.support_bonus(id,b)+g.association.support_bonus(id,b)
 	var satellite=g.synergy.support_bonus(id,b)
 	if satellite>0:extra+=satellite;d.reason+=" · 遥感网络+1"
 	d.power=base+extra;d["base"]=base;d["extra"]=extra
@@ -207,6 +208,7 @@ func handle(p: int,a: Dictionary) -> bool:
 		var c=g.choice.duplicate(true);g.choice={};g.phase=c.resume
 		var task=c.task
 		g.contemporary.trigger(task)
+		g.association.trigger(task)
 		if task.kind=="prepared" and g.nodes.has(task.target):g.nodes[task.target].prepared=false
 		if task.kind=="draw" and (not task.has("quota") or once(task.quota)):
 			if task.has("quota"):remember(task.quota)
@@ -292,7 +294,8 @@ func support(p: int,a: Dictionary) -> void:
 	if a.has("plot_fee"):g._discard(p,a.plot_fee)
 	if a.has("group_fee"):g._discard(p,a.group_fee)
 	if a.has("resource_fee"):g.resources.remove(a.resource_fee)
-	g.spend(a.src);b.paid.append(a.src)
+	if a.get("sword_guard",false):g.association.mark("G189")
+	else:g.spend(a.src);b.paid.append(a.src)
 	b["support_a" if p==b.attacker else "support_d"]+=d.power
 	if a.get("algorithm",false):b.algorithm_used=true
 	if not b.has("computer_supports"):b.computer_supports=[0,0]
@@ -313,7 +316,9 @@ func support(p: int,a: Dictionary) -> void:
 
 func plot_committed(p: int,a: Dictionary) -> void:
 	if a.has("payer"):g.spend(a.payer)
-	if a.has("fee"):g._discard(p,a.fee)
+	if a.has("fee"):
+		if a.id=="P71":g.association.pay_fee(p,a.fee)
+		else:g._discard(p,a.fee)
 
 func resolve_plot(a: Dictionary) -> bool:
 	var id=a.id;var p=a.player;var target=a.get("target","")
@@ -388,7 +393,7 @@ func values(b: Dictionary,v: Dictionary) -> Dictionary:
 				chance+=1
 				if b.get("disaster","") in ["P31","P34"] and v.strength-x-y>=threshold:kill+=1
 	v.chance=chance/36.0;v.destroy_chance=kill/36.0
-	if b.get("rescue",false):v.destroy_chance=0.0
+	if b.get("rescue",false) or g.association.ark_source(b)!="":v.destroy_chance=0.0
 	if b.has("fixed_dice"):v.fixed_dice=b.fixed_dice.duplicate();v.chance=1.0 if b.fixed_dice[0]+b.fixed_dice[1]<=mini(10,v.strength) else 0.0
 	return v
 
@@ -465,6 +470,7 @@ func resolve_battle() -> void:
 	var target_name=g.title(target);var affected=g.subtree(target).size() if enemy else 1
 	var destroy=success and b.mode=="destroy"
 	if b.has("disaster"):destroy=destroy and b.disaster in ["P31","P34"] and v.strength-dice[0]-dice[1]>=(4 if b.disaster=="P31" else 6)
+	if destroy and g.association.prevent_destroy(b):destroy=false;b.ark_saved=true
 	if g.synergy.prepare_guard(b,destroy):return
 	if success:
 		if b.mode=="control":
@@ -502,6 +508,7 @@ func resolve_battle() -> void:
 	g.synergy.battle_finished(b,success,destroyed_target)
 	g.renewal.battle_finished(b,success,destroyed_target)
 	g.contemporary.battle_finished(b,success,destroyed_target)
+	g.association.battle_finished(b,destroyed_target)
 	if success and b.mode=="control" and not enemy:g._entry_rewards(target,p,b.src,b.before)
 	var outcome="保镖挡下摧毁" if guarded else ("救援撤离" if rescued else ("摧毁" if destroyed_target else ("受灾" if new_devastated else ("成功" if success else "失败"))))
 	if success and b.mode=="control" and affected>1:outcome+=" · 夺取整支%d张"%affected
@@ -509,7 +516,7 @@ func resolve_battle() -> void:
 	g._after_effect()
 
 func presentation_cards(p: int,a: Dictionary) -> Array:
-	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)+g.resources.presentation_cards(a)
+	var out: Array=g.synergy.presentation_cards(a)+g.renewal.presentation_cards(a)+g.resources.presentation_cards(a)+g.association.presentation_cards(a)
 	if a.get("nature",false):out.append(g.root(p))
 	if a.get("stake",false):out.append("G161")
 	if a.type=="support" and a.src in ["G154","G169"]:out.append(a.src)

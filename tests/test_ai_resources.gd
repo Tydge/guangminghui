@@ -13,12 +13,15 @@ func decide(g: GameState,level: String,seed_value: int,p: int=0) -> Dictionary:
 	return result
 func run():
 	for level in ["easy","normal","hard"]:
+		var reserve_picks=0
 		for seed_value in [11,31,241,1009]:
 			var g=quiet();put(g,"E06");g.nodes.R0.token=0
 			var selected=decide(g,level,seed_value)
 			check(selected.type=="resource" and selected.src=="E06","Spend Quantum's otherwise expiring action for a lasting card "+level)
 			g=quiet();selected=decide(g,level,seed_value)
-			check(selected.type=="research" and selected.deck=="resource","Invest in a resource reserve when both field slots are empty and no takeover is available "+level)
+			# A sampled goal Plot can outrank a backup Resource in the larger pool.
+			check(selected.type=="research" and selected.deck in ["resource","plot"],"Invest in Resources or a higher-value Plot when no takeover is available "+level)
+			reserve_picks+=int(selected.type=="research" and selected.deck=="resource")
 			g=quiet();give(g,"E06");selected=decide(g,level,seed_value)
 			check(selected.type=="deploy" and selected.id=="E06","Deploy useful infrastructure instead of passing with a resource in hand "+level)
 			g=quiet();put(g,"E08");g.nodes.R0.token=0;selected=decide(g,level,seed_value)
@@ -37,4 +40,5 @@ func run():
 			check(selected.type=="resource" and selected.src=="E01","Use Radar when it improves the current attack "+level)
 			g=quiet();put(g,"E07",1);g.turns=[3,3];g.nodes.R1.token=0;g._launch_attack(0,{"src":"R0","target":"G076","mode":"destroy"});g.battle.bonus_a+=6-g.battle_values().strength;selected=decide(g,level,seed_value,1)
 			check(selected.type=="resource" and selected.src=="E07","Use a defensive Resource when it saves the target "+level)
+		check(reserve_picks>=3,"Resource reserve remains preferred in at least three of four information samples "+level)
 	print("AI RESOURCE DECISIONS: "+JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

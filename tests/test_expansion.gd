@@ -34,8 +34,8 @@ func automatic(g: GameState) -> void:
 		if g.phase!="choice" or g.choice.kind!="w_auto":return
 		var p=g.choice.player;apply(g,p,"trigger")
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.cards.size()==275,"All 275 cards loaded")
-	check(CardDB.ids("faction").size()==12 and CardDB.ids("group").size()==170 and CardDB.ids("plot").size()==70 and CardDB.ids("resource").size()==23,"12/170/70/23 composition")
+	CardDB.load_all();check(CardDB.cards.size()==312,"All 312 cards loaded")
+	check(CardDB.ids("faction").size()==12 and CardDB.ids("group").size()==195 and CardDB.ids("plot").size()==75 and CardDB.ids("resource").size()==30,"12/195/75/30 composition")
 	check(CardDB.get_card("G099").p==3 and CardDB.get_card("G099").r==4 and CardDB.get_card("G091").gp==0,"Preserved user numeric changes")
 	check(CardDB.get_card("G092").align==["政府"] and "计算机" not in CardDB.get_card("G092").tags and "军队" not in CardDB.get_card("G093").tags,"Preserved user alignment/tag changes")
 	var g=fresh();put(g,"G081",0);put(g,"G028",0,"G081");check(g.has("G028","计算机"),"Musk gives computer to printed Space")
@@ -97,7 +97,7 @@ func _initialize() -> void:
 	g=fresh();put(g,"G043",0);put(g,"G099",1);put(g,"G020",1,"G099");give(g,"P34",0);give(g,"P40",1);check(not g.wave.disaster_target("P34","G043") and g.wave.disaster_target("P34","G099"),"Nuclear accident requires place plus own/direct Science");apply(g,0,"plot",{"id":"P34","payer":"G043","target":"G099"});apply(g,1,"plot",{"id":"P40","target":"G020","parent":"R1"});finish(g);check(g.last_battle.success and g.destroyed[0]==1 and g.nodes.has("G020"),"Nuclear target legality fixed at launch, evacuation still saves branch")
 	# All command generators and new state cleanup participate in actual AI matches.
 	var commands=0
-	for seed_value in range(1,5):
+	for seed_value in range(1,1 if "--focused" in OS.get_cmdline_user_args() else 5):
 		g=GameState.new(seed_value);var bot=AiAgent.new();bot.rng.seed=seed_value
 		for step in range(1000):
 			if g.phase=="over":break

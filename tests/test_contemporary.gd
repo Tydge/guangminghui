@@ -34,8 +34,37 @@ func drain(g: GameState):
 		if g.phase!="choice" or g.choice.kind!="w_auto":return
 		apply(g,g.choice.player,"trigger")
 func finish(g: GameState):g.battle.bonus_a=100;g.battle.fixed_dice=[1,1];g._resolve_battle()
+func association_checks():
+	var g=fresh();put(g,"G172");put(g,"G043",0,"G172")
+	check(g.stat("G043","r")==6,"Postal savings protects direct subordinates while retaining its token")
+	g.spend("G172");check(g.stat("G043","r")==4,"Spending the bank token removes its R aura")
+	g=fresh();put(g,"G176");put(g,"G177",0,"G176");var copy=ActionFlow.copy_state(g);copy.nodes.G177.parent="R0"
+	check(g.has("G177","绿色") and not copy.has("G177","绿色"),"Terraforming aura binds to each rule model independently")
+	g=fresh();put(g,"G173");give(g,"E24");g.nodes.R0.token=0;apply(g,0,"deploy",{"id":"E24","funded":true})
+	check(g.deploy_used and not g.auto_used and not g.token("G173"),"Financing pays the bank action and only deployment quota")
+	g=fresh();put(g,"G189");put(g,"G043",0,"G189");put(g,"G005",1);g._launch_attack(1,{"src":"G005","target":"G043","mode":"control"})
+	apply(g,0,"support",{"src":"G189","sword_guard":true});check(g.token("G189") and "G189" not in g.battle.paid,"Free support is joined but not a paid participant")
+	apply(g,1,"pass");check(action(g,0,"support",{"src":"G189"}).is_empty(),"A free supporter cannot join twice")
+	g=fresh();put(g,"G192");put(g,"G043",1);give(g,"P10")
+	var attack=action(g,0,"attack",{"src":"G192","target":"G043","mode":"control","self_lock":true});check(g.attack_preview("G192","G043","control",attack).no_self,"Financial fog restriction appears in attack preview")
+	g=fresh();put(g,"G192");put(g,"G194",1);give(g,"P10");apply(g,0,"attack",{"src":"G192","target":"G194","mode":"control","self_lock":true})
+	check(not action(g,1,"vanish").is_empty(),"Pre-attack ability records are not mistaken for a player response")
+	g=fresh();put(g,"G192");put(g,"G185");put(g,"G136");put(g,"G043",1)
+	for id in ["G001","G002","G003"]:give(g,id)
+	give(g,"P10");var with_group=action(g,0,"attack",{"src":"G192","target":"G043","mode":"control","self_lock":true,"fee":"G001"});var with_plot=with_group.duplicate();with_plot.fee="P10"
+	var before=g.rng.state
+	check(not g.attack_options("G192","G043","control",with_group).supports.any(func(k):return k.id=="G185") and g.attack_options("G192","G043","control",with_plot).supports.any(func(k):return k.id=="G185"),"Attack preview pays optional fees on a copy before counting hand-dependent support")
+	check(g.hands[0].group.size()==3 and g.rng.state==before and not g.used.has(g.renewal.quota("G136")),"Fee preview preserves live hands, quota and RNG")
+	g=fresh();put(g,"G193");put(g,"G182");apply(g,0,"ability",{"src":"G193","target":"G182"});check(g.has("G182","企业") and not g.has("G182","共产") and g.has("G182","自由"),"Privatization preserves unrelated alignments")
+	g=fresh();put(g,"G194",1);put(g,"G005");g._launch_attack(0,{"src":"G005","target":"G194","mode":"destroy"});apply(g,1,"vanish")
+	check(g.last_battle.cancelled and "G194" in g.hands[1].group and g.last_battle.dice.is_empty(),"Vanishing act cancels before dice without success/failure")
+	g=fresh();put(g,"G195");put(g,"G172",0,"G195");apply(g,0,"end");drain(g)
+	check(g.current==1 and g.hands[0].group.size()==1 and g.hands[0].plot.size()==1,"Investment rewards settle before next turn")
+	g=fresh();put(g,"E29");apply(g,0,"resource",{"src":"E29","tag":"保守"});check(g.choice.peek.size()==10 and g.choice.remaining==2,"Page holds ten private candidates for up to two matches")
+	apply(g,0,"choose",{"id":""});check(g.validate().is_empty(),"Declined private search returns the entire buffer")
 func run():
-	check(CardDB.ids("faction").size()==12 and CardDB.ids("group").size()==170 and CardDB.ids("plot").size()==70 and CardDB.ids("resource").size()==23,"12/170/70/23 composition")
+	association_checks()
+	check(CardDB.ids("faction").size()==12 and CardDB.ids("group").size()==195 and CardDB.ids("plot").size()==75 and CardDB.ids("resource").size()==30,"12/195/75/30 composition")
 	# Independent quotas, including alternative payments and an exhausted root.
 	var g=fresh();put(g,"G098");give(g,"G043");give(g,"G044");give(g,"E01");apply(g,0,"deploy",{"id":"E01","supply":true,"fee":"G044"});check(g.deploy_used and not g.auto_used and g.token("R0"),"Australia consumes deployment only");apply(g,0,"auto",{"id":"G043","parent":"R0"});check(g.auto_used and action(g,0,"deploy").is_empty(),"Each quota is consumed once")
 	g=fresh();put(g,"G098");give(g,"G043");give(g,"G044");give(g,"E01");apply(g,0,"auto",{"id":"G043","parent":"R0"});apply(g,0,"deploy",{"id":"E01","supply":true});check(not g.token("R0") and g.deploy_used,"Australia deploys after takeover without a root action")

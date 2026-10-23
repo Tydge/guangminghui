@@ -240,7 +240,7 @@ func save():
 func record() -> Dictionary:
 	var state={}
 	for prop in game.get_property_list():
-		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources","contemporary"]:continue
+		if not (prop.usage&PROPERTY_USAGE_SCRIPT_VARIABLE) or prop.name in ["rng","wave","synergy","renewal","covenant","resources","contemporary","association"]:continue
 		state[prop.name]=game.get(prop.name)
 	state.rng_seed=str(game.rng.seed);state.rng_state=str(game.rng.state)
 	state.wave={}

@@ -65,7 +65,11 @@ func label_for(key: String) -> String:
 	if key=="target" and first.get("id","")=="P66":return "选择部署的资源"
 	if key=="stake":return "庄家筹码 · 支援方式"
 	if key=="other" and picker.actions[0].get("id","")=="P60":return "选择己方交换资源"
-	if key=="supply":return "选择部署费用"
+	if key in ["supply","funded"]:return "选择部署费用"
+	if key=="self_lock":return "选择控制方式"
+	if key=="sword_guard":return "选择支援费用"
+	if key=="tag" and first.get("id","")=="P71":return "选择招募阵营"
+	if key=="tag" and first.get("src","")=="E29":return "选择寻找的阵营或标签"
 	var labels={"replace":"资源已满 · 选择报废替换的资源","target":"选择目标","leader":"选择带头团体","src":"选择能力或行动来源","parent":"选择新的上级","payer":"选择支付行动的团体","other":"选择另一团体","attachment":"选择要移除的附着","fee":"选择弃牌费用","plot_fee":"选择弃牌费用","group_fee":"选择团体费用","tag":"选择新增标签","use_plan":"选择掷骰方式","training":"自律训练 · 进攻方式","algorithm":"算法时代 · 支援方式","amplify":"弹性扩容 · 支援方式","solo":"孤军破袭 · 进攻方式","star":"星象助阵 · 支援方式"}
 	if key.begins_with("payers:"):return "选择第%d个支付行动的团体"%(int(key.get_slice(":",1))+1)
 	if key=="target" and (picker.actions[0].type=="resource" or picker.actions[0].get("id","") in ResourceRules.PLOTS):return "选择目标资源" if picker.actions[0].get("src","")=="G093" or picker.actions[0].get("id","") in ["P56","P58","P59","P60"] else "选择目标团体"
@@ -83,6 +87,9 @@ func mode_title(key: String,value: bool) -> String:
 	var plain=options.filter(func(a):return (key=="amplify" or picker.chosen.has("amplify") or not a.get("amplify",false)) and (key=="star" or not a.get("star",false)))
 	var strength=support_value(plain if not plain.is_empty() else options)
 	match key:
+		"funded":return "项目融资 · 花国有开发银行1行动" if value else "普通部署费用"
+		"self_lock":return "财务迷雾 · 弃1张阴谋，禁止目标自卫" if value else "普通控制 · 目标可自卫"
+		"sword_guard":return "护山剑阵 · "+strength+" · 免行动（每回合1次）" if value else "普通支援 · "+strength+" · 花1行动"
 		"supply":return "矿产供给 · 弃1张团体" if value else "花主牌1行动"
 		"algorithm":return ("算法时代 · "+strength+"（本战限1次）") if value else "普通支援 · "+strength
 		"amplify":return ("弹性扩容 · "+strength+" · 另弃1张牌") if value else "普通支援 · "+strength
@@ -97,7 +104,7 @@ func mode_title(key: String,value: bool) -> String:
 func mode_context() -> String:
 	var a=picker.actions[0];var source=m.game.title(a.get("src",""))
 	if a.type=="deploy":return source+" · 部署到主牌旁"
-	if a.type=="support":return source+" · 支援"+("进攻" if m.game.owner(a.src)==m.game.battle.attacker else "防守")+" · 消耗1行动"
+	if a.type=="support":return source+" · 支援"+("进攻" if m.game.owner(a.src)==m.game.battle.attacker else "防守")+(" · 可免行动" if picker.actions.any(func(v):return v.get("sword_guard",false)) else " · 消耗1行动")
 	return source+" → "+m.game.title(a.get("target",""))
 func step() -> void:
 	m._clear(m.large_layer);m._clear(m.hover_layer);m._clear(m.overlay);m.action_candidates.clear()
@@ -151,7 +158,7 @@ func confirm() -> void:
 		if a.get("algorithm",false):lines.append("算法时代 · 本战限1次")
 		if a.get("amplify",false):lines.append("弹性扩容 · 基础支援翻倍")
 		if a.get("star",false):lines.append("星象助阵 · 骰1–3再+2")
-		lines.append("消耗该团体1行动")
+		lines.append("护山剑阵 · 免行动" if a.get("sword_guard",false) else "消耗该团体1行动")
 	for key in ["replace","target","parent","payer","other","fee","plot_fee","group_fee","attachment","tag"]:
 		if a.get(key,"")=="":continue
 		var field_name={"replace":"报废替换","target":"目标","parent":"移至","payer":"行动","other":"另一团体","plot_fee":"弃牌","group_fee":"弃牌","fee":"弃牌","attachment":"附着","tag":"新增"}[key]
@@ -203,15 +210,15 @@ func anchor(place: String,p: int,kind: String,id: String="",target: String="") -
 		var view=visible_card(id)
 		if view!=null:return view.get_global_rect()
 		center=Vector2(m.size.x*0.36,m.size.y-90) if p==0 else Vector2(m.size.x*0.72,110)
-	elif place in ["deck","discard","scrap"]:center=Vector2(m.size.x-400+["group","resource","plot"].find(kind)*140,122 if place=="deck" else 210)
+	elif place in ["deck","discard","scrap","grave"]:center=Vector2(m.size.x-400+["group","resource","plot"].find(kind)*140,122 if place=="deck" else 210)
 	elif place=="choice":center=Vector2(m.size.x*0.5,m.size.y*0.45)
 	return Rect2(center-area*0.5,area)
 func known(id: String) -> bool:
 	if m.game.battle.get("hand_target",false) and m.game.battle.target==id:return true
-	return private_choice_known(id) or id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
+	return private_choice_known(id) or id in m.game.resource_candidates[0] or m.game.nodes.has(id) or id in m.game.hands[0].group or id in m.game.hands[0].plot or id in m.game.hands[0].resource or id in m.game.exposed or id in m.game.graves[0] or id in m.game.graves[1] or id in m.game.discards.group or id in m.game.discards.plot or id in m.game.battle.get("spent",[]) or m.game.world==id or m.game.pending_plot.get("id","")==id
 func private_choice_known(id: String) -> bool:
 	var c=m.game.choice
-	return c.get("player",-1)==0 and (id in c.get("peek",[]) or id==c.get("revealed_card",""))
+	return (c.get("player",-1)==0 or c.get("public",false)) and (id in c.get("peek",[]) or id==c.get("revealed_card","") or (c.get("kind","")=="a_poach" and id in c.get("options",[])))
 func flight(id: String,kind: String,show_face: bool) -> Control:
 	var view=Panel.new();view.name="MovingCard";view.size=Vector2(94,142);view.mouse_filter=Control.MOUSE_FILTER_IGNORE;view.add_theme_stylebox_override("panel",m._style(Color("142c2e"),m.GOLD,2));m.presentation_layer.add_child(view)
 	if show_face:
@@ -254,12 +261,12 @@ func moves(events: Array,plan: Dictionary={}) -> bool:
 		var group=event.from+":"+event.to+":"+str(event.player)+":"+event.kind
 		if group!=signature:delay=last_end+0.05 if signature!="" else 0.0;index=0;signature=group
 		var start=anchor(event.from,event.get("from_player",event.player),event.kind,event.id,event.get("from_target",""));var finish=anchor(event.to,event.player,event.kind,event.id)
-		if event.from=="recruit" and event.to=="board" and plan.get("board_after",{}).has(event.id):
+		if event.to=="board" and plan.get("board_after",{}).has(event.id):
 			var positions=BoardView.layout_nodes(plan.board_after,m.board.card_size,m.board.collapsed)
 			finish=Rect2(m.board.global_position+positions[event.id]*m.board.zoom+m.board.pan-m.board.card_size*m.board.zoom/2,m.board.card_size*m.board.zoom)
 		var source=visible_card(event.id)
 		if event.from in ["hand","board","recruit"] and source!=null and source not in dimmed:dimmed.append(source);source.modulate.a=0.12 if event.from=="hand" else 0.0
-		var show_face=(known(event.id) and event.from!="deck" and (event.from!="choice" or private_choice_known(event.id) or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
+		var show_face=event.get("public",false) or (known(event.id) and event.from!="deck" and (event.from!="choice" or private_choice_known(event.id) or event.id in m.game.resource_candidates[0])) or event.to in ["resource_left","resource_right"]
 		var view=flight(event.id,event.kind,show_face);view.modulate.a=0;arc(view,start,finish,0,0)
 		var at=(delay+index*0.07)*m.presentation_time_scale;var duration=(0.22 if m.reduced_motion else 0.42)*m.presentation_time_scale
 		if event.from=="recruit" and event.to=="hand":m.combat.restore_recruit_camera(m.presentation_tween,at,duration)

@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==275 and CardDB.ids("group").size()==170,"275 cards with 170 groups")
+	check(CardDB.cards.size()==312 and CardDB.ids("group").size()==195,"312 cards with 195 groups")
 	var g=fresh();put(g,"G131",1);put(g,"G001",1);put(g,"G007",0);var b=context("R0","G001","destroy");b.supporters=[{"id":"G007","owner":0}]
 	check(g.support_detail("G131",b).power==g.stat("G131","gp")+1,"Jackie adds per attacking supporter")
 	b.supporters.resize(8)

@@ -15,7 +15,7 @@ func run():
 	check(g.hands[0].group==[selected] and peeked.filter(func(k):return k!=selected).all(func(k):return k in g.decks.group),"Take exactly one Space Group, shuffle every other inspected card back")
 	g.nodes.R0.token=1;check(action(g,0,"ability",{"src":"R0"}).is_empty(),"Recovering the root does not bypass contact's per-turn quota")
 	g=fresh("I09");g.discards.group=g.decks.group.duplicate();g.decks.group=[]
-	apply(g,0,"ability",{"src":"R0"});apply(g,0,"choose",{"id":""});check(g.hands[0].group.is_empty() and g.decks.group.size()==170,"Contact uses the normal reshuffle rule and allows declining")
+	apply(g,0,"ability",{"src":"R0"});apply(g,0,"choose",{"id":""});check(g.hands[0].group.is_empty() and g.decks.group.size()==195,"Contact uses the normal reshuffle rule and allows declining")
 	g=fresh("I09");g.graves[0]=g.decks.group.slice(2);g.decks.group=g.decks.group.slice(0,2)
 	apply(g,0,"ability",{"src":"R0"});check(g.choice.peek.size()==2 and g.choice.options.is_empty(),"Short deck/no Space still offers a private view")
 	apply(g,0,"choose",{"id":""});check(g.decks.group.size()==2 and not g.token("R0"),"Declining never refunds action")

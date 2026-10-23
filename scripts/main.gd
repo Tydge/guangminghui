@@ -404,6 +404,7 @@ func _review_action(a: Dictionary,all_plots: bool=false) -> void:
 	_paragraph("力量 %d   阵营 %+d   能力 %+d\n\n防御 %d   忠诚 %d   位置 %d\n被动防御 %d"%[v.power,v.alignment,v.ability,v.base,v.loyalty,v.position,v.defense],p,Rect2(28,267,left_w-20,180),21)
 	var note="墨西哥支付行动，带头者保留标记。\n" if a.has("delegate") else ""
 	if v.get("no_self",false):note+="目标本次不能自卫。\n"
+	if a.get("self_lock",false):note+="财务迷雾 · 弃「%s」。\n"%game.title(a.fee)
 	if a.target=="G067" and game.wave.enabled("G067"):note+="高额账单 · 失败后随机弃1阴谋。\n"
 	if a.get("solo",false):note+="孤军破袭 · 忽略位置，无进攻支援。\n"
 	_paragraph(note+"尚未计入支援、资源与阴谋。\n确认后双方交替响应。",p,Rect2(28,extent.y-185,left_w-20,85),18,Color("aabbb0"))
@@ -616,6 +617,7 @@ func _phase_overlay() -> void:
 	elif game.phase in ["choice","discard"]:
 		if game.choice.get("kind","")=="w_auto":return
 		if game.choice.get("player",-1)==0:_choice_overlay()
+		elif game.choice.get("public",false) and not game.choice.get("peek",[]).is_empty():_public_candidates()
 	elif game.phase=="plot_response":
 		if game.pending_plot.player==1:
 			if not game.battle.is_empty():_battle_overlay()
@@ -668,6 +670,11 @@ func _choice_overlay() -> void:
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var row=HBoxContainer.new();row.add_theme_constant_override("separation",20);scroll.add_child(row)
 	row.size_flags_vertical=Control.SIZE_SHRINK_BEGIN
+	if c.kind=="a_intel_fee":
+		var public_row=HBoxContainer.new();public_row.name="RevealedCandidates";public_row.position=Vector2(28,80);public_row.add_theme_constant_override("separation",12);p.add_child(public_row)
+		for id in c.peek:
+			var view=CardView.new();view.configure(id,game);view.custom_minimum_size=Vector2(94,142);public_row.add_child(view);view.selected.connect(_inspect);view.inspected.connect(_inspect)
+		scroll.position.y=236;scroll.size.y-=150
 	if c.kind=="n_contact":
 		scroll.size.y-=55
 		var skip_action=game.legal_actions(0).filter(func(a):return a.id=="")[0]
@@ -680,7 +687,7 @@ func _choice_overlay() -> void:
 		for a in actions:
 			var choose=_button(a.label,func():_do_action(0,a),modes,true);choose.name="InsideJobTop" if a.id=="top" else "InsideJobBottom";choose.custom_minimum_size.y=70
 		return
-	var items=c.peek if c.kind=="n_contact" else (c.peek+[""] if c.kind in ["nasa","japan","n_relic","n_divine"] else actions.map(func(a):return a.id))
+	var items=c.peek if c.kind=="n_contact" else (c.peek+([""] if c.get("optional",false) else []) if c.kind=="a_search" else (c.peek+[""] if c.kind in ["nasa","japan","n_relic","n_divine"] else actions.map(func(a):return a.id)))
 	for id in items:
 		var matching=actions.filter(func(a):return a.id==id)
 		var a=matching[0] if not matching.is_empty() else {}
@@ -692,7 +699,15 @@ func _choice_overlay() -> void:
 			var choose=_button("选择",func():_do_action(0,a),column,true);choose.custom_minimum_size.y=55
 		else:
 			if c.kind!="n_divine":v.modulate=Color("a3ada6")
-			var unavailable=_button("仅查看 · 原序放回" if c.kind=="n_divine" else ("非太空 · 洗回" if c.kind=="n_contact" else ("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底")),func():pass,column);unavailable.disabled=true
+			var unavailable=_button("不符合条件 · 放回" if c.kind=="a_search" else ("仅查看 · 原序放回" if c.kind=="n_divine" else ("非太空 · 洗回" if c.kind=="n_contact" else ("非秘宝 · 洗回" if c.kind=="n_relic" else "放回堆底"))),func():pass,column);unavailable.disabled=true
+
+func _public_candidates() -> void:
+	var extent=Vector2(minf(1150,size.x-110),minf(480,size.y-160));var p=_panel(overlay,Rect2((size-extent)/2,extent));p.name="PublicCandidates"
+	_label("公开候选 · 对手正在选择",p,27,GOLD).position=Vector2(24,18);window_access.offer(p)
+	var scroll=ScrollContainer.new();scroll.position=Vector2(24,75);scroll.size=extent-Vector2(48,100);p.add_child(scroll)
+	var row=HBoxContainer.new();row.add_theme_constant_override("separation",16);scroll.add_child(row)
+	for id in game.choice.peek:
+		var view=CardView.new();view.configure(id,game,true);view.custom_minimum_size=Vector2(175,scroll.size.y);row.add_child(view);view.selected.connect(_inspect);view.inspected.connect(_inspect)
 
 func _battle_overlay() -> void:
 	var b=game.battle;var v=game.battle_values();var width=minf(1320,size.x-100);var height=minf(680,size.y-170)
@@ -848,6 +863,7 @@ func _card_context_text(id: String) -> String:
 	if context.used:lines.append("本回合主动能力已用。")
 	var n=game.nodes[id]
 	lines.append_array(game.contemporary.reader(id))
+	lines.append_array(game.association.reader(id))
 	if n.get("devastated",false):lines.append("受灾 · P／GP减半；不能行动或补标记，不计胜利。需重建。")
 	if n.get("prepared",false):lines.append("防备 · 下次灾难%s防御+4，发动时消耗。"%("或普通摧毁" if id=="G148" and game.renewal.ready(id) else ""))
 	if id in ["G136","G137","G139","G145","G146"] and not game.renewal.unused(id):lines.append("本回合限次效果已用。")
@@ -1015,6 +1031,7 @@ func _help(page: String="basic") -> void:
 		"cards":"主动：己方主要阶段、每回合1次，花本团体1标记；写明免费则不花。\n恢复：无标记、未额外恢复，且不是本回合进场或被夺取。\n\n在场期间：易主保留，离场清除。\n直属光环：按卡文作用于直属上级或下属；来源禁能或关系结束则失效。\n槽位强制减少：控制者选超额分支整支回手；主动调整须先保证槽位合法。\n\n附着：随团体易主，团体离场弃掉。\n整支移动：连同下属，不重置状态。\n防备：最多1枚，消耗后本次防御+4。\n临时阵营在回合末恢复，手牌超限则弃至合法。\n\n目标阴谋：占阴谋手牌上限，每人最多1张。达标后在己方主要阶段打出宣告胜利；正常反制，不花行动标记。\n\n抽牌：主要阶段花主牌1行动，从三堆任选一堆抽1张。资源手牌默认上限2，满额不能抽资源。\n部署资源与自动接管各每回合1次，通常各花主牌1行动。\n场上资源最多2张，位于主牌左右；满额部署须报废替换1张。\n有行动能力的资源进场回合为0，下次己方回合补至1；额外恢复沿用通则。\n资源不计团体／P／团体标签目标，不参与普通支援。\n无行动标记的资源按卡文持续、触发或报废使用。报废资源本局不回收。征用入手不算报废；交换资源保留状态，但行动归0，进场回合不能恢复。",
 		"controls":"空白处拖动平移，滚轮或双指缩放。\n己方／对手／全局按钮用于定位。\n\n单击选牌；悬停、右键、长按或「查看大卡」看完整卡。\n开局点图片只查看，点「选择」才确认。\n多目标操作分步选择，可返回或取消；确认前不支付。\n大卡的附着按钮可查看该牌，关闭后返回团体。\n抽弃牌与目标动效结束后才结算，期间暂停操作。\n\n可先选敌方目标，再选控制／摧毁和带头者。\n战斗与攻击预览可拖动标题栏。\n\n大卡、小卡与手牌均使用1:1图片区，不拉伸或裁切。\n\n音效：Kenney Interface Sounds / CC0。\n字体：Noto Sans SC / OFL。"}
 	var col=_scroll_column(p,Rect2(28,147,804,405));_wrapped(pages[page],col,22)
+	if page=="cards":_wrapped("找牌：按印刷属性筛选。公开双方可见；查看仅操作者可见。\n随机找牌从指定牌堆符合者中取候选；未找到不退费。原序沉底保留顺序。\n免费支援仍算已加入，但不算支付行动参战。",col,22)
 	_button("返回设置",_settings,p).position=Vector2(640,585)
 
 func _catalog() -> void:

@@ -61,7 +61,7 @@ static func shortlist(o: Dictionary,limit: int=64,placements: Dictionary={},affi
 	ranked.sort_custom(func(a,b):return a.value>b.value)
 	var buckets={};var counts={}
 	for entry in ranked:
-		var a=entry.action;var key=JSON.stringify([a.type,a.get("src",a.get("id","")),a.get("mode","")])
+		var a=entry.action;var key=JSON.stringify([a.type,a.get("src",a.get("id","")),a.get("mode",""),a.get("tag","")])
 		if counts.get(key,0)>=3:continue
 		counts[key]=counts.get(key,0)+1
 		if not buckets.has(a.type):buckets[a.type]=[]
@@ -180,7 +180,7 @@ func rank(o: Dictionary,limit: int,g: GameState=null) -> Array:
 	ranked.sort_custom(func(a,b):return a.value>b.value)
 	var result=[];var counts={}
 	for entry in ranked:
-		var a=entry.action;var key=JSON.stringify([a.type,a.get("src",a.get("id",""))])
+		var a=entry.action;var key=JSON.stringify([a.type,a.get("src",a.get("id","")),a.get("tag","")])
 		if counts.get(key,0)>=2:continue
 		counts[key]=counts.get(key,0)+1;result.append(a)
 		if result.size()>=limit:break

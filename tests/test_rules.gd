@@ -38,7 +38,7 @@ func give(g: GameState,id: String,p: int) -> void:
 
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==275,"275 definitions")
+	check(CardDB.cards.size()==312,"312 definitions")
 	check(CardDB.get_card("G071").p==7 and "共产" in CardDB.get_card("G071").tags and "巨大" in CardDB.get_card("G071").tags,"Human China adjustment and location tags")
 	check(CardDB.get_card("G012").p==5 and CardDB.get_card("G100").p==3,"Latest Bank and Suez user edits")
 	check(CardDB.get_card("G072").p==4 and CardDB.get_card("G072").r==5 and CardDB.get_card("G074").p==4 and CardDB.get_card("G074").gp==2,"Latest Japan and England table edits")
@@ -91,7 +91,7 @@ func _initialize() -> void:
 	check(JSON.stringify(g.observation(1))==before,"Hidden card swap does not change AI observation")
 	# Simulated complete games exercise conservation and phase transitions.
 	var finished=0;var simulated=0
-	for seed_value in range(1,11):
+	for seed_value in range(1,1 if "--focused" in OS.get_cmdline_user_args() else 11):
 		g=base(seed_value);var bot=AiAgent.new();bot.rng.seed=seed_value
 		for step in range(1800):
 			if g.phase=="over":finished+=1;break

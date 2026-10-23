@@ -6,6 +6,8 @@
 
 Windows完整包：[直接下载](https://47.119.37.251/Illuminati-Windows.zip)（完整包0.3.2，约240.6 MiB；启动后可更新到0.3.4）。解压后运行`Illuminati.exe`，首次默认英文；0.2.0及之后版本可通过游戏内检查更新下载约726 KiB的累积补丁，返回菜单后一键应用并自动重新打开。更新服务不可用时仍可离线游戏。发布、补丁和服务器维护见[更新服务](docs/更新服务.md)。
 
+当前源码包含尚未发布的卡牌扩展；本轮没有更新服务器、完整包或补丁。
+
 在 Godot 中打开本目录的 `project.godot`，等待首次资源导入，按 **F5** 运行整个项目。主场景为 `scenes/main.tscn`。无需导出试玩包或 APK。离线运行，无需 API 密钥。
 
 主菜单「好友对战」可创建房间或输入6位房间号，双方准备后开局。每回合120秒、每次战斗／反制响应15秒，圆环显示双方时间。在线对战强制完整动画，语言、音量与布局各自独立；双方完成动画后统一开始计时。断线自动重连，结果页可在原房间再来一局。详细流程及运维见[好友对战](docs/好友对战.md)。
@@ -50,7 +52,7 @@ cd guangminghui
 
 ## 本版内容
 
-12种光明会、170种团体、70种阴谋、23种资源，共275种。团体、资源、阴谋各用独立共享牌堆，每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
+12种光明会、195种团体、75种阴谋、30种资源，共312种。团体、资源、阴谋各用独立共享牌堆，每种卡各一张。所有卡均有独立插画，界面文字与数值由 Godot 绘制。共同维护的完整卡牌表是 `docs/光明会_全部卡牌完整效果_当前版.md`；用户阅读副本的位置见 `data/card_sync_config.json`。游戏运行时读取 `data/cards.json` 和规则引擎。
 
 初始团体选择后，每人从随机5张资源候选中选1张入手，可独立重随2次。回合开始不自动抽资源。主要阶段的「抽牌」入口可花主牌1行动，从三堆任选一堆抽1张；资源手牌默认上限2，满额只禁止抽资源。秘密保险库可提高资源与阴谋手牌上限。
 
@@ -110,7 +112,8 @@ AI 使用自己手牌、公开场面和被合法揭示的信息；`AiAgent` 不�
 - `scripts/window_access.gd`：动效时暂藏窗口、暂停查看战场及原操作恢复。
 - `scripts/panel_drag_handle.gd`：浮动窗口标题的鼠标/触摸拖动、边界约束及手势释放。
 - `scripts/resource_rules.gd`：独立资源堆、手牌容量、部署、资源能力及资源相关阴谋。
-- `data/cards.json`：全部275种卡牌，可修改数值和文案。
+- `scripts/association_rules.gd`：找牌、临时标签、结社支援与相关资源，使用独立规则模型及既有触发队列。
+- `data/cards.json`：全部312种卡牌，可修改数值和文案。
 - `docs/光明会_全部卡牌完整效果_当前版.md`：与用户共同维护的唯一完整卡牌文档。
 - `docs/卡牌重做待确认.md`：尚未确认的农民抗议联盟能力提案，不代表游戏中的当前能力。
 - `tools/card_table.py`：卡牌表格与数据的双向合并、冲突检测及完整性检查。
@@ -162,7 +165,9 @@ AI镜像对局使用 `tests/benchmark_ai.gd`：`--pair=0/1/2`分别比较困难�
 
 ## 素材
 
-- 卡牌、桌布、框与牌背：273张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西使用用户提供的真人照片，选取方形构图后无损转换。所有275张卡图均为1:1，完整显示且不拉伸、裁切。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
+- 卡牌、桌布、框与牌背：310张卡图及4张界面素材由内置图像生成工具制作，以高质量WebP存放；G084泰勒与G089梅西使用用户提供的真人照片，选取方形构图后无损转换。所有312张卡图均为1:1，完整显示且不拉伸、裁切。来源、提示词和处理记录见 `docs/art-prompts.json`，逐图压缩记录见 `docs/image-compression.json`。照片原件保存在 `assets/sources/`，通过 `.gdignore` 排除Godot导入；原作者和许可未随照片提供，不标记为开放许可。历史 `generation_source` 路径仅用于追溯，不是运行依赖。
 - 音效：[Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds)，CC0，原始许可见 `assets/audio/Kenney-License.txt`。用于选牌、按钮、落牌、开启、关闭、掷骰、成功、失败及反制；可在设置静音。
 - 字体：[Google Fonts / Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc)，SIL Open Font License，许可见 `assets/fonts/OFL.txt`。
 - 名称和主题参考 Steve Jackson Games 的 INWO。本项目是本地非官方简化改编；卡牌数值、能力和插画均不代表原版卡面。
+
+卡牌专项回归可给 `tests/run_checks.ps1` 加 `-Focused`：保留固定规则用例、AI专项和界面整局，只跳过规则／旧扩展中的大批AI自对弈长测。默认入口仍运行全部检查。

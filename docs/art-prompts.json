@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-22",
-  "card_art_count": 275,
+  "date": "2026-10-24",
+  "card_art_count": 312,
   "ui_art_count": 4,
   "assets": [
     {
@@ -2684,6 +2684,376 @@
       "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-06f73032-8e5b-4c62-8192-c4e7b0abde66.png",
       "encoding": "WebP quality 94",
       "updated": "2026-10-22"
+    },
+    {
+      "id": "G171",
+      "name": "地下钱庄",
+      "path": "assets/cards/G171.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed modern strategy card illustration, high-recognition cinematic editorial realism. A discreet underground remittance office in a busy international market: one middle-aged broker behind a small counter checking a paper ledger, stacks of several currencies, a muted money-counting machine, two customer envelopes and a red desk lamp. Natural daylight through frosted glass, credible everyday finance details. The broker has exactly two arms and two hands. Strong clear subject readable as a thumbnail, authentic contemporary clothing. No card frame, no caption text, no watermark, no occult symbols, no Illuminati eyes or pyramids. Scene belongs to the group card Underground Remittance Network.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0b909577-98b4-43aa-b0c9-28e8afe58b64.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G172",
+      "name": "邮储银行",
+      "path": "assets/cards/G172.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Postal Savings Bank: bright modern post-office banking counter, green postal mailboxes and parcel cart beside an ATM and secure cash window, one approachable bank clerk, envelopes and savings passbooks. Clear postal-finance identity, daylight.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-796f1d7c-2476-4ab0-b15f-26c31eede75b.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G173",
+      "name": "国有开发银行",
+      "path": "assets/cards/G173.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Public Development Bank: a serious public-infrastructure financier studying a large scale model of a railway bridge and wind farm in a sober civic bank office, stamped funding folders, blueprints and a construction crane visible through the window.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-604e19b5-1d16-49d3-9a85-17126912b5e0.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G174",
+      "name": "工人互助基金",
+      "path": "assets/cards/G174.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Workers' Mutual Fund: three factory workers in practical uniforms pooling small contributions in a transparent locked collection box on a cooperative meeting table, mutual-aid ledger, modest union office. Focus on one box and two visible hands, friendly solidarity.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-71d054c3-5cf3-45be-8048-52e745bbf386.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G175",
+      "name": "拜科努尔发射场",
+      "path": "assets/cards/G175.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Baikonur Cosmodrome: monumental Soyuz-style rocket on its horizontal transport train approaching a launch gantry on a flat Central Asian steppe at golden dawn, enormous rust-red gantry towers and a clearly recognizable white rocket. Real aerospace infrastructure.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-ed24a242-ee38-40d4-89a0-ab207cdee76b.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G176",
+      "name": "火星改造协会",
+      "path": "assets/cards/G176.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Mars Terraforming Society: red Martian desert, an ambitious pressurized greenhouse dome full of lush plants beside a small scientific outpost, one engineer in a sealed spacesuit inspecting green seedlings, bright crisp red-green contrast.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0e242e41-bd99-4065-8ac9-738bfe86a0b7.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G177",
+      "name": "轨道拖船队",
+      "path": "assets/cards/G177.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Orbital Tug Fleet: a compact highly recognizable yellow-and-blue utility spacecraft towing a small satellite with articulated robotic docking arms above the curved blue Earth, clean industrial space engineering, bold readable central craft.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e84f33aa-f8a0-44b1-b948-866e6bbe0eb6.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G178",
+      "name": "轨道方舟",
+      "path": "assets/cards/G178.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Orbital Ark: gigantic cylindrical space habitat with glowing garden windows, a ring of clearly visible rescue pods along the hull and distant Earth, a secure self-contained home in space, warm inhabited windows against dark blue stars.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c1ed8112-785b-43de-9af1-53ddd889d8ff.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G179",
+      "name": "深空打捞团",
+      "path": "assets/cards/G179.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Deep-Space Salvagers: a rugged salvage craft with a magnetic grappling claw lifting an abandoned solar-panel module from a drifting broken satellite, one small suited crew member for scale, copper industrial lighting against deep blue space.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-63458c75-3097-4b7c-acff-fd6db74a07ff.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G180",
+      "name": "社区供销社",
+      "path": "assets/cards/G180.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Community Supply Cooperative: inviting neighborhood cooperative shop counter laden with rice sacks, vegetables, repair tools and household supplies, two local residents receiving a basket from a worker, warm daylight, ordinary practical abundance.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c9ec4a32-1396-4336-8e70-3b8e1d4e09a0.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G181",
+      "name": "工人文化宫",
+      "path": "assets/cards/G181.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Workers' Cultural Palace: a distinctive red-brick civic cultural hall with a welcoming stage, workers' choir rehearsing and a small community orchestra, cinema posters without readable writing in foyer, warm lively public arts setting.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7ff8984e-bde7-4c0f-bd77-6828ee7e1377.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G182",
+      "name": "红色读书会",
+      "path": "assets/cards/G182.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Red Reading Circle: three young adults discussing a red-bound book at a modest neighborhood reading room table, bookshelves, notebooks and pamphlets, warm afternoon light, active exchange of ideas, clear human expressions and normal anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-15d05eff-e8ad-4270-9759-13ba47ceb15c.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G183",
+      "name": "工人纠察队",
+      "path": "assets/cards/G183.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Workers' Picket Guard: a disciplined line of industrial workers in safety helmets and simple armbands standing at a factory gate, one guard coordinating a shift change with a clipboard. Nonviolent picket, no weapons, no confrontation.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-00a786bd-b45a-4be4-a6a7-5e518087d4ef.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G184",
+      "name": "黑市典当行",
+      "path": "assets/cards/G184.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Black-Market Pawnbrokers: a cramped secondhand pawn counter with a camera, gold watch, small drone and vintage jewelry under glass, one cautious broker inspecting a watch with a jeweler's loupe. Strong warm storefront identity, no occult motifs.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-69b94af4-15f1-4764-b74f-e7f3d9f8989c.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G185",
+      "name": "足球流氓",
+      "path": "assets/cards/G185.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Football Hooligans: a small group of intense adult football fans in team-neutral scarves outside a stadium, chanting with one red smoke flare held safely away from everyone, evening floodlights, energetic crowd atmosphere, no violence or real club logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5bb74627-2016-4702-bf86-0ba89908198e.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G186",
+      "name": "末日直播教团",
+      "path": "assets/cards/G186.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Doomsday Livestream Cult: a charismatic fictional livestream preacher in a small survival-themed broadcasting studio, large microphone, ring light, several screens showing storm clouds and countdown-style abstract blocks, a couple of fervent viewers in background. No real religion or readable text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-193a9ec5-d0cd-4f62-aae7-bc2e9d45c55b.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G187",
+      "name": "边境走私网",
+      "path": "assets/cards/G187.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Border Smuggling Network: a generic fictional night-time mountain border road, an old van beside a rough footpath, two anonymous adults quietly moving plain crates between vehicles, distant border lights, cinematic suspense, no weapons or operational diagrams.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-19a0191d-a123-42cf-8537-94362112ec67.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G190",
+      "name": "黑曜石秘仪会",
+      "path": "assets/cards/G190.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Obsidian Covenant: a fictional dark-fantasy sorcerer in deep purple robes standing in a black volcanic-stone sanctuary, holding a faceted obsidian crystal that contains a pale floating spirit silhouette. Exactly two hands, calm formidable presence, no gore, no harmed bodies, dramatic purple and amber light, no pyramids or eye symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-e8e1ce30-7c51-45e9-be2c-42f1ed8c3ad4.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G191",
+      "name": "格蕾塔·通贝里",
+      "path": "assets/cards/G191.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recognizable respectful editorial portrait of Greta Thunberg, contemporary young adult climate activist, braided brown hair, simple outdoor jacket, determined calm expression, a peaceful environmental gathering and green trees softly blurred behind her. Face is the clear central focal point. No readable protest text, no accusations, no caricature.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-05ff7420-68da-468a-a9aa-23b21d7eb82c.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G192",
+      "name": "SBF",
+      "path": "assets/cards/G192.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recognizable neutral editorial portrait of Sam Bankman-Fried (SBF), adult man with distinctive unruly curly dark hair, plain gray T-shirt, standing in a contemporary finance office with computer monitors and glass windows, thoughtful neutral expression. Head and shoulders dominant, no criminal action, no prison scene, no text or logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0bc1faee-f543-491b-b201-09e2f24f352c.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G193",
+      "name": "哈维尔·米莱",
+      "path": "assets/cards/G193.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recognizable editorial portrait of Javier Milei, adult Argentine political figure with distinctive voluminous dark hair and prominent sideburns, wearing a dark suit and tie at a civic podium, light-blue-and-white Argentine flag and pink government architecture softly visible behind him. Energetic facial expression, no violence, no readable slogans.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-751eb8d2-d5cc-45ed-beb7-2d5205715e7b.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G194",
+      "name": "大卫·科波菲尔",
+      "path": "assets/cards/G194.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recognizable editorial portrait of magician David Copperfield, dark swept hair, black open-collar stage shirt, standing in front of red theater curtains beside a partially vanished illuminated stage cabinet and a soft plume of blue stage smoke. Face clearly recognizable, exactly two arms and normal hands, elegant grand illusion performance, no text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-287e733c-772a-4370-b662-0172ae17a70f.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G195",
+      "name": "沃伦·巴菲特",
+      "path": "assets/cards/G195.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recognizable warm editorial portrait of Warren Buffett, elderly white-haired man with distinctive glasses, dark business suit and red tie, relaxed smile in a comfortable book-lined investment office with annual reports and a small model bridge. Face dominant, natural anatomy, no text or logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-02e7b93c-c2b6-43e0-b66d-3696b7ac39b0.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E24",
+      "name": "招募情报站",
+      "path": "assets/cards/E24.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recruitment Intelligence Office: a bright compact intelligence-style recruiting room, large bulletin board with three generic portrait dossiers, colored index tabs, a desk lamp and a magnifying glass on candidate files, practical modern paperwork and clear organizational identity.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3a9017ce-eee5-48fa-8a54-86272c68ca0a.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E25",
+      "name": "深空中继信标",
+      "path": "assets/cards/E25.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Deep-Space Relay Beacon: a bold orange-and-silver radio beacon satellite with a large parabolic dish and bright blue signal light floating above a distant planet, distinct single central device, plausible aerospace hardware.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-723b94b7-c5b9-4fea-8e4a-1ca77f56dfcb.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E26",
+      "name": "双重授权终端",
+      "path": "assets/cards/E26.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Dual-Authorization Terminal: close-up of a secure banking authorization device with two separate physical key slots, two brass security keys inserted, paired green indicator lights and a clean shield icon on a small screen, no readable words, clear double-approval concept.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-50312d6f-50c1-4742-b1d3-f565398c0b8f.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E27",
+      "name": "工运档案馆",
+      "path": "assets/cards/E27.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Labor Movement Archive: a well-lit public archive room with old labor-union photographs, red-bound organizing records and industrial blueprints in neat shelving, an archivist's desk with an open catalog drawer. Welcoming practical historical archive, no occult symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5980d033-cd44-4529-9aa8-471ae9481aa4.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E28",
+      "name": "宗族会馆",
+      "path": "assets/cards/E28.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Ancestral Guildhall: richly identifiable traditional Chinese clan hall interior with carved timber beams, red lanterns, an ancestral table and neat wooden memorial tablets without readable writing; warm sunlight and an open communal gathering space, no people required.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-192a475e-879e-4ee5-8b25-d813099f278e.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E29",
+      "name": "阿卡西书页",
+      "path": "assets/cards/E29.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Akashic Page: a single radiant translucent parchment leaf floating above an open cosmic library lectern, tiny abstract constellations and flowing nonverbal glyphs on the page, a mystical record of possible lives, indigo-gold light, central page clearly readable at thumbnail scale, no eyes or pyramid symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-d15f1a37-3807-4bc9-97e4-fc7ea6aa8c71.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "E30",
+      "name": "星门钥匙",
+      "path": "assets/cards/E30.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Stargate Key: one intricate silver-and-lapis key in sharp foreground, its tip opening a luminous circular portal showing both a starfield and distant Chinese mountain silhouettes, magical technology crossover, clean teal and gold, no hands or text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-c423b839-ca4d-4191-900b-5c67f66266c7.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "P71",
+      "name": "定向招募",
+      "path": "assets/cards/P71.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Targeted Recruitment: a fictional recruiter at a desk selecting one of exactly three portrait dossiers presented in a fan on the table, a clear decisive pointing gesture, colorful candidate tabs, modern office and bright professional lighting, natural anatomy.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-24b81dfb-9aff-4ba7-b29a-a6fe0887e47d.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "P72",
+      "name": "资产剥离",
+      "path": "assets/cards/P72.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Forced Divestiture: a fictional financial regulator in a suit separating one colored subsidiary folder from a connected corporate diagram on a glass board, three colored branch boxes and one clearly broken connection, bank building visible outside, clear finance restructuring event.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-eb74d2b5-217f-41e9-bdbb-6ccb2c17bfac.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "P73",
+      "name": "新世界秩序：结社热潮",
+      "path": "assets/cards/P73.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. A New Age of Associations: a bustling contemporary community-center open day, neighbors joining local clubs at tables with books, craft tools, cooperative produce and sports scarves, friendly diverse adult organizers in the foreground, bright welcoming colors, no readable slogans or real party logos.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-93e7bded-e0bf-4fbf-b4e4-6bef08d884d2.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "P74",
+      "name": "召集法阵",
+      "path": "assets/cards/P74.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Summoning Circle: one fictional robed magician in a bright atmospheric workshop opens a luminous blue doorway, with three small indistinct new allies emerging in the distance, exactly two arms on the caster, magical recruitment rather than combat, elegant cinematic fantasy, no eye or pyramid symbols.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9b1d3379-5d03-45a6-9135-fc103e9aa461.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "P75",
+      "name": "暗中挖角",
+      "path": "assets/cards/P75.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Covert Poaching: a fictional recruiter discreetly presenting a job-offer folder to an intrigued professional in a quiet conference corridor while their former team is blurred in the background, modern clothing, clear choice and confidential conversation, no real people or readable company text.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-a8791567-bc25-41f0-8909-8405791efbd1.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G188",
+      "name": "保守派智库",
+      "path": "assets/cards/G188.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Conservative Think Tank: a traditional wood-paneled policy library, two serious analysts in suits reviewing public-policy charts and newspapers at a large table, stone government columns outside the window, understated burgundy and navy palette.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-57a7451b-dcdb-4303-9ef7-9fecc80b2da5.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
+    },
+    {
+      "id": "G189",
+      "name": "昆仑仙门",
+      "path": "assets/cards/G189.webp",
+      "method": "Built-in image_gen",
+      "prompt": "Square 1:1 full-bleed collectible strategy card illustration, high-recognition cinematic editorial PHOTOREALISM, matching a realistic contemporary travel documentary photo with crisp natural textures and realistic light. Kunlun Immortals / Kunlun mountain guardians: a real-looking ancient Chinese Taoist monastery on a rugged snowy Kunlun mountain terrace. Foreground one calm middle-aged Taoist guardian in plain ivory and dark blue robes, realistic human face, exactly two arms, one hand lightly holding a sheathed straight ceremonial sword, the other resting by the side. Timber temple doors, carved stone steps, a pine tree and enormous sunlit snow mountains make the place unmistakable. A very subtle protective blue shimmer along the courtyard boundary supplies the card's magic theme, everything else grounded and believable. NO anime, NO cartoon, NO stylized xianxia painting, NO floating weapons, no card borders or typography, no pyramids or eye symbols. Balanced natural color, face and monastery readable at small card size.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-7bf27805-83fb-43fe-a0f3-268e4a4ca25a.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
     }
   ],
   "generated_card_art_count": 184,

@@ -27,7 +27,7 @@ func apply(g: GameState,p: int,type: String,args: Dictionary={}) -> void:
 	if not a.is_empty():check(g.act(p,a),"Applied "+type)
 	check(g.validate().is_empty(),"Conservation "+str(g.validate()))
 func _initialize() -> void:
-	CardDB.load_all();check(CardDB.ids("resource").size()==23 and CardDB.ids("plot").size()==70,"New card counts")
+	CardDB.load_all();check(CardDB.ids("resource").size()==30 and CardDB.ids("plot").size()==75,"New card counts")
 	var g=GameState.new(44);apply(g,0,"faction",{"id":"I01"});apply(g,0,"initial",{"id":g.hands[0].group[0]});apply(g,0,"initial_resource",{"id":g.resource_candidates[0][0]})
 	check(g.hands[0].resource.size()==1 and g.hands[1].resource.size()==1 and g.decks.resource.size()==CardDB.ids("resource").size()-2,"Opening resource each, separate deck")
 	check(g.decks.group.all(func(k):return g.card(k).kind=="group"),"Group deck contains no resources")

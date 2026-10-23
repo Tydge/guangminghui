@@ -39,7 +39,7 @@ func context(src: String,target: String,mode: String="control") -> Dictionary:
 	return {"src":src,"target":target,"mode":mode,"attacker":0,"defender":1,"paid":[src]}
 func _initialize() -> void:
 	CardDB.load_all()
-	check(CardDB.cards.size()==275,"All 275 cards")
+	check(CardDB.cards.size()==312,"All 312 cards")
 	check(CardDB.get_card("G081").align==["企业"] and CardDB.get_card("G083").align==["企业","怪异"],"Current master Musk and Altman alignments")
 	check(CardDB.get_card("G113").p==2 and CardDB.get_card("G113").r==6 and CardDB.get_card("G113").align==["政府","和平"],"Preserved edited Moonbase")
 	check(CardDB.get_card("G114").align==["和平"] and CardDB.get_card("G115").gp==1 and CardDB.get_card("G116").gp==0,"Preserved edited space and magic stats")
@@ -95,7 +95,7 @@ func _initialize() -> void:
 	g=fresh();put(g,"G127",0);put(g,"G025",0);attach(g,"P45","G025");give(g,"P44",1);g.nodes.R0.token=0;var o=g.observation(0);var bot=AiAgent.new();check(o.effective.G025.gp==0 and not o.hands.plot.has("P44") and not o.effective.has("P44"),"AI sees current public stats without hidden hands")
 	check(bot.pick(o).type in ["ability","lift"],"AI recognizes useful regulatory removal")
 	var commands=0;var completed=0
-	for seed_value in range(21,27):
+	for seed_value in range(21,21 if "--focused" in OS.get_cmdline_user_args() else 27):
 		g=GameState.new(seed_value);bot=AiAgent.new();bot.rng.seed=seed_value
 		for step in 1200:
 			if g.phase=="over":completed+=1;break
@@ -105,5 +105,5 @@ func _initialize() -> void:
 			commands+=1
 			if not g.validate().is_empty():check(false,"Synergy AI conservation seed%d step%d %s"%[seed_value,step,str(g.validate())]);break
 		print("SYNERGY MATCH: "+JSON.stringify({"seed":seed_value,"phase":g.phase,"commands_so_far":commands}))
-	check(completed==6,"All six mixed-deck AI games complete")
+	if "--focused" not in OS.get_cmdline_user_args():check(completed==6,"All six mixed-deck AI games complete")
 	var report={"checks":checks,"failures":failures,"simulated_commands":commands,"completed_matches":completed,"cards":CardDB.cards.size()};FileAccess.open("res://tests/synergy-report.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("SYNERGY: "+JSON.stringify(report));quit(0 if failures.is_empty() else 1)

@@ -26,6 +26,7 @@ static func visible(g: GameState,p: int) -> Array:
 	ids.append(g.world);ids.append(g.pending_plot.get("id",""));ids.append_array(g.battle.get("spent",[]))
 	if g.battle.get("hand_target",false):ids.append(g.battle.target)
 	ids.append_array(g.resource_candidates[p])
+	if g.choice.get("public",false):ids.append_array(g.choice.get("peek",[]))
 	if g.choice.get("player",-1)==p:
 		ids.append_array(g.choice.get("options",[]));ids.append_array(g.choice.get("peek",[]));ids.append(g.choice.get("revealed_card",""))
 	return ids
@@ -49,6 +50,7 @@ static func view(g: GameState,p: int,actions: Array=[]) -> Dictionary:
 	data.discards=g.discards.duplicate(true)
 	data.locked=g.locked.filter(func(id):return id in visible(g,p))
 	data.choice=relative(g.choice,p) if g.choice.get("player",-1)==p else {"player":1,"kind":"remote_wait"}
+	if g.choice.get("public",false) and g.choice.get("player",-1)!=p:data.choice.merge({"peek":g.choice.get("peek",[]).duplicate(),"public":true,"source":g.choice.get("source","")})
 	data.resource_candidates=[g.resource_candidates[p].duplicate(),[]]
 	data.opening_waiting=g.phase.begins_with("setup") and g.opening_picks.get(g.phase.trim_prefix("setup_"),["",""])[p]!=""
 	data.actions=relative(actions,p)
@@ -84,4 +86,4 @@ static func presentation(before: GameState,after: GameState,p: int,actor: int,a:
 	return out
 
 static func preview_key(a: Dictionary) -> String:
-	return JSON.stringify([a.get("src",""),a.get("target",""),a.get("mode",""),a.get("use_plan",false),a.get("solo",false),a.get("delegate","")])
+	return JSON.stringify([a.get("src",""),a.get("target",""),a.get("mode",""),a.get("use_plan",false),a.get("solo",false),a.get("delegate",""),a.get("self_lock",false),a.get("fee","")])

@@ -6,6 +6,8 @@ const RenewalRules = preload("res://scripts/renewal_rules.gd")
 var resources
 const ContemporaryRules=preload("res://scripts/contemporary_rules.gd")
 var contemporary
+const AssociationRules=preload("res://scripts/association_rules.gd")
+var association
 var scrap: Array=[]
 var covenant
 var renewal
@@ -53,6 +55,7 @@ var initiative: Array = []
 var initial_ai = ""
 var mulligans: Array=[0,0]
 var motion_events: Array=[]
+var movement_origin: Dictionary={}
 var resource_candidates: Array=[[],[]]
 var resource_rerolls: Array=[0,0]
 var human_duel=false
@@ -75,6 +78,7 @@ func _init(seed_value: int = 0,duel: bool=false) -> void:
 	human_duel=duel
 	resources=ResourceRules.new(self)
 	contemporary=ContemporaryRules.new(self)
+	association=AssociationRules.new(self)
 	wave=WaveRules.new(self)
 	synergy=SynergyRules.new(self)
 	renewal=RenewalRules.new(self)
@@ -126,7 +130,7 @@ func tags(id: String) -> Array:
 	if nodes.has(id):
 		for tag in nodes[id].get("extra_tags",[]):
 			if tag not in result:result.append(tag)
-	return wave.extra_tags(id,result)
+	return association.extra_tags(id,wave.extra_tags(id,result))
 
 func has(id: String, trait_name: String) -> bool: return trait_name in alignments(id) or trait_name in tags(id)
 
@@ -136,6 +140,9 @@ func alignments(id: String) -> Array:
 		if nodes[id].get("vampire", false):
 			a.erase("正统")
 			if "怪异" not in a: a.append("怪异")
+		if nodes[id].get("privatized",false):
+			a.erase("政府")
+			if "企业" not in a:a.append("企业")
 		if nodes[id].get("pacified",false):a=CovenantRules.peaceful(a)
 		if nodes[id].get("flip", false):
 			var liberal = "自由" in a; var conservative = "保守" in a
@@ -165,7 +172,7 @@ func stat(id: String, key: String,raw: bool=false) -> int:
 			value+=nodes[id].get("ad_gp",0)
 			if nodes[id].get("compute",false):value=stat(id,"p",true)
 			value = mini(value, stat(id, "p",true))
-	value=contemporary.adjust_stat(id,key,renewal.adjust_stat(id,key,synergy.adjust_stat(id,key,value)))
+	value=association.adjust_stat(id,key,contemporary.adjust_stat(id,key,renewal.adjust_stat(id,key,synergy.adjust_stat(id,key,value))))
 	if not raw and key in ["p","gp"] and wave.devastated(id):value=value/2
 	return value
 
@@ -303,7 +310,7 @@ func _a(kind: String, label: String, args: Dictionary = {}) -> Dictionary:
 	return a
 
 func legal_actions(p: int) -> Array:
-	var actions=contemporary.augment_actions(p,resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p)))))))
+	var actions=association.augment_actions(p,contemporary.augment_actions(p,resources.augment_actions(p,covenant.augment_actions(p,renewal.augment_actions(p,synergy.augment_actions(p,wave.augment_actions(p,_base_legal_actions(p))))))))
 	# Extension responses may be appended by any module. Keep decline/accept last.
 	if phase in ["battle","plot_response"]:return actions.filter(func(a):return a.type not in ["pass","accept_plot"])+actions.filter(func(a):return a.type in ["pass","accept_plot"])
 	return actions
@@ -370,6 +377,7 @@ func _base_legal_actions(p: int) -> Array:
 func _ability_actions(src: String,p: int) -> Array:
 	if not wave.available(src):return []
 	if src in ["G091","G093","G092","G098"]:return resources.country_actions(src,p)
+	if src.begins_with("G") and int(src.substr(1))>=171:return association.ability_actions(src,p)
 	if src=="G138" or int(src.substr(1))>=151:return contemporary.ability_actions(src,p)
 	if int(src.substr(1))>=131:return renewal.ability_actions(src,p)
 	if int(src.substr(1))>=113:return synergy.ability_actions(src,p)
@@ -423,6 +431,7 @@ func _ability_actions(src: String,p: int) -> Array:
 func _main_plot_actions(id: String,p: int) -> Array:
 	if id in ResourceRules.PLOTS:return resources.plot_actions(id,p)
 	if covenant.is_goal(id):return covenant.main_plots(id,p)
+	if int(id.substr(1))>=71:return association.plot_actions(id,p)
 	if int(id.substr(1))>=61:return contemporary.plot_actions(id,p)
 	if int(id.substr(1))>=43:return synergy.main_plots(id,p)
 	if int(id.substr(1))>=31:return wave.main_plots(id,p)
@@ -514,6 +523,10 @@ func support_detail(id: String,b: Dictionary) -> Dictionary:
 func support_power(id: String,b: Dictionary) -> int:return support_detail(id,b).power
 
 func attack_options(src: String,target: String,mode: String,action: Dictionary={}) -> Dictionary:
+	if action.get("self_lock",false) and action.has("fee"):
+		var model=ActionFlow.copy_state(self);model.association.pay_fee(owner(src),action.fee)
+		var command=action.duplicate(true);command.erase("fee")
+		return model.attack_options(src,target,mode,command)
 	# Pure preview. Uses the same eligibility functions as the live response window.
 	var p=owner(src)
 	var context={"src":src,"target":target,"mode":mode,"attacker":p,"defender":owner(target),"paid":[src],"solo":action.get("solo",false)}
@@ -553,7 +566,7 @@ func position_defense(id: String) -> int:
 
 func loyalty_defense(id: String) -> int:
 	if not nodes.has(id) or is_root(id):return 0
-	var value=4*_common(id,nodes[id].parent)
+	var value=4*_common(id,nodes[id].parent)+association.loyalty_bonus(id)
 	if nodes[id].parent=="G140" and renewal.ready("G140") and has(id,"狂热"):value+=4
 	if nodes[id].parent=="G041" and has(id,"怪异"):value=maxi(value,8)
 	return value
@@ -599,6 +612,7 @@ func _plot_record_status(id: String,status: String) -> void:
 
 func attack_preview(src: String,target: String,mode: String,action: Dictionary={}) -> Dictionary:
 	var b={"src":src,"target":target,"mode":mode,"attacker":owner(src),"defender":owner(target),"support_a":0,"support_d":0,"bonus_a":2 if action.get("training",false) else 0,"bonus_d":0,"self":0,"solo":action.get("solo",false)}
+	b.self_lock=action.get("self_lock",false)
 	if action.get("use_plan",false) and wave.plans.has(owner(src)):b.fixed_dice=wave.plans[owner(src)]
 	return battle_values(b)
 
@@ -640,7 +654,12 @@ func act(p: int,a: Dictionary) -> bool:
 ## Planner-only fast path for a command just obtained from this model's legal
 ## action list. Live UI and benchmark matches always enter through act().
 func _act_generated(p: int,a: Dictionary) -> bool:
+	movement_origin=association.movement_snapshot()
 	var applied=_apply_command(p,a)
+	if applied:
+		association.moved(movement_origin)
+		movement_origin={}
+		if phase=="main":_after_effect()
 	if applied:renewal.repair_slots()
 	if applied:covenant.repair_hand()
 	return applied
@@ -649,6 +668,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 	a=a.duplicate(true)
 	motion_events.clear()
 	last_event={}
+	if association.handle(p,a):return true
 	if contemporary.handle(p,a):return true
 	if resources.handle(p,a):return true
 	if covenant.handle(p,a):return true
@@ -682,7 +702,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 			var before=field(p);var free=auto_is_free(a.id,a.parent)
 			if not free:spend(root(p))
 			auto_used=true;failed_recruits.erase(a.id)
-			_enter(a.id,p,a.parent);captured[a.id]=true;_entry_rewards(a.id,p,a.parent,before)
+			_enter(a.id,p,a.parent);captured[a.id]=true;_entry_rewards(a.id,p,a.parent,before);association.auto_reward(a.id,p,a.parent)
 			_log("%s自动接管了%s%s · 本回合无行动标记"%[_who(p),title(a.id)," · 连锁加盟免主牌标记" if free else ""],"enter",{"id":a.id,"parent":a.parent})
 			_after_effect()
 		"move":spend(a.payer);nodes[a.src].parent=a.parent;_log("%s重组了势力结构"%_who(p),"move",{"id":a.src})
@@ -697,6 +717,7 @@ func _apply_command(p: int,a: Dictionary) -> bool:
 			_log(_who(p)+" · "+message,"support",{"id":a.src,"player":p})
 			_response_changed(p)
 		"pass":
+			battle.responded=true
 			battle.passes+=1;battle.responder=1-p
 			if battle.passes>=2:_resolve_battle()
 		"plot":_commit_plot(p,a)
@@ -723,6 +744,7 @@ func _launch_attack(p: int,a: Dictionary) -> void:
 	battle={"src":a.src,"target":a.target,"mode":a.mode,"attacker":p,"defender":owner(a.target),"responder":1-p,"passes":0,"paid":[a.src],"support_a":0,"support_d":0,"bonus_a":0,"bonus_d":0,"self":0,"rescue":false,"video":[],"spent":[],"entries":[],"before":field(p)}
 	wave.before_attack(p,a)
 	renewal.before_attack(a)
+	association.before_attack(p,a)
 	battle.hand_target=not nodes.has(a.target)
 	phase="battle";_log("%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"],"attack")
 	_battle_record("attack",p,a.src,a.target,"%s → %s · %s"%[title(a.src),title(a.target),"控制" if a.mode=="control" else "摧毁"])
@@ -767,6 +789,7 @@ func _advance_draw() -> void:
 		else:nodes[id].token=action_limit(id)
 	resources.refill(current)
 	phase="main";_log("%s的主要阶段"%_who(current),"turn")
+	association.draw_finished(current);_after_effect()
 
 func _set_choice(p: int,label: String,options: Array,kind: String,data: Dictionary={},optional: bool=false) -> void:
 	choice=data.duplicate(true);choice.merge({"player":p,"label":label,"options":options.duplicate(),"kind":kind,"optional":optional},true);phase="choice"
@@ -874,6 +897,7 @@ func _resolve_plot() -> void:
 	var a=pending_plot.duplicate(true);pending_plot={};phase=resume_phase
 	var p=a.player;var id=a.id;var target=a.get("target","");var stays=false
 	_plot_record_status(id,"已生效")
+	if association.resolve_plot(a):return
 	if contemporary.resolve_plot(a):return
 	if resources.resolve_plot(a):return
 	if covenant.resolve_plot(a):return
@@ -911,6 +935,7 @@ func _resolve_plot() -> void:
 	else:_after_effect()
 
 func _response_changed(p: int) -> void:
+	battle.responded=true
 	battle.passes=0;battle.responder=1-p;phase="battle"
 	wave.next_response_trigger()
 
@@ -926,6 +951,7 @@ func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 	if p!=current:return
 	resources.entry_reward(p)
 	contemporary.entry_reward(id,p)
+	association.entry_reward(id,p,before)
 	synergy.entry_reward(id,p,before)
 	if "G044" in before and owner("G044")==p and card(id).p>card("G044").p and (has(id,"科学") or has(id,"太空")):_reward_draw("G044",p,"group")
 	if parent=="G069" and parent in before and has(id,"自由"):_reward_draw(parent,p,"group")
@@ -934,6 +960,7 @@ func _entry_rewards(id: String,p: int,parent: String,before: Array) -> void:
 		if not renewal.plot_costs(p).is_empty():_set_choice(p,"潮流更替 · 可弃一张阴谋重抽",renewal.plot_costs(p),"emptyvee",{},true)
 
 func _after_effect() -> void:
+	association.moved(movement_origin);movement_origin={}
 	if renewal.repair_slots():return
 	if resources.repair_hand():return
 	if covenant.repair_hand():return
@@ -963,6 +990,10 @@ func _complete_end() -> void:
 		for p in [0,1]:
 			if hands[p].plot.size()>hand_limit(p):_limit_choice(p);return
 		current=1-current;_start_turn();return
+	if not used.has("association:end"):
+		used["association:end"]=true;association.end_turn()
+		if wave.drain():return
+	if hands[current].plot.size()>hand_limit(current):_limit_choice(current);return
 	wave.end_turn()
 	turns[current]+=1
 	if mini(turns[0],turns[1])>=1:
@@ -973,9 +1004,10 @@ func _complete_end() -> void:
 	for p in [0,1]:
 		if turns[p]>=3 and groups(p).is_empty():_finish(1-p,"%s的势力已被消灭"%_who(p),{"kind":"elimination"});return
 	for id in nodes:
-		nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support");nodes[id].erase("pr_crisis");nodes[id].erase("battery_power")
+		nodes[id].erase("a_commie");nodes[id].erase("mask");nodes[id].erase("mask_card");nodes[id].erase("rally");nodes[id].erase("no_support");nodes[id].erase("pr_crisis");nodes[id].erase("battery_power")
 		nodes[id]["silenced"]=false;nodes[id]["flip"]=false;nodes[id]["ad_gp"]=0;nodes[id]["compute"]=false
 	used["renewal:cleanup"]=true
+	if renewal.repair_slots():return
 	_complete_end()
 
 func _finish(p: int,reason: String,details: Dictionary={}) -> void:
@@ -1012,6 +1044,7 @@ func validate() -> Array:
 	if choice.get("kind","")=="reorder":locations.append_array(choice.options);locations.append_array(choice.order)
 	if choice.get("kind","") in ["nasa","japan"]:locations.append_array(choice.peek)
 	locations.append_array(wave.held_cards())
+	locations.append_array(association.held_cards(choice))
 	if choice.get("kind","") in ["e_probe","n_probe","n_relic","n_divine","n_contact"]:locations.append_array(choice.peek)
 	if choice.get("kind","")=="x_overflow":
 		var held=choice.saved_choice

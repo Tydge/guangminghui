@@ -116,6 +116,12 @@ func _value(id: String,o: Dictionary) -> float:
 	return value
 
 func _score(a: Dictionary,o: Dictionary) -> float:
+	if (a.type=="ability" and a.src.begins_with("G") and int(a.src.substr(1))>=171) or (a.type=="plot" and int(a.id.substr(1))>=71) or (a.type=="resource" and a.src.begins_with("E") and int(a.src.substr(1))>=24):
+		# Recruitment and conversion are evaluated by the shared rule-model search.
+		# This prior keeps them in the candidate set; it does not reproduce their rules.
+		var desired=CovenantRules.FACTIONS[o.factions[o.player]].get("traits",[])
+		return 8.0+(5.0 if a.get("tag","") in desired else 0.0)-(_value(a.fee,o)*0.2 if a.has("fee") else 0.0)
+	if a.type=="vanish":return 5.0+o.battle_values.chance*20.0 if o.battle_values.chance>0.25 else -2.0
 	if a.type in ["resource","deploy","research"] or (a.type=="plot" and a.id in ResourceRules.PLOTS):return _resource_score(a,o)
 	if a.type=="plot" and CovenantRules.PLOTS.has(a.id):return 1000
 	if (a.type=="ability" and ((a.src.begins_with("R") and o.factions[o.player]=="I09") or a.src=="G138" or int(a.src.substr(1))>=151)) or (a.type=="plot" and int(a.id.substr(1))>=62):return _contemporary_score(a,o)
@@ -131,6 +137,14 @@ func _score(a: Dictionary,o: Dictionary) -> float:
 		"draw":return float(int(a.group)+int(a.plot))*5+int(a.get("filter_group",false))+int(a.get("filter_plot",false))
 		"choose":
 			var kind=o.choice.get("kind","")
+			if kind=="a_tug":return 0.0 if a.id=="" else _placement_value(o.choice.source,a.id,o)-_placement_value(o.choice.source,o.nodes[o.choice.source].parent,o)-0.5
+			if kind in ["a_intel_fee","a_fund_fee","a_soul_fee"]:
+				if a.id=="":return 0.0
+				if kind=="a_intel_fee":
+					var values=o.choice.peek.map(func(id):return _value(id,o))
+					return (values.max() if not values.is_empty() else 0.0)-_value(a.id,o)-0.5
+				var gain=_value(o.choice.target,o) if kind=="a_soul_fee" else 12.0
+				return gain-(_value(a.id,o)*0.5 if a.id.begins_with("G") else _plot_value(a.id,o)*0.5)
 			if kind=="n_inside":return _plot_value(o.choice.revealed_card,o) if a.id=="bottom" else 0
 			if kind=="c_goal_limit":return _plot_value(a.id,o)
 			if a.id=="":return -20

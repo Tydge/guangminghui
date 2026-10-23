@@ -1,27 +1,30 @@
 param(
     [string]$GodotPath = 'godot',
-    [string]$PythonPath = 'python'
+    [string]$PythonPath = 'python',
+    [switch]$Focused
 )
 $ErrorActionPreference = 'Stop'
 $projectPath = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
-& $GodotPath --headless --path $projectPath --script res://tests/test_updates.gd -- --test-defaults
+$testArgs = @('--test-defaults')
+if ($Focused) { $testArgs += '--focused' }
+& $GodotPath --headless --path $projectPath --script res://tests/test_updates.gd -- @testArgs
 if ($LASTEXITCODE -ne 0) { throw 'Failed: offline update checks' }
 & $PythonPath (Join-Path $PSScriptRoot 'test_update_tools.py') --godot $GodotPath
 if ($LASTEXITCODE -ne 0) { throw 'Failed: native cumulative patch checks' }
 foreach ($script in @('test_online.gd','test_online_lifecycle.gd','test_online_resilience.gd','test_online_ui.gd','test_online_settings.gd')) {
-    $onlineOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) -- --test-defaults 2>&1
+    $onlineOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) -- @testArgs 2>&1
     $onlineOutput | Write-Output
     if ($LASTEXITCODE -ne 0 -or ($onlineOutput -match 'SCRIPT ERROR:|ERROR:|Parse Error')) { throw ('Failed: ' + $script) }
 }
-& $GodotPath --headless --path $projectPath --script res://tests/test_attack_presentation.gd -- --test-defaults
+& $GodotPath --headless --path $projectPath --script res://tests/test_attack_presentation.gd -- @testArgs
 if ($LASTEXITCODE -ne 0) { throw 'Failed: attack presentation checks' }
 foreach ($script in @('test_release_tuning.gd', 'test_release_tuning_ui.gd', 'test_contact_tuning.gd', 'test_contact_tuning_ui.gd', 'test_safe_house.gd', 'test_battle_ui_polish.gd', 'test_salon_apartment.gd', 'test_ai_structure.gd', 'test_ai_behavior.gd', 'test_card_adjustments.gd', 'test_contemporary.gd', 'test_contemporary_ui.gd', 'test_ai_difficulty.gd', 'test_ai_depth_levels.gd', 'test_ai_resources.gd', 'test_ai_expectation.gd', 'test_ai_fairness.gd', 'test_ai_rehearsal.gd', 'test_ai_planning.gd', 'test_ai_planning_ui.gd', 'test_disaster_responses.gd', 'test_localization.gd', 'test_localization_ui.gd', 'test_resource_expansion.gd', 'test_resource_expansion_ui.gd', 'test_resources.gd', 'test_resources_ui.gd', 'test_rules.gd', 'test_effects.gd', 'test_expansion.gd', 'test_synergy.gd', 'test_renewal.gd', 'test_housing_clone.gd', 'test_covenant.gd', 'test_covenant_ui.gd', 'test_renewal_ui.gd', 'test_opening_balance.gd', 'test_ui.gd', 'test_battle_clarity.gd', 'test_modern_mechanics.gd', 'test_modern_ui.gd', 'test_presentation.gd', 'test_dice_sequence.gd', 'test_flow_order.gd', 'test_expansion_ui.gd', 'test_synergy_ui.gd', 'test_interaction_polish.gd', 'test_support_modes_ui.gd', 'test_table_tuning.gd', 'test_table_tuning_ui.gd', 'test_match.gd')) {
-    $testOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) -- --test-defaults 2>&1
+    $testOutput = & $GodotPath --headless --path $projectPath --script ('res://tests/' + $script) -- @testArgs 2>&1
     $testCode = $LASTEXITCODE
     $testOutput | Write-Output
     if ($testCode -ne 0 -or ($testOutput -match 'SCRIPT ERROR:|ERROR:|Parse Error')) { throw ('Failed: ' + $script) }
 }
-$englishOutput = & $GodotPath --headless --path $projectPath --script res://tests/test_match.gd -- --test-defaults --english 2>&1
+$englishOutput = & $GodotPath --headless --path $projectPath --script res://tests/test_match.gd -- @testArgs --english 2>&1
 $englishCode = $LASTEXITCODE
 $englishOutput | Write-Output
 if ($englishCode -ne 0 -or ($englishOutput -match 'SCRIPT ERROR:|ERROR:|Parse Error')) { throw 'Failed: full English match' }

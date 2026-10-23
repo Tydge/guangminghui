@@ -413,6 +413,132 @@
       "秘宝"
     ]
   },
+  "E24": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "己方抽牌阶段结束时，公开团体堆顶3张；可弃1张团体手牌，取其中1张，其余原序沉底。",
+    "en": "Recruitment Intelligence Office",
+    "gp": 0,
+    "id": "E24",
+    "kind": "resource",
+    "mode": "触发",
+    "name": "招募情报站",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E25": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "己方主要阶段，报废本资源，从团体堆随机抽出3张太空团体，选1张入手，其余洗回。",
+    "en": "Deep-Space Relay Beacon",
+    "gp": 0,
+    "id": "E25",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "深空中继信标",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E26": {
+    "action": false,
+    "align": [],
+    "category": "装置",
+    "effect": "己方银行团体的直属上级有行动标记时，该银行团体的忠诚防御+4。",
+    "en": "Dual-Authorization Terminal",
+    "gp": 0,
+    "id": "E26",
+    "kind": "resource",
+    "mode": "持续",
+    "name": "双重授权终端",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "装置"
+    ]
+  },
+  "E27": {
+    "action": true,
+    "align": [],
+    "category": "设施",
+    "effect": "己方主要阶段，花本资源1行动，弃1张阴谋，从团体弃牌堆取1张共产团体。",
+    "en": "Labor Movement Archive",
+    "gp": 0,
+    "id": "E27",
+    "kind": "resource",
+    "mode": "行动",
+    "name": "工运档案馆",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E28": {
+    "action": false,
+    "align": [],
+    "category": "设施",
+    "effect": "己方回合首次将己方团体整支移动到保守上级的直属空槽后，从团体堆随机取1张保守团体入手，然后洗牌。",
+    "en": "Ancestral Guildhall",
+    "gp": 0,
+    "id": "E28",
+    "kind": "resource",
+    "mode": "触发",
+    "name": "宗族会馆",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "设施"
+    ]
+  },
+  "E29": {
+    "action": false,
+    "align": [],
+    "category": "秘宝",
+    "effect": "己方主要阶段，报废本资源，指定1种阵营或团体标签，查看团体堆顶10张，可取至多2张符合的团体，其余洗回。",
+    "en": "Akashic Page",
+    "gp": 0,
+    "id": "E29",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "阿卡西书页",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "秘宝"
+    ]
+  },
+  "E30": {
+    "action": false,
+    "align": [],
+    "category": "秘宝",
+    "effect": "己方主要阶段，报废本资源，将1个己方魔法或太空团体整支移至己方主牌的合法空槽，再从团体堆随机取1张魔法或太空团体入手，然后洗牌。",
+    "en": "Stargate Key",
+    "gp": 0,
+    "id": "E30",
+    "kind": "resource",
+    "mode": "一次性",
+    "name": "星门钥匙",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [
+      "秘宝"
+    ]
+  },
   "G001": {
     "align": [
       "政府",
@@ -3661,6 +3787,495 @@
       "魔法"
     ]
   },
+  "G171": {
+    "align": [
+      "犯罪",
+      "保守"
+    ],
+    "category": "组织",
+    "effect": "黑账人脉（主动）：公开团体堆顶4张，可取1张犯罪或银行团体，其余洗回。",
+    "en": "Underground Remittance Network",
+    "gp": 1,
+    "id": "G171",
+    "kind": "group",
+    "name": "地下钱庄",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "银行"
+    ]
+  },
+  "G172": {
+    "align": [
+      "政府",
+      "保守"
+    ],
+    "category": "组织",
+    "effect": "稳健储蓄：该团体有行动标记时，其直属下属R+2。",
+    "en": "Postal Savings Bank",
+    "gp": 1,
+    "id": "G172",
+    "kind": "group",
+    "name": "邮储银行",
+    "p": 3,
+    "r": 6,
+    "slots": 2,
+    "tags": [
+      "银行"
+    ]
+  },
+  "G173": {
+    "align": [
+      "政府",
+      "保守"
+    ],
+    "category": "组织",
+    "effect": "项目融资：部署设施资源时，可花该团体1行动代替主牌行动。",
+    "en": "Public Development Bank",
+    "gp": 1,
+    "id": "G173",
+    "kind": "group",
+    "name": "国有开发银行",
+    "p": 4,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "银行",
+      "共产"
+    ]
+  },
+  "G174": {
+    "align": [
+      "自由",
+      "和平"
+    ],
+    "category": "组织",
+    "effect": "互助征集：己方回合，首次有其他共产团体从你的手牌进场后，可弃1张团体手牌，抽2张团体。",
+    "en": "Workers' Mutual Fund",
+    "gp": 1,
+    "id": "G174",
+    "kind": "group",
+    "name": "工人互助基金",
+    "p": 2,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "银行",
+      "共产"
+    ]
+  },
+  "G175": {
+    "align": [
+      "政府",
+      "保守"
+    ],
+    "category": "地点",
+    "effect": "发射补给：自动接管太空团体到该团体直属空槽后，抽1张资源。",
+    "en": "Baikonur Cosmodrome",
+    "gp": 1,
+    "id": "G175",
+    "kind": "group",
+    "name": "拜科努尔发射场",
+    "p": 4,
+    "r": 6,
+    "slots": 2,
+    "tags": [
+      "太空",
+      "地点",
+      "科学"
+    ]
+  },
+  "G176": {
+    "align": [
+      "自由",
+      "狂热"
+    ],
+    "category": "组织",
+    "effect": "生态穹顶：该团体的直属太空下属获得绿色标签。",
+    "en": "Mars Terraforming Society",
+    "gp": 0,
+    "id": "G176",
+    "kind": "group",
+    "name": "火星改造协会",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "太空",
+      "科学",
+      "绿色"
+    ]
+  },
+  "G177": {
+    "align": [
+      "正统",
+      "和平"
+    ],
+    "category": "组织",
+    "effect": "轨道修正：该团体支援的普通战斗结束后，可将自己整支移至己方另一合法空槽；每回合1次。",
+    "en": "Orbital Tug Fleet",
+    "gp": 1,
+    "id": "G177",
+    "kind": "group",
+    "name": "轨道拖船队",
+    "p": 3,
+    "r": 4,
+    "slots": 1,
+    "tags": [
+      "太空"
+    ]
+  },
+  "G178": {
+    "align": [
+      "保守",
+      "狂热"
+    ],
+    "category": "地点",
+    "effect": "救生预案：己方未受灾的太空地点将被灾难摧毁时，改为受灾；每回合1次。",
+    "en": "Orbital Ark",
+    "gp": 0,
+    "id": "G178",
+    "kind": "group",
+    "name": "轨道方舟",
+    "p": 4,
+    "r": 6,
+    "slots": 2,
+    "tags": [
+      "地点",
+      "太空"
+    ]
+  },
+  "G179": {
+    "align": [
+      "犯罪",
+      "怪异"
+    ],
+    "category": "组织",
+    "effect": "残骸打捞（主动）：从团体弃牌堆取1张太空团体入手。",
+    "en": "Deep-Space Salvagers",
+    "gp": 0,
+    "id": "G179",
+    "kind": "group",
+    "name": "深空打捞团",
+    "p": 4,
+    "r": 4,
+    "slots": 1,
+    "tags": [
+      "太空"
+    ]
+  },
+  "G180": {
+    "align": [
+      "保守",
+      "和平"
+    ],
+    "category": "组织",
+    "effect": "保障供应：己方有2张在场资源时，该团体P+2、R+2。",
+    "en": "Community Supply Cooperative",
+    "gp": 0,
+    "id": "G180",
+    "kind": "group",
+    "name": "社区供销社",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "共产",
+      "绿色"
+    ]
+  },
+  "G181": {
+    "align": [
+      "狂热",
+      "正统"
+    ],
+    "category": "地点",
+    "effect": "文化动员：该团体支援普通战斗时，每个直属共产下属使支援力量+1，最多+2。",
+    "en": "Workers' Cultural Palace",
+    "gp": 1,
+    "id": "G181",
+    "kind": "group",
+    "name": "工人文化宫",
+    "p": 3,
+    "r": 5,
+    "slots": 3,
+    "tags": [
+      "共产",
+      "媒体",
+      "地点"
+    ]
+  },
+  "G182": {
+    "align": [
+      "自由",
+      "狂热"
+    ],
+    "category": "组织",
+    "effect": "思想动员（主动）：弃1张阴谋，令场上1个非共产团体本回合获得共产标签。",
+    "en": "Red Reading Circle",
+    "gp": 0,
+    "id": "G182",
+    "kind": "group",
+    "name": "红色读书会",
+    "p": 2,
+    "r": 4,
+    "slots": 2,
+    "tags": [
+      "共产",
+      "媒体"
+    ]
+  },
+  "G183": {
+    "align": [
+      "正统",
+      "暴力"
+    ],
+    "category": "组织",
+    "effect": "换岗：己方主要阶段每回合1次，花1个直属共产下属1行动，恢复1个不同的己方共产团体1行动。",
+    "en": "Workers' Picket Guard",
+    "gp": 0,
+    "id": "G183",
+    "kind": "group",
+    "name": "工人纠察队",
+    "p": 4,
+    "r": 4,
+    "slots": 1,
+    "tags": [
+      "共产",
+      "军队"
+    ]
+  },
+  "G184": {
+    "align": [
+      "犯罪",
+      "保守"
+    ],
+    "category": "组织",
+    "effect": "销赃（主动）：报废1张己方在场资源，抽2张团体和1张阴谋。",
+    "en": "Black-Market Pawnbrokers",
+    "gp": 1,
+    "id": "G184",
+    "kind": "group",
+    "name": "黑市典当行",
+    "p": 3,
+    "r": 4,
+    "slots": 1,
+    "tags": [
+      "银行"
+    ]
+  },
+  "G185": {
+    "align": [
+      "犯罪",
+      "狂热",
+      "暴力"
+    ],
+    "category": "组织",
+    "effect": "看台动员：你有至少3张团体手牌时，该团体支援普通战斗的力量+2。",
+    "en": "Football Hooligans",
+    "gp": 0,
+    "id": "G185",
+    "kind": "group",
+    "name": "足球流氓",
+    "p": 3,
+    "r": 4,
+    "slots": 1,
+    "tags": []
+  },
+  "G186": {
+    "align": [
+      "保守",
+      "狂热"
+    ],
+    "category": "组织",
+    "effect": "末日布道：该团体支援狂热目标抵御普通攻击时，可用P。",
+    "en": "Doomsday Livestream Cult",
+    "gp": 1,
+    "id": "G186",
+    "kind": "group",
+    "name": "末日直播教团",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "媒体"
+    ]
+  },
+  "G187": {
+    "align": [
+      "犯罪",
+      "自由"
+    ],
+    "category": "组织",
+    "effect": "撤线换人（主动）：将1个直属下属整支收回手牌，抽2张团体。",
+    "en": "Border Smuggling Network",
+    "gp": 1,
+    "id": "G187",
+    "kind": "group",
+    "name": "边境走私网",
+    "p": 3,
+    "r": 4,
+    "slots": 2,
+    "tags": []
+  },
+  "G188": {
+    "align": [
+      "保守",
+      "正统"
+    ],
+    "category": "组织",
+    "effect": "政策储备：己方回合结束时，若该团体仍有行动标记，查看团体堆顶5张，可取1张保守团体，其余原序沉底。",
+    "en": "Conservative Think Tank",
+    "gp": 1,
+    "id": "G188",
+    "kind": "group",
+    "name": "保守派智库",
+    "p": 2,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "媒体"
+    ]
+  },
+  "G189": {
+    "align": [
+      "保守",
+      "和平"
+    ],
+    "category": "组织",
+    "effect": "护山剑阵：该团体支援直属下属抵御普通攻击时，可不花行动；每回合1次，仍须有行动标记。",
+    "en": "Kunlun Immortals",
+    "gp": 1,
+    "id": "G189",
+    "kind": "group",
+    "name": "昆仑仙门",
+    "p": 5,
+    "r": 6,
+    "slots": 2,
+    "tags": [
+      "魔法"
+    ]
+  },
+  "G190": {
+    "align": [
+      "犯罪",
+      "狂热"
+    ],
+    "category": "组织",
+    "effect": "收魂：该团体带头摧毁敌方团体后，可弃1张阴谋，将被摧毁的目标加入己方团体手牌；每回合1次。",
+    "en": "Obsidian Covenant",
+    "gp": 1,
+    "id": "G190",
+    "kind": "group",
+    "name": "黑曜石秘仪会",
+    "p": 5,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "魔法"
+    ]
+  },
+  "G191": {
+    "align": [
+      "自由",
+      "狂热"
+    ],
+    "category": "人物",
+    "effect": "气候动员：己方回合首次有非绿色的狂热团体从你的手牌进场后，令其在场期间获得绿色标签。",
+    "en": "Greta Thunberg",
+    "gp": 1,
+    "id": "G191",
+    "kind": "group",
+    "name": "格蕾塔·通贝里",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "名人",
+      "绿色"
+    ]
+  },
+  "G192": {
+    "align": [
+      "犯罪",
+      "怪异"
+    ],
+    "category": "人物",
+    "effect": "财务迷雾：该团体带头普通控制攻击时，可弃1张阴谋，使目标本次不能自卫。",
+    "en": "Sam Bankman-Fried",
+    "gp": 1,
+    "id": "G192",
+    "kind": "group",
+    "name": "SBF",
+    "p": 4,
+    "r": 4,
+    "slots": 2,
+    "tags": [
+      "名人",
+      "银行"
+    ]
+  },
+  "G193": {
+    "align": [
+      "政府",
+      "保守"
+    ],
+    "category": "人物",
+    "effect": "私有化（主动）：令1个己方共产团体失去政府阵营与共产标签，获得企业阵营；在场期间保留。",
+    "en": "Javier Milei",
+    "gp": 1,
+    "id": "G193",
+    "kind": "group",
+    "name": "哈维尔·米莱",
+    "p": 4,
+    "r": 6,
+    "slots": 2,
+    "tags": [
+      "名人"
+    ]
+  },
+  "G194": {
+    "align": [
+      "怪异",
+      "和平"
+    ],
+    "category": "人物",
+    "effect": "大变活人：该团体遭普通攻击、尚未响应时，可花自身1行动，将自己整支回手，取消本次攻击。",
+    "en": "David Copperfield",
+    "gp": 1,
+    "id": "G194",
+    "kind": "group",
+    "name": "大卫·科波菲尔",
+    "p": 3,
+    "r": 5,
+    "slots": 1,
+    "tags": [
+      "名人",
+      "魔法",
+      "媒体"
+    ]
+  },
+  "G195": {
+    "align": [
+      "企业",
+      "正统"
+    ],
+    "category": "人物",
+    "effect": "长期投资：己方回合结束时，若有直属银行下属仍有行动标记，抽1张团体和1张阴谋。",
+    "en": "Warren Buffett",
+    "gp": 2,
+    "id": "G195",
+    "kind": "group",
+    "name": "沃伦·巴菲特",
+    "p": 3,
+    "r": 5,
+    "slots": 2,
+    "tags": [
+      "名人",
+      "银行"
+    ]
+  },
   "I01": {
     "align": [],
     "category": "光明会",
@@ -4972,5 +5587,85 @@
     "slots": 0,
     "tags": [],
     "target": "对手的阴谋手牌。"
+  },
+  "P71": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，再弃1张阴谋手牌，花1个己方团体1行动。",
+    "effect": "指定1种阵营，从团体堆随机抽出3张该阵营团体，选1张入手，其余洗回。",
+    "en": "Targeted Recruitment",
+    "gp": 0,
+    "id": "P71",
+    "kind": "plot",
+    "name": "定向招募",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "团体牌堆"
+  },
+  "P72": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花1个己方银行或犯罪团体1行动。",
+    "effect": "将目标整支移至敌方另一个上级的合法空槽，由你选择。",
+    "en": "Forced Divestiture",
+    "gp": 0,
+    "id": "P72",
+    "kind": "plot",
+    "name": "资产剥离",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "敌方1个银行团体的直属下属"
+  },
+  "P73": {
+    "align": [],
+    "category": "己方主要阶段·世界秩序",
+    "cost": "置入公共秩序槽。",
+    "effect": "双方各自抽牌阶段结束时，若控制至少3个保守或狂热团体，额外抽1张团体。",
+    "en": "NWO: A New Age of Associations",
+    "gp": 0,
+    "id": "P73",
+    "kind": "plot",
+    "name": "新世界秩序：结社热潮",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "全场"
+  },
+  "P74": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花该魔法团体1行动。",
+    "effect": "公开团体堆顶5张，可自动接管其中1张印刷P≤3的团体到施术者空槽，其余洗回；免主牌行动。",
+    "en": "Summoning Circle",
+    "gp": 0,
+    "id": "P74",
+    "kind": "plot",
+    "name": "召集法阵",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "己方1个有空槽的魔法团体"
+  },
+  "P75": {
+    "align": [],
+    "category": "己方主要阶段",
+    "cost": "弃本牌，花1个己方犯罪团体1行动。",
+    "effect": "秘密查看对手团体手牌，选1张加入你的团体手牌。",
+    "en": "Covert Poaching",
+    "gp": 0,
+    "id": "P75",
+    "kind": "plot",
+    "name": "暗中挖角",
+    "p": 0,
+    "r": 0,
+    "slots": 0,
+    "tags": [],
+    "target": "对手团体手牌"
   }
 }

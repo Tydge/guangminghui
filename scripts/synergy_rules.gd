@@ -126,7 +126,7 @@ func augment_actions(p: int,out: Array) -> Array:
 	return out
 
 func no_self_defense(b: Dictionary) -> bool:
-	return normal(b) and b.mode=="control" and b.src=="G126" and ready("G126") and g.has(b.target,"企业")
+	return normal(b) and b.mode=="control" and (b.get("self_lock",false) or (b.src=="G126" and ready("G126") and g.has(b.target,"企业")))
 
 func support_override(id: String,b: Dictionary,base: int,basis: String,reason: String) -> Dictionary:
 	if not normal(b):return {"base":base,"basis":basis,"reason":reason}

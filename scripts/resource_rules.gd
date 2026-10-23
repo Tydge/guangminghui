@@ -262,6 +262,8 @@ func reader(id: String) -> String:
 	if id=="E13" and g.used.has("e_museum:%d"%g.owner(id)):text+="\n本回合抽牌次数已用"
 	if id=="E20" and g.used.has("community_solar"):text+="\n本回合抽牌次数已用"
 	if id=="E16" and can_evacuate(g.owner(id)):text+="\n紧急转移 · 可在本次防守响应时使用"
+	var extra=g.association.reader(id)
+	if not extra.is_empty():text+="\n"+"\n".join(extra)
 	return text
 
 func deploy(p: int,a: Dictionary) -> void:

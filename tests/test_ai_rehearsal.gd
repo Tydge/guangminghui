@@ -2,7 +2,7 @@ extends "res://tests/test_contemporary.gd"
 func state_key(g: GameState) -> String:
 	var state={}
 	for property in g.get_property_list():
-		if property.usage&PROPERTY_USAGE_SCRIPT_VARIABLE and property.name not in ["rng","wave","synergy","renewal","resources","contemporary","covenant"]:state[property.name]=g.get(property.name)
+		if property.usage&PROPERTY_USAGE_SCRIPT_VARIABLE and property.name not in ["rng","wave","synergy","renewal","resources","contemporary","covenant","association"]:state[property.name]=g.get(property.name)
 	state.rng=g.rng.state
 	for key in ["plans","announced","queue","response_queue"]:state["wave_"+key]=g.wave.get(key)
 	return JSON.stringify(state)

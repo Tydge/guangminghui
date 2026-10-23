@@ -1842,7 +1842,162 @@
     "请求中…": "Sending…",
     "等待确认": "Waiting",
     "接受邀请": "Accept",
-    "等待对手确认": "Waiting for your opponent."
+    "等待对手确认": "Waiting for your opponent.",
+    "地下钱庄": "Underground Remittance Network",
+    "黑账人脉（主动）：公开团体堆顶4张，可取1张犯罪或银行团体，其余洗回。": "Off-Book Contacts (Action): Reveal the top 4 Groups. You may take 1 Criminal or Bank Group into hand; shuffle the rest back.",
+    "邮储银行": "Postal Savings Bank",
+    "稳健储蓄：该团体有行动标记时，其直属下属R+2。": "Prudent Savings: While this Group has an action token, its direct subordinates have +2 R.",
+    "国有开发银行": "Public Development Bank",
+    "项目融资：部署设施资源时，可花该团体1行动代替主牌行动。": "Project Financing: When deploying a Facility, you may spend this Group's action instead of your Illuminati's.",
+    "工人互助基金": "Workers' Mutual Fund",
+    "互助征集：己方回合，首次有其他共产团体从你的手牌进场后，可弃1张团体手牌，抽2张团体。": "Mutual Recruitment: On your turn, after another Communist Group first enters from your hand, you may discard 1 Group to draw 2 Groups.",
+    "拜科努尔发射场": "Baikonur Cosmodrome",
+    "发射补给：自动接管太空团体到该团体直属空槽后，抽1张资源。": "Launch Supplies: After an automatic takeover places a Space Group directly under this Group, draw 1 Resource.",
+    "火星改造协会": "Mars Terraforming Society",
+    "生态穹顶：该团体的直属太空下属获得绿色标签。": "Ecological Domes: This Group's direct Space subordinates gain Green.",
+    "轨道拖船队": "Orbital Tug Fleet",
+    "轨道修正：该团体支援的普通战斗结束后，可将自己整支移至己方另一合法空槽；每回合1次。": "Orbital Correction: After a normal battle this Group supported, you may move its branch to another legal slot you control; once per turn.",
+    "轨道方舟": "Orbital Ark",
+    "救生预案：己方未受灾的太空地点将被灾难摧毁时，改为受灾；每回合1次。": "Lifeboat Protocol: Once per turn, when a Disaster would destroy an undevastated Space Place you control, devastate it instead.",
+    "深空打捞团": "Deep-Space Salvagers",
+    "残骸打捞（主动）：从团体弃牌堆取1张太空团体入手。": "Wreckage Salvage (Action): Take 1 Space Group from the Group discard pile into hand.",
+    "社区供销社": "Community Supply Cooperative",
+    "保障供应：己方有2张在场资源时，该团体P+2、R+2。": "Reliable Supply: While you have 2 Resources in play, this Group has +2 P and +2 R.",
+    "工人文化宫": "Workers' Cultural Palace",
+    "文化动员：该团体支援普通战斗时，每个直属共产下属使支援力量+1，最多+2。": "Cultural Mobilization: In normal battles, this Group gains +1 support strength per direct Communist subordinate, up to +2.",
+    "红色读书会": "Red Reading Circle",
+    "思想动员（主动）：弃1张阴谋，令场上1个非共产团体本回合获得共产标签。": "Political Study (Action): Discard 1 Plot to give any non-Communist Group Communist until turn end.",
+    "工人纠察队": "Workers' Picket Guard",
+    "换岗：己方主要阶段每回合1次，花1个直属共产下属1行动，恢复1个不同的己方共产团体1行动。": "Changing the Guard: Once during your main phase, spend 1 action of a direct Communist subordinate to restore 1 action to a different Communist Group you control.",
+    "黑市典当行": "Black-Market Pawnbrokers",
+    "销赃（主动）：报废1张己方在场资源，抽2张团体和1张阴谋。": "Fencing Goods (Action): Scrap 1 Resource you control to draw 2 Groups and 1 Plot.",
+    "足球流氓": "Football Hooligans",
+    "看台动员：你有至少3张团体手牌时，该团体支援普通战斗的力量+2。": "Terrace Mobilization: With at least 3 Groups in your hand, this Group has +2 support strength in normal battles.",
+    "末日直播教团": "Doomsday Livestream Cult",
+    "末日布道：该团体支援狂热目标抵御普通攻击时，可用P。": "Doomsday Preaching: This Group may use P when supporting a Fanatic target against a normal attack.",
+    "边境走私网": "Border Smuggling Network",
+    "撤线换人（主动）：将1个直属下属整支收回手牌，抽2张团体。": "Pull the Network (Action): Return 1 direct subordinate's branch to hand, then draw 2 Groups.",
+    "保守派智库": "Conservative Think Tank",
+    "政策储备：己方回合结束时，若该团体仍有行动标记，查看团体堆顶5张，可取1张保守团体，其余原序沉底。": "Policy Reserve: At your turn end, if this Group still has an action token, look at the top 5 Groups. You may take 1 Conservative Group; put the rest on the bottom in order.",
+    "昆仑仙门": "Kunlun Immortals",
+    "护山剑阵：该团体支援直属下属抵御普通攻击时，可不花行动；每回合1次，仍须有行动标记。": "Mountain Ward: Once per turn, this Group may support a direct subordinate against a normal attack without spending an action; it must still have an action token.",
+    "黑曜石秘仪会": "Obsidian Covenant",
+    "收魂：该团体带头摧毁敌方团体后，可弃1张阴谋，将被摧毁的目标加入己方团体手牌；每回合1次。": "Soul Harvest: After this Group leads the destruction of an enemy Group, you may discard 1 Plot to take the destroyed target into hand; once per turn.",
+    "格蕾塔·通贝里": "Greta Thunberg",
+    "气候动员：己方回合首次有非绿色的狂热团体从你的手牌进场后，令其在场期间获得绿色标签。": "Climate Mobilization: On your turn, after a non-Green Fanatic Group first enters from your hand, it gains Green while in play.",
+    "SBF": "Sam Bankman-Fried",
+    "财务迷雾：该团体带头普通控制攻击时，可弃1张阴谋，使目标本次不能自卫。": "Financial Fog: When this Group leads a normal control attack, you may discard 1 Plot to prevent the target from self-defending this battle.",
+    "哈维尔·米莱": "Javier Milei",
+    "私有化（主动）：令1个己方共产团体失去政府阵营与共产标签，获得企业阵营；在场期间保留。": "Privatization (Action): A Communist Group you control loses Government and Communist, and gains Corporate while in play.",
+    "大卫·科波菲尔": "David Copperfield",
+    "大变活人：该团体遭普通攻击、尚未响应时，可花自身1行动，将自己整支回手，取消本次攻击。": "Vanishing Act: When normally attacked, before any response, this Group may spend its action to return its branch to hand and cancel the attack.",
+    "沃伦·巴菲特": "Warren Buffett",
+    "长期投资：己方回合结束时，若有直属银行下属仍有行动标记，抽1张团体和1张阴谋。": "Long-Term Investment: At your turn end, if any direct Bank subordinate still has an action token, draw 1 Group and 1 Plot.",
+    "招募情报站": "Recruitment Intelligence Office",
+    "己方抽牌阶段结束时，公开团体堆顶3张；可弃1张团体手牌，取其中1张，其余原序沉底。": "After your draw phase, reveal the top 3 Groups. You may discard 1 Group to take 1 revealed card; put the rest on the bottom in order.",
+    "深空中继信标": "Deep-Space Relay Beacon",
+    "己方主要阶段，报废本资源，从团体堆随机抽出3张太空团体，选1张入手，其余洗回。": "During your main phase, scrap this Resource. Randomly find 3 Space Groups in the Group deck; take 1 into hand and shuffle the rest back.",
+    "双重授权终端": "Dual-Authorization Terminal",
+    "己方银行团体的直属上级有行动标记时，该银行团体的忠诚防御+4。": "Your Bank Groups have +4 loyalty defense while their direct master has an action token.",
+    "工运档案馆": "Labor Movement Archive",
+    "己方主要阶段，花本资源1行动，弃1张阴谋，从团体弃牌堆取1张共产团体。": "During your main phase, spend this Resource's action and discard 1 Plot to take 1 Communist Group from the Group discard pile.",
+    "宗族会馆": "Ancestral Guildhall",
+    "己方回合首次将己方团体整支移动到保守上级的直属空槽后，从团体堆随机取1张保守团体入手，然后洗牌。": "Once on your turn, after you move a Group's branch to a direct slot under a Conservative master you control, randomly take 1 Conservative Group from the Group deck, then shuffle.",
+    "阿卡西书页": "Akashic Page",
+    "己方主要阶段，报废本资源，指定1种阵营或团体标签，查看团体堆顶10张，可取至多2张符合的团体，其余洗回。": "During your main phase, scrap this Resource and name an alignment or Group tag. Look at the top 10 Groups; take up to 2 matches into hand and shuffle the rest back.",
+    "星门钥匙": "Stargate Key",
+    "己方主要阶段，报废本资源，将1个己方魔法或太空团体整支移至己方主牌的合法空槽，再从团体堆随机取1张魔法或太空团体入手，然后洗牌。": "During your main phase, scrap this Resource to move 1 Magic or Space Group you control and its branch to a legal slot under your Illuminati. Then randomly take 1 Magic or Space Group from the Group deck and shuffle.",
+    "定向招募": "Targeted Recruitment",
+    "指定1种阵营，从团体堆随机抽出3张该阵营团体，选1张入手，其余洗回。": "Name an alignment. Randomly find 3 matching Groups in the Group deck; take 1 into hand and shuffle the rest back.",
+    "团体牌堆": "Group deck",
+    "弃本牌，再弃1张阴谋手牌，花1个己方团体1行动。": "Discard this Plot and 1 additional Plot; spend 1 action of a Group you control.",
+    "资产剥离": "Forced Divestiture",
+    "将目标整支移至敌方另一个上级的合法空槽，由你选择。": "Move the target's branch to a legal slot under another enemy master of your choice.",
+    "敌方1个银行团体的直属下属": "A direct subordinate of an enemy Bank Group",
+    "弃本牌，花1个己方银行或犯罪团体1行动。": "Discard this Plot; spend 1 action of a Bank or Criminal Group you control.",
+    "新世界秩序：结社热潮": "NWO: A New Age of Associations",
+    "双方各自抽牌阶段结束时，若控制至少3个保守或狂热团体，额外抽1张团体。": "After each player's draw phase, if they control at least 3 Conservative or Fanatic Groups, they draw 1 extra Group.",
+    "全场": "Global",
+    "召集法阵": "Summoning Circle",
+    "公开团体堆顶5张，可自动接管其中1张印刷P≤3的团体到施术者空槽，其余洗回；免主牌行动。": "Reveal the top 5 Groups. You may automatically take over 1 with printed P 3 or less into the caster's slot; shuffle the rest back. No Illuminati action required.",
+    "己方1个有空槽的魔法团体": "A Magic Group you control with an open slot",
+    "弃本牌，花该魔法团体1行动。": "Discard this Plot; spend the caster's action.",
+    "暗中挖角": "Covert Poaching",
+    "秘密查看对手团体手牌，选1张加入你的团体手牌。": "Secretly look at the opponent's Group hand and take 1 card into your Group hand.",
+    "对手团体手牌": "Opponent's Group hand",
+    "弃本牌，花1个己方犯罪团体1行动。": "Discard this Plot; spend 1 action of a Criminal Group you control.",
+    "人物": "Personality",
+    "末日布道": "Doomsday Preaching",
+    "思想动员 → ": "Political Study → ",
+    "换岗 → ": "Changing the Guard → ",
+    " · 财务迷雾": " · Financial Fog",
+    "项目融资 · ": "Project Financing · ",
+    "移至 · ": "Move to · ",
+    " · 护山剑阵免行动": " · Mountain Ward: no action",
+    "大变活人 · 整支回手，取消攻击": "Vanishing Act · Return branch; cancel attack",
+    "财务迷雾 · 目标不能自卫": "Financial Fog · Target cannot self-defend",
+    "暗中挖角 · 选择1张团体": "Covert Poaching · Take 1 Group",
+    "招募情报站 · 可弃1张团体换取候选": "Recruitment Intelligence · You may discard 1 Group for a candidate",
+    " · 选择团体": " · Choose a Group",
+    "招募情报站 · 选择1张团体": "Recruitment Intelligence · Take 1 Group",
+    "互助征集 · 可弃1张团体，抽2张团体": "Mutual Recruitment · You may discard 1 Group to draw 2 Groups",
+    "轨道修正 · 可选择新上级": "Orbital Correction · You may choose a new master",
+    "收魂 · 可弃1张阴谋，取得摧毁目标": "Soul Harvest · You may discard 1 Plot to take the destroyed target",
+    "大变活人 · 取消攻击": "Vanishing Act · Attack cancelled",
+    "临时共产 · 回合结束消失": "Temporary Communist · Expires at turn end",
+    "私有化 · 移除政府与共产，获得企业": "Privatized · Loses Government/Communist; gains Corporate",
+    "生态穹顶 · 获得绿色": "Ecological Domes · Gains Green",
+    "双重授权 · 忠诚防御+4": "Dual Authorization · +4 loyalty defense",
+    "本回合能力次数已用": "Ability already used this turn",
+    "选择控制方式": "Choose control method",
+    "选择支援费用": "Choose support cost",
+    "选择招募阵营": "Choose recruitment alignment",
+    "选择寻找的阵营或标签": "Choose an alignment or tag to find",
+    "项目融资 · 花国有开发银行1行动": "Project Financing · Spend Development Bank's action",
+    "普通部署费用": "Standard deployment cost",
+    "财务迷雾 · 弃1张阴谋，禁止目标自卫": "Financial Fog · Discard 1 Plot; deny target self-defense",
+    "普通控制 · 目标可自卫": "Normal control · Target may self-defend",
+    "护山剑阵 · ": "Mountain Ward · ",
+    " · 免行动（每回合1次）": " · No action (once per turn)",
+    " · 花1行动": " · Spend 1 action",
+    " · 可免行动": " · May waive action cost",
+    "护山剑阵 · 免行动": "Mountain Ward · No action",
+    "公开候选 · 对手正在选择": "Revealed candidates · Opponent choosing",
+    "不符合条件 · 放回": "Not eligible · Return",
+    "稳健储蓄 · R+2": "Prudent Savings · +2 R",
+    "保障供应 · P+2、R+2": "Reliable Supply · +2 P, +2 R",
+    "找牌：按印刷属性筛选。公开双方可见；查看仅操作者可见。\n随机找牌从指定牌堆符合者中取候选；未找到不退费。原序沉底保留顺序。\n免费支援仍算已加入，但不算支付行动参战。": "Searches use printed traits. Reveals are public; private looks are shown only to the acting player.\nRandom searches sample matching cards from the specified deck. No match does not refund costs. Bottom in order preserves their relative order.\nFree support still joins the battle, but does not count as spending an action to participate.",
+    "黑账人脉（主动）": "Off-Book Contacts (Action)",
+    "黑账人脉": "Off-Book Contacts",
+    "稳健储蓄": "Prudent Savings",
+    "项目融资": "Project Financing",
+    "互助征集": "Mutual Recruitment",
+    "发射补给": "Launch Supplies",
+    "生态穹顶": "Ecological Domes",
+    "轨道修正": "Orbital Correction",
+    "救生预案": "Lifeboat Protocol",
+    "残骸打捞（主动）": "Wreckage Salvage (Action)",
+    "残骸打捞": "Wreckage Salvage",
+    "保障供应": "Reliable Supply",
+    "文化动员": "Cultural Mobilization",
+    "思想动员（主动）": "Political Study (Action)",
+    "思想动员": "Political Study",
+    "换岗": "Changing the Guard",
+    "销赃（主动）": "Fencing Goods (Action)",
+    "销赃": "Fencing Goods",
+    "看台动员": "Terrace Mobilization",
+    "撤线换人（主动）": "Pull the Network (Action)",
+    "撤线换人": "Pull the Network",
+    "政策储备": "Policy Reserve",
+    "护山剑阵": "Mountain Ward",
+    "收魂": "Soul Harvest",
+    "气候动员": "Climate Mobilization",
+    "财务迷雾": "Financial Fog",
+    "私有化（主动）": "Privatization (Action)",
+    "私有化": "Privatization",
+    "大变活人": "Vanishing Act",
+    "长期投资": "Long-Term Investment",
+    "结社热潮": "A New Age of Associations"
   },
   "templates": [
     {
@@ -2655,6 +2810,11 @@
       "source": "支援 +%d（%s）",
       "pattern": "^支援 \\+(\\d+)（(.+?)）$",
       "text": "Support +{0} ({1})"
+    },
+    {
+      "source": "财务迷雾 · 弃「%s」。\n",
+      "pattern": "^财务迷雾 · 弃「(.+)」。\\n$",
+      "text": "Financial Fog · Discard {0}.\n"
     }
   ],
   "cards": {
@@ -3646,6 +3806,127 @@
     },
     "E23": {
       "effect": "During your normal Control attack, scrap this Resource to ignore the target’s loyalty defense this battle."
+    },
+    "G171": {
+      "effect": "Off-Book Contacts (Action): Reveal the top 4 Groups. You may take 1 Criminal or Bank Group into hand; shuffle the rest back."
+    },
+    "G172": {
+      "effect": "Prudent Savings: While this Group has an action token, its direct subordinates have +2 R."
+    },
+    "G173": {
+      "effect": "Project Financing: When deploying a Facility, you may spend this Group's action instead of your Illuminati's."
+    },
+    "G174": {
+      "effect": "Mutual Recruitment: On your turn, after another Communist Group first enters from your hand, you may discard 1 Group to draw 2 Groups."
+    },
+    "G175": {
+      "effect": "Launch Supplies: After an automatic takeover places a Space Group directly under this Group, draw 1 Resource."
+    },
+    "G176": {
+      "effect": "Ecological Domes: This Group's direct Space subordinates gain Green."
+    },
+    "G177": {
+      "effect": "Orbital Correction: After a normal battle this Group supported, you may move its branch to another legal slot you control; once per turn."
+    },
+    "G178": {
+      "effect": "Lifeboat Protocol: Once per turn, when a Disaster would destroy an undevastated Space Place you control, devastate it instead."
+    },
+    "G179": {
+      "effect": "Wreckage Salvage (Action): Take 1 Space Group from the Group discard pile into hand."
+    },
+    "G180": {
+      "effect": "Reliable Supply: While you have 2 Resources in play, this Group has +2 P and +2 R."
+    },
+    "G181": {
+      "effect": "Cultural Mobilization: In normal battles, this Group gains +1 support strength per direct Communist subordinate, up to +2."
+    },
+    "G182": {
+      "effect": "Political Study (Action): Discard 1 Plot to give any non-Communist Group Communist until turn end."
+    },
+    "G183": {
+      "effect": "Changing the Guard: Once during your main phase, spend 1 action of a direct Communist subordinate to restore 1 action to a different Communist Group you control."
+    },
+    "G184": {
+      "effect": "Fencing Goods (Action): Scrap 1 Resource you control to draw 2 Groups and 1 Plot."
+    },
+    "G185": {
+      "effect": "Terrace Mobilization: With at least 3 Groups in your hand, this Group has +2 support strength in normal battles."
+    },
+    "G186": {
+      "effect": "Doomsday Preaching: This Group may use P when supporting a Fanatic target against a normal attack."
+    },
+    "G187": {
+      "effect": "Pull the Network (Action): Return 1 direct subordinate's branch to hand, then draw 2 Groups."
+    },
+    "G188": {
+      "effect": "Policy Reserve: At your turn end, if this Group still has an action token, look at the top 5 Groups. You may take 1 Conservative Group; put the rest on the bottom in order."
+    },
+    "G189": {
+      "effect": "Mountain Ward: Once per turn, this Group may support a direct subordinate against a normal attack without spending an action; it must still have an action token."
+    },
+    "G190": {
+      "effect": "Soul Harvest: After this Group leads the destruction of an enemy Group, you may discard 1 Plot to take the destroyed target into hand; once per turn."
+    },
+    "G191": {
+      "effect": "Climate Mobilization: On your turn, after a non-Green Fanatic Group first enters from your hand, it gains Green while in play."
+    },
+    "G192": {
+      "effect": "Financial Fog: When this Group leads a normal control attack, you may discard 1 Plot to prevent the target from self-defending this battle."
+    },
+    "G193": {
+      "effect": "Privatization (Action): A Communist Group you control loses Government and Communist, and gains Corporate while in play."
+    },
+    "G194": {
+      "effect": "Vanishing Act: When normally attacked, before any response, this Group may spend its action to return its branch to hand and cancel the attack."
+    },
+    "G195": {
+      "effect": "Long-Term Investment: At your turn end, if any direct Bank subordinate still has an action token, draw 1 Group and 1 Plot."
+    },
+    "E24": {
+      "effect": "After your draw phase, reveal the top 3 Groups. You may discard 1 Group to take 1 revealed card; put the rest on the bottom in order."
+    },
+    "E25": {
+      "effect": "During your main phase, scrap this Resource. Randomly find 3 Space Groups in the Group deck; take 1 into hand and shuffle the rest back."
+    },
+    "E26": {
+      "effect": "Your Bank Groups have +4 loyalty defense while their direct master has an action token."
+    },
+    "E27": {
+      "effect": "During your main phase, spend this Resource's action and discard 1 Plot to take 1 Communist Group from the Group discard pile."
+    },
+    "E28": {
+      "effect": "Once on your turn, after you move a Group's branch to a direct slot under a Conservative master you control, randomly take 1 Conservative Group from the Group deck, then shuffle."
+    },
+    "E29": {
+      "effect": "During your main phase, scrap this Resource and name an alignment or Group tag. Look at the top 10 Groups; take up to 2 matches into hand and shuffle the rest back."
+    },
+    "E30": {
+      "effect": "During your main phase, scrap this Resource to move 1 Magic or Space Group you control and its branch to a legal slot under your Illuminati. Then randomly take 1 Magic or Space Group from the Group deck and shuffle."
+    },
+    "P71": {
+      "effect": "Name an alignment. Randomly find 3 matching Groups in the Group deck; take 1 into hand and shuffle the rest back.",
+      "target": "Group deck",
+      "cost": "Discard this Plot and 1 additional Plot; spend 1 action of a Group you control."
+    },
+    "P72": {
+      "effect": "Move the target's branch to a legal slot under another enemy master of your choice.",
+      "target": "A direct subordinate of an enemy Bank Group",
+      "cost": "Discard this Plot; spend 1 action of a Bank or Criminal Group you control."
+    },
+    "P73": {
+      "effect": "After each player's draw phase, if they control at least 3 Conservative or Fanatic Groups, they draw 1 extra Group.",
+      "target": "Global",
+      "cost": "Place this card in the World Order slot."
+    },
+    "P74": {
+      "effect": "Reveal the top 5 Groups. You may automatically take over 1 with printed P 3 or less into the caster's slot; shuffle the rest back. No Illuminati action required.",
+      "target": "A Magic Group you control with an open slot",
+      "cost": "Discard this Plot; spend the caster's action."
+    },
+    "P75": {
+      "effect": "Secretly look at the opponent's Group hand and take 1 card into your Group hand.",
+      "target": "Opponent's Group hand",
+      "cost": "Discard this Plot; spend 1 action of a Criminal Group you control."
     }
   },
   "sources": {
@@ -5461,6 +5742,238 @@
       "effect": "秘密查看对手随机1张阴谋手牌，将其放到阴谋堆顶或堆底。",
       "target": "对手的阴谋手牌。",
       "cost": "弃本牌。",
+      "category": "己方主要阶段"
+    },
+    "G171": {
+      "name": "地下钱庄",
+      "en": "Underground Remittance Network",
+      "effect": "黑账人脉（主动）：公开团体堆顶4张，可取1张犯罪或银行团体，其余洗回。",
+      "category": "组织"
+    },
+    "G172": {
+      "name": "邮储银行",
+      "en": "Postal Savings Bank",
+      "effect": "稳健储蓄：该团体有行动标记时，其直属下属R+2。",
+      "category": "组织"
+    },
+    "G173": {
+      "name": "国有开发银行",
+      "en": "Public Development Bank",
+      "effect": "项目融资：部署设施资源时，可花该团体1行动代替主牌行动。",
+      "category": "组织"
+    },
+    "G174": {
+      "name": "工人互助基金",
+      "en": "Workers' Mutual Fund",
+      "effect": "互助征集：己方回合，首次有其他共产团体从你的手牌进场后，可弃1张团体手牌，抽2张团体。",
+      "category": "组织"
+    },
+    "G175": {
+      "name": "拜科努尔发射场",
+      "en": "Baikonur Cosmodrome",
+      "effect": "发射补给：自动接管太空团体到该团体直属空槽后，抽1张资源。",
+      "category": "地点"
+    },
+    "G176": {
+      "name": "火星改造协会",
+      "en": "Mars Terraforming Society",
+      "effect": "生态穹顶：该团体的直属太空下属获得绿色标签。",
+      "category": "组织"
+    },
+    "G177": {
+      "name": "轨道拖船队",
+      "en": "Orbital Tug Fleet",
+      "effect": "轨道修正：该团体支援的普通战斗结束后，可将自己整支移至己方另一合法空槽；每回合1次。",
+      "category": "组织"
+    },
+    "G178": {
+      "name": "轨道方舟",
+      "en": "Orbital Ark",
+      "effect": "救生预案：己方未受灾的太空地点将被灾难摧毁时，改为受灾；每回合1次。",
+      "category": "地点"
+    },
+    "G179": {
+      "name": "深空打捞团",
+      "en": "Deep-Space Salvagers",
+      "effect": "残骸打捞（主动）：从团体弃牌堆取1张太空团体入手。",
+      "category": "组织"
+    },
+    "G180": {
+      "name": "社区供销社",
+      "en": "Community Supply Cooperative",
+      "effect": "保障供应：己方有2张在场资源时，该团体P+2、R+2。",
+      "category": "组织"
+    },
+    "G181": {
+      "name": "工人文化宫",
+      "en": "Workers' Cultural Palace",
+      "effect": "文化动员：该团体支援普通战斗时，每个直属共产下属使支援力量+1，最多+2。",
+      "category": "地点"
+    },
+    "G182": {
+      "name": "红色读书会",
+      "en": "Red Reading Circle",
+      "effect": "思想动员（主动）：弃1张阴谋，令场上1个非共产团体本回合获得共产标签。",
+      "category": "组织"
+    },
+    "G183": {
+      "name": "工人纠察队",
+      "en": "Workers' Picket Guard",
+      "effect": "换岗：己方主要阶段每回合1次，花1个直属共产下属1行动，恢复1个不同的己方共产团体1行动。",
+      "category": "组织"
+    },
+    "G184": {
+      "name": "黑市典当行",
+      "en": "Black-Market Pawnbrokers",
+      "effect": "销赃（主动）：报废1张己方在场资源，抽2张团体和1张阴谋。",
+      "category": "组织"
+    },
+    "G185": {
+      "name": "足球流氓",
+      "en": "Football Hooligans",
+      "effect": "看台动员：你有至少3张团体手牌时，该团体支援普通战斗的力量+2。",
+      "category": "组织"
+    },
+    "G186": {
+      "name": "末日直播教团",
+      "en": "Doomsday Livestream Cult",
+      "effect": "末日布道：该团体支援狂热目标抵御普通攻击时，可用P。",
+      "category": "组织"
+    },
+    "G187": {
+      "name": "边境走私网",
+      "en": "Border Smuggling Network",
+      "effect": "撤线换人（主动）：将1个直属下属整支收回手牌，抽2张团体。",
+      "category": "组织"
+    },
+    "G188": {
+      "name": "保守派智库",
+      "en": "Conservative Think Tank",
+      "effect": "政策储备：己方回合结束时，若该团体仍有行动标记，查看团体堆顶5张，可取1张保守团体，其余原序沉底。",
+      "category": "组织"
+    },
+    "G189": {
+      "name": "昆仑仙门",
+      "en": "Kunlun Immortals",
+      "effect": "护山剑阵：该团体支援直属下属抵御普通攻击时，可不花行动；每回合1次，仍须有行动标记。",
+      "category": "组织"
+    },
+    "G190": {
+      "name": "黑曜石秘仪会",
+      "en": "Obsidian Covenant",
+      "effect": "收魂：该团体带头摧毁敌方团体后，可弃1张阴谋，将被摧毁的目标加入己方团体手牌；每回合1次。",
+      "category": "组织"
+    },
+    "G191": {
+      "name": "格蕾塔·通贝里",
+      "en": "Greta Thunberg",
+      "effect": "气候动员：己方回合首次有非绿色的狂热团体从你的手牌进场后，令其在场期间获得绿色标签。",
+      "category": "人物"
+    },
+    "G192": {
+      "name": "SBF",
+      "en": "Sam Bankman-Fried",
+      "effect": "财务迷雾：该团体带头普通控制攻击时，可弃1张阴谋，使目标本次不能自卫。",
+      "category": "人物"
+    },
+    "G193": {
+      "name": "哈维尔·米莱",
+      "en": "Javier Milei",
+      "effect": "私有化（主动）：令1个己方共产团体失去政府阵营与共产标签，获得企业阵营；在场期间保留。",
+      "category": "人物"
+    },
+    "G194": {
+      "name": "大卫·科波菲尔",
+      "en": "David Copperfield",
+      "effect": "大变活人：该团体遭普通攻击、尚未响应时，可花自身1行动，将自己整支回手，取消本次攻击。",
+      "category": "人物"
+    },
+    "G195": {
+      "name": "沃伦·巴菲特",
+      "en": "Warren Buffett",
+      "effect": "长期投资：己方回合结束时，若有直属银行下属仍有行动标记，抽1张团体和1张阴谋。",
+      "category": "人物"
+    },
+    "E24": {
+      "name": "招募情报站",
+      "en": "Recruitment Intelligence Office",
+      "effect": "己方抽牌阶段结束时，公开团体堆顶3张；可弃1张团体手牌，取其中1张，其余原序沉底。",
+      "category": "设施"
+    },
+    "E25": {
+      "name": "深空中继信标",
+      "en": "Deep-Space Relay Beacon",
+      "effect": "己方主要阶段，报废本资源，从团体堆随机抽出3张太空团体，选1张入手，其余洗回。",
+      "category": "装置"
+    },
+    "E26": {
+      "name": "双重授权终端",
+      "en": "Dual-Authorization Terminal",
+      "effect": "己方银行团体的直属上级有行动标记时，该银行团体的忠诚防御+4。",
+      "category": "装置"
+    },
+    "E27": {
+      "name": "工运档案馆",
+      "en": "Labor Movement Archive",
+      "effect": "己方主要阶段，花本资源1行动，弃1张阴谋，从团体弃牌堆取1张共产团体。",
+      "category": "设施"
+    },
+    "E28": {
+      "name": "宗族会馆",
+      "en": "Ancestral Guildhall",
+      "effect": "己方回合首次将己方团体整支移动到保守上级的直属空槽后，从团体堆随机取1张保守团体入手，然后洗牌。",
+      "category": "设施"
+    },
+    "E29": {
+      "name": "阿卡西书页",
+      "en": "Akashic Page",
+      "effect": "己方主要阶段，报废本资源，指定1种阵营或团体标签，查看团体堆顶10张，可取至多2张符合的团体，其余洗回。",
+      "category": "秘宝"
+    },
+    "E30": {
+      "name": "星门钥匙",
+      "en": "Stargate Key",
+      "effect": "己方主要阶段，报废本资源，将1个己方魔法或太空团体整支移至己方主牌的合法空槽，再从团体堆随机取1张魔法或太空团体入手，然后洗牌。",
+      "category": "秘宝"
+    },
+    "P71": {
+      "name": "定向招募",
+      "en": "Targeted Recruitment",
+      "effect": "指定1种阵营，从团体堆随机抽出3张该阵营团体，选1张入手，其余洗回。",
+      "target": "团体牌堆",
+      "cost": "弃本牌，再弃1张阴谋手牌，花1个己方团体1行动。",
+      "category": "己方主要阶段"
+    },
+    "P72": {
+      "name": "资产剥离",
+      "en": "Forced Divestiture",
+      "effect": "将目标整支移至敌方另一个上级的合法空槽，由你选择。",
+      "target": "敌方1个银行团体的直属下属",
+      "cost": "弃本牌，花1个己方银行或犯罪团体1行动。",
+      "category": "己方主要阶段"
+    },
+    "P73": {
+      "name": "新世界秩序：结社热潮",
+      "en": "NWO: A New Age of Associations",
+      "effect": "双方各自抽牌阶段结束时，若控制至少3个保守或狂热团体，额外抽1张团体。",
+      "target": "全场",
+      "cost": "置入公共秩序槽。",
+      "category": "己方主要阶段·世界秩序"
+    },
+    "P74": {
+      "name": "召集法阵",
+      "en": "Summoning Circle",
+      "effect": "公开团体堆顶5张，可自动接管其中1张印刷P≤3的团体到施术者空槽，其余洗回；免主牌行动。",
+      "target": "己方1个有空槽的魔法团体",
+      "cost": "弃本牌，花该魔法团体1行动。",
+      "category": "己方主要阶段"
+    },
+    "P75": {
+      "name": "暗中挖角",
+      "en": "Covert Poaching",
+      "effect": "秘密查看对手团体手牌，选1张加入你的团体手牌。",
+      "target": "对手团体手牌",
+      "cost": "弃本牌，花1个己方犯罪团体1行动。",
       "category": "己方主要阶段"
     }
   }
