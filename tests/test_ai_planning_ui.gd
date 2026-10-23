@@ -30,5 +30,19 @@ func run():
 	while before==JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state]) and Time.get_ticks_msec()<deadline:await process_frame
 	check(before!=JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state]),"A fast pause/resume reschedules a cancelled plan instead of stalling the AI")
 	main._menu();await process_frame;check(main.game==null and not main.ai.planning_active,"New game/menu cancels stale plans")
+	# Battle responses use the same worker/cancellation contract as main actions.
+	main._start_game(181);main.modal_open=true;g=main.game;g.nodes={};g.factions=["I01","I01"];g.phase="main";g.current=0;g.turns=[3,3];g.decks={"group":CardDB.ids("group"),"plot":CardDB.ids("plot"),"resource":CardDB.ids("resource")};g.hands=[{"group":[],"plot":[],"resource":[]},{"group":[],"plot":[],"resource":[]}]
+	for p in [0,1]:g.nodes[g.root(p)]={"card":g.factions[p],"owner":p,"parent":"","token":1,"attached":[]}
+	for row in [["G001",0],["G003",1],["G083",1]]:g.decks.group.erase(row[0]);g._enter(row[0],row[1],g.root(row[1]),1)
+	g._launch_attack(0,{"src":"R0","target":"G003","mode":"control"});main._refresh();main.modal_open=false
+	before=JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state,g.battle]);main._schedule_ai()
+	for i in 100:
+		await process_frame
+		if main.ai.planning_active:break
+	check(main.ai.planning_active and before==JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state,g.battle]),"Battle response planning yields without committing a defense or changing RNG")
+	main._settings();deadline=Time.get_ticks_msec()+3000
+	while main.ai.planning_active and Time.get_ticks_msec()<deadline:await process_frame
+	check(not main.ai.planning_active and before==JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state,g.battle]),"Settings cancel battle planning before any resource, support or counter is paid")
+	main._menu();await process_frame
 	CardDB.finish_art_requests();main.queue_free();await process_frame;await process_frame
 	print("AI PLANNING UI: "+JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

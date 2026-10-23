@@ -1,0 +1,6109 @@
+{
+  "accepted": true,
+  "criterion": {
+    "games": 100,
+    "minimum_wins": 70,
+    "unfinished_count_as_wins": false
+  },
+  "conditions": {
+    "mirror_factions": true,
+    "seed_base": 1001,
+    "max_turns": 45,
+    "max_commands": 1800
+  },
+  "baseline": {
+    "description": "Frozen hard AI before the resource/planning improvements; rules and information permissions are shared with the candidate.",
+    "files": {
+      "ai_agent.gd": {
+        "canonical_lf_sha256": "6c1ed368885439bf45f868291214c8756188c74e6568cbde24be8249303f93a9",
+        "frozen_sha256": "0e3718ea5bd398129d7e5fef4686aa027f156e7e8d3cb5929bc02ff3ad8eeb27",
+        "original_sha256": "1af4c6908a67231ab89daa58df58f86ef979873b82052200ed2dc8ae3a8bb6b4"
+      },
+      "ai_planner.gd": {
+        "canonical_lf_sha256": "025f994bbd48998b4d58210927530f876291bcd0ee9c593ae3e29a6ad0583301",
+        "frozen_sha256": "175b4b2e24003dfdffa1bb0410798d7312e4a6b6fd209fafdc7a1e76e99f418d",
+        "original_sha256": "d710fa6b8612425edc78e4e418bc6ecf05aa69303446ae7e2ce2dfba5d303f10"
+      },
+      "ai_structure.gd": {
+        "canonical_lf_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+        "frozen_sha256": "4f77e78f5a613bda83e02370d0471d18ee3e65720d301cf96f91ee4975078ccc",
+        "original_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199"
+      },
+      "ai_tactics.gd": {
+        "canonical_lf_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1",
+        "frozen_sha256": "231bf0aad9839539d7cec45ead12d38c311a8151559f68ef242464103868782f",
+        "original_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1"
+      }
+    },
+    "revision": "44b22379437902e3c1b7793f3b933126b972ba1c"
+  },
+  "candidate_hashes": {
+    "data/cards.json": "3eb8434c9769aeae87805b7d48c3e5372552eed522a88ebf4c3280eed57a36c0",
+    "scripts/action_flow.gd": "a5b7175cc2b5859795c63313374b43619d50548f00fd7c837dbd3a49e809f5ce",
+    "scripts/ai_agent.gd": "6cf38701cac36345abb49e6da86f48756aaa02d5896160ffb6109d450d70b32d",
+    "scripts/ai_planner.gd": "f17f9b9a071238a0fed1af08ca03a06c13efcf2ac0f1aa32ac3d3bc9e7c27b8b",
+    "scripts/ai_structure.gd": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+    "scripts/ai_tactics.gd": "c585eb9b9830113d4936f38fc37f6aef0e4c50e8779ecfa6b1b601d50f44acd0",
+    "scripts/contemporary_rules.gd": "e0e5677f14767b2bfc55ea4855fa0de44425cad55775621a8c293c8d6bd09a3d",
+    "scripts/covenant_rules.gd": "7ddc747532bf6fe110f47b15fe54e92d28ce8779f566cf9e62bb60a80f39ad29",
+    "scripts/game_state.gd": "a9a19b6b105ba5a57bd3a0bc942b059708798204c6583940c65246ebe26376b6",
+    "scripts/renewal_rules.gd": "6704d9101bed1bfaa6c7536c651aa1662e40480070fc1f197517309e9cc3f86c",
+    "scripts/resource_rules.gd": "2999b03cb3bb120f3085249e1975d0a5df479fca398c5834eb16cbedb4afc663",
+    "scripts/synergy_rules.gd": "4da5ea40e2f13dc1ab174995756642497d4f5336d973faa43e89c10452d2f40f",
+    "scripts/wave_rules.gd": "bcc7ff4d3fcedb4926ad329cf4ad77964e7633cebbb238e308fe48c14a2ec680"
+  },
+  "candidate_canonical_lf_hashes": {
+    "data/cards.json": "3eb8434c9769aeae87805b7d48c3e5372552eed522a88ebf4c3280eed57a36c0",
+    "scripts/action_flow.gd": "8f9a4006be77d26d8f938a04265b5a10ca150637071701927e31477ce3737cd8",
+    "scripts/ai_agent.gd": "a543e895ed7c33f1ce11f72b9efdb66fc5698fc1e980747e688f6c77d8a5d945",
+    "scripts/ai_planner.gd": "8cdcf3aad4ae1e3f17a6f26b5f537dda63648ebef6d4bb7cb086983e28f9242f",
+    "scripts/ai_structure.gd": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+    "scripts/ai_tactics.gd": "c585eb9b9830113d4936f38fc37f6aef0e4c50e8779ecfa6b1b601d50f44acd0",
+    "scripts/contemporary_rules.gd": "ff759ea1001148ab48172f522b06bf72d2d0a1c55c83fc1db1fd87993094b4c0",
+    "scripts/covenant_rules.gd": "b65c456e63f216ffffaa2ee18f7a1d4c35cdf65be5e1ebe3ec11c1809106b76c",
+    "scripts/game_state.gd": "970f2bb92cb2ccb4fce5882dcb57bcc15c17ad2754857440e2032ccce72e2a1a",
+    "scripts/renewal_rules.gd": "f851fca40b5845cd8cc8f79cf20dc4224196d9fd95b2d7b8c61682ddfd9c834d",
+    "scripts/resource_rules.gd": "00651a86f38b642a03492664cd1ff1d1b133ebba4f3064900e0afaf69fda691a",
+    "scripts/synergy_rules.gd": "4da5ea40e2f13dc1ab174995756642497d4f5336d973faa43e89c10452d2f40f",
+    "scripts/wave_rules.gd": "75c00484f646ef35be5982161c8dadf9a7f64c9d6b4eb30c8f1860b296a40b7b"
+  },
+  "source_reports": [
+    "tests\\challenger-v8-0-report.json",
+    "tests\\challenger-v8-1-report.json",
+    "tests\\challenger-v8-10-report.json",
+    "tests\\challenger-v8-11-report.json",
+    "tests\\challenger-v8-12-report.json",
+    "tests\\challenger-v8-13-report.json",
+    "tests\\challenger-v8-14-report.json",
+    "tests\\challenger-v8-15-report.json",
+    "tests\\challenger-v8-16-report.json",
+    "tests\\challenger-v8-17-report.json",
+    "tests\\challenger-v8-18-report.json",
+    "tests\\challenger-v8-19-report.json",
+    "tests\\challenger-v8-2-report.json",
+    "tests\\challenger-v8-20-report.json",
+    "tests\\challenger-v8-21-report.json",
+    "tests\\challenger-v8-22-report.json",
+    "tests\\challenger-v8-23-report.json",
+    "tests\\challenger-v8-24-report.json",
+    "tests\\challenger-v8-3-report.json",
+    "tests\\challenger-v8-4-report.json",
+    "tests\\challenger-v8-5-report.json",
+    "tests\\challenger-v8-6-report.json",
+    "tests\\challenger-v8-7-report.json",
+    "tests\\challenger-v8-8-report.json",
+    "tests\\challenger-v8-9-report.json"
+  ],
+  "games": 100,
+  "seed_pairs": 50,
+  "wins": 76,
+  "losses": 24,
+  "draws": 0,
+  "unfinished": 0,
+  "win_rate": 0.76,
+  "illegal": 0,
+  "factions": {
+    "I01": {
+      "games": 10,
+      "wins": 7,
+      "losses": 3,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I02": {
+      "games": 10,
+      "wins": 7,
+      "losses": 3,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I03": {
+      "games": 8,
+      "wins": 5,
+      "losses": 3,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I04": {
+      "games": 8,
+      "wins": 6,
+      "losses": 2,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I05": {
+      "games": 8,
+      "wins": 6,
+      "losses": 2,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I06": {
+      "games": 8,
+      "wins": 7,
+      "losses": 1,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I07": {
+      "games": 8,
+      "wins": 6,
+      "losses": 2,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I08": {
+      "games": 8,
+      "wins": 8,
+      "losses": 0,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I09": {
+      "games": 8,
+      "wins": 6,
+      "losses": 2,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I10": {
+      "games": 8,
+      "wins": 7,
+      "losses": 1,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I11": {
+      "games": 8,
+      "wins": 7,
+      "losses": 1,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "I12": {
+      "games": 8,
+      "wins": 4,
+      "losses": 4,
+      "draws": 0,
+      "unfinished": 0
+    }
+  },
+  "initiative": {
+    "second": {
+      "games": 50,
+      "wins": 31,
+      "losses": 19,
+      "draws": 0,
+      "unfinished": 0
+    },
+    "first": {
+      "games": 50,
+      "wins": 45,
+      "losses": 5,
+      "draws": 0,
+      "unfinished": 0
+    }
+  },
+  "candidate_actions": {
+    "ability": 176,
+    "accept_plot": 10,
+    "attack": 903,
+    "auto": 989,
+    "choose": 580,
+    "counter": 13,
+    "deploy": 47,
+    "draw": 1069,
+    "end": 1010,
+    "initial": 50,
+    "initial_resource": 50,
+    "lift": 4,
+    "move": 7,
+    "pass": 1961,
+    "plot": 667,
+    "rebuild": 31,
+    "research_group": 1,
+    "resource": 39,
+    "self_defend": 5,
+    "support": 2344,
+    "synergy": 6,
+    "trick": 2,
+    "trigger": 193,
+    "wave": 7
+  },
+  "baseline_actions": {
+    "ability": 121,
+    "accept_plot": 3,
+    "attack": 416,
+    "auto": 1009,
+    "choose": 505,
+    "counter": 26,
+    "deploy": 29,
+    "draw": 1043,
+    "end": 1024,
+    "initial": 50,
+    "initial_resource": 50,
+    "lift": 2,
+    "move": 8,
+    "pass": 3021,
+    "plot": 596,
+    "rebuild": 28,
+    "rescue": 1,
+    "research_plot": 1,
+    "research_resource": 1,
+    "resource": 12,
+    "self_defend": 63,
+    "support": 1315,
+    "synergy": 1,
+    "trick": 8,
+    "trigger": 129,
+    "wave": 2
+  },
+  "distinct_public_actors": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E07",
+    "E08",
+    "E09",
+    "E10",
+    "E11",
+    "E12",
+    "E14",
+    "E16",
+    "E17",
+    "E18",
+    "E22",
+    "G001",
+    "G002",
+    "G003",
+    "G004",
+    "G005",
+    "G006",
+    "G007",
+    "G008",
+    "G009",
+    "G010",
+    "G011",
+    "G012",
+    "G013",
+    "G014",
+    "G015",
+    "G016",
+    "G017",
+    "G018",
+    "G019",
+    "G020",
+    "G021",
+    "G022",
+    "G023",
+    "G024",
+    "G025",
+    "G026",
+    "G027",
+    "G028",
+    "G029",
+    "G030",
+    "G031",
+    "G032",
+    "G033",
+    "G034",
+    "G035",
+    "G036",
+    "G037",
+    "G038",
+    "G039",
+    "G040",
+    "G041",
+    "G043",
+    "G044",
+    "G045",
+    "G046",
+    "G047",
+    "G048",
+    "G049",
+    "G050",
+    "G051",
+    "G052",
+    "G053",
+    "G054",
+    "G055",
+    "G056",
+    "G057",
+    "G058",
+    "G059",
+    "G060",
+    "G061",
+    "G062",
+    "G063",
+    "G064",
+    "G065",
+    "G066",
+    "G067",
+    "G068",
+    "G069",
+    "G070",
+    "G071",
+    "G072",
+    "G073",
+    "G074",
+    "G075",
+    "G076",
+    "G077",
+    "G078",
+    "G079",
+    "G080",
+    "G081",
+    "G082",
+    "G083",
+    "G084",
+    "G085",
+    "G086",
+    "G087",
+    "G088",
+    "G089",
+    "G090",
+    "G091",
+    "G092",
+    "G093",
+    "G094",
+    "G095",
+    "G096",
+    "G097",
+    "G098",
+    "G099",
+    "G100",
+    "G101",
+    "G102",
+    "G103",
+    "G104",
+    "G105",
+    "G106",
+    "G107",
+    "G108",
+    "G109",
+    "G110",
+    "G111",
+    "G112",
+    "G113",
+    "G114",
+    "G115",
+    "G116",
+    "G117",
+    "G118",
+    "G119",
+    "G120",
+    "G121",
+    "G122",
+    "G123",
+    "G124",
+    "G125",
+    "G126",
+    "G127",
+    "G128",
+    "G129",
+    "G130",
+    "G131",
+    "G132",
+    "G133",
+    "G134",
+    "G135",
+    "G136",
+    "G137",
+    "G138",
+    "G139",
+    "G140",
+    "G141",
+    "G142",
+    "G143",
+    "G144",
+    "G145",
+    "G146",
+    "G147",
+    "G148",
+    "G149",
+    "G150",
+    "G151",
+    "G152",
+    "G153",
+    "G154",
+    "G155",
+    "G156",
+    "G157",
+    "G158",
+    "G159",
+    "G160",
+    "G161",
+    "G162",
+    "G163",
+    "G164",
+    "G165",
+    "G166",
+    "G167",
+    "G168",
+    "G169",
+    "G170",
+    "P14",
+    "P17",
+    "P18",
+    "P19",
+    "P21",
+    "P22",
+    "P23",
+    "P24",
+    "P25",
+    "P26",
+    "P27",
+    "P28",
+    "P29",
+    "P30",
+    "P31",
+    "P32",
+    "P33",
+    "P34",
+    "P35",
+    "P36",
+    "P37",
+    "P38",
+    "P39",
+    "P41",
+    "P44",
+    "P45",
+    "P46",
+    "P47",
+    "P49",
+    "P51",
+    "P52",
+    "P53",
+    "P55",
+    "P56",
+    "P57",
+    "P58",
+    "P59",
+    "P62",
+    "P63",
+    "P64",
+    "P66",
+    "P67",
+    "P68",
+    "P70",
+    "R0",
+    "R1"
+  ],
+  "behavior": {
+    "games_with_resource_deployment": 37,
+    "games_with_resource_command": 19,
+    "resource_card_activations": 30,
+    "games_with_resource_card_activation": 12,
+    "baseline_resource_card_activations": 6,
+    "distinct_recorded_attack_leaders": [
+      "G001",
+      "G002",
+      "G003",
+      "G004",
+      "G005",
+      "G006",
+      "G007",
+      "G008",
+      "G009",
+      "G010",
+      "G011",
+      "G012",
+      "G013",
+      "G014",
+      "G015",
+      "G016",
+      "G017",
+      "G018",
+      "G019",
+      "G020",
+      "G021",
+      "G023",
+      "G024",
+      "G025",
+      "G026",
+      "G027",
+      "G028",
+      "G029",
+      "G030",
+      "G031",
+      "G032",
+      "G033",
+      "G034",
+      "G035",
+      "G036",
+      "G037",
+      "G038",
+      "G039",
+      "G040",
+      "G044",
+      "G046",
+      "G047",
+      "G048",
+      "G049",
+      "G050",
+      "G051",
+      "G052",
+      "G053",
+      "G054",
+      "G055",
+      "G056",
+      "G057",
+      "G058",
+      "G059",
+      "G060",
+      "G061",
+      "G062",
+      "G064",
+      "G065",
+      "G066",
+      "G067",
+      "G068",
+      "G069",
+      "G070",
+      "G071",
+      "G072",
+      "G073",
+      "G074",
+      "G075",
+      "G076",
+      "G077",
+      "G078",
+      "G079",
+      "G081",
+      "G082",
+      "G083",
+      "G084",
+      "G085",
+      "G086",
+      "G087",
+      "G088",
+      "G090",
+      "G091",
+      "G092",
+      "G093",
+      "G094",
+      "G095",
+      "G096",
+      "G097",
+      "G098",
+      "G099",
+      "G100",
+      "G101",
+      "G102",
+      "G103",
+      "G104",
+      "G105",
+      "G106",
+      "G107",
+      "G108",
+      "G109",
+      "G110",
+      "G111",
+      "G113",
+      "G114",
+      "G115",
+      "G117",
+      "G118",
+      "G119",
+      "G120",
+      "G121",
+      "G122",
+      "G123",
+      "G124",
+      "G125",
+      "G126",
+      "G127",
+      "G128",
+      "G129",
+      "G130",
+      "G131",
+      "G132",
+      "G133",
+      "G136",
+      "G137",
+      "G138",
+      "G139",
+      "G140",
+      "G141",
+      "G142",
+      "G143",
+      "G144",
+      "G145",
+      "G146",
+      "G147",
+      "G148",
+      "G150",
+      "G151",
+      "G152",
+      "G153",
+      "G154",
+      "G155",
+      "G156",
+      "G157",
+      "G158",
+      "G159",
+      "G160",
+      "G161",
+      "G162",
+      "G163",
+      "G164",
+      "G165",
+      "G167",
+      "G168",
+      "G169",
+      "G170",
+      "R1"
+    ],
+    "all_recorded_main_traces_below_cap": true,
+    "winning_reasons": {
+      "elimination": 11,
+      "faction": 17,
+      "goal": 48
+    },
+    "winning_cards": {
+      "I01": 4,
+      "I03": 2,
+      "I04": 2,
+      "I05": 4,
+      "I06": 1,
+      "I07": 3,
+      "I12": 1,
+      "P51": 3,
+      "P52": 26,
+      "P53": 2,
+      "P55": 17
+    }
+  },
+  "timing": {
+    "median_candidate_ms_per_game": 111959.5,
+    "max_candidate_decision_ms": 11707
+  },
+  "results": [
+    {
+      "seed": 1001,
+      "faction": "I01",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        6,
+        7
+      ],
+      "steps": 117,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 6,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 16,
+          "plot": 8,
+          "support": 8
+        },
+        {
+          "attack": 4,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 7,
+          "pass": 16,
+          "plot": 4,
+          "support": 7
+        }
+      ],
+      "elapsed_ms": [
+        72866,
+        26483
+      ],
+      "max_ms": [
+        7938,
+        3280
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1001,
+      "faction": "I01",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        8,
+        9
+      ],
+      "steps": 182,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 7,
+          "choose": 4,
+          "draw": 8,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 27,
+          "plot": 8,
+          "self_defend": 3,
+          "support": 17
+        },
+        {
+          "attack": 14,
+          "auto": 8,
+          "choose": 3,
+          "deploy": 1,
+          "draw": 9,
+          "end": 9,
+          "pass": 27,
+          "plot": 5,
+          "support": 18
+        }
+      ],
+      "elapsed_ms": [
+        35829,
+        105231
+      ],
+      "max_ms": [
+        2786,
+        5861
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1002,
+      "faction": "I02",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        19,
+        20
+      ],
+      "steps": 353,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 7,
+          "auto": 18,
+          "choose": 12,
+          "deploy": 1,
+          "draw": 19,
+          "end": 19,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 33,
+          "plot": 8,
+          "self_defend": 2,
+          "support": 40
+        },
+        {
+          "ability": 4,
+          "attack": 13,
+          "auto": 18,
+          "choose": 13,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 20,
+          "end": 20,
+          "pass": 32,
+          "plot": 11,
+          "support": 45,
+          "trigger": 12
+        }
+      ],
+      "elapsed_ms": [
+        350465,
+        363251
+      ],
+      "max_ms": [
+        8640,
+        17810
+      ],
+      "victory": {
+        "card": "I02",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1002,
+      "faction": "I02",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        7,
+        8
+      ],
+      "steps": 133,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 8,
+          "choose": 4,
+          "draw": 8,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 4,
+          "support": 7
+        },
+        {
+          "attack": 7,
+          "auto": 7,
+          "choose": 6,
+          "deploy": 1,
+          "draw": 8,
+          "end": 8,
+          "pass": 11,
+          "plot": 3,
+          "support": 15,
+          "trigger": 6
+        }
+      ],
+      "elapsed_ms": [
+        35923,
+        89437
+      ],
+      "max_ms": [
+        2917,
+        6012
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1003,
+      "faction": "I03",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        6,
+        6
+      ],
+      "steps": 113,
+      "counts": [
+        {
+          "attack": 9,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 15,
+          "plot": 4,
+          "support": 7
+        },
+        {
+          "ability": 2,
+          "attack": 3,
+          "auto": 6,
+          "choose": 3,
+          "draw": 6,
+          "end": 6,
+          "move": 1,
+          "pass": 21,
+          "plot": 3,
+          "support": 2,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        48010,
+        24300
+      ],
+      "max_ms": [
+        3989,
+        2902
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1003,
+      "faction": "I03",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        6,
+        6
+      ],
+      "steps": 125,
+      "counts": [
+        {
+          "attack": 7,
+          "auto": 7,
+          "choose": 3,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 4,
+          "support": 9
+        },
+        {
+          "ability": 4,
+          "attack": 6,
+          "auto": 6,
+          "choose": 5,
+          "draw": 6,
+          "end": 6,
+          "pass": 21,
+          "plot": 2,
+          "support": 6
+        }
+      ],
+      "elapsed_ms": [
+        45904,
+        50251
+      ],
+      "max_ms": [
+        6240,
+        3673
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1004,
+      "faction": "I04",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        9,
+        9
+      ],
+      "steps": 221,
+      "counts": [
+        {
+          "ability": 8,
+          "attack": 7,
+          "auto": 9,
+          "choose": 9,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 34,
+          "plot": 7,
+          "support": 17
+        },
+        {
+          "ability": 6,
+          "attack": 11,
+          "auto": 10,
+          "choose": 4,
+          "counter": 1,
+          "draw": 10,
+          "end": 9,
+          "pass": 30,
+          "plot": 7,
+          "resource": 1,
+          "support": 21
+        }
+      ],
+      "elapsed_ms": [
+        79605,
+        120135
+      ],
+      "max_ms": [
+        4232,
+        5808
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1004,
+      "faction": "I04",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        3,
+        4
+      ],
+      "steps": 71,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 1,
+          "auto": 3,
+          "choose": 2,
+          "draw": 3,
+          "end": 3,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 2,
+          "support": 2
+        },
+        {
+          "ability": 3,
+          "attack": 5,
+          "auto": 4,
+          "draw": 4,
+          "end": 4,
+          "pass": 6,
+          "plot": 5,
+          "support": 8
+        }
+      ],
+      "elapsed_ms": [
+        12416,
+        45665
+      ],
+      "max_ms": [
+        2756,
+        6836
+      ],
+      "victory": {
+        "card": "I04",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1005,
+      "faction": "I05",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        7,
+        7
+      ],
+      "steps": 130,
+      "counts": [
+        {
+          "attack": 8,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 4,
+          "support": 17,
+          "trigger": 2
+        },
+        {
+          "attack": 2,
+          "auto": 7,
+          "choose": 1,
+          "draw": 7,
+          "end": 7,
+          "pass": 21,
+          "plot": 3,
+          "self_defend": 1,
+          "support": 8,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        107501,
+        31443
+      ],
+      "max_ms": [
+        5620,
+        2773
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "AI的势力已被消灭",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1005,
+      "faction": "I05",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        13,
+        13
+      ],
+      "steps": 318,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 12,
+          "choose": 6,
+          "counter": 1,
+          "draw": 13,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 68,
+          "plot": 9,
+          "self_defend": 3,
+          "support": 20,
+          "trigger": 2
+        },
+        {
+          "ability": 3,
+          "attack": 15,
+          "auto": 11,
+          "choose": 6,
+          "draw": 13,
+          "end": 13,
+          "pass": 30,
+          "plot": 7,
+          "rebuild": 1,
+          "support": 63,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        64891,
+        266020
+      ],
+      "max_ms": [
+        3383,
+        5073
+      ],
+      "victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1006,
+      "faction": "I06",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        4,
+        5
+      ],
+      "steps": 86,
+      "counts": [
+        {
+          "ability": 4,
+          "attack": 4,
+          "auto": 5,
+          "draw": 5,
+          "end": 4,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 12,
+          "plot": 3,
+          "rebuild": 1,
+          "support": 6
+        },
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 5,
+          "counter": 1,
+          "draw": 5,
+          "end": 5,
+          "pass": 13,
+          "plot": 3,
+          "support": 4
+        }
+      ],
+      "elapsed_ms": [
+        53501,
+        21815
+      ],
+      "max_ms": [
+        4700,
+        2722
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1006,
+      "faction": "I06",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        12,
+        12
+      ],
+      "steps": 321,
+      "counts": [
+        {
+          "ability": 7,
+          "attack": 7,
+          "auto": 12,
+          "choose": 4,
+          "draw": 12,
+          "end": 12,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 75,
+          "plot": 7,
+          "rebuild": 1,
+          "self_defend": 1,
+          "support": 14
+        },
+        {
+          "ability": 9,
+          "attack": 18,
+          "auto": 13,
+          "counter": 1,
+          "deploy": 2,
+          "draw": 13,
+          "end": 12,
+          "pass": 37,
+          "plot": 4,
+          "resource": 1,
+          "support": 54,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        83368,
+        424684
+      ],
+      "max_ms": [
+        3978,
+        9519
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1007,
+      "faction": "I07",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        13,
+        14
+      ],
+      "steps": 325,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 14,
+          "auto": 11,
+          "choose": 7,
+          "deploy": 2,
+          "draw": 14,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 27,
+          "plot": 9,
+          "rebuild": 1,
+          "resource": 6,
+          "support": 55,
+          "trigger": 3
+        },
+        {
+          "ability": 7,
+          "attack": 6,
+          "auto": 11,
+          "choose": 9,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 14,
+          "end": 14,
+          "pass": 57,
+          "plot": 7,
+          "self_defend": 2,
+          "support": 27,
+          "trigger": 4
+        }
+      ],
+      "elapsed_ms": [
+        355117,
+        82805
+      ],
+      "max_ms": [
+        8605,
+        3499
+      ],
+      "victory": {
+        "card": "P51",
+        "kind": "goal",
+        "reason": "犯罪霸权 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1007,
+      "faction": "I07",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        9,
+        9
+      ],
+      "steps": 198,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 5,
+          "auto": 9,
+          "choose": 2,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 36,
+          "plot": 7,
+          "support": 14
+        },
+        {
+          "ability": 5,
+          "attack": 12,
+          "auto": 7,
+          "choose": 5,
+          "counter": 1,
+          "draw": 10,
+          "end": 9,
+          "pass": 26,
+          "plot": 4,
+          "support": 24
+        }
+      ],
+      "elapsed_ms": [
+        54041,
+        113175
+      ],
+      "max_ms": [
+        4334,
+        3860
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1008,
+      "faction": "I08",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        8,
+        9
+      ],
+      "steps": 179,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 8,
+          "auto": 9,
+          "choose": 6,
+          "counter": 1,
+          "draw": 9,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "lift": 1,
+          "pass": 14,
+          "plot": 7,
+          "resource": 4,
+          "support": 26
+        },
+        {
+          "attack": 2,
+          "auto": 9,
+          "choose": 1,
+          "deploy": 2,
+          "draw": 9,
+          "end": 9,
+          "pass": 30,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 13
+        }
+      ],
+      "elapsed_ms": [
+        155191,
+        52471
+      ],
+      "max_ms": [
+        5884,
+        4143
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1008,
+      "faction": "I08",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 78,
+      "counts": [
+        {
+          "attack": 1,
+          "auto": 5,
+          "choose": 3,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 11,
+          "plot": 2,
+          "support": 1
+        },
+        {
+          "ability": 2,
+          "attack": 5,
+          "auto": 6,
+          "choose": 1,
+          "deploy": 2,
+          "draw": 6,
+          "end": 5,
+          "pass": 7,
+          "plot": 3,
+          "resource": 2,
+          "support": 4
+        }
+      ],
+      "elapsed_ms": [
+        24210,
+        66627
+      ],
+      "max_ms": [
+        2972,
+        7430
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1009,
+      "faction": "I09",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        15,
+        15
+      ],
+      "steps": 212,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 16,
+          "choose": 8,
+          "draw": 16,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 17,
+          "plot": 9,
+          "support": 17
+        },
+        {
+          "accept_plot": 1,
+          "attack": 5,
+          "auto": 15,
+          "choose": 11,
+          "counter": 1,
+          "draw": 15,
+          "end": 15,
+          "pass": 16,
+          "plot": 8,
+          "support": 18,
+          "wave": 1
+        }
+      ],
+      "elapsed_ms": [
+        185732,
+        153292
+      ],
+      "max_ms": [
+        7993,
+        8737
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1009,
+      "faction": "I09",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        11,
+        10
+      ],
+      "steps": 240,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 11,
+          "choose": 3,
+          "draw": 11,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 53,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 9,
+          "trigger": 1
+        },
+        {
+          "ability": 3,
+          "attack": 14,
+          "auto": 11,
+          "choose": 5,
+          "draw": 11,
+          "end": 10,
+          "pass": 24,
+          "plot": 14,
+          "support": 35,
+          "wave": 1
+        }
+      ],
+      "elapsed_ms": [
+        68429,
+        276197
+      ],
+      "max_ms": [
+        7438,
+        6379
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1010,
+      "faction": "I10",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        12,
+        12
+      ],
+      "steps": 189,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 10,
+          "auto": 11,
+          "choose": 12,
+          "deploy": 1,
+          "draw": 12,
+          "end": 12,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 14,
+          "plot": 8,
+          "resource": 1,
+          "support": 15,
+          "trigger": 9
+        },
+        {
+          "ability": 2,
+          "attack": 2,
+          "auto": 12,
+          "choose": 2,
+          "draw": 13,
+          "end": 12,
+          "pass": 24,
+          "plot": 5,
+          "rebuild": 1,
+          "support": 5,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        166467,
+        74383
+      ],
+      "max_ms": [
+        8063,
+        4418
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1010,
+      "faction": "I10",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        15,
+        15
+      ],
+      "steps": 238,
+      "counts": [
+        {
+          "attack": 1,
+          "auto": 15,
+          "choose": 4,
+          "draw": 15,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 28,
+          "plot": 10,
+          "support": 17,
+          "trigger": 1
+        },
+        {
+          "ability": 2,
+          "attack": 9,
+          "auto": 14,
+          "choose": 12,
+          "deploy": 1,
+          "draw": 16,
+          "end": 15,
+          "lift": 1,
+          "pass": 14,
+          "plot": 9,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 31,
+          "synergy": 1,
+          "trigger": 3
+        }
+      ],
+      "elapsed_ms": [
+        81243,
+        221936
+      ],
+      "max_ms": [
+        5390,
+        7651
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1011,
+      "faction": "I11",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        12,
+        12
+      ],
+      "steps": 190,
+      "counts": [
+        {
+          "ability": 3,
+          "attack": 3,
+          "auto": 10,
+          "choose": 8,
+          "deploy": 2,
+          "draw": 12,
+          "end": 12,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 2,
+          "pass": 19,
+          "plot": 8,
+          "rebuild": 1,
+          "support": 6,
+          "trigger": 4
+        },
+        {
+          "attack": 4,
+          "auto": 12,
+          "choose": 8,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 13,
+          "end": 12,
+          "move": 1,
+          "pass": 14,
+          "plot": 13,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 9,
+          "trigger": 8
+        }
+      ],
+      "elapsed_ms": [
+        121161,
+        120199
+      ],
+      "max_ms": [
+        6050,
+        7545
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1011,
+      "faction": "I11",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        13,
+        13
+      ],
+      "steps": 297,
+      "counts": [
+        {
+          "ability": 3,
+          "attack": 5,
+          "auto": 13,
+          "choose": 6,
+          "deploy": 1,
+          "draw": 13,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 2,
+          "pass": 53,
+          "plot": 11,
+          "self_defend": 1,
+          "support": 17,
+          "trigger": 3
+        },
+        {
+          "ability": 2,
+          "attack": 12,
+          "auto": 13,
+          "choose": 4,
+          "counter": 1,
+          "deploy": 2,
+          "draw": 14,
+          "end": 13,
+          "pass": 23,
+          "plot": 13,
+          "rebuild": 1,
+          "resource": 2,
+          "support": 48,
+          "trigger": 6
+        }
+      ],
+      "elapsed_ms": [
+        78062,
+        264186
+      ],
+      "max_ms": [
+        3842,
+        6667
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1012,
+      "faction": "I12",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 86,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 6,
+          "choose": 6,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 9,
+          "plot": 3,
+          "support": 6
+        },
+        {
+          "attack": 2,
+          "auto": 5,
+          "choose": 3,
+          "draw": 5,
+          "end": 5,
+          "pass": 13,
+          "plot": 4,
+          "support": 2
+        }
+      ],
+      "elapsed_ms": [
+        36898,
+        28995
+      ],
+      "max_ms": [
+        3366,
+        3434
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1012,
+      "faction": "I12",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        21,
+        21
+      ],
+      "steps": 511,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 7,
+          "auto": 21,
+          "choose": 27,
+          "counter": 1,
+          "draw": 21,
+          "end": 21,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 90,
+          "plot": 10,
+          "self_defend": 3,
+          "support": 31
+        },
+        {
+          "ability": 3,
+          "attack": 31,
+          "auto": 21,
+          "choose": 28,
+          "draw": 21,
+          "end": 21,
+          "pass": 50,
+          "plot": 17,
+          "support": 73,
+          "trick": 1,
+          "trigger": 10
+        }
+      ],
+      "elapsed_ms": [
+        118814,
+        650613
+      ],
+      "max_ms": [
+        4749,
+        9778
+      ],
+      "victory": {
+        "card": "I12",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1013,
+      "faction": "I01",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        3,
+        4
+      ],
+      "steps": 108,
+      "counts": [
+        {
+          "attack": 7,
+          "auto": 3,
+          "choose": 1,
+          "counter": 1,
+          "draw": 4,
+          "end": 3,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 4,
+          "support": 10,
+          "trigger": 1
+        },
+        {
+          "attack": 5,
+          "auto": 4,
+          "choose": 2,
+          "deploy": 1,
+          "draw": 4,
+          "end": 4,
+          "pass": 22,
+          "plot": 2,
+          "support": 7,
+          "trigger": 3
+        }
+      ],
+      "elapsed_ms": [
+        30085,
+        22392
+      ],
+      "max_ms": [
+        5800,
+        3458
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1013,
+      "faction": "I01",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 120,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 4,
+          "counter": 1,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 20,
+          "plot": 4,
+          "support": 12
+        },
+        {
+          "attack": 7,
+          "auto": 4,
+          "choose": 2,
+          "deploy": 1,
+          "draw": 6,
+          "end": 5,
+          "pass": 17,
+          "plot": 3,
+          "support": 16,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        20674,
+        58060
+      ],
+      "max_ms": [
+        3644,
+        6018
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1014,
+      "faction": "I02",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        4,
+        4
+      ],
+      "steps": 92,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 5,
+          "draw": 5,
+          "end": 4,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 11,
+          "plot": 4,
+          "resource": 1,
+          "support": 11
+        },
+        {
+          "attack": 3,
+          "auto": 4,
+          "choose": 1,
+          "draw": 4,
+          "end": 4,
+          "pass": 20,
+          "plot": 3,
+          "support": 3,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        39837,
+        14626
+      ],
+      "max_ms": [
+        3823,
+        2754
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1014,
+      "faction": "I02",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        3,
+        3
+      ],
+      "steps": 65,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 4,
+          "choose": 2,
+          "draw": 4,
+          "end": 3,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 8,
+          "plot": 3,
+          "support": 5
+        },
+        {
+          "attack": 2,
+          "auto": 3,
+          "choose": 1,
+          "draw": 3,
+          "end": 3,
+          "pass": 14,
+          "plot": 2,
+          "support": 1
+        }
+      ],
+      "elapsed_ms": [
+        17630,
+        13981
+      ],
+      "max_ms": [
+        3318,
+        4094
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1015,
+      "faction": "I03",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 90,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 4,
+          "choose": 1,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 12,
+          "plot": 3,
+          "support": 7
+        },
+        {
+          "ability": 1,
+          "attack": 5,
+          "auto": 5,
+          "choose": 2,
+          "draw": 5,
+          "end": 5,
+          "pass": 17,
+          "plot": 1,
+          "support": 3,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        42280,
+        30483
+      ],
+      "max_ms": [
+        5106,
+        3737
+      ],
+      "victory": {
+        "card": "I03",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1015,
+      "faction": "I03",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        6,
+        7
+      ],
+      "steps": 138,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 6,
+          "choose": 1,
+          "draw": 6,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 28,
+          "plot": 4,
+          "support": 7
+        },
+        {
+          "ability": 1,
+          "attack": 8,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 7,
+          "pass": 17,
+          "plot": 4,
+          "resource": 2,
+          "support": 18,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        30047,
+        84192
+      ],
+      "max_ms": [
+        3716,
+        4339
+      ],
+      "victory": {
+        "card": "I03",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1016,
+      "faction": "I04",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 113,
+      "counts": [
+        {
+          "accept_plot": 1,
+          "attack": 5,
+          "auto": 6,
+          "choose": 1,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 2,
+          "support": 10,
+          "trick": 1
+        },
+        {
+          "attack": 7,
+          "auto": 4,
+          "choose": 2,
+          "draw": 5,
+          "end": 5,
+          "move": 1,
+          "pass": 22,
+          "plot": 2,
+          "research_plot": 1,
+          "support": 6,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        40588,
+        22473
+      ],
+      "max_ms": [
+        5174,
+        3184
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1016,
+      "faction": "I04",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        16,
+        15
+      ],
+      "steps": 405,
+      "counts": [
+        {
+          "accept_plot": 1,
+          "attack": 5,
+          "auto": 16,
+          "choose": 6,
+          "counter": 1,
+          "deploy": 2,
+          "draw": 16,
+          "end": 16,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 77,
+          "plot": 4,
+          "resource": 1,
+          "self_defend": 1,
+          "support": 30,
+          "trick": 4
+        },
+        {
+          "attack": 22,
+          "auto": 13,
+          "choose": 18,
+          "deploy": 2,
+          "draw": 16,
+          "end": 15,
+          "move": 1,
+          "pass": 32,
+          "plot": 14,
+          "support": 74,
+          "trigger": 16
+        }
+      ],
+      "elapsed_ms": [
+        110916,
+        481264
+      ],
+      "max_ms": [
+        5879,
+        8720
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1017,
+      "faction": "I05",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        9,
+        10
+      ],
+      "steps": 244,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 12,
+          "auto": 9,
+          "choose": 5,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 45,
+          "plot": 7,
+          "resource": 2,
+          "support": 16,
+          "trigger": 1
+        },
+        {
+          "ability": 5,
+          "attack": 13,
+          "auto": 9,
+          "choose": 5,
+          "draw": 10,
+          "end": 10,
+          "pass": 37,
+          "plot": 9,
+          "support": 25,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        118363,
+        80157
+      ],
+      "max_ms": [
+        6702,
+        4881
+      ],
+      "victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1017,
+      "faction": "I05",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        11
+      ],
+      "steps": 255,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 9,
+          "auto": 10,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 58,
+          "plot": 11,
+          "self_defend": 1,
+          "support": 10,
+          "trigger": 1
+        },
+        {
+          "ability": 1,
+          "accept_plot": 2,
+          "attack": 15,
+          "auto": 8,
+          "choose": 4,
+          "deploy": 1,
+          "draw": 11,
+          "end": 11,
+          "pass": 27,
+          "plot": 6,
+          "support": 46
+        }
+      ],
+      "elapsed_ms": [
+        90870,
+        142703
+      ],
+      "max_ms": [
+        4739,
+        4572
+      ],
+      "victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1018,
+      "faction": "I06",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        16,
+        16
+      ],
+      "steps": 216,
+      "counts": [
+        {
+          "accept_plot": 3,
+          "auto": 16,
+          "choose": 7,
+          "draw": 16,
+          "end": 16,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 10,
+          "plot": 7,
+          "self_defend": 1,
+          "support": 12
+        },
+        {
+          "attack": 4,
+          "auto": 17,
+          "choose": 22,
+          "counter": 1,
+          "deploy": 2,
+          "draw": 17,
+          "end": 16,
+          "pass": 11,
+          "plot": 10,
+          "rebuild": 1,
+          "research_resource": 1,
+          "support": 11,
+          "trigger": 13
+        }
+      ],
+      "elapsed_ms": [
+        222507,
+        302816
+      ],
+      "max_ms": [
+        11459,
+        17684
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1018,
+      "faction": "I06",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        13,
+        14
+      ],
+      "steps": 290,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 1,
+          "auto": 13,
+          "choose": 2,
+          "draw": 13,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 51,
+          "plot": 9,
+          "rebuild": 1,
+          "support": 20
+        },
+        {
+          "attack": 14,
+          "auto": 14,
+          "choose": 12,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 14,
+          "end": 14,
+          "pass": 20,
+          "plot": 11,
+          "rebuild": 1,
+          "support": 50,
+          "trigger": 11
+        }
+      ],
+      "elapsed_ms": [
+        63918,
+        285250
+      ],
+      "max_ms": [
+        3262,
+        5945
+      ],
+      "victory": {
+        "card": "I06",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1019,
+      "faction": "I07",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        9,
+        10
+      ],
+      "steps": 199,
+      "counts": [
+        {
+          "attack": 12,
+          "auto": 10,
+          "choose": 5,
+          "draw": 10,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 27,
+          "plot": 7,
+          "support": 22
+        },
+        {
+          "ability": 3,
+          "attack": 6,
+          "auto": 6,
+          "choose": 3,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 10,
+          "end": 10,
+          "pass": 34,
+          "plot": 5,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 13
+        }
+      ],
+      "elapsed_ms": [
+        128933,
+        48634
+      ],
+      "max_ms": [
+        7084,
+        3155
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1019,
+      "faction": "I07",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        11
+      ],
+      "steps": 191,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 6,
+          "auto": 9,
+          "choose": 4,
+          "deploy": 1,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 24,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 22
+        },
+        {
+          "ability": 4,
+          "accept_plot": 1,
+          "attack": 7,
+          "auto": 7,
+          "choose": 4,
+          "counter": 1,
+          "draw": 11,
+          "end": 11,
+          "pass": 29,
+          "plot": 2,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 16
+        }
+      ],
+      "elapsed_ms": [
+        108582,
+        132250
+      ],
+      "max_ms": [
+        6981,
+        7148
+      ],
+      "victory": {
+        "card": "I07",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1020,
+      "faction": "I08",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        17,
+        18
+      ],
+      "steps": 390,
+      "counts": [
+        {
+          "attack": 21,
+          "auto": 18,
+          "choose": 5,
+          "draw": 18,
+          "end": 17,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 38,
+          "plot": 12,
+          "rebuild": 1,
+          "support": 67
+        },
+        {
+          "attack": 5,
+          "auto": 18,
+          "choose": 6,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 18,
+          "end": 18,
+          "pass": 71,
+          "plot": 7,
+          "rebuild": 2,
+          "self_defend": 4,
+          "support": 37,
+          "trigger": 3
+        }
+      ],
+      "elapsed_ms": [
+        606733,
+        155097
+      ],
+      "max_ms": [
+        11300,
+        6496
+      ],
+      "victory": {
+        "card": "P51",
+        "kind": "goal",
+        "reason": "犯罪霸权 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1020,
+      "faction": "I08",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        10
+      ],
+      "steps": 130,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 10,
+          "choose": 6,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 16,
+          "plot": 5,
+          "support": 2
+        },
+        {
+          "attack": 4,
+          "auto": 10,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 11,
+          "end": 10,
+          "pass": 11,
+          "plot": 3,
+          "rebuild": 1,
+          "support": 9,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        46068,
+        54881
+      ],
+      "max_ms": [
+        3446,
+        4476
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1021,
+      "faction": "I09",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        5,
+        4
+      ],
+      "steps": 74,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 5,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 8,
+          "plot": 3,
+          "support": 2,
+          "trigger": 3
+        },
+        {
+          "attack": 3,
+          "auto": 5,
+          "choose": 2,
+          "draw": 5,
+          "end": 4,
+          "pass": 10,
+          "plot": 4,
+          "support": 3,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        14722,
+        35800
+      ],
+      "max_ms": [
+        2965,
+        5295
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1021,
+      "faction": "I09",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 90,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 6,
+          "choose": 1,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 3,
+          "support": 3,
+          "trigger": 3
+        },
+        {
+          "ability": 4,
+          "attack": 4,
+          "auto": 5,
+          "draw": 5,
+          "end": 5,
+          "pass": 9,
+          "plot": 5,
+          "support": 7,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        17701,
+        63873
+      ],
+      "max_ms": [
+        2316,
+        5230
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1022,
+      "faction": "I10",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        6,
+        6
+      ],
+      "steps": 119,
+      "counts": [
+        {
+          "accept_plot": 1,
+          "attack": 10,
+          "auto": 6,
+          "choose": 8,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 5,
+          "rebuild": 1,
+          "research_group": 1,
+          "support": 10
+        },
+        {
+          "attack": 2,
+          "auto": 6,
+          "choose": 1,
+          "draw": 6,
+          "end": 6,
+          "pass": 23,
+          "plot": 3,
+          "support": 2
+        }
+      ],
+      "elapsed_ms": [
+        66215,
+        25107
+      ],
+      "max_ms": [
+        5162,
+        3214
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1022,
+      "faction": "I10",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        9,
+        8
+      ],
+      "steps": 166,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 9,
+          "choose": 7,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 20,
+          "plot": 5,
+          "support": 14,
+          "trick": 4
+        },
+        {
+          "attack": 6,
+          "auto": 7,
+          "choose": 7,
+          "deploy": 1,
+          "draw": 9,
+          "end": 8,
+          "pass": 21,
+          "plot": 6,
+          "support": 15,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        66186,
+        112389
+      ],
+      "max_ms": [
+        5273,
+        6812
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1023,
+      "faction": "I11",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        11,
+        11
+      ],
+      "steps": 127,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 10,
+          "choose": 6,
+          "deploy": 2,
+          "draw": 12,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 9,
+          "plot": 8,
+          "support": 6
+        },
+        {
+          "auto": 10,
+          "choose": 2,
+          "deploy": 1,
+          "draw": 11,
+          "end": 11,
+          "pass": 13,
+          "plot": 5,
+          "rebuild": 1,
+          "support": 3
+        }
+      ],
+      "elapsed_ms": [
+        111482,
+        80600
+      ],
+      "max_ms": [
+        6904,
+        5438
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1023,
+      "faction": "I11",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        14,
+        13
+      ],
+      "steps": 277,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 14,
+          "choose": 5,
+          "draw": 14,
+          "end": 14,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 47,
+          "plot": 9,
+          "rescue": 1,
+          "self_defend": 1,
+          "support": 22
+        },
+        {
+          "attack": 14,
+          "auto": 14,
+          "choose": 8,
+          "draw": 14,
+          "end": 13,
+          "pass": 28,
+          "plot": 7,
+          "rebuild": 2,
+          "support": 42,
+          "trigger": 3,
+          "wave": 1
+        }
+      ],
+      "elapsed_ms": [
+        86787,
+        259187
+      ],
+      "max_ms": [
+        3863,
+        7446
+      ],
+      "victory": {
+        "card": "P53",
+        "kind": "goal",
+        "reason": "铁腕统治 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1024,
+      "faction": "I12",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        14,
+        14
+      ],
+      "steps": 228,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 5,
+          "auto": 13,
+          "choose": 16,
+          "deploy": 1,
+          "draw": 14,
+          "end": 14,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 8,
+          "self_defend": 1,
+          "support": 24,
+          "trigger": 12
+        },
+        {
+          "attack": 5,
+          "auto": 15,
+          "choose": 6,
+          "counter": 1,
+          "draw": 15,
+          "end": 14,
+          "pass": 17,
+          "plot": 9,
+          "rebuild": 1,
+          "support": 20,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        174813,
+        134712
+      ],
+      "max_ms": [
+        6255,
+        7699
+      ],
+      "victory": {
+        "card": "P53",
+        "kind": "goal",
+        "reason": "铁腕统治 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1024,
+      "faction": "I12",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        24,
+        24
+      ],
+      "steps": 452,
+      "counts": [
+        {
+          "ability": 7,
+          "attack": 7,
+          "auto": 24,
+          "choose": 20,
+          "draw": 24,
+          "end": 24,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 55,
+          "plot": 19,
+          "self_defend": 2,
+          "support": 41,
+          "trigger": 10
+        },
+        {
+          "accept_plot": 1,
+          "attack": 14,
+          "auto": 25,
+          "choose": 11,
+          "counter": 1,
+          "draw": 25,
+          "end": 24,
+          "pass": 33,
+          "plot": 13,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 62,
+          "trigger": 4,
+          "wave": 2
+        }
+      ],
+      "elapsed_ms": [
+        234988,
+        552574
+      ],
+      "max_ms": [
+        6261,
+        10789
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1025,
+      "faction": "I01",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        9,
+        10
+      ],
+      "steps": 214,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 15,
+          "auto": 8,
+          "choose": 4,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 34,
+          "plot": 6,
+          "rebuild": 1,
+          "support": 18
+        },
+        {
+          "attack": 8,
+          "auto": 10,
+          "choose": 3,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 10,
+          "end": 10,
+          "pass": 32,
+          "plot": 4,
+          "support": 25,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        100911,
+        74291
+      ],
+      "max_ms": [
+        5685,
+        5067
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1025,
+      "faction": "I01",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        8,
+        8
+      ],
+      "steps": 150,
+      "counts": [
+        {
+          "attack": 7,
+          "auto": 8,
+          "choose": 3,
+          "counter": 1,
+          "draw": 8,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 23,
+          "plot": 5,
+          "rebuild": 1,
+          "support": 10,
+          "trigger": 1
+        },
+        {
+          "attack": 7,
+          "auto": 8,
+          "choose": 1,
+          "deploy": 1,
+          "draw": 8,
+          "end": 8,
+          "pass": 22,
+          "plot": 5,
+          "support": 12,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        70093,
+        81654
+      ],
+      "max_ms": [
+        5658,
+        5013
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1026,
+      "faction": "I02",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 79,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 4,
+          "auto": 6,
+          "choose": 6,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 8,
+          "plot": 3,
+          "support": 4
+        },
+        {
+          "attack": 2,
+          "auto": 5,
+          "draw": 5,
+          "end": 5,
+          "pass": 12,
+          "plot": 3,
+          "rebuild": 1
+        }
+      ],
+      "elapsed_ms": [
+        47333,
+        26544
+      ],
+      "max_ms": [
+        6679,
+        3209
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1026,
+      "faction": "I02",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        10,
+        9
+      ],
+      "steps": 192,
+      "counts": [
+        {
+          "attack": 1,
+          "auto": 10,
+          "choose": 10,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 37,
+          "plot": 3,
+          "rebuild": 1,
+          "support": 13
+        },
+        {
+          "attack": 12,
+          "auto": 8,
+          "choose": 1,
+          "draw": 10,
+          "end": 9,
+          "pass": 20,
+          "plot": 7,
+          "support": 28
+        }
+      ],
+      "elapsed_ms": [
+        36868,
+        129414
+      ],
+      "max_ms": [
+        2830,
+        4361
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1027,
+      "faction": "I03",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        12,
+        12
+      ],
+      "steps": 225,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 14,
+          "auto": 11,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 12,
+          "end": 12,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 29,
+          "plot": 6,
+          "support": 21
+        },
+        {
+          "attack": 5,
+          "auto": 13,
+          "choose": 6,
+          "draw": 13,
+          "end": 12,
+          "pass": 38,
+          "plot": 9,
+          "rebuild": 1,
+          "support": 12,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        108040,
+        73022
+      ],
+      "max_ms": [
+        4038,
+        3613
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1027,
+      "faction": "I03",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 86,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 4,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 17,
+          "plot": 3,
+          "support": 1
+        },
+        {
+          "attack": 5,
+          "auto": 6,
+          "draw": 6,
+          "end": 5,
+          "pass": 9,
+          "plot": 7,
+          "support": 8,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        13307,
+        33037
+      ],
+      "max_ms": [
+        1857,
+        2957
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1028,
+      "faction": "I04",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        6,
+        6
+      ],
+      "steps": 105,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 7,
+          "choose": 1,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 15,
+          "plot": 4,
+          "support": 5,
+          "trigger": 2
+        },
+        {
+          "attack": 5,
+          "auto": 6,
+          "choose": 5,
+          "draw": 6,
+          "end": 6,
+          "pass": 17,
+          "plot": 2,
+          "rebuild": 1,
+          "support": 3
+        }
+      ],
+      "elapsed_ms": [
+        46018,
+        29550
+      ],
+      "max_ms": [
+        6798,
+        3670
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1028,
+      "faction": "I04",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        6,
+        6
+      ],
+      "steps": 95,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 7,
+          "choose": 3,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 5,
+          "support": 3,
+          "trigger": 1
+        },
+        {
+          "attack": 4,
+          "auto": 6,
+          "choose": 4,
+          "draw": 6,
+          "end": 6,
+          "pass": 12,
+          "plot": 1,
+          "rebuild": 1,
+          "support": 4
+        }
+      ],
+      "elapsed_ms": [
+        33832,
+        33439
+      ],
+      "max_ms": [
+        3819,
+        4840
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1029,
+      "faction": "I05",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        11,
+        11
+      ],
+      "steps": 215,
+      "counts": [
+        {
+          "attack": 11,
+          "auto": 10,
+          "choose": 1,
+          "deploy": 1,
+          "draw": 12,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 25,
+          "plot": 6,
+          "support": 33
+        },
+        {
+          "attack": 6,
+          "auto": 10,
+          "choose": 1,
+          "draw": 11,
+          "end": 11,
+          "pass": 42,
+          "plot": 8,
+          "support": 14
+        }
+      ],
+      "elapsed_ms": [
+        135609,
+        47162
+      ],
+      "max_ms": [
+        4560,
+        3058
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1029,
+      "faction": "I05",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        11,
+        11
+      ],
+      "steps": 142,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 11,
+          "choose": 1,
+          "deploy": 1,
+          "draw": 12,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 8,
+          "plot": 8,
+          "support": 16
+        },
+        {
+          "attack": 2,
+          "auto": 11,
+          "choose": 6,
+          "draw": 11,
+          "end": 11,
+          "pass": 11,
+          "plot": 3,
+          "support": 13
+        }
+      ],
+      "elapsed_ms": [
+        86198,
+        133837
+      ],
+      "max_ms": [
+        4753,
+        11707
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1030,
+      "faction": "I06",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        17,
+        18
+      ],
+      "steps": 401,
+      "counts": [
+        {
+          "ability": 6,
+          "attack": 15,
+          "auto": 17,
+          "choose": 12,
+          "draw": 18,
+          "end": 17,
+          "initial": 1,
+          "initial_resource": 1,
+          "lift": 1,
+          "pass": 38,
+          "plot": 10,
+          "rebuild": 1,
+          "support": 59
+        },
+        {
+          "ability": 11,
+          "attack": 9,
+          "auto": 17,
+          "choose": 19,
+          "counter": 1,
+          "draw": 18,
+          "end": 18,
+          "move": 1,
+          "pass": 59,
+          "plot": 14,
+          "self_defend": 1,
+          "support": 37
+        }
+      ],
+      "elapsed_ms": [
+        303808,
+        142569
+      ],
+      "max_ms": [
+        6253,
+        4282
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1030,
+      "faction": "I06",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        7,
+        7
+      ],
+      "steps": 98,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 1,
+          "auto": 7,
+          "choose": 4,
+          "counter": 1,
+          "draw": 7,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13
+        },
+        {
+          "ability": 4,
+          "attack": 4,
+          "auto": 7,
+          "choose": 7,
+          "deploy": 1,
+          "draw": 8,
+          "end": 7,
+          "pass": 5,
+          "plot": 6,
+          "support": 6
+        }
+      ],
+      "elapsed_ms": [
+        21042,
+        56755
+      ],
+      "max_ms": [
+        3283,
+        4940
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1031,
+      "faction": "I07",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        7,
+        7
+      ],
+      "steps": 120,
+      "counts": [
+        {
+          "ability": 3,
+          "attack": 5,
+          "auto": 5,
+          "choose": 3,
+          "draw": 7,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 3,
+          "support": 7,
+          "trigger": 2
+        },
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 7,
+          "choose": 3,
+          "draw": 8,
+          "end": 7,
+          "pass": 18,
+          "plot": 3,
+          "rebuild": 1,
+          "support": 7
+        }
+      ],
+      "elapsed_ms": [
+        37202,
+        33292
+      ],
+      "max_ms": [
+        3030,
+        3377
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1031,
+      "faction": "I07",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        13,
+        14
+      ],
+      "steps": 271,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 8,
+          "auto": 12,
+          "choose": 5,
+          "counter": 1,
+          "draw": 13,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 49,
+          "plot": 7,
+          "self_defend": 1,
+          "support": 17
+        },
+        {
+          "ability": 4,
+          "attack": 15,
+          "auto": 11,
+          "choose": 6,
+          "draw": 14,
+          "end": 14,
+          "pass": 37,
+          "plot": 9,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 29
+        }
+      ],
+      "elapsed_ms": [
+        56628,
+        135943
+      ],
+      "max_ms": [
+        4194,
+        5719
+      ],
+      "victory": {
+        "card": "I07",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1032,
+      "faction": "I08",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        10,
+        10
+      ],
+      "steps": 211,
+      "counts": [
+        {
+          "ability": 11,
+          "attack": 8,
+          "auto": 10,
+          "choose": 8,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 11,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 19,
+          "plot": 12,
+          "resource": 1,
+          "support": 20,
+          "synergy": 1
+        },
+        {
+          "ability": 9,
+          "attack": 5,
+          "auto": 10,
+          "choose": 6,
+          "draw": 10,
+          "end": 10,
+          "pass": 30,
+          "plot": 6,
+          "support": 10
+        }
+      ],
+      "elapsed_ms": [
+        145738,
+        70689
+      ],
+      "max_ms": [
+        6776,
+        4943
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1032,
+      "faction": "I08",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        12,
+        11
+      ],
+      "steps": 236,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 5,
+          "auto": 12,
+          "choose": 4,
+          "counter": 1,
+          "draw": 12,
+          "end": 12,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 35,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 19
+        },
+        {
+          "ability": 9,
+          "attack": 12,
+          "auto": 11,
+          "choose": 7,
+          "draw": 12,
+          "end": 11,
+          "pass": 25,
+          "plot": 9,
+          "rebuild": 1,
+          "support": 28
+        }
+      ],
+      "elapsed_ms": [
+        66772,
+        151367
+      ],
+      "max_ms": [
+        3559,
+        4093
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1033,
+      "faction": "I09",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        13,
+        13
+      ],
+      "steps": 304,
+      "counts": [
+        {
+          "ability": 6,
+          "attack": 17,
+          "auto": 14,
+          "choose": 3,
+          "draw": 14,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 25,
+          "plot": 7,
+          "support": 59,
+          "trigger": 3
+        },
+        {
+          "attack": 5,
+          "auto": 13,
+          "choose": 6,
+          "draw": 13,
+          "end": 13,
+          "pass": 68,
+          "plot": 7,
+          "self_defend": 3,
+          "support": 13
+        }
+      ],
+      "elapsed_ms": [
+        258769,
+        69795
+      ],
+      "max_ms": [
+        5011,
+        4383
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "AI的势力已被消灭",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1033,
+      "faction": "I09",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        9,
+        8
+      ],
+      "steps": 190,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 5,
+          "auto": 8,
+          "choose": 8,
+          "deploy": 1,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 34,
+          "plot": 3,
+          "resource": 2,
+          "support": 13
+        },
+        {
+          "ability": 4,
+          "attack": 11,
+          "auto": 6,
+          "choose": 4,
+          "deploy": 1,
+          "draw": 9,
+          "end": 8,
+          "pass": 19,
+          "plot": 8,
+          "support": 24
+        }
+      ],
+      "elapsed_ms": [
+        57996,
+        111530
+      ],
+      "max_ms": [
+        4297,
+        5859
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1034,
+      "faction": "I10",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 82,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 6,
+          "choose": 2,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 7,
+          "plot": 4,
+          "support": 9
+        },
+        {
+          "attack": 1,
+          "auto": 4,
+          "choose": 1,
+          "deploy": 1,
+          "draw": 5,
+          "end": 5,
+          "pass": 16,
+          "plot": 3,
+          "rebuild": 1
+        }
+      ],
+      "elapsed_ms": [
+        31356,
+        17631
+      ],
+      "max_ms": [
+        5516,
+        2412
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1034,
+      "faction": "I10",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        9,
+        8
+      ],
+      "steps": 101,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 9,
+          "choose": 2,
+          "counter": 1,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 9,
+          "plot": 3,
+          "support": 4
+        },
+        {
+          "attack": 3,
+          "auto": 9,
+          "choose": 2,
+          "deploy": 1,
+          "draw": 9,
+          "end": 8,
+          "pass": 8,
+          "plot": 5,
+          "rebuild": 1,
+          "support": 5
+        }
+      ],
+      "elapsed_ms": [
+        33123,
+        63760
+      ],
+      "max_ms": [
+        3375,
+        4240
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1035,
+      "faction": "I11",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        8,
+        8
+      ],
+      "steps": 117,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 9,
+          "draw": 9,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 14,
+          "plot": 5,
+          "support": 6
+        },
+        {
+          "attack": 3,
+          "auto": 7,
+          "choose": 4,
+          "deploy": 1,
+          "draw": 8,
+          "end": 8,
+          "pass": 12,
+          "plot": 5,
+          "support": 10,
+          "trigger": 3
+        }
+      ],
+      "elapsed_ms": [
+        64639,
+        45165
+      ],
+      "max_ms": [
+        5755,
+        4330
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1035,
+      "faction": "I11",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        15,
+        14
+      ],
+      "steps": 386,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 15,
+          "choose": 5,
+          "draw": 15,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 72,
+          "plot": 11,
+          "rebuild": 2,
+          "self_defend": 1,
+          "support": 34
+        },
+        {
+          "ability": 2,
+          "attack": 21,
+          "auto": 14,
+          "choose": 11,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 15,
+          "end": 14,
+          "pass": 34,
+          "plot": 13,
+          "rebuild": 1,
+          "support": 71,
+          "trigger": 11
+        }
+      ],
+      "elapsed_ms": [
+        75229,
+        325510
+      ],
+      "max_ms": [
+        3571,
+        7268
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1036,
+      "faction": "I12",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        11,
+        11
+      ],
+      "steps": 131,
+      "counts": [
+        {
+          "ability": 3,
+          "attack": 4,
+          "auto": 11,
+          "choose": 10,
+          "draw": 11,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 5,
+          "plot": 9,
+          "support": 6,
+          "trigger": 5
+        },
+        {
+          "ability": 1,
+          "auto": 12,
+          "choose": 1,
+          "counter": 1,
+          "draw": 12,
+          "end": 11,
+          "pass": 11,
+          "plot": 4,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        83686,
+        69746
+      ],
+      "max_ms": [
+        5535,
+        4376
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1036,
+      "faction": "I12",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        11,
+        12
+      ],
+      "steps": 161,
+      "counts": [
+        {
+          "accept_plot": 1,
+          "attack": 1,
+          "auto": 12,
+          "choose": 6,
+          "counter": 1,
+          "draw": 12,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 12,
+          "plot": 10,
+          "self_defend": 1,
+          "support": 10,
+          "trigger": 4
+        },
+        {
+          "ability": 3,
+          "attack": 5,
+          "auto": 12,
+          "draw": 12,
+          "end": 12,
+          "pass": 8,
+          "plot": 6,
+          "resource": 1,
+          "support": 17,
+          "trigger": 1,
+          "wave": 1
+        }
+      ],
+      "elapsed_ms": [
+        58927,
+        95576
+      ],
+      "max_ms": [
+        4090,
+        5189
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1037,
+      "faction": "I01",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        6,
+        7
+      ],
+      "steps": 145,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 6,
+          "choose": 1,
+          "draw": 6,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 33,
+          "plot": 3,
+          "support": 5
+        },
+        {
+          "attack": 8,
+          "auto": 7,
+          "choose": 3,
+          "draw": 7,
+          "end": 7,
+          "pass": 19,
+          "plot": 3,
+          "support": 22,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        36592,
+        40534
+      ],
+      "max_ms": [
+        6920,
+        3586
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1037,
+      "faction": "I01",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        5,
+        6
+      ],
+      "steps": 108,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 5,
+          "choose": 1,
+          "draw": 5,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 2,
+          "self_defend": 1,
+          "support": 8
+        },
+        {
+          "ability": 1,
+          "attack": 7,
+          "auto": 6,
+          "choose": 3,
+          "draw": 6,
+          "end": 6,
+          "pass": 11,
+          "plot": 4,
+          "support": 15
+        }
+      ],
+      "elapsed_ms": [
+        12854,
+        61606
+      ],
+      "max_ms": [
+        2136,
+        3925
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1038,
+      "faction": "I02",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        8,
+        8
+      ],
+      "steps": 169,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 9,
+          "auto": 9,
+          "choose": 3,
+          "draw": 9,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 16,
+          "plot": 3,
+          "rebuild": 1,
+          "support": 29,
+          "trigger": 1
+        },
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 8,
+          "choose": 2,
+          "draw": 8,
+          "end": 8,
+          "pass": 36,
+          "plot": 3,
+          "self_defend": 1,
+          "support": 8
+        }
+      ],
+      "elapsed_ms": [
+        137754,
+        37504
+      ],
+      "max_ms": [
+        4821,
+        3745
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "AI的势力已被消灭",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1038,
+      "faction": "I02",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        10,
+        9
+      ],
+      "steps": 231,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 10,
+          "choose": 3,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 44,
+          "plot": 5,
+          "rebuild": 1,
+          "self_defend": 2,
+          "support": 18,
+          "trigger": 1
+        },
+        {
+          "ability": 4,
+          "attack": 14,
+          "auto": 10,
+          "choose": 2,
+          "draw": 10,
+          "end": 9,
+          "pass": 29,
+          "plot": 9,
+          "support": 32
+        }
+      ],
+      "elapsed_ms": [
+        61023,
+        184410
+      ],
+      "max_ms": [
+        4318,
+        5260
+      ],
+      "victory": {
+        "card": "P53",
+        "kind": "goal",
+        "reason": "铁腕统治 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1039,
+      "faction": "I03",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        23,
+        23
+      ],
+      "steps": 383,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 11,
+          "auto": 21,
+          "choose": 12,
+          "deploy": 3,
+          "draw": 23,
+          "end": 23,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 45,
+          "plot": 14,
+          "rebuild": 1,
+          "resource": 1,
+          "support": 32,
+          "trigger": 3
+        },
+        {
+          "ability": 3,
+          "attack": 12,
+          "auto": 24,
+          "choose": 10,
+          "draw": 24,
+          "end": 23,
+          "lift": 1,
+          "pass": 43,
+          "plot": 15,
+          "self_defend": 1,
+          "support": 34,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        314370,
+        264148
+      ],
+      "max_ms": [
+        6779,
+        8546
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1039,
+      "faction": "I03",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        8,
+        8
+      ],
+      "steps": 174,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 37,
+          "plot": 3,
+          "self_defend": 1,
+          "support": 6
+        },
+        {
+          "ability": 4,
+          "attack": 14,
+          "auto": 7,
+          "choose": 4,
+          "draw": 9,
+          "end": 8,
+          "pass": 16,
+          "plot": 3,
+          "support": 29,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        30336,
+        125061
+      ],
+      "max_ms": [
+        3308,
+        5573
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1040,
+      "faction": "I04",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        15,
+        16
+      ],
+      "steps": 247,
+      "counts": [
+        {
+          "attack": 8,
+          "auto": 14,
+          "choose": 9,
+          "draw": 16,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 22,
+          "plot": 10,
+          "support": 25,
+          "synergy": 1
+        },
+        {
+          "ability": 3,
+          "attack": 5,
+          "auto": 15,
+          "choose": 6,
+          "deploy": 1,
+          "draw": 16,
+          "end": 16,
+          "pass": 28,
+          "plot": 7,
+          "rebuild": 1,
+          "support": 27
+        }
+      ],
+      "elapsed_ms": [
+        205264,
+        206055
+      ],
+      "max_ms": [
+        8388,
+        10391
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1040,
+      "faction": "I04",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        9,
+        10
+      ],
+      "steps": 175,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 9,
+          "choose": 3,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 28,
+          "plot": 7,
+          "self_defend": 1,
+          "support": 12,
+          "synergy": 1
+        },
+        {
+          "ability": 1,
+          "attack": 8,
+          "auto": 9,
+          "choose": 3,
+          "deploy": 1,
+          "draw": 10,
+          "end": 10,
+          "pass": 13,
+          "plot": 6,
+          "rebuild": 1,
+          "support": 29
+        }
+      ],
+      "elapsed_ms": [
+        49075,
+        130750
+      ],
+      "max_ms": [
+        3845,
+        4816
+      ],
+      "victory": {
+        "card": "I04",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1041,
+      "faction": "I05",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        10
+      ],
+      "steps": 192,
+      "counts": [
+        {
+          "attack": 8,
+          "auto": 10,
+          "choose": 2,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 21,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 25,
+          "synergy": 1,
+          "trigger": 3
+        },
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 9,
+          "choose": 1,
+          "draw": 10,
+          "end": 10,
+          "pass": 37,
+          "plot": 9,
+          "rebuild": 1,
+          "resource": 2,
+          "support": 9
+        }
+      ],
+      "elapsed_ms": [
+        102077,
+        61861
+      ],
+      "max_ms": [
+        5581,
+        4635
+      ],
+      "victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1041,
+      "faction": "I05",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        11
+      ],
+      "steps": 238,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 4,
+          "auto": 10,
+          "choose": 4,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "move": 1,
+          "pass": 40,
+          "plot": 5,
+          "support": 22
+        },
+        {
+          "ability": 5,
+          "attack": 13,
+          "auto": 11,
+          "draw": 11,
+          "end": 11,
+          "pass": 24,
+          "plot": 14,
+          "resource": 8,
+          "support": 31
+        }
+      ],
+      "elapsed_ms": [
+        43382,
+        146176
+      ],
+      "max_ms": [
+        2956,
+        4131
+      ],
+      "victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1042,
+      "faction": "I06",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        4,
+        5
+      ],
+      "steps": 61,
+      "counts": [
+        {
+          "attack": 3,
+          "auto": 5,
+          "choose": 1,
+          "draw": 5,
+          "end": 4,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 4,
+          "plot": 2,
+          "support": 6
+        },
+        {
+          "attack": 1,
+          "auto": 5,
+          "draw": 5,
+          "end": 5,
+          "pass": 11,
+          "plot": 2
+        }
+      ],
+      "elapsed_ms": [
+        29127,
+        15839
+      ],
+      "max_ms": [
+        5247,
+        2623
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1042,
+      "faction": "I06",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        4,
+        4
+      ],
+      "steps": 69,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 2,
+          "auto": 4,
+          "draw": 4,
+          "end": 4,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 12,
+          "plot": 1,
+          "support": 1
+        },
+        {
+          "ability": 1,
+          "attack": 5,
+          "auto": 5,
+          "draw": 5,
+          "end": 4,
+          "pass": 8,
+          "plot": 4,
+          "support": 4,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        19796,
+        28547
+      ],
+      "max_ms": [
+        2967,
+        3737
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1043,
+      "faction": "I07",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "loss",
+      "turns": [
+        7,
+        6
+      ],
+      "steps": 133,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 7,
+          "auto": 5,
+          "choose": 4,
+          "deploy": 1,
+          "draw": 7,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 21,
+          "plot": 5,
+          "support": 8,
+          "trigger": 1
+        },
+        {
+          "ability": 3,
+          "attack": 6,
+          "auto": 6,
+          "choose": 3,
+          "draw": 7,
+          "end": 6,
+          "pass": 19,
+          "plot": 4,
+          "support": 9
+        }
+      ],
+      "elapsed_ms": [
+        47938,
+        43545
+      ],
+      "max_ms": [
+        3928,
+        4002
+      ],
+      "victory": {
+        "card": "P54",
+        "kind": "goal",
+        "reason": "聚光灯帝国 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1043,
+      "faction": "I07",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        7,
+        7
+      ],
+      "steps": 144,
+      "counts": [
+        {
+          "ability": 2,
+          "attack": 4,
+          "auto": 6,
+          "choose": 3,
+          "deploy": 1,
+          "draw": 7,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 26,
+          "plot": 4,
+          "support": 8,
+          "trigger": 1
+        },
+        {
+          "ability": 3,
+          "attack": 9,
+          "auto": 5,
+          "choose": 4,
+          "draw": 7,
+          "end": 7,
+          "pass": 17,
+          "plot": 5,
+          "support": 16
+        }
+      ],
+      "elapsed_ms": [
+        32023,
+        55810
+      ],
+      "max_ms": [
+        2948,
+        3407
+      ],
+      "victory": {
+        "card": "I07",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1044,
+      "faction": "I08",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        11
+      ],
+      "steps": 187,
+      "counts": [
+        {
+          "attack": 8,
+          "auto": 10,
+          "choose": 7,
+          "draw": 11,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "lift": 1,
+          "pass": 15,
+          "plot": 8,
+          "rebuild": 1,
+          "support": 23
+        },
+        {
+          "attack": 3,
+          "auto": 11,
+          "choose": 10,
+          "draw": 11,
+          "end": 11,
+          "pass": 24,
+          "plot": 5,
+          "self_defend": 2,
+          "support": 13,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        142121,
+        45199
+      ],
+      "max_ms": [
+        7416,
+        3285
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1044,
+      "faction": "I08",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        8,
+        8
+      ],
+      "steps": 158,
+      "counts": [
+        {
+          "auto": 8,
+          "choose": 1,
+          "draw": 8,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "lift": 1,
+          "pass": 29,
+          "plot": 6,
+          "self_defend": 1,
+          "support": 5
+        },
+        {
+          "attack": 10,
+          "auto": 8,
+          "choose": 10,
+          "deploy": 1,
+          "draw": 9,
+          "end": 8,
+          "pass": 12,
+          "plot": 5,
+          "support": 24,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        38953,
+        100498
+      ],
+      "max_ms": [
+        2944,
+        5249
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1045,
+      "faction": "I09",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        15,
+        16
+      ],
+      "steps": 269,
+      "counts": [
+        {
+          "ability": 3,
+          "attack": 10,
+          "auto": 16,
+          "choose": 7,
+          "deploy": 1,
+          "draw": 16,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 19,
+          "plot": 15,
+          "rebuild": 1,
+          "support": 30,
+          "synergy": 2,
+          "trigger": 5
+        },
+        {
+          "ability": 2,
+          "attack": 3,
+          "auto": 15,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 16,
+          "end": 16,
+          "pass": 25,
+          "plot": 9,
+          "rebuild": 1,
+          "self_defend": 2,
+          "support": 30,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        239067,
+        90821
+      ],
+      "max_ms": [
+        6686,
+        3693
+      ],
+      "victory": {
+        "card": "P51",
+        "kind": "goal",
+        "reason": "犯罪霸权 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1045,
+      "faction": "I09",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        15,
+        15
+      ],
+      "steps": 420,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 15,
+          "choose": 7,
+          "deploy": 1,
+          "draw": 15,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 83,
+          "plot": 11,
+          "rebuild": 1,
+          "self_defend": 4,
+          "support": 31,
+          "trigger": 1,
+          "wave": 1
+        },
+        {
+          "ability": 5,
+          "attack": 18,
+          "auto": 15,
+          "choose": 14,
+          "deploy": 1,
+          "draw": 16,
+          "end": 15,
+          "pass": 32,
+          "plot": 20,
+          "support": 77,
+          "trigger": 14,
+          "wave": 2
+        }
+      ],
+      "elapsed_ms": [
+        45096,
+        270458
+      ],
+      "max_ms": [
+        2361,
+        4148
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1046,
+      "faction": "I10",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        17,
+        17
+      ],
+      "steps": 256,
+      "counts": [
+        {
+          "ability": 2,
+          "accept_plot": 1,
+          "attack": 7,
+          "auto": 17,
+          "choose": 24,
+          "counter": 1,
+          "deploy": 2,
+          "draw": 18,
+          "end": 17,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 19,
+          "plot": 9,
+          "resource": 2,
+          "support": 13,
+          "trigger": 16
+        },
+        {
+          "ability": 2,
+          "attack": 4,
+          "auto": 17,
+          "choose": 8,
+          "draw": 17,
+          "end": 17,
+          "pass": 14,
+          "plot": 9,
+          "self_defend": 1,
+          "support": 16,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        325831,
+        232476
+      ],
+      "max_ms": [
+        11236,
+        13064
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1046,
+      "faction": "I10",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        17,
+        16
+      ],
+      "steps": 257,
+      "counts": [
+        {
+          "ability": 7,
+          "attack": 1,
+          "auto": 17,
+          "choose": 27,
+          "counter": 1,
+          "deploy": 3,
+          "draw": 17,
+          "end": 17,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 20,
+          "plot": 13,
+          "resource": 3,
+          "support": 8,
+          "trigger": 20
+        },
+        {
+          "ability": 2,
+          "attack": 6,
+          "auto": 16,
+          "choose": 8,
+          "deploy": 1,
+          "draw": 17,
+          "end": 16,
+          "pass": 13,
+          "plot": 7,
+          "rebuild": 1,
+          "support": 12,
+          "trigger": 2
+        }
+      ],
+      "elapsed_ms": [
+        174518,
+        122730
+      ],
+      "max_ms": [
+        8617,
+        5024
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1047,
+      "faction": "I11",
+      "challenger": 0,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        14,
+        14
+      ],
+      "steps": 272,
+      "counts": [
+        {
+          "attack": 13,
+          "auto": 12,
+          "choose": 13,
+          "counter": 1,
+          "deploy": 1,
+          "draw": 15,
+          "end": 14,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 20,
+          "plot": 7,
+          "support": 47,
+          "trigger": 2
+        },
+        {
+          "attack": 2,
+          "auto": 14,
+          "choose": 6,
+          "draw": 14,
+          "end": 14,
+          "pass": 46,
+          "plot": 7,
+          "rebuild": 1,
+          "self_defend": 1,
+          "support": 19,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        249683,
+        84686
+      ],
+      "max_ms": [
+        5815,
+        6615
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1047,
+      "faction": "I11",
+      "challenger": 1,
+      "first": 0,
+      "outcome": "win",
+      "turns": [
+        13,
+        12
+      ],
+      "steps": 186,
+      "counts": [
+        {
+          "attack": 2,
+          "auto": 13,
+          "choose": 7,
+          "counter": 1,
+          "draw": 13,
+          "end": 13,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 18,
+          "plot": 5,
+          "self_defend": 1,
+          "support": 14
+        },
+        {
+          "attack": 6,
+          "auto": 13,
+          "choose": 11,
+          "draw": 13,
+          "end": 12,
+          "pass": 15,
+          "plot": 7,
+          "rebuild": 1,
+          "support": 16,
+          "trigger": 3
+        }
+      ],
+      "elapsed_ms": [
+        73959,
+        124020
+      ],
+      "max_ms": [
+        5884,
+        4942
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1048,
+      "faction": "I12",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "loss",
+      "turns": [
+        24,
+        24
+      ],
+      "steps": 297,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 24,
+          "choose": 35,
+          "counter": 1,
+          "draw": 24,
+          "end": 24,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 7,
+          "resource": 1,
+          "support": 15,
+          "trigger": 3
+        },
+        {
+          "attack": 5,
+          "auto": 23,
+          "choose": 21,
+          "deploy": 2,
+          "draw": 25,
+          "end": 24,
+          "pass": 17,
+          "plot": 6,
+          "rebuild": 1,
+          "resource": 1,
+          "self_defend": 1,
+          "support": 11,
+          "trigger": 6
+        }
+      ],
+      "elapsed_ms": [
+        303799,
+        301168
+      ],
+      "max_ms": [
+        10853,
+        14884
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1048,
+      "faction": "I12",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        11,
+        11
+      ],
+      "steps": 156,
+      "counts": [
+        {
+          "attack": 1,
+          "auto": 11,
+          "choose": 11,
+          "counter": 1,
+          "draw": 11,
+          "end": 11,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 14,
+          "plot": 7,
+          "support": 7,
+          "trigger": 2
+        },
+        {
+          "ability": 3,
+          "attack": 6,
+          "auto": 11,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 12,
+          "end": 11,
+          "pass": 9,
+          "plot": 5,
+          "rebuild": 1,
+          "support": 13,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        33191,
+        53300
+      ],
+      "max_ms": [
+        2512,
+        2799
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1049,
+      "faction": "I01",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        9,
+        9
+      ],
+      "steps": 147,
+      "counts": [
+        {
+          "attack": 10,
+          "auto": 9,
+          "choose": 5,
+          "draw": 9,
+          "end": 9,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 21,
+          "plot": 5,
+          "support": 5,
+          "trigger": 1
+        },
+        {
+          "ability": 3,
+          "attack": 4,
+          "auto": 9,
+          "choose": 4,
+          "draw": 9,
+          "end": 9,
+          "pass": 20,
+          "plot": 5,
+          "rebuild": 2,
+          "support": 6
+        }
+      ],
+      "elapsed_ms": [
+        41547,
+        36049
+      ],
+      "max_ms": [
+        2492,
+        2514
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1049,
+      "faction": "I01",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        10,
+        11
+      ],
+      "steps": 226,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 10,
+          "choose": 7,
+          "draw": 10,
+          "end": 10,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 39,
+          "plot": 6,
+          "self_defend": 3,
+          "support": 20,
+          "trigger": 1
+        },
+        {
+          "ability": 2,
+          "attack": 10,
+          "auto": 9,
+          "choose": 2,
+          "draw": 11,
+          "end": 11,
+          "pass": 20,
+          "plot": 8,
+          "rebuild": 2,
+          "support": 38
+        }
+      ],
+      "elapsed_ms": [
+        32872,
+        85978
+      ],
+      "max_ms": [
+        2415,
+        2506
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1050,
+      "faction": "I02",
+      "challenger": 0,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        7,
+        8
+      ],
+      "steps": 113,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 3,
+          "support": 7
+        },
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 8,
+          "pass": 13,
+          "plot": 3,
+          "support": 8
+        }
+      ],
+      "elapsed_ms": [
+        59437,
+        43675
+      ],
+      "max_ms": [
+        4725,
+        3551
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1050,
+      "faction": "I02",
+      "challenger": 1,
+      "first": 1,
+      "outcome": "win",
+      "turns": [
+        15,
+        15
+      ],
+      "steps": 411,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 15,
+          "choose": 7,
+          "draw": 15,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 93,
+          "plot": 6,
+          "self_defend": 6,
+          "support": 32,
+          "trigger": 1
+        },
+        {
+          "ability": 2,
+          "attack": 22,
+          "auto": 15,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 16,
+          "end": 15,
+          "pass": 34,
+          "plot": 9,
+          "support": 94,
+          "trigger": 1
+        }
+      ],
+      "elapsed_ms": [
+        104677,
+        466626
+      ],
+      "max_ms": [
+        5680,
+        7480
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    }
+  ]
+}

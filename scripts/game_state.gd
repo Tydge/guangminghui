@@ -632,6 +632,11 @@ func battle_values(b: Dictionary = {}) -> Dictionary:
 
 func act(p: int,a: Dictionary) -> bool:
 	if a not in legal_actions(p):return false
+	return _act_generated(p,a)
+
+## Planner-only fast path for a command just obtained from this model's legal
+## action list. Live UI and benchmark matches always enter through act().
+func _act_generated(p: int,a: Dictionary) -> bool:
 	var applied=_apply_command(p,a)
 	if applied:renewal.repair_slots()
 	if applied:covenant.repair_hand()

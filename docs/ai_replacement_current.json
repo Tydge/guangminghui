@@ -1,0 +1,1257 @@
+{
+  "protocol": "Play old-vs-old once per fixed seed; replace only its losing seat; reuse the matching frozen new-vs-old match, without retuning or selecting seeds.",
+  "controls": 50,
+  "eligible_losing_seats": 50,
+  "excluded_controls": [],
+  "reversed": 36,
+  "still_lost": 14,
+  "draws": 0,
+  "unfinished": 0,
+  "reversal_rate": 0.72,
+  "initiative": {
+    "first": {
+      "loss": 4,
+      "win": 21
+    },
+    "second": {
+      "win": 15,
+      "loss": 10
+    }
+  },
+  "all_opening_fingerprints_equal": true,
+  "full_replays_verified": 6,
+  "full_replay_seeds": [
+    1001,
+    1012,
+    1050
+  ],
+  "illegal": 0,
+  "conditions": {
+    "mirror_factions": true,
+    "seed_base": 1001,
+    "max_turns": 45,
+    "max_commands": 1800
+  },
+  "baseline": {
+    "description": "Frozen hard AI before the resource/planning improvements; rules and information permissions are shared with the candidate.",
+    "files": {
+      "ai_agent.gd": {
+        "canonical_lf_sha256": "6c1ed368885439bf45f868291214c8756188c74e6568cbde24be8249303f93a9",
+        "frozen_sha256": "0e3718ea5bd398129d7e5fef4686aa027f156e7e8d3cb5929bc02ff3ad8eeb27",
+        "original_sha256": "1af4c6908a67231ab89daa58df58f86ef979873b82052200ed2dc8ae3a8bb6b4"
+      },
+      "ai_planner.gd": {
+        "canonical_lf_sha256": "025f994bbd48998b4d58210927530f876291bcd0ee9c593ae3e29a6ad0583301",
+        "frozen_sha256": "175b4b2e24003dfdffa1bb0410798d7312e4a6b6fd209fafdc7a1e76e99f418d",
+        "original_sha256": "d710fa6b8612425edc78e4e418bc6ecf05aa69303446ae7e2ce2dfba5d303f10"
+      },
+      "ai_structure.gd": {
+        "canonical_lf_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+        "frozen_sha256": "4f77e78f5a613bda83e02370d0471d18ee3e65720d301cf96f91ee4975078ccc",
+        "original_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199"
+      },
+      "ai_tactics.gd": {
+        "canonical_lf_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1",
+        "frozen_sha256": "231bf0aad9839539d7cec45ead12d38c311a8151559f68ef242464103868782f",
+        "original_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1"
+      }
+    },
+    "revision": "44b22379437902e3c1b7793f3b933126b972ba1c"
+  },
+  "candidate_canonical_lf_hashes": {
+    "data/cards.json": "3eb8434c9769aeae87805b7d48c3e5372552eed522a88ebf4c3280eed57a36c0",
+    "scripts/action_flow.gd": "8f9a4006be77d26d8f938a04265b5a10ca150637071701927e31477ce3737cd8",
+    "scripts/ai_agent.gd": "a543e895ed7c33f1ce11f72b9efdb66fc5698fc1e980747e688f6c77d8a5d945",
+    "scripts/ai_planner.gd": "8cdcf3aad4ae1e3f17a6f26b5f537dda63648ebef6d4bb7cb086983e28f9242f",
+    "scripts/ai_structure.gd": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+    "scripts/ai_tactics.gd": "c585eb9b9830113d4936f38fc37f6aef0e4c50e8779ecfa6b1b601d50f44acd0",
+    "scripts/contemporary_rules.gd": "ff759ea1001148ab48172f522b06bf72d2d0a1c55c83fc1db1fd87993094b4c0",
+    "scripts/covenant_rules.gd": "b65c456e63f216ffffaa2ee18f7a1d4c35cdf65be5e1ebe3ec11c1809106b76c",
+    "scripts/game_state.gd": "970f2bb92cb2ccb4fce5882dcb57bcc15c17ad2754857440e2032ccce72e2a1a",
+    "scripts/renewal_rules.gd": "f851fca40b5845cd8cc8f79cf20dc4224196d9fd95b2d7b8c61682ddfd9c834d",
+    "scripts/resource_rules.gd": "00651a86f38b642a03492664cd1ff1d1b133ebba4f3064900e0afaf69fda691a",
+    "scripts/synergy_rules.gd": "4da5ea40e2f13dc1ab174995756642497d4f5336d973faa43e89c10452d2f40f",
+    "scripts/wave_rules.gd": "75c00484f646ef35be5982161c8dadf9a7f64c9d6b4eb30c8f1860b296a40b7b"
+  },
+  "replacement_matches_reused_from_strength_benchmark": true,
+  "source_controls": [
+    "tests\\challenger-control-0-report.json",
+    "tests\\challenger-control-1-report.json",
+    "tests\\challenger-control-10-report.json",
+    "tests\\challenger-control-11-report.json",
+    "tests\\challenger-control-12-report.json",
+    "tests\\challenger-control-13-report.json",
+    "tests\\challenger-control-14-report.json",
+    "tests\\challenger-control-15-report.json",
+    "tests\\challenger-control-16-report.json",
+    "tests\\challenger-control-17-report.json",
+    "tests\\challenger-control-18-report.json",
+    "tests\\challenger-control-19-report.json",
+    "tests\\challenger-control-2-report.json",
+    "tests\\challenger-control-20-report.json",
+    "tests\\challenger-control-21-report.json",
+    "tests\\challenger-control-22-report.json",
+    "tests\\challenger-control-23-report.json",
+    "tests\\challenger-control-24-report.json",
+    "tests\\challenger-control-3-report.json",
+    "tests\\challenger-control-4-report.json",
+    "tests\\challenger-control-5-report.json",
+    "tests\\challenger-control-6-report.json",
+    "tests\\challenger-control-7-report.json",
+    "tests\\challenger-control-8-report.json",
+    "tests\\challenger-control-9-report.json"
+  ],
+  "source_openings": "tests\\challenger-opening-audit-report.json",
+  "source_full_replays": [
+    "tests\\challenger-replay-0-report.json",
+    "tests\\challenger-replay-11-report.json",
+    "tests\\challenger-replay-49-report.json"
+  ],
+  "trials": [
+    {
+      "seed": 1001,
+      "faction": "I01",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "cb4fa04f4ec058d64daf3913a5e2848edb115657d99dd44396c11852e94dd71c",
+      "control_turns": [
+        7,
+        8
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        6,
+        7
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1002,
+      "faction": "I02",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "f1ec999b568a9160366568e66569784d9762232363735ecb031ea2bdffe3ad68",
+      "control_turns": [
+        6,
+        7
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        7,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1003,
+      "faction": "I03",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "28654256a1f1a7c55f6e192cad0b3d9fa57f7fa2e375370cab1f989dceaa20ee",
+      "control_turns": [
+        5,
+        5
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        6,
+        6
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1004,
+      "faction": "I04",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "8dd980ae3bda33072b7fe74fcdd7e29400a6058bee3840a2fcfcf40d5edc776a",
+      "control_turns": [
+        10,
+        10
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        9,
+        9
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1005,
+      "faction": "I05",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "3c91c63fb093f00a751fa351795c95aa8a7188943069542c9460926fe81a637d",
+      "control_turns": [
+        14,
+        14
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        7,
+        7
+      ],
+      "replacement_victory": {
+        "kind": "elimination",
+        "reason": "AI的势力已被消灭",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1006,
+      "faction": "I06",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "e54350b1e0202f71859f9ffab3c6dc4692387bd67f5a8ca1ecbab587e7d452f8",
+      "control_turns": [
+        6,
+        7
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        12,
+        12
+      ],
+      "replacement_victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1007,
+      "faction": "I07",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "bf865273ba9b471a08f7e4aa90c973ccf2a238c35581b515eae80a380c92c000",
+      "control_turns": [
+        10,
+        11
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        9
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1008,
+      "faction": "I08",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "f7e93615f0738f447cfc6b8e83c3ab3e6d19b7fadececf8b89d1a0e256b86367",
+      "control_turns": [
+        6,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        8,
+        9
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1009,
+      "faction": "I09",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "a4a11d4e1997cd23ce23a6fca8f444bf0e5b1c7733e46207ceadd848f2375691",
+      "control_turns": [
+        12,
+        11
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        15,
+        15
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1010,
+      "faction": "I10",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "93d1ad1c5ccd589a23bec4936b661065679c5a83e39fc2cff3fca2b343fd8055",
+      "control_turns": [
+        12,
+        13
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        15,
+        15
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1011,
+      "faction": "I11",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "1d758ae7342479a08ce19f5876d54465c7015c22cee59dcf65ba574c68e20f93",
+      "control_turns": [
+        16,
+        16
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        12,
+        12
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1012,
+      "faction": "I12",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "3839f62b74df35e1e1d1a2e1830c618f50a8ae7e7dab7409b27d5994e037a7da",
+      "control_turns": [
+        5,
+        5
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        21,
+        21
+      ],
+      "replacement_victory": {
+        "card": "I12",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1013,
+      "faction": "I01",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "589fd863c0e698f7f30a1651293c3dfcb36ca0082931af74b780f23d69e9809a",
+      "control_turns": [
+        4,
+        5
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        5,
+        5
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1014,
+      "faction": "I02",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "7e1cb3a8781f7151c084b02b3f5375e4c87328b1859a5b8919ab38091cf328d7",
+      "control_turns": [
+        12,
+        12
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        3,
+        3
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1015,
+      "faction": "I03",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "4baa2648cb402bf749088bb8a638115c3f667b2a33288b6e3a51b30f46aed6c9",
+      "control_turns": [
+        9,
+        10
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        5,
+        5
+      ],
+      "replacement_victory": {
+        "card": "I03",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1016,
+      "faction": "I04",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "bb18e10a1cb2246825178063cc11bde6630cc99abde7882cdc4706dd18db51dc",
+      "control_turns": [
+        16,
+        16
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        5,
+        5
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1017,
+      "faction": "I05",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "03d7b266fceaae92c428b31804c809bb5292ea3d0899586be9b8d5bdf6ee9725",
+      "control_turns": [
+        10,
+        10
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        9,
+        10
+      ],
+      "replacement_victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1018,
+      "faction": "I06",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "50d6bcda3c41085fcf70ceb97f51510d194375fd7b6bf976e3c56e61a5c6875b",
+      "control_turns": [
+        16,
+        16
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        16,
+        16
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1019,
+      "faction": "I07",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "1f2c8e51cac9f444ca0dcbf4e206e7f336cc17ccc645f47a0c17f35f3d91f69c",
+      "control_turns": [
+        11,
+        12
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        10
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1020,
+      "faction": "I08",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "d3fb64b1672f6b40d97870fc9c9e8170c73b7d26b85e457e6658cc0d3d21ea46",
+      "control_turns": [
+        5,
+        5
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        17,
+        18
+      ],
+      "replacement_victory": {
+        "card": "P51",
+        "kind": "goal",
+        "reason": "犯罪霸权 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1021,
+      "faction": "I09",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "3da17978aa45f7bfe7be0ff9e47a31a212c46b7a419216480852d4f27dc53e78",
+      "control_turns": [
+        5,
+        4
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        5,
+        4
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1022,
+      "faction": "I10",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "1804c99ccddc142ff877d938df1f41be9e4618561d0485cdf0ca5c866a22a66c",
+      "control_turns": [
+        4,
+        4
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1023,
+      "faction": "I11",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "9244656e32b42f72f500cca2e6d13402f846a22cdc72e11762e3f34106324240",
+      "control_turns": [
+        11,
+        11
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        14,
+        13
+      ],
+      "replacement_victory": {
+        "card": "P53",
+        "kind": "goal",
+        "reason": "铁腕统治 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1024,
+      "faction": "I12",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "a761e1dcfda54fbbabe8277384d17857fdb47ca206910887101d9e13f1ab8571",
+      "control_turns": [
+        24,
+        25
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        24,
+        24
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1025,
+      "faction": "I01",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "55d892cfc22c30fc14415723ec1b71c98623cfdd84df4dbd5b802c1b37ea0f7f",
+      "control_turns": [
+        8,
+        8
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        8,
+        8
+      ],
+      "replacement_victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1026,
+      "faction": "I02",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "56ce8678e525b8ee95c0ed349e17cf2b22b52c3e88aa975eb4dc071c0261228f",
+      "control_turns": [
+        6,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        10,
+        9
+      ],
+      "replacement_victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1027,
+      "faction": "I03",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "da1bc121f45ae0b903e60433653eab43e192c05acd92f9dba5388811ce131a01",
+      "control_turns": [
+        17,
+        18
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        5,
+        5
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1028,
+      "faction": "I04",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "9d76dfa140badab4e5993e76c92f42e1cc32fe4526fdc119b6456554efd1a529",
+      "control_turns": [
+        6,
+        6
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        6,
+        6
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1029,
+      "faction": "I05",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "cce8bb67e67665a406b7d7512e37c698cb423b2c1f123b9f7b425bca9982750f",
+      "control_turns": [
+        11,
+        10
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        11,
+        11
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1030,
+      "faction": "I06",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "b589690e966cfb0b044f0bed5fc57aafc9c0b76d23e7f02d2aec4bffcf252627",
+      "control_turns": [
+        4,
+        4
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        17,
+        18
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1031,
+      "faction": "I07",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "e88281b854ddc9f941d4e017a08f56fb784937732956570dc06ea3f0829403ec",
+      "control_turns": [
+        22,
+        22
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        13,
+        14
+      ],
+      "replacement_victory": {
+        "card": "I07",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1032,
+      "faction": "I08",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "961ee21a0f3c55564df7083ea9a5c98647b29cbc0a2b9133c66184c7a049a756",
+      "control_turns": [
+        21,
+        20
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        10,
+        10
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1033,
+      "faction": "I09",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "e42130793c2e2f9ae775e013a12ebafb4273210496b9e4d084b6877f64397ad8",
+      "control_turns": [
+        17,
+        17
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1034,
+      "faction": "I10",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "1e96f4ece014182a05bac4e850d5a5a52a3a92ceed4cdbbb3d9b2f89d8fbdd8d",
+      "control_turns": [
+        5,
+        5
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1035,
+      "faction": "I11",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "c5dcd3d401a309ad628582e259b5c6c01a72e062d50cab4482c78312a9ac741c",
+      "control_turns": [
+        16,
+        15
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        8,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1036,
+      "faction": "I12",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "26a51340298fd74b252633a460592b9faee5da5d692bcab7c41200e0546df3d2",
+      "control_turns": [
+        12,
+        12
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        11,
+        11
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1037,
+      "faction": "I01",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "037c7a9fa5f9a1b2cee8ae05144d4ea8c62f63ffdc0a5e77c0bfe6ddf171d1bf",
+      "control_turns": [
+        7,
+        8
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        6,
+        7
+      ],
+      "replacement_victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1038,
+      "faction": "I02",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "47f0ab3aae2d151c6f06bf509517eee0ff05e06a51f0c7989027e1ed2e84ba85",
+      "control_turns": [
+        17,
+        16
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        10,
+        9
+      ],
+      "replacement_victory": {
+        "card": "P53",
+        "kind": "goal",
+        "reason": "铁腕统治 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1039,
+      "faction": "I03",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "2870e7d5a33b4517d6121141c56304173f06f03557c0274539a6835d538ded0a",
+      "control_turns": [
+        8,
+        8
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        23,
+        23
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1040,
+      "faction": "I04",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "4f0f7a84f136b8b562b26d2dbbdbb4ea145fd2b7602b6ad8bbfccc2ce3f95fbf",
+      "control_turns": [
+        17,
+        18
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        9,
+        10
+      ],
+      "replacement_victory": {
+        "card": "I04",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1041,
+      "faction": "I05",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "second",
+      "opening_sha256": "397df1a17cd1542d5cd1d6a007b26be9a0db7294a8e571177e8629fc72a209c5",
+      "control_turns": [
+        13,
+        13
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        10,
+        10
+      ],
+      "replacement_victory": {
+        "card": "I05",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1042,
+      "faction": "I06",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "260cbc5a07431a90bf8d2375eebeb2be98636c25877792ee5f541aa533e48ed6",
+      "control_turns": [
+        5,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        4,
+        4
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1043,
+      "faction": "I07",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "fae58543ed4e72d14a672c53f3f29cdf8c608516461e605898983e46ca3cbed4",
+      "control_turns": [
+        7,
+        6
+      ],
+      "replacement_outcome": "loss",
+      "replacement_turns": [
+        7,
+        6
+      ],
+      "replacement_victory": {
+        "card": "P54",
+        "kind": "goal",
+        "reason": "聚光灯帝国 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1044,
+      "faction": "I08",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "b7444da70910760bd850dbad6c2e98adfb70ac16af89f6b6a5ea64d8add19b53",
+      "control_turns": [
+        10,
+        11
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        8,
+        8
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1045,
+      "faction": "I09",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "04f200c000edb3521bdb786df99f14b980c39c6569a2620a5447df7c563719c3",
+      "control_turns": [
+        5,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        15,
+        15
+      ],
+      "replacement_victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1046,
+      "faction": "I10",
+      "original_winner_seat": 1,
+      "replaced_seat": 0,
+      "replacement_initiative": "first",
+      "opening_sha256": "67e1f9117323382cebbd2d8ea174c513213b4e27c347b65d70a749f818a10843",
+      "control_turns": [
+        7,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        17,
+        17
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      }
+    },
+    {
+      "seed": 1047,
+      "faction": "I11",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "second",
+      "opening_sha256": "acccb7af5e7b295b5ec40bf04b33746b94fb2b99b016c7bf510b644ec04e0711",
+      "control_turns": [
+        12,
+        12
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        13,
+        12
+      ],
+      "replacement_victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1048,
+      "faction": "I12",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "1cb77a2327101ad5a081aae5d02baeb5ac10bbc05628b0c357658e4b12a9fc40",
+      "control_turns": [
+        16,
+        17
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        11,
+        11
+      ],
+      "replacement_victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1049,
+      "faction": "I01",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "b5c7d7fb0771e983d3f0d58bcea7c19e6ac22c208fe79f5849fea0b2177651f8",
+      "control_turns": [
+        6,
+        6
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        10,
+        11
+      ],
+      "replacement_victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      }
+    },
+    {
+      "seed": 1050,
+      "faction": "I02",
+      "original_winner_seat": 0,
+      "replaced_seat": 1,
+      "replacement_initiative": "first",
+      "opening_sha256": "18e487e73b6e9ff1bfb5d5197ea43b36bc4e856ca15db18e527fa1b2658e8319",
+      "control_turns": [
+        7,
+        8
+      ],
+      "replacement_outcome": "win",
+      "replacement_turns": [
+        15,
+        15
+      ],
+      "replacement_victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      }
+    }
+  ]
+}

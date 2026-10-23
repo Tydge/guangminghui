@@ -16,6 +16,11 @@ static func branch(id: String,o: Dictionary) -> Array:
 	return out
 static func traits(id: String,o: Dictionary) -> Array:
 	var c=card(id,o);return c.align+c.tags
+static func support_budget(o: Dictionary) -> Dictionary:
+	var result={}
+	for a in o.actions:
+		if a.type in ["support","self_defend"]:result[a.src]=maxi(result.get(a.src,0),a.get("power",0))
+	return result
 static func pressure(id: String,o: Dictionary,p: int) -> float:
 	var faction=o.factions[p];var c=card(id,o);var t=c.align+c.tags
 	var relevant=faction=="I01" or CovenantRules.FACTIONS[faction].get("traits",[]).any(func(k):return k in t)
@@ -101,9 +106,8 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 		var gain=after-before if ours else before-after
 		# Several helpers can cross the dice threshold together even if the first alone cannot.
 		# Count each source once; optional modes and alternative fees are not extra helpers.
-		var remaining={}
-		for candidate in o.actions:
-			if candidate.type in ["support","self_defend"] and candidate.src!=a.src:remaining[candidate.src]=maxi(remaining.get(candidate.src,0),candidate.get("power",0))
+		var remaining=(o.support_budget if o.has("support_budget") else support_budget(o)).duplicate()
+		remaining.erase(a.src)
 		var total=0
 		for amount in remaining.values():total+=amount
 		for fraction in [0.25,0.5,0.75,1.0]:

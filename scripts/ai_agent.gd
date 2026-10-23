@@ -66,6 +66,8 @@ func heuristic_value(action: Dictionary,o: Dictionary) -> float:
 	return value
 
 func heuristic_pick(o: Dictionary) -> Dictionary:
+	if difficulty=="hard" and o.phase=="battle":
+		o=o.duplicate();o.support_budget=Tactics.support_budget(o)
 	var actions=Planner.shortlist(o)
 	if actions.is_empty():return {}
 	if difficulty=="easy" and o.phase=="battle" and rng.randf()<0.24:

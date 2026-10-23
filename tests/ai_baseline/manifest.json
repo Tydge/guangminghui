@@ -1,0 +1,26 @@
+{
+  "revision": "44b22379437902e3c1b7793f3b933126b972ba1c",
+  "description": "Frozen hard AI before the resource/planning improvements; rules and information permissions are shared with the candidate.",
+  "files": {
+    "ai_agent.gd": {
+      "original_sha256": "1af4c6908a67231ab89daa58df58f86ef979873b82052200ed2dc8ae3a8bb6b4",
+      "frozen_sha256": "0e3718ea5bd398129d7e5fef4686aa027f156e7e8d3cb5929bc02ff3ad8eeb27",
+      "canonical_lf_sha256": "6c1ed368885439bf45f868291214c8756188c74e6568cbde24be8249303f93a9"
+    },
+    "ai_planner.gd": {
+      "original_sha256": "d710fa6b8612425edc78e4e418bc6ecf05aa69303446ae7e2ce2dfba5d303f10",
+      "frozen_sha256": "175b4b2e24003dfdffa1bb0410798d7312e4a6b6fd209fafdc7a1e76e99f418d",
+      "canonical_lf_sha256": "025f994bbd48998b4d58210927530f876291bcd0ee9c593ae3e29a6ad0583301"
+    },
+    "ai_tactics.gd": {
+      "original_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1",
+      "frozen_sha256": "231bf0aad9839539d7cec45ead12d38c311a8151559f68ef242464103868782f",
+      "canonical_lf_sha256": "27d4db77c0a271553ee90a98b086c5a54c3e893966cc79c6ab456c5e5a3d87e1"
+    },
+    "ai_structure.gd": {
+      "original_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+      "frozen_sha256": "4f77e78f5a613bda83e02370d0471d18ee3e65720d301cf96f91ee4975078ccc",
+      "canonical_lf_sha256": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199"
+    }
+  }
+}
