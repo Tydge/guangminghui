@@ -1,9 +1,9 @@
 {
   "images": 316,
-  "original_bytes": 870121955,
-  "bytes": 270662834,
+  "original_bytes": 870072423,
+  "bytes": 270657906,
   "lowest_display_block_ssim": 0.9952084038675737,
-  "mean_display_rgb_mae": 0.9731737161634788,
+  "mean_display_rgb_mae": 0.9732504522253804,
   "assets": [
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-edfdb440-bdaa-4c8e-8839-d74aa981f4c6.png",
@@ -3885,17 +3885,17 @@
       "display_psnr_db": 45.99227485323243
     },
     {
-      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-05ff7420-68da-468a-a9aa-23b21d7eb82c.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-13c8e932-de7f-4859-a808-48dd7d50890e.png",
       "path": "assets/cards/G191.webp",
-      "original_bytes": 2380064,
-      "bytes": 412310,
+      "original_bytes": 2330532,
+      "bytes": 407382,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "c05c9f17edd1bfb86bfc3c1bfbff1bce0f938f63976af4c2cdc2ab37bf80b6a3",
-      "display_block_ssim": 0.9996077579541911,
-      "display_rgb_mae": 0.5553679289641203,
-      "display_psnr_db": 49.756434695202714
+      "sha256": "523a632f67b924be12708afbc133bd75a9e75a1884253690c6fd133f6a1f8b5a",
+      "display_block_ssim": 0.9996250414858662,
+      "display_rgb_mae": 0.5779283311631944,
+      "display_psnr_db": 49.31743501535231
     },
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-0bc1faee-f543-491b-b201-09e2f24f352c.png",
