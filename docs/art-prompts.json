@@ -2520,10 +2520,10 @@
       "name": "移动医疗站",
       "path": "assets/cards/E17.webp",
       "method": "Built-in image_gen",
-      "prompt": "Square 1:1 full-bleed illustration for a contemporary strategy card game. High-recognition cinematic editorial realism, distinctive central subject, vivid lighting, crisp readable composition at thumbnail size. Natural anatomy, exactly two arms per person. No card frame, no captions, no watermarks, no Illuminati symbols or pyramid backgrounds. Magic objects may have their own unique traditional magical motifs. Scene: A mobile medical clinic in a white truck with a simple medical cross, awning, supplies and paramedics at a quiet disaster-recovery site, no injuries.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1420b970-dc8e-4a55-8808-b19ba56eefe5.png",
-      "encoding": "WebP quality 94",
-      "updated": "2026-10-22"
+      "prompt": "Use case: photorealistic-natural. Asset type: square resource-card illustration for a contemporary tabletop strategy game. Create a highly recognizable MOBILE MEDICAL STATION as equipment and infrastructure, without any people. Primary subject: a modern white expandable medical trailer with blue medical markings, its side opened into an empty, clean field clinic. A clearly visible empty stretcher bed, compact diagnostic monitor, oxygen cylinder, first-aid cases and a folded portable examination screen make its purpose immediately clear. Three-quarter exterior view with the trailer filling most of the square frame, daylight after rain, realistic modern materials and cinematic documentary detail. Equipment is the protagonist. Absolutely no doctors, patients, staff, faces, bodies, hands, human silhouettes, mannequins, portraits, or people reflected in windows or shown on screens. Avoid dramatic battlefields, fantasy, occult symbols, card borders, text labels and watermarks. Full-bleed square 1:1 composition; all important equipment safely inside frame.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9f58a3cf-daec-4a21-be8e-c7214450ff4b.png",
+      "encoding": "WebP quality 98; original 1:1 dimensions preserved",
+      "updated": "2026-10-24"
     },
     {
       "id": "E18",
@@ -2920,8 +2920,8 @@
       "name": "招募情报站",
       "path": "assets/cards/E24.webp",
       "method": "Built-in image_gen",
-      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Recruitment Intelligence Office: a bright compact intelligence-style recruiting room, large bulletin board with three generic portrait dossiers, colored index tabs, a desk lamp and a magnifying glass on candidate files, practical modern paperwork and clear organizational identity.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3a9017ce-eee5-48fa-8a54-86272c68ca0a.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: square resource-card illustration for a contemporary strategy game. Depict an EMPTY RECRUITMENT INTELLIGENCE OFFICE, emphasizing the facility and tools rather than personnel. A compact modern intelligence workstation: one substantial desk with an open dossier showing abstract organization charts and colored tabs (no portrait photographs), a tabletop radio and headset, a map board with pinned location markers and connections, and a neat row of indexed filing drawers. Make the radio, dossier and wall map large, identifiable focal elements that read well at thumbnail size. Realistic contemporary setting, warm task lighting with cool daylight, cinematic documentary photography, natural textures, not a surreal Illuminati chamber. No people anywhere: no figures, faces, hands, silhouettes, mannequins or human reflections, no faces on dossier pages or screens. No readable text, no logos, no watermarks, no card border. Full-bleed square 1:1 image, clear uncluttered arrangement and tangible resource equipment.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-168ce218-beae-48cc-b6eb-1c659a841465.png",
       "encoding": "WebP quality 98; original 1:1 dimensions preserved",
       "updated": "2026-10-24"
     },
@@ -2950,8 +2950,8 @@
       "name": "工运档案馆",
       "path": "assets/cards/E27.webp",
       "method": "Built-in image_gen",
-      "prompt": "Square 1:1 full-bleed strategy card illustration. High-recognition cinematic editorial realism, rich but natural color, one clear focal subject legible on a small game card. Keep all key subjects within the image; natural anatomy, each person has exactly two arms and normal hands. No card frame, no caption, no watermark, no generic Illuminati eyes or pyramid backgrounds. Labor Movement Archive: a well-lit public archive room with old labor-union photographs, red-bound organizing records and industrial blueprints in neat shelving, an archivist's desk with an open catalog drawer. Welcoming practical historical archive, no occult symbols.",
-      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5980d033-cd44-4529-9aa8-471ae9481aa4.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: square resource-card illustration for a contemporary strategy game. Depict an EMPTY LABOR MOVEMENT ARCHIVE as a tangible archive facility, with absolutely no people. Main subject: a handsome wooden card-catalog cabinet, red cloth-bound union record volumes, neatly labeled archival boxes with small illegible labels, and an open old wage ledger on a sturdy reading desk. Behind are tall shelves of red and brown labor-history record books and a single folded red banner WITHOUT symbols or portraits. These filing cabinets, books and documents should dominate and communicate preserved workers' movement knowledge, not an office worker or a group of activists. Warm angled daylight through high windows, realistic detailed contemporary documentary interior photography, dignified and readable at thumbnail size. No people, no human photographs, portraits, faces, hands, silhouettes, statues or reflections of people, no figures on book covers. Avoid fantasy, ornate occult props and Illuminati symbols. No readable captions, watermark or card border. Full-bleed square 1:1 composition with the archival equipment clearly visible.",
+      "generation_source": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5df48088-b466-4ea2-be76-709cd228c243.png",
       "encoding": "WebP quality 98; original 1:1 dimensions preserved",
       "updated": "2026-10-24"
     },

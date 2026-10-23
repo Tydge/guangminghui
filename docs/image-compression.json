@@ -1,9 +1,9 @@
 {
   "images": 316,
-  "original_bytes": 869458715,
-  "bytes": 270218184,
+  "original_bytes": 870121955,
+  "bytes": 270662834,
   "lowest_display_block_ssim": 0.9952084038675737,
-  "mean_display_rgb_mae": 0.9743546667598176,
+  "mean_display_rgb_mae": 0.9731737161634788,
   "assets": [
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-edfdb440-bdaa-4c8e-8839-d74aa981f4c6.png",
@@ -3430,17 +3430,17 @@
       "display_psnr_db": 42.03608659901225
     },
     {
-      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-1420b970-dc8e-4a55-8808-b19ba56eefe5.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-9f58a3cf-daec-4a21-be8e-c7214450ff4b.png",
       "path": "assets/cards/E17.webp",
-      "original_bytes": 2377185,
-      "bytes": 396610,
+      "original_bytes": 2971782,
+      "bytes": 732300,
       "width": 1254,
       "height": 1254,
-      "encoding": "WebP quality 94",
-      "sha256": "141d643c325daa271266a472ee255e9b47c02f65895ac20dcf532cbf1ac9146a",
-      "display_block_ssim": 0.9985029867897225,
-      "display_rgb_mae": 1.2327562967936199,
-      "display_psnr_db": 42.548606612726594
+      "encoding": "WebP quality 98",
+      "sha256": "c23cf3f93fe7d14ad350337df4633b2cefe44360d3c19f07405405b8d52657d0",
+      "display_block_ssim": 0.9998376622186219,
+      "display_rgb_mae": 0.7642912688078703,
+      "display_psnr_db": 46.44865659908912
     },
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-98607171-6709-42bc-92ee-60f97645fb9c.png",
@@ -3950,17 +3950,17 @@
       "display_psnr_db": 48.485915329751194
     },
     {
-      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-3a9017ce-eee5-48fa-8a54-86272c68ca0a.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-168ce218-beae-48cc-b6eb-1c659a841465.png",
       "path": "assets/cards/E24.webp",
-      "original_bytes": 2255726,
-      "bytes": 455456,
+      "original_bytes": 2446343,
+      "bytes": 570374,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "df6b316d6d6eb8fed539fed69873d59020a6947902bcf5c68b651f4b72980a6a",
-      "display_block_ssim": 0.9996570724994491,
-      "display_rgb_mae": 0.6919872142650463,
-      "display_psnr_db": 47.473546188094254
+      "sha256": "30811da680104d3ea89eed85a6a2afff6b28ea074a820991fd25d9eddb08d39e",
+      "display_block_ssim": 0.9997037588124547,
+      "display_rgb_mae": 0.7802078812210648,
+      "display_psnr_db": 46.009318113645634
     },
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-723b94b7-c5b9-4fea-8e4a-1ca77f56dfcb.png",
@@ -3989,17 +3989,17 @@
       "display_psnr_db": 47.69133549264812
     },
     {
-      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5980d033-cd44-4529-9aa8-471ae9481aa4.png",
+      "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-5df48088-b466-4ea2-be76-709cd228c243.png",
       "path": "assets/cards/E27.webp",
-      "original_bytes": 2616552,
-      "bytes": 617678,
+      "original_bytes": 2494578,
+      "bytes": 611720,
       "width": 1254,
       "height": 1254,
       "encoding": "WebP quality 98",
-      "sha256": "a1870b57ab6a3a6ecd6dabbea57199717a3b3f0c1937bb4b5076d9aaca107cf9",
-      "display_block_ssim": 0.9998324142983864,
-      "display_rgb_mae": 0.7536666304976852,
-      "display_psnr_db": 46.952608907354204
+      "sha256": "abd23e225a4c51086b9ca238804e36da226a37dcbd78f15446005b43c2dc7c95",
+      "display_block_ssim": 0.9997449946114442,
+      "display_rgb_mae": 0.7867115162037037,
+      "display_psnr_db": 46.7513623844081
     },
     {
       "original_path": "C:\\Users\\Oliver\\.codex\\generated_images\\01a14e90-f47e-71b1-9f4f-68fe1c1fb8d2\\exec-192a475e-879e-4ee5-8b25-d813099f278e.png",
@@ -4140,6 +4140,6 @@
     "mean_display_rgb_mae": 0.937273960678201,
     "elapsed_seconds": 236.19
   },
-  "updated": "2026-10-22",
-  "date": "2026-10-21"
+  "updated": "2026-10-24",
+  "date": "2026-10-24"
 }
