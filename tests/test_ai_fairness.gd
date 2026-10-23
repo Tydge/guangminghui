@@ -21,7 +21,7 @@ func probe(g: GameState,p: int,level: String):
 	check(not altered.has("rng") and altered.decks.plot is int and altered.opponent_counts.plot is int,"Policies receive counts instead of true hidden lists: "+level+"/"+g.phase)
 
 func run():
-	for level in ["normal","hard"]:
+	for level in ["easy","normal","hard"]:
 		var g=fresh();put(g,"G001");put(g,"G071",1);probe(g,0,level)
 		g=fresh();put(g,"G005");put(g,"G076",1)
 		g._launch_attack(0,{"src":"R0","target":"G076","mode":"control"});probe(g,1,level)

@@ -894,7 +894,7 @@ func _schedule_ai() -> void:
 	thinking=true;await get_tree().create_timer(0.12 if reduced_motion or legal.size()==1 else 0.55).timeout
 	if this_match!=match_id:return
 	if game==null or window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open:thinking=false;return
-	var o=game.observation(1,ai.difficulty=="easy")
+	var o=game.observation(1,false)
 	var this_level=ai.difficulty
 	var command=await ai.pick_async(o,get_tree(),func():return this_match==match_id and ai.difficulty==this_level and game!=null and not (window_access.browsing or window_access.transitioning or busy or panel_dragging or modal_open))
 	if this_match!=match_id:return

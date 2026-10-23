@@ -22,7 +22,7 @@ func run():
 	var observation=g.observation(0,false);var search=Planner.new(observation,"hard",13,bot.heuristic_pick,bot.heuristic_value)
 	var ranked=search.rank(observation,8,search.samples[0]);var autos=ranked.filter(func(a):return a.type=="auto")
 	check(not autos.is_empty() and autos[0].parent=="G005","Candidate ordering keeps a strong later-listed anchor ahead of weak early anchors")
-	for level in ["normal","hard"]:
+	for level in ["easy","normal","hard"]:
 		g=fresh();put(g,"G001");put(g,"G002",0,"G001");bare(g);give(g,"G043")
 		bot=AiAgent.new();bot.difficulty=level;bot.rng.seed=333
 		var o=g.observation(0,false);before=JSON.stringify([g.nodes,g.hands,g.decks,g.rng.state]);var a=bot.pick(o)

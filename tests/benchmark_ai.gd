@@ -45,7 +45,7 @@ func run():
 				for p in [0,1]:bots[p].difficulty=levels[1-p if swap else p];bots[p].rng.seed=seed_value*101+p
 				for step in limit:
 					if g.phase=="over":break
-					var p=0 if not g.legal_actions(0).is_empty() else 1;var o=g.observation(p,bots[p].difficulty=="easy");var rng_before=g.rng.state;var began=Time.get_ticks_msec();var a=bots[p].pick(o);var elapsed=Time.get_ticks_msec()-began
+					var p=0 if not g.legal_actions(0).is_empty() else 1;var o=g.observation(p,false);var rng_before=g.rng.state;var began=Time.get_ticks_msec();var a=bots[p].pick(o);var elapsed=Time.get_ticks_msec()-began
 					if g.rng.state!=rng_before or a not in o.actions:push_error("AI benchmark invalid command or RNG mutation");quit(1);return
 					var level=bots[p].difficulty
 					if not timing.has(level):timing[level]=[]

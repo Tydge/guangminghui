@@ -18,7 +18,7 @@ func _init() -> void:rng.randomize()
 
 func pick(o: Dictionary) -> Dictionary:
 	var fallback=heuristic_pick(o)
-	if difficulty=="easy" or not planning or not Planner.applicable(o):return fallback
+	if not planning or not Planner.applicable(o):return fallback
 	var search=Planner.new(o,difficulty,rng.randi(),heuristic_pick,heuristic_value)
 	while not search.done:
 		if is_cancelled():return {}
@@ -27,7 +27,7 @@ func pick(o: Dictionary) -> Dictionary:
 	return search.result(fallback)
 
 func pick_async(o: Dictionary,tree: SceneTree,valid: Callable) -> Dictionary:
-	if difficulty=="easy" or not planning or not Planner.applicable(o):return heuristic_pick(o)
+	if not planning or not Planner.applicable(o):return heuristic_pick(o)
 	# The worker owns its agent, RNG, snapshots and rule models. It never touches UI
 	# or the real game. Joining only after completion keeps rendering responsive.
 	CardDB.load_all()
@@ -61,22 +61,19 @@ func shutdown():
 
 func heuristic_value(action: Dictionary,o: Dictionary) -> float:
 	var value=_score(action,o)
-	if difficulty!="easy":value=Tactics.adjusted(action,o,value,difficulty=="hard")
-	if difficulty=="hard":value-=Tactics.defense_reserve(action,o)
+	value=Tactics.adjusted(action,o,value)
+	value-=Tactics.defense_reserve(action,o)
 	return value
 
 func heuristic_pick(o: Dictionary) -> Dictionary:
-	if difficulty=="hard" and o.phase=="battle":
+	if o.phase=="battle":
 		o=o.duplicate();o.support_budget=Tactics.support_budget(o)
 	var actions=Planner.shortlist(o)
 	if actions.is_empty():return {}
-	if difficulty=="easy" and o.phase=="battle" and rng.randf()<0.24:
-		for a in actions:
-			if a.type=="pass":return a
 	var best=actions[0];var score=-INF
 	for action in actions:
 		var value=heuristic_value(action,o)
-		value+=rng.randf()*(8.0 if difficulty=="easy" else 0.03)
+		value+=rng.randf()*0.03
 		if value>score:score=value;best=action
 	return best
 

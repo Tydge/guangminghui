@@ -99,7 +99,7 @@ func _initialize() -> void:
 		g=GameState.new(seed_value);bot=AiAgent.new();bot.rng.seed=seed_value
 		for step in 1200:
 			if g.phase=="over":completed+=1;break
-			var p=0 if not g.legal_actions(0).is_empty() else 1;o=g.observation(p,bot.difficulty=="easy")
+			var p=0 if not g.legal_actions(0).is_empty() else 1;o=g.observation(p,false)
 			if o.actions.is_empty():check(false,"Synergy AI deadlock "+g.phase);break
 			if not g.act(p,bot.pick(o)):check(false,"Synergy AI illegal action");break
 			commands+=1

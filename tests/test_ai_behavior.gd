@@ -1,7 +1,7 @@
 extends "res://tests/test_contemporary.gd"
 func run():
 	var choices={};var neutral={}
-	for level in ["normal","hard"]:
+	for level in ["easy","normal","hard"]:
 		choices[level]={};neutral[level]={}
 		for faction in ["I01","I03","I09"]:
 			var g=fresh(faction)

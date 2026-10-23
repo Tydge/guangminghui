@@ -53,7 +53,7 @@ static func goal_potential(o: Dictionary,adding: Array) -> float:
 		var old=o.goals[p].ratio if goal_id==o.factions[p] else o.secret_goals[goal_id].ratio
 		best=maxf(best,(ratio-old)*85+(220 if ratio>=1 and old<1 else 0))
 	return best
-static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> float:
+static func adjusted(a: Dictionary,o: Dictionary,base: float) -> float:
 	var p=o.player
 	if a.type=="end":
 		if o.goals[p].met and o.turns[1-p]>=1:return 150 if not o.goals[1-p].met else -10
@@ -68,8 +68,8 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 			if parent=="G153" and "共产" in t:gain+=factor*4
 			if parent=="G008" and "国家" in t:gain+=factor*5
 			if parent=="G134":gain+=0
-		return gain-4 if hard else -8
-	if a.type=="auto":return 23+pressure(a.id,o,p)+(6 if a.get("parent","").begins_with("R") else 0)+base*0.08+(goal_potential(o,[a.id]) if hard else 0)
+		return gain-4
+	if a.type=="auto":return 23+pressure(a.id,o,p)+(6 if a.get("parent","").begins_with("R") else 0)+base*0.08+goal_potential(o,[a.id])
 	if a.type=="deploy":
 		var existing=o.nodes.keys().filter(func(k):return o.nodes[k].owner==p and card(k,o).kind=="resource")
 		var value=20.0+(5 if existing.size()<2 else -9)
@@ -77,16 +77,16 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 		if a.id=="E20" and not o.hands.group.any(func(k):return "绿色" in traits(k,o)):value-=4
 		if a.get("replace","")!="":value-=10
 		if a.has("fee"):value-=card(a.fee,o).p
-		if hard and a.id=="E04" and o.actions.any(func(k):return k.type=="auto") and o.nodes["R%d"%p].token>1:value+=25
+		if a.id=="E04" and o.actions.any(func(k):return k.type=="auto") and o.nodes["R%d"%p].token>1:value+=25
 		return value
 	if a.type=="research":
 		if o.actions.any(func(k):return k.type=="auto") and o.nodes[a.src].token==1:return -6
 		return base
 	if a.type=="attack":
 		var v=o.previews.get(JSON.stringify(a),{});var enemy=o.nodes.has(a.target)
-		var own=float(v.get("support_max",0))*(0.75 if hard else 0.55)
+		var own=float(v.get("support_max",0))*0.75
 		# Available defense is an upper bound: spending every defender is rarely optimal.
-		var opposition=float(v.get("enemy_support_max",0))*(0.35 if hard else 0.25)+float(v.get("self_max",0))*(0.6 if hard else 0.5)
+		var opposition=float(v.get("enemy_support_max",0))*0.35+float(v.get("self_max",0))*0.6
 		var strength=float(v.get("strength",0))+own-opposition
 		var probability=chance(strength)
 		if v.has("fixed_dice"):probability=1 if v.fixed_dice[0]+v.fixed_dice[1]<=mini(10,strength) else 0
@@ -95,12 +95,12 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 			value+=12+10*o.goals[1-p].ratio
 			if a.mode=="control":
 				for child in branch(a.target,o).slice(1):value+=pressure(child,o,p)*0.65
-			if hard and a.mode=="control" and o.goals[1-p].ratio>=0.75:value+=12
+			if a.mode=="control" and o.goals[1-p].ratio>=0.75:value+=12
 		if a.mode=="destroy":value*=0.7;value+=14 if o.factions[p]=="I05" else 0
-		elif hard:value+=goal_potential(o,branch(a.target,o) if enemy else [a.target])
+		else:value+=goal_potential(o,branch(a.target,o) if enemy else [a.target])
 		var root_cost=7 if a.src.begins_with("R") and o.actions.any(func(k):return k.type=="auto") and o.nodes[a.src].token==1 else 0
 		return probability*value-(1-probability)*5-4-root_cost
-	if a.type in ["support","self_defend"] and hard:
+	if a.type in ["support","self_defend"]:
 		var b=o.battle;var ours=b.attacker==p;var strength=float(o.battle_values.strength);var n=a.get("power",0)
 		var before=chance(strength);var after=chance(strength+n if ours else strength-n)
 		var gain=after-before if ours else before-after
@@ -121,7 +121,7 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 		if a.has("resource_fee"):cost+=8
 		if a.has("group_fee"):cost+=3
 		return gain*value-cost
-	if a.type in ["counter","trick","fact_check"] and hard:
+	if a.type in ["counter","trick","fact_check"]:
 		var plot=o.get("pending_plot",{});var id=plot.get("id","")
 		var price=3.0 if a.type=="counter" else 6.0
 		if a.type=="fact_check" and o.opponent_counts.plot>0:return 3
@@ -133,7 +133,7 @@ static func adjusted(a: Dictionary,o: Dictionary,base: float,hard: bool) -> floa
 		if id in ["P56","P59","P64","P67"]:return 20
 		if id in ["P22","P25"]:return -3
 		return 4
-	if a.type=="plot" and hard and o.phase=="battle" and not CovenantRules.PLOTS.has(a.id):
+	if a.type=="plot" and o.phase=="battle" and not CovenantRules.PLOTS.has(a.id):
 		if a.id=="P16":return 45*chance(o.battle_values.strength)-5
 		if a.id in ["P10","P11","P12","P13","P20"] or int(a.id.substr(1)) in range(1,10):
 			var n=6 if a.id in ["P12","P13"] else (2 if a.id=="P11" else 4);var ours=o.battle.attacker==p;var strength=o.battle_values.strength

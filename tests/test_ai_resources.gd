@@ -12,7 +12,7 @@ func decide(g: GameState,level: String,seed_value: int,p: int=0) -> Dictionary:
 	check(before==JSON.stringify([g.nodes,g.hands,g.decks,g.discards,g.rng.state,g.used]),"Resource search leaves live match and RNG untouched "+level)
 	return result
 func run():
-	for level in ["normal","hard"]:
+	for level in ["easy","normal","hard"]:
 		for seed_value in [11,31,241,1009]:
 			var g=quiet();put(g,"E06");g.nodes.R0.token=0
 			var selected=decide(g,level,seed_value)

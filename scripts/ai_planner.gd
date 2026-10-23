@@ -5,8 +5,8 @@ const Tactics=preload("res://scripts/ai_tactics.gd")
 const RESOURCE_FIELD_VALUE=14.0
 const RESOURCE_READY_HAND_VALUE=3.0
 const RESOURCE_BACKUP_HAND_VALUE=1.0
+const DEPTH_BY_DIFFICULTY={"easy":1,"normal":2,"hard":4}
 var player=0
-var level="normal"
 var policy: Callable
 var evaluator: Callable
 var candidates: Array=[]
@@ -20,6 +20,8 @@ var width=1
 var max_nodes=32
 var job_budget=8
 var placement_cache={}
+
+static func depth_for(difficulty: String) -> int:return DEPTH_BY_DIFFICULTY.get(difficulty,2)
 
 static func applicable(o: Dictionary) -> bool:
 	return o.has("public_state") and o.actions.size()>1 and ((o.get("phase","")=="main" and o.get("current",-1)==o.player) or o.get("phase","") in ["battle","plot_response"])
@@ -108,14 +110,16 @@ static func model(o: Dictionary,seed_value: int) -> GameState:
 	return g
 
 func _init(o: Dictionary,difficulty: String,seed_value: int,pick_policy: Callable,score_policy: Callable):
-	player=o.player;level=difficulty;policy=pick_policy;evaluator=score_policy
-	max_depth=4 if level=="hard" else 2;width=2 if level=="hard" else 1;max_nodes=128 if level=="hard" else 24
+	player=o.player;policy=pick_policy;evaluator=score_policy
+	# All levels share the verified policy and search breadth. Only the main-phase
+	# horizon changes; response rollout still resolves the complete current battle.
+	max_depth=depth_for(difficulty);width=2;max_nodes=128
 	# Responses compare the complete battle, not an entire subsequent main phase
 	# again after every helper. The next main decision replans from its real result.
 	if o.phase!="main":max_depth=1
-	var root_width=8 if level=="hard" else 5
-	if o.actions.size()>120:width=1;root_width=6 if level=="hard" else 4;max_nodes=40 if level=="hard" else 20
-	if o.actions.size()>500:root_width=4;max_nodes=24 if level=="hard" else 16
+	var root_width=8
+	if o.actions.size()>120:width=1;root_width=6;max_nodes=40
+	if o.actions.size()>500:root_width=4;max_nodes=24
 	for i in 2:
 		var g=model(o,seed_value+i*104729)
 		if g==null:done=true;return

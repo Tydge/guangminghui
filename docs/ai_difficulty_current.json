@@ -1,0 +1,370 @@
+{
+  "date": "2026-10-23",
+  "main_action_depths": {
+    "easy": 1,
+    "normal": 2,
+    "hard": 4
+  },
+  "shared_policy": true,
+  "shared_response_depth": 1,
+  "tests": {
+    "test_ai_depth_levels": 31,
+    "test_ai_difficulty": 1611,
+    "test_ai_planning_ui": 27,
+    "test_ai_resources": 396,
+    "test_ai_fairness": 57,
+    "test_ai_behavior": 52,
+    "test_ai_structure": 18,
+    "test_ai_planning": 23,
+    "test_ai_expectation": 16,
+    "test_synergy": 204
+  },
+  "reference_revision": "201aecdf2319150d8cb6cff4125cebab193cc420",
+  "reference_benchmark": "docs/ai_benchmark_current.json",
+  "hard_replay_games": 6,
+  "hard_replay_fields": [
+    "faction",
+    "factions",
+    "first",
+    "outcome",
+    "winner",
+    "turns",
+    "steps",
+    "counts",
+    "victory",
+    "trace"
+  ],
+  "hard_replays_all_equal": true,
+  "full_100_game_benchmark_rerun": false,
+  "canonical_lf_sha256": {
+    "data/cards.json": "3eb8434c9769aeae87805b7d48c3e5372552eed522a88ebf4c3280eed57a36c0",
+    "scripts/action_flow.gd": "8f9a4006be77d26d8f938a04265b5a10ca150637071701927e31477ce3737cd8",
+    "scripts/ai_agent.gd": "f0f303183068e3b76d7ec8436038ba106eda077d4c43fdb955771f55a37c3eb1",
+    "scripts/ai_planner.gd": "3f02617bb554b38885048439ef16429f36c2f67e95ecbc6312d68fd8eb0bb005",
+    "scripts/ai_structure.gd": "979b0a092b14158e1ed89110144563369c51acf9e2262e8b30ff1c181f43e199",
+    "scripts/ai_tactics.gd": "28bf39069624aed331a127fe6a0146987bfa1488847847e0a772b87a2aada554",
+    "scripts/contemporary_rules.gd": "ff759ea1001148ab48172f522b06bf72d2d0a1c55c83fc1db1fd87993094b4c0",
+    "scripts/covenant_rules.gd": "b65c456e63f216ffffaa2ee18f7a1d4c35cdf65be5e1ebe3ec11c1809106b76c",
+    "scripts/game_state.gd": "970f2bb92cb2ccb4fce5882dcb57bcc15c17ad2754857440e2032ccce72e2a1a",
+    "scripts/renewal_rules.gd": "f851fca40b5845cd8cc8f79cf20dc4224196d9fd95b2d7b8c61682ddfd9c834d",
+    "scripts/resource_rules.gd": "00651a86f38b642a03492664cd1ff1d1b133ebba4f3064900e0afaf69fda691a",
+    "scripts/synergy_rules.gd": "4da5ea40e2f13dc1ab174995756642497d4f5336d973faa43e89c10452d2f40f",
+    "scripts/wave_rules.gd": "75c00484f646ef35be5982161c8dadf9a7f64c9d6b4eb30c8f1860b296a40b7b",
+    "scripts/main.gd": "f0b90f0bda0635e031348f425eae83a4141e4a06d1acd68cb02cd98902a176cf"
+  },
+  "games": [
+    {
+      "faction": "I01",
+      "factions": [
+        "I01",
+        "I01"
+      ],
+      "first": 1,
+      "outcome": "win",
+      "winner": 0,
+      "turns": [
+        6,
+        7
+      ],
+      "steps": 117,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 6,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 6,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 16,
+          "plot": 8,
+          "support": 8
+        },
+        {
+          "attack": 4,
+          "auto": 7,
+          "choose": 2,
+          "draw": 7,
+          "end": 7,
+          "pass": 16,
+          "plot": 4,
+          "support": 7
+        }
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      },
+      "main_trace_sha256": "8061cf0ac74e94f21f403099a77c6a629d835816e818a12be6816aa1e6238e4e",
+      "seed": 1001,
+      "challenger": 0,
+      "reference_equal": true
+    },
+    {
+      "faction": "I01",
+      "factions": [
+        "I01",
+        "I01"
+      ],
+      "first": 1,
+      "outcome": "win",
+      "winner": 1,
+      "turns": [
+        8,
+        9
+      ],
+      "steps": 182,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 3,
+          "auto": 7,
+          "choose": 4,
+          "draw": 8,
+          "end": 8,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 27,
+          "plot": 8,
+          "self_defend": 3,
+          "support": 17
+        },
+        {
+          "attack": 14,
+          "auto": 8,
+          "choose": 3,
+          "deploy": 1,
+          "draw": 9,
+          "end": 9,
+          "pass": 27,
+          "plot": 5,
+          "support": 18
+        }
+      ],
+      "victory": {
+        "card": "I01",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      },
+      "main_trace_sha256": "a27bad46f227ac2878e584d7080f46ded336c6630679a476fc64450cfe2a871e",
+      "seed": 1001,
+      "challenger": 1,
+      "reference_equal": true
+    },
+    {
+      "faction": "I12",
+      "factions": [
+        "I12",
+        "I12"
+      ],
+      "first": 0,
+      "outcome": "win",
+      "winner": 0,
+      "turns": [
+        5,
+        5
+      ],
+      "steps": 86,
+      "counts": [
+        {
+          "attack": 4,
+          "auto": 6,
+          "choose": 6,
+          "draw": 6,
+          "end": 5,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 9,
+          "plot": 3,
+          "support": 6
+        },
+        {
+          "attack": 2,
+          "auto": 5,
+          "choose": 3,
+          "draw": 5,
+          "end": 5,
+          "pass": 13,
+          "plot": 4,
+          "support": 2
+        }
+      ],
+      "victory": {
+        "card": "P52",
+        "kind": "goal",
+        "reason": "草根接管 · 目标阴谋宣告胜利",
+        "winner": 0
+      },
+      "main_trace_sha256": "3f4458ace48b5462b9cf7d2ad58ca221a8af909c99051cce377e1968a0992024",
+      "seed": 1012,
+      "challenger": 0,
+      "reference_equal": true
+    },
+    {
+      "faction": "I12",
+      "factions": [
+        "I12",
+        "I12"
+      ],
+      "first": 0,
+      "outcome": "win",
+      "winner": 1,
+      "turns": [
+        21,
+        21
+      ],
+      "steps": 511,
+      "counts": [
+        {
+          "ability": 1,
+          "attack": 7,
+          "auto": 21,
+          "choose": 27,
+          "counter": 1,
+          "draw": 21,
+          "end": 21,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 90,
+          "plot": 10,
+          "self_defend": 3,
+          "support": 31
+        },
+        {
+          "ability": 3,
+          "attack": 31,
+          "auto": 21,
+          "choose": 28,
+          "draw": 21,
+          "end": 21,
+          "pass": 50,
+          "plot": 17,
+          "support": 73,
+          "trick": 1,
+          "trigger": 10
+        }
+      ],
+      "victory": {
+        "card": "I12",
+        "kind": "faction",
+        "reason": "光明会的计划已经完成",
+        "winner": 1
+      },
+      "main_trace_sha256": "0b5d2572247cc69037c703ff97c17cf8af1b27d052be8696d665c2782b818e0d",
+      "seed": 1012,
+      "challenger": 1,
+      "reference_equal": true
+    },
+    {
+      "faction": "I02",
+      "factions": [
+        "I02",
+        "I02"
+      ],
+      "first": 1,
+      "outcome": "win",
+      "winner": 0,
+      "turns": [
+        7,
+        8
+      ],
+      "steps": 113,
+      "counts": [
+        {
+          "attack": 6,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 7,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 13,
+          "plot": 3,
+          "support": 7
+        },
+        {
+          "ability": 1,
+          "attack": 4,
+          "auto": 8,
+          "choose": 3,
+          "draw": 8,
+          "end": 8,
+          "pass": 13,
+          "plot": 3,
+          "support": 8
+        }
+      ],
+      "victory": {
+        "card": "P55",
+        "kind": "goal",
+        "reason": "万象归一 · 目标阴谋宣告胜利",
+        "winner": 0
+      },
+      "main_trace_sha256": "c4a32e023c71144bf18a41246170c55d2f90944efc2ace19db0a155775f700b4",
+      "seed": 1050,
+      "challenger": 0,
+      "reference_equal": true
+    },
+    {
+      "faction": "I02",
+      "factions": [
+        "I02",
+        "I02"
+      ],
+      "first": 1,
+      "outcome": "win",
+      "winner": 1,
+      "turns": [
+        15,
+        15
+      ],
+      "steps": 411,
+      "counts": [
+        {
+          "attack": 5,
+          "auto": 15,
+          "choose": 7,
+          "draw": 15,
+          "end": 15,
+          "initial": 1,
+          "initial_resource": 1,
+          "pass": 93,
+          "plot": 6,
+          "self_defend": 6,
+          "support": 32,
+          "trigger": 1
+        },
+        {
+          "ability": 2,
+          "attack": 22,
+          "auto": 15,
+          "choose": 5,
+          "deploy": 1,
+          "draw": 16,
+          "end": 15,
+          "pass": 34,
+          "plot": 9,
+          "support": 94,
+          "trigger": 1
+        }
+      ],
+      "victory": {
+        "kind": "elimination",
+        "reason": "你的势力已被消灭",
+        "winner": 1
+      },
+      "main_trace_sha256": "a059ee5a7f339fc763f923770ec4086a3c35e4b7e63084b4f8cead949b1bda07",
+      "seed": 1050,
+      "challenger": 1,
+      "reference_equal": true
+    }
+  ],
+  "mixed_deck_matches": {
+    "completed": 6,
+    "commands": 1393
+  }
+}
